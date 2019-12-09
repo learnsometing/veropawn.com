@@ -1,2 +1,3 @@
 # veropawn.com
-Freelance Gatsby.js site for Cash Pawn and Jewelry 
+
+Freelance Gatsby.js site for Cash Pawn and Jewelry
