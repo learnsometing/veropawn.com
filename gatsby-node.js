@@ -22,7 +22,7 @@ exports.createPages = async ({ graphql, actions }) => {
   invPages.data.allInvJson.edges.forEach(({ node }) => {
     createPage({
       path: node.slug,
-      component: path.resolve(`./src/templates/inventory.js`),
+      component: path.resolve(`./src/templates/inv-page.js`),
       context: {
         // Data passed to context is available in page queries as GraphQL variables.
         slug: node.slug,
