@@ -1,9 +1,9 @@
 import React from "react"
 import Img from "gatsby-image"
-
+import itemCardStyles from "./item-card.module.css"
 export default ({ item }) => (
   <li>
-    <div>
+    <div classname={itemCardStyles.itemCard}>
       <h2>
         {item.description}
       </h2>
