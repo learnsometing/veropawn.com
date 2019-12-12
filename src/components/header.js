@@ -1,14 +1,29 @@
 import { DropdownMenu } from "./dropdown-menu"
+import { HeaderLogo } from "./header-logo"
+import headerStyles from "./header.module.css"
 import PropTypes from "prop-types"
 import React from "react"
+import { useStaticQuery, graphql } from "gatsby"
 
-const Header = ({ siteTitle }) => (
-  <header>
-    <nav>
-      <DropdownMenu />
-    </nav>
-  </header>
-)
+
+const Header = () => {
+  const data = useStaticQuery(graphql`
+    query LogoQuery {
+      logo: file(relativePath: { eq: "logo.svg" }) {
+        publicURL
+      }
+    }
+  `)
+
+  return (
+    <header className={headerStyles.header}>
+      <HeaderLogo logo={data.logo} />
+      <nav>
+        <DropdownMenu />
+      </nav>
+    </header >
+  )
+}
 
 // const menuItems = useStaticQuery(graphql`
 //   query Q {
