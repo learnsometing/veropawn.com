@@ -1,0 +1,31 @@
+.menu {
+  width: 100%;
+  height: 100vh;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 1;
+}
+
+.mainMenuBtn {
+  height: 48px;
+  width: 100px;
+  border: none; 
+  background-color: rgb(115,115,115);
+}
+
+.list {
+  width: 85vw;
+  height: 100vh;
+  margin: 0;
+  background-color: #fff;
+  z-index: 1;
+}
+
+.menuItem {
+  width: 85vw;
+  height: 50px;
+  margin: 0;
+  background-color: #fff;
+  z-index: 1;
+}
