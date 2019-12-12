@@ -1,35 +1,40 @@
-import { Link } from "gatsby"
+import { DropdownMenu } from "./dropdown-menu"
 import PropTypes from "prop-types"
 import React from "react"
 
 const Header = ({ siteTitle }) => (
-  <header
-    style={{
-      background: `rebeccapurple`,
-      marginBottom: `1.45rem`,
-    }}
-  >
-    <div
-      style={{
-        margin: `0 auto`,
-        maxWidth: 960,
-        padding: `1.45rem 1.0875rem`,
-      }}
-    >
-      <h1 style={{ margin: 0 }}>
-        <Link
-          to="/"
-          style={{
-            color: `white`,
-            textDecoration: `none`,
-          }}
-        >
-          {siteTitle}
-        </Link>
-      </h1>
-    </div>
+  <header>
+    <nav>
+      <DropdownMenu />
+    </nav>
   </header>
 )
+
+// const menuItems = useStaticQuery(graphql`
+//   query Q {
+//     allInvJson(
+//       sort:{
+//         fields:[category]
+//         order:ASC
+//       }
+//     ){
+//       edges{
+//         node{
+//           category
+//           subcategory
+//           slug
+//         }
+//       }
+//     }
+//   }
+// `)
+// const edges = menuItems.allInvJson.edges;
+// const nodes = edges.map(edge => {
+//   return edge.node;
+// })
+// const info = nodes.map(node => {
+//   return { category: node.category, subcategory: node.subcategory, slug: node.slug }
+// })
 
 Header.propTypes = {
   siteTitle: PropTypes.string,
