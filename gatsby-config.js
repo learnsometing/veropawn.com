@@ -1,8 +1,8 @@
 module.exports = {
   siteMetadata: {
-    title: `Gatsby Default Starter`,
-    description: `Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.`,
-    author: `@gatsbyjs`,
+    title: `Cash Pawn and Jewelry`,
+    description: `Browse the full inventory of Cash Pawn and Jewelry, located in Vero Beach, FL.`,
+    author: `Brian Monaccio`,
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
@@ -12,6 +12,13 @@ module.exports = {
       options: {
         name: `images`,
         path: `${__dirname}/src/images/`,
+      },
+    },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `logos-and-icons`,
+        path: `${__dirname}/src/logos-and-icons/`,
       },
     },
     {
