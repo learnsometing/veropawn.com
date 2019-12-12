@@ -17,10 +17,10 @@ const Header = () => {
 
   return (
     <header className={headerStyles.header}>
-      <HeaderLogo logo={data.logo} />
-      <nav>
+      <nav className={headerStyles.nav}>
+        <HeaderLogo logo={data.logo} />
         <DropdownMenu />
-      </nav>
+      </nav >
     </header >
   )
 }
