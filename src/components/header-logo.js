@@ -12,4 +12,4 @@ const HeaderLogo = ({ logo }) => {
   )
 }
 
-export { HeaderLogo }
+export default HeaderLogo;
