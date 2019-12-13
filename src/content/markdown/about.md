@@ -1,7 +1,11 @@
+---
+About
+---
 # About Us
 
 Cash Pawn & Jewelry was established in 1995 and has provided the highest quality pawn services in Vero Beach and the surrounding areas ever since. We specialize in short-term loans from $5 to $50,000. We also buy items valued up to $25,000.
-Pawn Loans
+
+## Pawn Loans
 
 We provide fast loans with low interest rates using your pawned items as collateral. We don’t ask for your banking information or report you to any credit bureaus.  All you need is a state issued ID, driver’s license, or passport. Our loan forms are simple and let you leave with your money in minutes.
 
