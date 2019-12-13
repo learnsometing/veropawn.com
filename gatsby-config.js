@@ -30,8 +30,8 @@ module.exports = {
     {
       resolve: `gatsby-source-filesystem`,
       options: {
-        name: `content`,
-        path: `${__dirname}/src/content/`,
+        name: `markdown`,
+        path: `${__dirname}/src/content/markdown`,
       },
     },
     `gatsby-transformer-sharp`,
