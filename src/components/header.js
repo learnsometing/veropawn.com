@@ -1,10 +1,10 @@
-import { MainMenu } from "./main-menu"
-import { HeaderLogo } from "./header-logo"
-import headerStyles from "./header.module.css"
 import PropTypes from "prop-types"
 import React from "react"
 import { useStaticQuery, graphql } from "gatsby"
 
+import MainMenu from "./main-menu"
+import HeaderLogo from "./header-logo"
+import headerStyles from "./header.module.css"
 
 const Header = () => {
   const data = useStaticQuery(graphql`
