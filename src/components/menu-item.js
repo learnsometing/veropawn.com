@@ -1,18 +1,18 @@
 /*
-* A button placed in a menu that should trigger an event when clicked.
+* An item for a dropdown menu list.
 */
 
 import React from "react";
 import dropdownMenuStyles from "./dropdown-menu.module.css"
 
-function MenuBtn({ text }) {
+function MenuItem({ child }) {
   return (
     <li className={dropdownMenuStyles.menuItem}>
       <button className={dropdownMenuStyles.menuItem}>
-        {text}
+        {child}
       </button>
     </li>
   );
 }
 
-export { MenuBtn };
+export default MenuItem;
