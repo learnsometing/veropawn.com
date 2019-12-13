@@ -1,4 +1,4 @@
-import { DropdownMenu } from "./dropdown-menu"
+import { MainMenu } from "./main-menu"
 import { HeaderLogo } from "./header-logo"
 import headerStyles from "./header.module.css"
 import PropTypes from "prop-types"
@@ -19,7 +19,7 @@ const Header = () => {
     <header className={headerStyles.header}>
       <nav className={headerStyles.nav}>
         <HeaderLogo logo={data.logo} />
-        <DropdownMenu />
+        <MainMenu />
       </nav >
     </header >
   )
