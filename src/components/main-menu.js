@@ -5,10 +5,12 @@
 
 import React from "react"
 import { FaAngleUp, FaAngleDown } from "react-icons/fa"
+
+import MenuList from "./menu-list"
 import { MenuBtn } from "./menu-btn"
 import dropdownMenuStyles from "./dropdown-menu.module.css"
 
-class DropdownMenu extends React.Component {
+class MainMenu extends React.Component {
   constructor(props) {
     super(props);
     this.state = { listOpen: false };
@@ -29,13 +31,13 @@ class DropdownMenu extends React.Component {
     let icon;
 
     if (listOpen) {
-      menu = (
-        <ul className={dropdownMenuStyles.list}>
-          <MenuBtn text='Home' />
-          <MenuBtn text='About' />
-          <MenuBtn text='Contact' />
-        </ul>
-      );
+      const menuItems = [
+        <MenuBtn text='Home' />,
+        <MenuBtn text='About' />,
+        <MenuBtn text='Contact' />
+      ];
+
+      menu = <MenuList children={menuItems} />;
       icon = <FaAngleUp />;
     } else {
       menu = null;
@@ -53,4 +55,4 @@ class DropdownMenu extends React.Component {
   }
 }
 
-export { DropdownMenu }
+export { MainMenu }
