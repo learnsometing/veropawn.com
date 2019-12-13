@@ -5,9 +5,9 @@
 
 import React from "react"
 import { FaAngleUp, FaAngleDown } from "react-icons/fa"
-
+import { Link } from "gatsby"
 import MenuList from "./menu-list"
-import { MenuBtn } from "./menu-btn"
+import MenuItem from "./menu-item"
 import dropdownMenuStyles from "./dropdown-menu.module.css"
 
 class MainMenu extends React.Component {
@@ -31,10 +31,11 @@ class MainMenu extends React.Component {
     let icon;
 
     if (listOpen) {
+      const j = <Link to="/jewelry/rings">Jewelry</Link>
       const menuItems = [
-        <MenuBtn text='Home' />,
-        <MenuBtn text='About' />,
-        <MenuBtn text='Contact' />
+        <MenuItem child='Home' />,
+        <MenuItem child={j} />,
+        <MenuItem child='Contact' />
       ];
 
       menu = <MenuList children={menuItems} />;
@@ -55,4 +56,4 @@ class MainMenu extends React.Component {
   }
 }
 
-export { MainMenu }
+export default MainMenu
