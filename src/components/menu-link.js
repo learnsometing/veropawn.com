@@ -1,18 +1,10 @@
-/*
-* An button placed in a dropdown menuthat links to another page.
-*/
-
 import React from "react";
 import { Link } from "gatsby";
 
-function MenuLink({ link, text }) {
-  return (
-    <li>
-      <button>
-        <Link to={link}>{text}</Link>
-      </button>
-    </li>
-  );
-}
+import dropdownMenuStyles from "./dropdown-menu.module.css"
 
-export { MenuLink };
+export default ({ link, text }) => (
+  <li className={dropdownMenuStyles.menuItem}>
+    <Link className={dropdownMenuStyles.menuItem} to={link}>{text}</Link>
+  </li>
+);
