@@ -3,13 +3,13 @@
 */
 
 import React from "react";
-import ddStyles from "./dropdown-menu.module.css"
+import ddMenuStyles from "./dropdown-menu.module.css"
 
-export default ({ child }) => {
+export default ({ text, onClick }) => {
   return (
-    <li className={ddStyles.ddMenuItem}>
-      <button className={ddStyles.ddMenuItem}>
-        {child}
+    <li className={ddMenuStyles.listItem}>
+      <button className={ddMenuStyles.link} onClick={onClick}>
+        {text}
       </button>
     </li>
   );
