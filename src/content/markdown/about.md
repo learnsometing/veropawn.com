@@ -1,7 +1,7 @@
 ---
 title: "About"
 ---
-# About Us
+## About Us
 
 Cash Pawn & Jewelry was established in 1995 and has provided the highest quality pawn services in Vero Beach and the surrounding areas ever since. We specialize in short-term loans from $5 to $50,000. We also buy items valued up to $25,000.
 
