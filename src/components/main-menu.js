@@ -7,10 +7,10 @@ import React from "react"
 import { FaAngleUp, FaAngleDown } from "react-icons/fa"
 import onClickOutside from "react-onclickoutside"
 
-import MenuList from "./menu-list"
-import MenuLink from "./menu-link"
+import DDMenuList from "./dd-menu-list"
+import DDMenuLink from "./dd-menu-link"
 import MDPageLinks from "./md-page-links"
-import dropdownMenuStyles from "./dropdown-menu.module.css"
+import ddMenuStyles from "./dropdown-menu.module.css"
 
 class MainMenu extends React.Component {
   constructor(props) {
@@ -38,14 +38,14 @@ class MainMenu extends React.Component {
   render() {
     const listOpen = this.state.listOpen;
     const children = <>
-      <MenuLink link="/" text="Home" />
+      <DDMenuLink link="/" text="Home" />
       <MDPageLinks />
     </>
     let menu;
     let icon;
 
     if (listOpen) {
-      menu = <MenuList children={children} />;
+      menu = <DDMenuList children={children} />;
       icon = <FaAngleUp />;
     } else {
       menu = null;
@@ -54,10 +54,10 @@ class MainMenu extends React.Component {
 
     return (
       <>
-        <button className={dropdownMenuStyles.mainMenuBtn} onClick={this.toggleList}>
+        <button className={ddMenuStyles.mainMenuBtn} onClick={this.toggleList}>
           Menu {icon}
         </button>
-        <div className={dropdownMenuStyles.menu}
+        <div className={ddMenuStyles.container}
           ref={(element) => {
             this.dropdownMenu = element;
           }}>
