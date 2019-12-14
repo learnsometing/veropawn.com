@@ -21,7 +21,7 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
       name: "slug",
       // Individual MarkdownRemark node
       node,
-      // Generated value based on filepath. Youdon't need a separating "/" before
+      // Generated value based on filepath. You don't need a separating "/" before
       // the value because createFilePath returns a path with the leading "/".
       value: `${value}`,
     })
@@ -65,7 +65,6 @@ exports.createPages = async ({ graphql, actions }) => {
       context: {
         // Data passed to context is available in page queries as GraphQL variables.
         slug: node.slug,
-
       }
     });
   });
@@ -76,7 +75,7 @@ exports.createPages = async ({ graphql, actions }) => {
       path: node.fields.slug,
       component: path.resolve(`./src/templates/markdown-page.js`),
       context: {
-        slug: node.fields.slug,
+        id: node.id,
       }
     })
   })
