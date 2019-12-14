@@ -5,9 +5,10 @@
 
 import React from "react"
 import { FaAngleUp, FaAngleDown } from "react-icons/fa"
-import { Link } from "gatsby"
+
 import MenuList from "./menu-list"
-import MenuItem from "./menu-item"
+import HomeLink from "./home-link"
+import MDPageLinks from "./md-page-links"
 import dropdownMenuStyles from "./dropdown-menu.module.css"
 
 class MainMenu extends React.Component {
@@ -27,18 +28,15 @@ class MainMenu extends React.Component {
 
   render() {
     const listOpen = this.state.listOpen;
+    const children = <>
+      <HomeLink />
+      <MDPageLinks />
+    </>
     let menu;
     let icon;
 
     if (listOpen) {
-      const j = <Link to="/jewelry/rings">Jewelry</Link>
-      const menuItems = [
-        <MenuItem child='Home' />,
-        <MenuItem child={j} />,
-        <MenuItem child='Contact' />
-      ];
-
-      menu = <MenuList children={menuItems} />;
+      menu = <MenuList children={children} />;
       icon = <FaAngleUp />;
     } else {
       menu = null;
