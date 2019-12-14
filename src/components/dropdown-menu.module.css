@@ -1,26 +1,32 @@
 .menu {
-  width: 100%;
-  height: 100vh;
+  width: 85vw;
+  height: 520px;
   position: absolute;
   left: 0;
-  top: 0;
+  top: 48px;
   z-index: 1;
 }
 
 .mainMenuBtn {
   height: 48px;
   width: 100px;
+  position:fixed;
+  top:0;
+  left: 0;
   border: none; 
   background-color: rgb(115,115,115);
+  z-index: 3;
 }
 
 .list {
   width: 85vw;
-  height: 100vh;
+  height: 520px;
   margin: 0;
   background-color: #fff;
   z-index: 1;
   border: 1px solid #000;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .menuItem {
