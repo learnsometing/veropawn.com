@@ -4,9 +4,9 @@ import { Link } from "gatsby"
 
 const HeaderLogo = ({ logo }) => {
   return (
-    <div class={headerLogoStyles.container}>
+    <div className={headerLogoStyles.container}>
       <Link to='/'>
-        <img class={headerLogoStyles.logo} src={logo.publicURL} alt="Cash Pawn and Jewelry Logo" />
+        <img className={headerLogoStyles.logo} src={logo.publicURL} alt="Cash Pawn and Jewelry Logo" />
       </Link>
     </div>
   )
