@@ -7,7 +7,7 @@ import React from "react"
 import { FaAngleUp, FaAngleDown } from "react-icons/fa"
 
 import MenuList from "./menu-list"
-import HomeLink from "./home-link"
+import MenuLink from "./menu-link"
 import MDPageLinks from "./md-page-links"
 import dropdownMenuStyles from "./dropdown-menu.module.css"
 
@@ -29,7 +29,7 @@ class MainMenu extends React.Component {
   render() {
     const listOpen = this.state.listOpen;
     const children = <>
-      <HomeLink />
+      <MenuLink link="/" text="Home" />
       <MDPageLinks />
     </>
     let menu;
