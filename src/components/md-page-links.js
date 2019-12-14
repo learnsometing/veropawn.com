@@ -1,7 +1,7 @@
 import React from "react";
-import { graphql, Link, StaticQuery } from "gatsby";
+import { graphql, StaticQuery } from "gatsby";
 
-import MenuItem from "./menu-item"
+import MenuLink from "./menu-link"
 
 export default () => (
   <StaticQuery
@@ -24,9 +24,7 @@ export default () => (
     render={data => (
       <>
         {data.allMarkdownRemark.edges.map(({ node }) => (
-          <MenuItem child={
-            <Link to={node.fields.slug}>{node.frontmatter.title}</Link>
-          } />
+          <MenuLink link={node.fields.slug} text={node.frontmatter.title} />
         ))}
       </>
     )}
