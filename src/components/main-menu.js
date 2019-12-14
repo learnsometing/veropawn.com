@@ -5,6 +5,7 @@
 
 import React from "react"
 import { FaAngleUp, FaAngleDown } from "react-icons/fa"
+import onClickOutside from "react-onclickoutside"
 
 import MenuList from "./menu-list"
 import MenuLink from "./menu-link"
@@ -26,6 +27,14 @@ class MainMenu extends React.Component {
     }));
   }
 
+  handleClickOutside(event) {
+    if (!this.dropdownMenu.contains(event.target)) {
+      this.setState(({
+        listOpen: false
+      }));
+    }
+  }
+
   render() {
     const listOpen = this.state.listOpen;
     const children = <>
@@ -44,14 +53,19 @@ class MainMenu extends React.Component {
     }
 
     return (
-      <div className={dropdownMenuStyles.menu}>
+      <>
         <button className={dropdownMenuStyles.mainMenuBtn} onClick={this.toggleList}>
           Menu {icon}
         </button>
-        {menu}
-      </div>
+        <div className={dropdownMenuStyles.menu}
+          ref={(element) => {
+            this.dropdownMenu = element;
+          }}>
+          {menu}
+        </div>
+      </>
     );
   }
 }
 
-export default MainMenu
+export default onClickOutside(MainMenu)
