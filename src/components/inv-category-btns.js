@@ -15,7 +15,7 @@ export default () => (
     render={data => (
       <>
         {data.allInvJson.distinct.map((category) => (
-          <DDMenuBtn text={category} />
+          <DDMenuBtn children={category} />
         ))}
       </>
     )}
