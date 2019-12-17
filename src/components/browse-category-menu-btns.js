@@ -11,6 +11,7 @@ export default (props) => {
           distinct(field: category)
           nodes{
             category
+            id
             subcategory
             slug
           }
@@ -27,6 +28,7 @@ export default (props) => {
     allInvJson.distinct.map(category => (
       <DDMenuBtn
         children={category}
+        key={category}
         onClick={props.onClick.bind(null, filterSubcatLinks(category))}
       />
     ))

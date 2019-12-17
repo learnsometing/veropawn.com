@@ -5,11 +5,11 @@
 import React from "react";
 import ddMenuStyles from "./dropdown-menu.module.css"
 
-export default ({ children, onClick }) => {
+export default (props) => {
   return (
     <li className={ddMenuStyles.listItem}>
-      <button className={ddMenuStyles.link} onClick={onClick}>
-        {children}
+      <button className={ddMenuStyles.link} onClick={props.onClick}>
+        {props.children}
       </button>
     </li>
   );

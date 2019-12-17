@@ -69,12 +69,14 @@ class MainMenu extends React.Component {
 
     const children = <>
       <DDMenuLink
+        key="home"
         link="/"
-        text="Home"
+        value="Home"
       />
       <DDMenuBtn
         children="Browse By Category"
         className={ddMenuStyles.link}
+        key="browse-by-category"
         onClick={this.openBrowseMenu}
       />
       <MDPageLinks />

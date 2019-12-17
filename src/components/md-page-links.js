@@ -8,14 +8,13 @@ export default () => (
     query={graphql`
       query MarkdownSlugs {
         allMarkdownRemark(sort: {fields: frontmatter___title}){
-          edges{
-            node{
-              frontmatter{
-                title
-              }
-              fields {
-                slug
-              }
+          nodes{
+            id
+            frontmatter{
+              title
+            }
+            fields {
+              slug
             }
           }
         }
@@ -23,8 +22,12 @@ export default () => (
     `}
     render={data => (
       <>
-        {data.allMarkdownRemark.edges.map(({ node }) => (
-          <DDMenuLink link={node.fields.slug} text={node.frontmatter.title} />
+        {data.allMarkdownRemark.nodes.map(node => (
+          <DDMenuLink
+            key={node.id}
+            link={node.fields.slug}
+            value={node.frontmatter.title}
+          />
         ))}
       </>
     )}

@@ -44,12 +44,14 @@ class BrowseByCategoryMenu extends React.Component {
               {"Browse Categories"}
             </>
           }
+          key="browse-categories"
           onClick={this.closeSubcatMenu}
         />
         {subcatMenuLinks.map(node => (
           <DDMenuLink
+            key={node.id}
             link={node.slug}
-            text={node.subcategory}
+            value={node.subcategory}
           />
         ))}
       </>

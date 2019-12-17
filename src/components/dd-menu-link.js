@@ -3,8 +3,8 @@ import { Link } from "gatsby";
 
 import ddMenuStyles from "./dropdown-menu.module.css"
 
-export default ({ link, text }) => (
+export default (props) => (
   <li className={ddMenuStyles.listItem}>
-    <Link className={ddMenuStyles.link} to={link}>{text}</Link>
+    <Link className={ddMenuStyles.link} to={props.link}>{props.value}</Link>
   </li>
 );
