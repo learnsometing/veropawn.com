@@ -1,10 +1,16 @@
+.headerWrapper {
+  width: 100%;
+  display: inline-block;
+  position: fixed;
+  top: 0;
+  z-index: 3;
+}
+
 .header {
   width: 100%;
   height: 48px;
-  position: fixed;
-  top: 0;
+  position: relative;
   display: flex;
-  z-index: 3;
 }
 
 .nav {
@@ -12,10 +18,46 @@
   background-color: rgb(115, 115, 115);
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 
-.navList {
+.link {
+  height: 85%;
+  position: relative;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  flex: 0 0 auto;
+}
+
+.iconWrapper {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+}
+
+.svgWrapper {
+  height: 100%;
+  width: 100%;
+}
+
+.svg {
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+
+.mainMenuBtn {
+  height: 48px;
+  width: 100px;
+  position:fixed;
+  top:0;
+  left: 0;
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
+  align-items: center;
   margin: 0;
+  border: none; 
+  background-color: rgb(115,115,115);
+  z-index: 3;
 }

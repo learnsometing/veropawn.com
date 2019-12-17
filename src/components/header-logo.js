@@ -1,14 +1,33 @@
 import React from "react"
-import headerLogoStyles from "./header-logo.module.css"
+import headerStyles from "./header.module.css"
+import { useStaticQuery, graphql } from "gatsby"
+
 import { Link } from "gatsby"
 
-const HeaderLogo = ({ logo }) => {
+const HeaderLogo = () => {
+  const { logo } = useStaticQuery(graphql`
+    query LogoQuery {
+      logo: file(relativePath: { eq: "logo.svg" }) {
+        publicURL
+      }
+    }
+  `)
+
   return (
-    <li className={headerLogoStyles.container}>
-      <Link to='/'>
-        <img className={headerLogoStyles.logo} src={logo.publicURL} alt="Cash Pawn and Jewelry Logo" />
-      </Link>
-    </li>
+    <Link
+      to='/'
+      className={headerStyles.link}
+    >
+      <span className={headerStyles.iconWrapper}>
+        <div className={headerStyles.svgWrapper}>
+          <img
+            className={headerStyles.svg}
+            src={logo.publicURL}
+            alt="Cash Pawn and Jewelry Logo"
+          />
+        </div>
+      </span>
+    </Link>
   )
 }
 
