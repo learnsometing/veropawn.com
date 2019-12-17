@@ -13,3 +13,9 @@
   display: flex;
   justify-content: center;
 }
+
+.navList {
+  display: flex;
+  justify-content: flex-start;
+  margin: 0;
+}

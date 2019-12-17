@@ -18,8 +18,10 @@ const Header = () => {
   return (
     <header className={headerStyles.header}>
       <nav className={headerStyles.nav}>
-        <HeaderLogo logo={data.logo} />
-        <MainMenu />
+        <ul className={headerStyles.navList}>
+          <HeaderLogo logo={data.logo} />
+          <MainMenu />
+        </ul>
       </nav >
     </header >
   )
