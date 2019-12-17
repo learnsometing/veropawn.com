@@ -1,18 +1,32 @@
 /*
-* Dropdown menu that opens/closes when clicked and closes if a click occurs outside
-* the menu.
+* Main Menu
+*
+* Contains links to other pages on the site and allows the user to browse the
+* inventory. Will be collapsed at smaller screen sizes.
+* 
+* The main menu possesses two states, mainMenuOpen and browseMenuOpen. 
+*
+* - mainMenuOpen:
+* If collapsed, the main menu button will toggle mainMenuOpen when clicked.
+* When expanded the menu will always be shown in the navigation bar.
+*
+* - browseMenuOpen:
+* If collapsed, a button will appear in the main menu that opens the browse menu
+* and closes the main menu. When expanded, the browse menu button will toggle
+* the browse menu open and closed.
+* 
+* The main menu also maintains a reference to the current dropdown menu, which
+* is set by setDropdownMenuRef dynamically. This reference is used to determine
+* if the user is clicking outside the main menu, which should close the main menu
+* when collapsed.
 */
 
 import React from "react"
 import { FaAngleUp, FaAngleDown } from "react-icons/fa"
 import onClickOutside from "react-onclickoutside"
 
-import DDMenuList from "./dd-menu-list"
-import DDMenuLink from "./dd-menu-link"
-import DDMenuBtn from "./dd-menu-btn"
+import MainMenuList from "./main-menu-list"
 import OpenDDMenuBtn from "./open-dd-menu-btn"
-import ddMenuStyles from "./dropdown-menu.module.css"
-import MDPageLinks from "./md-page-links"
 import BrowseByCategoryMenu from "./browse-category-menu"
 
 class MainMenu extends React.Component {
@@ -23,6 +37,7 @@ class MainMenu extends React.Component {
     this.openBrowseMenu = this.openBrowseMenu.bind(this);
     this.setDropdownMenuRef = this.setDropdownMenuRef.bind(this)
     this.state = {
+      isCollapsed: true,
       mainMenuOpen: false,
       browseMenuOpen: false,
     };
@@ -64,56 +79,44 @@ class MainMenu extends React.Component {
   }
 
   render() {
+    const isCollapsed = this.state.isCollapsed;
     const mainMenuOpen = this.state.mainMenuOpen;
     const browseMenuOpen = this.state.browseMenuOpen;
 
-    const children = <>
-      <DDMenuLink
-        key="home"
-        link="/"
-        value="Home"
-      />
-      <DDMenuBtn
-        children="Browse By Category"
-        className={ddMenuStyles.link}
-        key="browse-by-category"
-        onClick={this.openBrowseMenu}
-      />
-      <MDPageLinks />
-    </>
-
-    let menu = null;
-    let browseMenu = null;
     let icon = <FaAngleUp />;
+    let openDDMenuBtn = null;
+    let menu = null;
+
+    if (isCollapsed) {
+      openDDMenuBtn = <OpenDDMenuBtn
+        children={
+          <>
+            Menu {icon}
+          </>
+        }
+        onClick={this.toggleMainMenu}
+      />
+    }
 
     if (mainMenuOpen) {
-      menu = <DDMenuList
-        children={children}
+      menu = <MainMenuList
+        isCollapsed={isCollapsed}
+        openBrowseMenu={this.openBrowseMenu}
+        setDropdownMenuRef={this.setDropdownMenuRef}
+      />
+    } else if (browseMenuOpen) {
+      menu = <BrowseByCategoryMenu
+        closeBrowseMenu={this.closeBrowseMenu}
         setDropdownMenuRef={this.setDropdownMenuRef}
       />;
     } else {
       icon = <FaAngleDown />;
     }
 
-    if (browseMenuOpen) {
-      browseMenu = <BrowseByCategoryMenu
-        closeBrowseMenu={this.closeBrowseMenu}
-        setDropdownMenuRef={this.setDropdownMenuRef}
-      />;
-    }
-
     return (
       <>
-        <OpenDDMenuBtn
-          children={
-            <>
-              Menu {icon}
-            </>
-          }
-          onClick={this.toggleMainMenu}
-        />
+        {openDDMenuBtn}
         {menu}
-        {browseMenu}
       </>
     );
   }
