@@ -20,7 +20,7 @@ export default (props) => {
     `
   );
 
-  const filterSubcatLinks = (category) => {
+  const filterNodesByCategory = (category) => {
     return allInvJson.nodes.filter(node => node.category === category);
   }
 
@@ -29,7 +29,7 @@ export default (props) => {
       <DDMenuBtn
         children={category}
         key={category}
-        onClick={props.onClick.bind(null, filterSubcatLinks(category))}
+        onClick={props.onClick.bind(null, filterNodesByCategory(category))}
       />
     ))
   );
