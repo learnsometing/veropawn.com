@@ -4,11 +4,11 @@ import { Link } from "gatsby"
 
 const HeaderLogo = ({ logo }) => {
   return (
-    <div className={headerLogoStyles.container}>
+    <li className={headerLogoStyles.container}>
       <Link to='/'>
         <img className={headerLogoStyles.logo} src={logo.publicURL} alt="Cash Pawn and Jewelry Logo" />
       </Link>
-    </div>
+    </li>
   )
 }
 
