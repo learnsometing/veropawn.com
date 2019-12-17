@@ -10,98 +10,108 @@ import onClickOutside from "react-onclickoutside"
 import DDMenuList from "./dd-menu-list"
 import DDMenuLink from "./dd-menu-link"
 import DDMenuBtn from "./dd-menu-btn"
+import OpenDDMenuBtn from "./open-dd-menu-btn"
 import ddMenuStyles from "./dropdown-menu.module.css"
 import MDPageLinks from "./md-page-links"
-import InvCategoryBtns from "./inv-category-btns"
-import BrowseByCategory from "./browse-category-menu"
+import BrowseByCategoryMenu from "./browse-category-menu"
 
 class MainMenu extends React.Component {
   constructor(props) {
     super(props);
+    this.closeBrowseMenu = this.closeBrowseMenu.bind(this);
+    this.dropdownMenu = null;
+    this.openBrowseMenu = this.openBrowseMenu.bind(this);
+    this.setDropdownMenuRef = this.setDropdownMenuRef.bind(this)
     this.state = {
-      listOpen: false,
-      isMainMenu: true,
-      isBrowseMenu: false
+      mainMenuOpen: false,
+      browseMenuOpen: false,
     };
-
-    // This binding is necessary to make `this` work in the callback
-    this.toggleList = this.toggleList.bind(this);
-    this.toggleBrowseMenu = this.toggleBrowseMenu.bind(this);
     this.toggleMainMenu = this.toggleMainMenu.bind(this);
   }
 
-  toggleList() {
+  setDropdownMenuRef = element => {
+    this.dropdownMenu = element;
+  };
+
+  toggleMainMenu() {
     this.setState(state => ({
-      listOpen: !state.listOpen,
-      isMainMenu: true,
-      isBrowseMenu: false
+      mainMenuOpen: !state.mainMenuOpen,
+      browseMenuOpen: false
     }));
   }
 
-  toggleBrowseMenu() {
+  openBrowseMenu() {
     this.setState({
-      listOpen: true,
-      isMainMenu: false,
-      isBrowseMenu: true
+      mainMenuOpen: false,
+      browseMenuOpen: true
     });
   }
 
-  toggleMainMenu() {
+  closeBrowseMenu() {
     this.setState({
-      listOpen: true,
-      isMainMenu: true,
-      isBrowseMenu: false
+      mainMenuOpen: true,
+      browseMenuOpen: false
     });
   }
 
   handleClickOutside(event) {
-    if (!this.dropdownMenu.contains(event.target)) {
+    if (this.dropdownMenu && !this.dropdownMenu.contains(event.target)) {
       this.setState(({
-        listOpen: false,
-        isMainMenu: true,
-        isBrowseMenu: false
+        mainMenuOpen: false,
+        browseMenuOpen: false
       }));
     }
   }
 
   render() {
-    const listOpen = this.state.listOpen;
-    const isMainMenu = this.state.isMainMenu;
-    const isBrowseMenu = this.state.isBrowseMenu;
+    const mainMenuOpen = this.state.mainMenuOpen;
+    const browseMenuOpen = this.state.browseMenuOpen;
+
     const children = <>
-      <DDMenuLink link="/" text="Home" />
-      <BrowseByCategory toggleBrowseMenu={this.toggleBrowseMenu} />
+      <DDMenuLink
+        link="/"
+        text="Home"
+      />
+      <DDMenuBtn
+        children="Browse By Category"
+        className={ddMenuStyles.link}
+        onClick={this.openBrowseMenu}
+      />
       <MDPageLinks />
     </>
 
-    let menu;
-    let icon;
+    let menu = null;
+    let browseMenu = null;
+    let icon = <FaAngleUp />;
 
-    if (listOpen && isMainMenu) {
-      menu = <DDMenuList children={children} />;
-      icon = <FaAngleUp />;
-    } else if (listOpen && isBrowseMenu) {
-      menu = <DDMenuList children={<>
-        <DDMenuBtn text="Back" onClick={this.toggleMainMenu} />
-        <InvCategoryBtns />
-      </>} />
-      icon = <FaAngleUp />
+    if (mainMenuOpen) {
+      menu = <DDMenuList
+        children={children}
+        setDropdownMenuRef={this.setDropdownMenuRef}
+      />;
     } else {
-      menu = null;
       icon = <FaAngleDown />;
+    }
+
+    if (browseMenuOpen) {
+      browseMenu = <BrowseByCategoryMenu
+        closeBrowseMenu={this.closeBrowseMenu}
+        setDropdownMenuRef={this.setDropdownMenuRef}
+      />;
     }
 
     return (
       <>
-        <button className={ddMenuStyles.mainMenuBtn} onClick={this.toggleList}>
-          Menu {icon}
-        </button>
-        <div className={ddMenuStyles.container}
-          ref={(element) => {
-            this.dropdownMenu = element;
-          }}>
-          {menu}
-        </div>
+        <OpenDDMenuBtn
+          children={
+            <>
+              Menu {icon}
+            </>
+          }
+          onClick={this.toggleMainMenu}
+        />
+        {menu}
+        {browseMenu}
       </>
     );
   }

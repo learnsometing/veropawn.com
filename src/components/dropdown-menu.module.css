@@ -1,12 +1,8 @@
-.mainMenuBtn {
-  height: 48px;
-  width: 100px;
+.collapsedMainMenu{
   position:fixed;
   top:0;
   left: 0;
-  border: none; 
-  background-color: rgb(115,115,115);
-  z-index: 3;
+  margin: 0;
 }
 
 .container {
@@ -15,25 +11,6 @@
   position: absolute;
   left: 0;
   top: 48px;
-  z-index: 1;
-}
-
-.ulist {
-  width: 85vw;
-  height: 520px;
-  margin: 0;
-  background-color: #fff;
-  z-index: 1;
-  border: 1px solid #000;
-  overflow-y: auto;
-  overflow-x: hidden;
-}
-
-.listItem {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 0;
   z-index: 1;
 }
 
@@ -48,4 +25,34 @@
   border-right: 1px solid #000;
   border-bottom: 1px solid #000;
   z-index: 1;
+}
+
+.listItem {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  z-index: 1;
+}
+
+.openDDMenuBtn {
+  height: 48px;
+  width: 100px;
+  border: none; 
+  background-color: rgb(115,115,115);
+  z-index: 3;
+}
+
+.ulist {
+  width: 85vw;
+  height: 520px;
+  position: absolute;
+  left: 0;
+  top: 48px;
+  margin: 0;
+  background-color: #fff;
+  z-index: 1;
+  border: 1px solid #000;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
