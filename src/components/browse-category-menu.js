@@ -1,5 +1,17 @@
+/*
+* Browse by Category Menu
+*
+* A dropdown menu that exposes the categories of items in the pawn shop's inventory
+* to the user.
+*
+* 
+*/
+
+// External imports
 import React from "react"
 import { FaAngleLeft } from "react-icons/fa"
+
+// Internal imports
 import DDMenuList from "./dd-menu-list"
 import DDMenuLink from "./dd-menu-link"
 import DDMenuBtn from "./dd-menu-btn"

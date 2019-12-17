@@ -31,9 +31,9 @@
 .ulist {
   width: 85vw;
   height: 520px;
-  position: absolute;
-  left: 0;
+  position: fixed;
   top: 48px;
+  left: 0;
   margin: 0;
   background-color: #fff;
   z-index: 1;
