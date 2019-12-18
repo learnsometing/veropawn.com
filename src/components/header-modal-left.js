@@ -11,43 +11,70 @@
 */
 
 import React from "react"
+import onClickOutside from "react-onclickoutside"
 
 import CollapsedMainMenu from "./collapsed-main-menu";
 import BrowseByCategoryMenu from "./browse-category-menu"
 
 import headerModalLeftStyles from "./header-modal-left.module.css"
 
-export default (props) => {
-  const mainMenuOpen = props.mainMenuOpen;
-  const browseMenuOpen = props.browseMenuOpen;
-  const isOpen = (mainMenuOpen || browseMenuOpen);
-
-  let modal = null;
-
-  if (isOpen) {
-    let menu;
-
-    if (mainMenuOpen) {
-      menu = <CollapsedMainMenu
-        id="main-menu"
-        openBrowseMenu={props.openBrowseMenu}
-        setDropdownMenuRef={props.setDropdownMenuRef}
-      />
-    } else if (browseMenuOpen) {
-      menu = <BrowseByCategoryMenu
-        closeBrowseMenu={props.closeBrowseMenu}
-        setDropdownMenuRef={props.setDropdownMenuRef}
-      />;
+class HeaderModalLeft extends React.Component {
+  constructor(props) {
+    super(props);
+    //handling outside clicks
+    this.dropdownMenu = null;
+    this.setDropdownMenuRef = this.setDropdownMenuRef.bind(this)
+    this.state = {
+      isOpen: (this.props.mainMenuOpen || this.props.browseMenuOpen)
     }
-
-    modal = <div className={headerModalLeftStyles.wrapper}>
-      <div className={headerModalLeftStyles.overlay}>
-      </div>
-      {menu}
-    </div>
-
   }
 
-  return modal;
+  setDropdownMenuRef = element => {
+    this.dropdownMenu = element;
+  };
 
+  handleClickOutside(event) {
+    if (this.dropdownMenu && !this.dropdownMenu.contains(event.target)) {
+      this.setState(({
+        isOpen: false
+      }));
+    }
+  }
+
+  render() {
+    const mainMenuOpen = this.props.mainMenuOpen;
+    const browseMenuOpen = this.props.browseMenuOpen;
+    const isOpen = this.state.isOpen;
+
+    let modal = null;
+
+    if (isOpen) {
+      let menu;
+
+      if (mainMenuOpen) {
+        menu = <CollapsedMainMenu
+          id="main-menu"
+          openBrowseMenu={this.props.openBrowseMenu}
+          setDropdownMenuRef={this.props.setDropdownMenuRef}
+        />
+      } else if (browseMenuOpen) {
+        menu = <BrowseByCategoryMenu
+          closeBrowseMenu={this.props.closeBrowseMenu}
+          setDropdownMenuRef={this.props.setDropdownMenuRef}
+        />;
+      }
+
+      modal = <div className={headerModalLeftStyles.wrapper}>
+        <div className={headerModalLeftStyles.overlay}>
+        </div>
+        {menu}
+      </div>
+
+    }
+
+    return modal;
+
+  }
 }
+
+export default onClickOutside(HeaderModalLeft);

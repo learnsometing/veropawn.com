@@ -1,9 +1,11 @@
 import React from "react"
 import PropTypes from "prop-types"
-import onClickOutside from "react-onclickoutside"
+import sizeMe from "react-sizeme"
 
 import "./layout.css"
-import Header from "./header"
+import headerStyles from "./header.module.css"
+
+import HeaderMenu from "./header-menu"
 import HeaderModalLeft from "./header-modal-left"
 
 class Layout extends React.Component {
@@ -16,9 +18,6 @@ class Layout extends React.Component {
     this.toggleMainMenu = this.toggleMainMenu.bind(this);
     this.openBrowseMenu = this.openBrowseMenu.bind(this);
     this.closeBrowseMenu = this.closeBrowseMenu.bind(this);
-    //handling outside clicks
-    this.dropdownMenu = null;
-    this.setDropdownMenuRef = this.setDropdownMenuRef.bind(this)
   }
 
   toggleMainMenu() {
@@ -42,28 +41,18 @@ class Layout extends React.Component {
     });
   }
 
-  setDropdownMenuRef = element => {
-    this.dropdownMenu = element;
-  };
-
-  handleClickOutside(event) {
-    if (this.dropdownMenu && !this.dropdownMenu.contains(event.target)) {
-      this.setState(({
-        mainMenuOpen: false,
-        browseMenuOpen: false
-      }));
-    }
-  }
-
   render() {
-
-
     return (
       <>
-        <Header
-          toggleMainMenu={this.toggleMainMenu}
-          mainMenuOpen={this.state.mainMenuOpen}
-        />
+        <div className={headerStyles.headerWrapper}>
+          <header className={headerStyles.header}>
+
+            <HeaderMenu
+              toggleMenu={this.toggleMainMenu}
+              width={this.props.width}
+            />
+          </header >
+        </div>
         <div id="layout">
           <main>{this.props.children}</main>
           <footer>
@@ -87,4 +76,4 @@ Layout.propTypes = {
   children: PropTypes.node.isRequired,
 }
 
-export default onClickOutside(Layout)
+export default sizeMe()(Layout);
