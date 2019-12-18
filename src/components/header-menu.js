@@ -1,11 +1,9 @@
-import PropTypes from "prop-types"
 import React from "react"
 
 import headerStyles from "./header.module.css"
 
 import HeaderLogo from "./header-logo"
 import DDStatusIcon from "./dd-menu-status-icon"
-import MainMenu from "./main-menu"
 
 const HeaderMenu = (props) => {
   let mainMenu;
@@ -26,12 +24,4 @@ const HeaderMenu = (props) => {
   );
 }
 
-Header.propTypes = {
-  siteTitle: PropTypes.string,
-}
-
-Header.defaultProps = {
-  siteTitle: ``,
-}
-
-export default Header;
+export default HeaderMenu;
