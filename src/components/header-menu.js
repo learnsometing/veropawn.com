@@ -1,16 +1,20 @@
+import PropTypes from "prop-types"
 import React from "react"
 
-import HeaderLogo from "./header-logo"
 import headerStyles from "./header.module.css"
+
+import HeaderLogo from "./header-logo"
 import DDStatusIcon from "./dd-menu-status-icon"
-const MainMenu = (props) => {
+import MainMenu from "./main-menu"
+
+const HeaderMenu = (props) => {
   let mainMenu;
   if (props.width < 767) {
     mainMenu = <button
       className={headerStyles.mainMenuBtn}
-      onClick={props.toggleMainMenu}
+      onClick={props.toggleMenu}
     >
-      Menu <DDStatusIcon menuOpen={props.mainMenuOpen} />
+      Menu <DDStatusIcon />
     </button>
   }
 
@@ -22,4 +26,12 @@ const MainMenu = (props) => {
   );
 }
 
-export default MainMenu
+Header.propTypes = {
+  siteTitle: PropTypes.string,
+}
+
+Header.defaultProps = {
+  siteTitle: ``,
+}
+
+export default Header;
