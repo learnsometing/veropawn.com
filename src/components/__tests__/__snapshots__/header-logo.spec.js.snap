@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HeaderLogo component Matches the snapshot 1`] = `
+<a
+  className="link"
+  href="/"
+>
+  <span
+    className="iconWrapper"
+  >
+    <div
+      className="svgWrapper"
+    >
+      <img
+        alt="Cash Pawn and Jewelry Logo"
+        className="svg"
+        src="/static/logo-c88db6fb705fc71a30bcbcbbdd1c72b8.svg"
+      />
+    </div>
+  </span>
+</a>
+`;
