@@ -21,7 +21,7 @@ export default (props) => {
         key="browse-by-category"
         onClick={props.openBrowseMenu}
       />
-      <MDPageLinks />
+      <MDPageLinks collapsed={true} />
     </ul >
   );
 }

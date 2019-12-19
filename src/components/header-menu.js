@@ -12,11 +12,14 @@ import headerStyles from "./header.module.css";
 
 import HeaderLogo from "./header-logo";
 import OpenDDBtn from "./open-dropdown-btn";
+import ExpandedMainMenu from "./expanded-main-menu";
 
 const HeaderMenu = (props) => {
   let mainMenu;
-  if (props.size.width < 767) {
-    mainMenu = <OpenDDBtn value={"Menu"} toggleMenu={props.toggleMenu} />
+  if (props.size.width < 768) {
+    mainMenu = <OpenDDBtn value={"Menu"} toggleMenu={props.toggleMainMenu} />
+  } else {
+    mainMenu = <ExpandedMainMenu toggleBrowseMenu={props.toggleBrowseMenu} />
   }
 
   return (

@@ -14,11 +14,14 @@
 }
 
 .nav {
+  height: 100%;
   width: 100%;
   background-color: rgb(115, 115, 115);
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 0 10px;
 }
 
 .link {
@@ -28,6 +31,7 @@
   justify-content: center;
   align-items: center;
   flex: 0 0 auto;
+  padding: 0 5px;
 }
 
 .iconWrapper {
@@ -49,7 +53,6 @@
 
 .mainMenuBtn {
   height: 48px;
-  width: 100px;
   position:fixed;
   top:0;
   left: 0;
@@ -59,5 +62,15 @@
   margin: 0;
   border: none; 
   background-color: rgb(115,115,115);
-  z-index: 3;
+}
+
+@media only screen and (min-width: 767px) {
+  .nav {
+    justify-content: flex-start;
+  }
+
+  .mainMenuBtn {
+    height: 85%;
+    position: relative;;
+  }
 }
