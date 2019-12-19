@@ -16,16 +16,16 @@ import BrowseByCategoryMenu from "./browse-category-menu";
 // import headerModalLeftStyles from "./header-modal-left.module.css";
 ReactModal.setAppElement('#___gatsby');
 
-export default ({ state, closeModal, openBrowseMenu, closeBrowseMenu }) => {
+export default ({ state, closeModal, setToBrowseMenu, setToMainMenu }) => {
   let menu;
   if (state.isMainMenu) {
     menu = <CollapsedMainMenu
       id="main-menu"
-      openBrowseMenu={openBrowseMenu}
+      openBrowseMenu={setToBrowseMenu}
     />
   } else if (state.isBrowseMenu) {
     menu = <BrowseByCategoryMenu
-      closeBrowseMenu={closeBrowseMenu}
+      backToMainMenu={setToMainMenu}
     />;
   }
 

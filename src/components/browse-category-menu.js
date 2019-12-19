@@ -20,7 +20,6 @@ import BrowseByCategoryBtns from "./browse-category-menu-btns"
 class BrowseByCategoryMenu extends React.Component {
   constructor(props) {
     super(props);
-    this.closeBrowseMenu = this.props.closeBrowseMenu;
     this.state = {
       subcatMenuOpen: false,
       subcatMenuLinks: []
@@ -53,7 +52,7 @@ class BrowseByCategoryMenu extends React.Component {
           children={
             <>
               <FaAngleLeft />
-              {"Browse Categories"}
+              {"Back"}
             </>
           }
           key="browse-categories"
@@ -76,7 +75,7 @@ class BrowseByCategoryMenu extends React.Component {
               {"Main Menu"}
             </>
           }
-          onClick={this.closeBrowseMenu}
+          onClick={this.props.backToMainMenu}
         />
         <BrowseByCategoryBtns onClick={this.openSubcatMenu} />
       </>;

@@ -19,8 +19,8 @@ class Layout extends React.Component {
     }
     this.toggleMainMenu = this.toggleMainMenu.bind(this);
     this.closeHeaderModalLeft = this.closeHeaderModalLeft.bind(this);
-    this.openBrowseMenu = this.openBrowseMenu.bind(this);
-    this.closeBrowseMenu = this.closeBrowseMenu.bind(this);
+    this.setLeftModalToBrowse = this.setLeftModalToBrowse.bind(this);
+    this.setLeftModalToMain = this.setLeftModalToMain.bind(this);
   }
 
   closeHeaderModalLeft() {
@@ -43,17 +43,23 @@ class Layout extends React.Component {
     }));
   }
 
-  openBrowseMenu() {
+  setLeftModalToBrowse() {
     this.setState({
-      mainMenuOpen: false,
-      browseMenuOpen: true
+      headerModalLeft: {
+        isOpen: true,
+        isMainMenu: false,
+        isBrowseMenu: true
+      }
     });
   }
 
-  closeBrowseMenu() {
+  setLeftModalToMain() {
     this.setState({
-      mainMenuOpen: true,
-      browseMenuOpen: false
+      headerModalLeft: {
+        isOpen: true,
+        isMainMenu: true,
+        isBrowseMenu: false
+      }
     });
   }
 
@@ -77,8 +83,8 @@ class Layout extends React.Component {
         <HeaderModalLeft
           state={this.state.headerModalLeft}
           closeModal={this.closeHeaderModalLeft}
-          openBrowseMenu={this.openBrowseMenu}
-          closeBrowseMenu={this.closeBrowseMenu}
+          setToBrowseMenu={this.setLeftModalToBrowse}
+          setToMainMenu={this.setLeftModalToMain}
         />
       </>
     )
