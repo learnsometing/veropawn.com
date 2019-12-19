@@ -1,10 +1,17 @@
+/*
+* Dropdown Menu Status Icon
+*
+* Returns a font awesome angle up or angle down icon depending on the value of
+* isOpen.
+*/
+
 import React from "react"
 import { FaAngleUp, FaAngleDown } from "react-icons/fa"
 
-export default (props) => {
+export default ({ isOpen }) => {
   let icon = <FaAngleDown />;
 
-  if (props.menuOpen) {
+  if (isOpen) {
     icon = <FaAngleUp />;
   }
 

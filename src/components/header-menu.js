@@ -1,20 +1,22 @@
-import React from "react"
-import sizeMe from "react-sizeme"
+/*
+* Header Menu
+*
+* This menu component resides in the site header and responds to changes in
+* device width. Renders a different menu at each different size.
+*/
 
-import headerStyles from "./header.module.css"
+import React from "react";
+import sizeMe from "react-sizeme";
 
-import HeaderLogo from "./header-logo"
-import DDStatusIcon from "./dd-menu-status-icon"
+import headerStyles from "./header.module.css";
+
+import HeaderLogo from "./header-logo";
+import OpenDDBtn from "./open-dropdown-btn";
 
 const HeaderMenu = (props) => {
   let mainMenu;
   if (props.size.width < 767) {
-    mainMenu = <button
-      className={headerStyles.mainMenuBtn}
-      onClick={props.toggleMenu}
-    >
-      Menu <DDStatusIcon />
-    </button>
+    mainMenu = <OpenDDBtn value={"Menu"} toggleMenu={props.toggleMenu} />
   }
 
   return (
