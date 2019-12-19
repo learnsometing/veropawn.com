@@ -16,12 +16,14 @@ import CategoryMenu from "./category-menu";
 // import headerModalLeftStyles from "./header-modal-left.module.css";
 ReactModal.setAppElement('#___gatsby');
 
-export default ({ state, closeModal, setToBrowseMenu, setToMainMenu }) => {
+export default ({ state, closeModal, setToNestedCategoryMenu, setToMainMenu }) => {
   let menu;
   if (state.isCollapsedMainMenu) {
-    menu = <CollapsedMainMenu openBrowseMenu={setToBrowseMenu} />
+    menu = <CollapsedMainMenu openBrowseMenu={setToNestedCategoryMenu} />;
   } else if (state.isNestedCategoryMenu) {
-    menu = <CategoryMenu backToMainMenu={setToMainMenu} />;
+    menu = <CategoryMenu backToMainMenu={setToMainMenu} isNested={true} />;
+  } else {
+    menu = <CategoryMenu backToMainMenu={setToMainMenu} isNested={false} />;
   }
 
   return (

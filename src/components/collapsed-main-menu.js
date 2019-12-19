@@ -16,7 +16,7 @@ export default (props) => {
   return (
     <ul className={ddMenuStyles.ulist}>
       <DDMenuBtn
-        children="Browse By Category"
+        children="Categories"
         className={ddMenuStyles.link}
         key="browse-by-category"
         onClick={props.openBrowseMenu}

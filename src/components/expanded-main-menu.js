@@ -17,7 +17,7 @@ export default (props) => {
       <OpenDDBtn
         value={"Categories"}
         key="browse-by-category"
-        toggleMenu={props.toggleBrowseMenu}
+        toggleMenu={props.toggleCategoryMenu}
       />
       <MDPageLinks collapsed={false} />
     </>

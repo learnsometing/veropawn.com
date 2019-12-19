@@ -19,7 +19,7 @@ const HeaderMenu = (props) => {
   if (props.size.width < 768) {
     mainMenu = <OpenDDBtn value={"Menu"} toggleMenu={props.toggleCollapsedMainMenu} />
   } else {
-    mainMenu = <ExpandedMainMenu toggleBrowseMenu={props.toggleBrowseMenu} />
+    mainMenu = <ExpandedMainMenu toggleCategoryMenu={props.toggleCategoryMenu} />
   }
 
   return (

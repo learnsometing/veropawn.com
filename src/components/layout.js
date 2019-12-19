@@ -15,11 +15,13 @@ class Layout extends React.Component {
         isOpen: false,
         isCollapsedMainMenu: false,
         isNestedCategoryMenu: false,
+        isCategoryMenu: false,
       }
     }
     this.toggleCollapsedMainMenu = this.toggleCollapsedMainMenu.bind(this);
+    this.toggleCategoryMenu = this.toggleCategoryMenu.bind(this);
     this.closeHeaderModalLeft = this.closeHeaderModalLeft.bind(this);
-    this.setLeftModalToBrowse = this.setLeftModalToBrowse.bind(this);
+    this.setLeftModalToNestedCategories = this.setLeftModalToNestedCategories.bind(this);
     this.setLeftModalToMain = this.setLeftModalToMain.bind(this);
   }
 
@@ -28,7 +30,8 @@ class Layout extends React.Component {
       headerModalLeft: {
         isOpen: false,
         isCollapsedMainMenu: false,
-        isNestedCategoryMenu: false
+        isNestedCategoryMenu: false,
+        isCategoryMenu: false
       }
     });
   }
@@ -38,17 +41,30 @@ class Layout extends React.Component {
       headerModalLeft: {
         isOpen: !state.headerModalLeft.isOpen,
         isCollapsedMainMenu: !state.headerModalLeft.isCollapsedMainMenu,
-        isNestedCategoryMenu: false
+        isNestedCategoryMenu: false,
+        isCategoryMenu: false
       }
     }));
   }
 
-  setLeftModalToBrowse() {
+  toggleCategoryMenu() {
+    this.setState(state => ({
+      headerModalLeft: {
+        isOpen: !state.headerModalLeft.isOpen,
+        isCollapsedMainMenu: false,
+        isNestedCategoryMenu: false,
+        isCategoryMenu: !state.headerModalLeft.isCategoryMenu
+      }
+    }));
+  }
+
+  setLeftModalToNestedCategories() {
     this.setState({
       headerModalLeft: {
         isOpen: true,
         isCollapsedMainMenu: false,
-        isNestedCategoryMenu: true
+        isNestedCategoryMenu: true,
+        isCategoryMenu: false
       }
     });
   }
@@ -58,7 +74,8 @@ class Layout extends React.Component {
       headerModalLeft: {
         isOpen: true,
         isCollapsedMainMenu: true,
-        isNestedCategoryMenu: false
+        isNestedCategoryMenu: false,
+        isCategoryMenu: false
       }
     });
   }
@@ -70,6 +87,7 @@ class Layout extends React.Component {
           <header className={headerStyles.header}>
             <HeaderMenu
               toggleCollapsedMainMenu={this.toggleCollapsedMainMenu}
+              toggleCategoryMenu={this.toggleCategoryMenu}
             />
           </header >
         </div>
@@ -83,7 +101,7 @@ class Layout extends React.Component {
         <HeaderModalLeft
           state={this.state.headerModalLeft}
           closeModal={this.closeHeaderModalLeft}
-          setToBrowseMenu={this.setLeftModalToBrowse}
+          setToNestedCategoryMenu={this.setLeftModalToNestedCategories}
           setToMainMenu={this.setLeftModalToMain}
         />
       </>

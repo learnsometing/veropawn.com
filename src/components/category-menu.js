@@ -39,7 +39,7 @@ export default (props) => {
       </DDMenuBtn>
       <SubcategoryMenuBtns links={subcatMenuLinks} />
     </>
-  } else {
+  } else if (props.isNested) {
     children = <>
       <DDMenuBtn key="back-to-main-menu" onClick={props.backToMainMenu} >
         <FaAngleLeft />
@@ -47,6 +47,8 @@ export default (props) => {
       </DDMenuBtn>
       <CategoryMenuBtns onClick={openSubcatMenu} />
     </>;
+  } else {
+    children = <CategoryMenuBtns onClick={openSubcatMenu} />;
   }
 
   return (
