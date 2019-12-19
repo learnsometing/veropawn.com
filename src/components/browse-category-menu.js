@@ -3,12 +3,10 @@
 *
 * A dropdown menu that exposes the categories of items in the pawn shop's inventory
 * to the user.
-*
-* 
 */
 
 // External imports
-import React from "react"
+import React, { useState } from "react"
 import { FaAngleLeft } from "react-icons/fa"
 
 // Internal imports
@@ -17,77 +15,60 @@ import DDMenuLink from "./dd-menu-link"
 import DDMenuBtn from "./dd-menu-btn"
 import BrowseByCategoryBtns from "./browse-category-menu-btns"
 
-class BrowseByCategoryMenu extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      subcatMenuOpen: false,
-      subcatMenuLinks: []
-    }
-    this.openSubcatMenu = this.openSubcatMenu.bind(this);
-    this.closeSubcatMenu = this.closeSubcatMenu.bind(this);
+export default (props) => {
+  const [subcatMenuOpen, setSubcatMenuOpen] = useState(false);
+  const [subcatMenuLinks, setSubcatMenuLinks] = useState([]);
+
+  const openSubcatMenu = links => {
+    setSubcatMenuOpen(true);
+    setSubcatMenuLinks(links);
   }
 
-  openSubcatMenu = links => {
-    this.setState({
-      subcatMenuOpen: true,
-      subcatMenuLinks: links
-    })
+  const closeSubcatMenu = () => {
+    setSubcatMenuOpen(false);
+    setSubcatMenuLinks([]);
   }
 
-  closeSubcatMenu = () => {
-    this.setState({
-      subcatMenuOpen: false,
-      subcatMenuLinks: []
-    })
-  }
+  let children;
 
-  render() {
-    const subcatMenuOpen = this.state.subcatMenuOpen;
-    const subcatMenuLinks = this.state.subcatMenuLinks;
-    let children;
-    if (subcatMenuOpen) {
-      children = <>
-        <DDMenuBtn
-          children={
-            <>
-              <FaAngleLeft />
-              {"Back"}
-            </>
-          }
-          key="browse-categories"
-          onClick={this.closeSubcatMenu}
+  if (subcatMenuOpen) {
+    children = <>
+      <DDMenuBtn
+        children={
+          <>
+            <FaAngleLeft />
+            {"Back"}
+          </>
+        }
+        key="browse-categories"
+        onClick={closeSubcatMenu}
+      />
+      {subcatMenuLinks.map(node => (
+        <DDMenuLink
+          key={node.id}
+          link={node.slug}
+          value={node.subcategory}
         />
-        {subcatMenuLinks.map(node => (
-          <DDMenuLink
-            key={node.id}
-            link={node.slug}
-            value={node.subcategory}
-          />
-        ))}
-      </>
-    } else {
-      children = <>
-        <DDMenuBtn
-          children={
-            <>
-              <FaAngleLeft />
-              {"Main Menu"}
-            </>
-          }
-          onClick={this.props.backToMainMenu}
-        />
-        <BrowseByCategoryBtns onClick={this.openSubcatMenu} />
-      </>;
-    }
-
-    return (
-      <ul className={ddMenuStyles.ulist}>
-        {children}
-      </ul>
-    );
-
+      ))}
+    </>
+  } else {
+    children = <>
+      <DDMenuBtn
+        children={
+          <>
+            <FaAngleLeft />
+            {"Main Menu"}
+          </>
+        }
+        onClick={props.backToMainMenu}
+      />
+      <BrowseByCategoryBtns onClick={openSubcatMenu} />
+    </>;
   }
+
+  return (
+    <ul className={ddMenuStyles.ulist}>
+      {children}
+    </ul>
+  );
 }
-
-export default BrowseByCategoryMenu
