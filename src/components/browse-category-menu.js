@@ -12,7 +12,7 @@ import React from "react"
 import { FaAngleLeft } from "react-icons/fa"
 
 // Internal imports
-import DDMenuList from "./dd-menu-list"
+import ddMenuStyles from "./dropdown-menu.module.css"
 import DDMenuLink from "./dd-menu-link"
 import DDMenuBtn from "./dd-menu-btn"
 import BrowseByCategoryBtns from "./browse-category-menu-btns"
@@ -82,11 +82,12 @@ class BrowseByCategoryMenu extends React.Component {
       </>;
     }
 
-
     return (
-      <DDMenuList children={children}
-        setDropdownMenuRef={this.props.setDropdownMenuRef} />
+      <ul className={ddMenuStyles.ulist}>
+        {children}
+      </ul>
     );
+
   }
 }
 
