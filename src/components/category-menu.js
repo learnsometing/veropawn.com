@@ -33,16 +33,10 @@ export default (props) => {
 
   if (subcatMenuOpen) {
     children = <>
-      <DDMenuBtn
-        children={
-          <>
-            <FaAngleLeft />
-            {"Back"}
-          </>
-        }
-        key="browse-categories"
-        onClick={closeSubcatMenu}
-      />
+      <DDMenuBtn key="back-to-categories" onClick={closeSubcatMenu}>
+        <FaAngleLeft />
+        {"Back"}
+      </DDMenuBtn>
       {subcatMenuLinks.map(node => (
         <DDMenuLink
           key={node.id}
@@ -53,15 +47,10 @@ export default (props) => {
     </>
   } else {
     children = <>
-      <DDMenuBtn
-        children={
-          <>
-            <FaAngleLeft />
-            {"Main Menu"}
-          </>
-        }
-        onClick={props.backToMainMenu}
-      />
+      <DDMenuBtn key="back-to-main-menu" onClick={props.backToMainMenu} >
+        <FaAngleLeft />
+        {"Main Menu"}
+      </DDMenuBtn>
       <BrowseByCategoryBtns onClick={openSubcatMenu} />
     </>;
   }
