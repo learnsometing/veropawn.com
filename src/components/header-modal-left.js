@@ -11,22 +11,17 @@ import React from "react";
 import ReactModal from "react-modal";
 
 import CollapsedMainMenu from "./collapsed-main-menu";
-import BrowseByCategoryMenu from "./browse-category-menu";
+import CategoryMenu from "./category-menu";
 
 // import headerModalLeftStyles from "./header-modal-left.module.css";
 ReactModal.setAppElement('#___gatsby');
 
 export default ({ state, closeModal, setToBrowseMenu, setToMainMenu }) => {
   let menu;
-  if (state.isMainMenu) {
-    menu = <CollapsedMainMenu
-      id="main-menu"
-      openBrowseMenu={setToBrowseMenu}
-    />
-  } else if (state.isBrowseMenu) {
-    menu = <BrowseByCategoryMenu
-      backToMainMenu={setToMainMenu}
-    />;
+  if (state.isCollapsedMainMenu) {
+    menu = <CollapsedMainMenu openBrowseMenu={setToBrowseMenu} />
+  } else if (state.isNestedCategoryMenu) {
+    menu = <CategoryMenu backToMainMenu={setToMainMenu} />;
   }
 
   return (

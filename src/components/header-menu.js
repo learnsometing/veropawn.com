@@ -17,7 +17,7 @@ import ExpandedMainMenu from "./expanded-main-menu";
 const HeaderMenu = (props) => {
   let mainMenu;
   if (props.size.width < 768) {
-    mainMenu = <OpenDDBtn value={"Menu"} toggleMenu={props.toggleMainMenu} />
+    mainMenu = <OpenDDBtn value={"Menu"} toggleMenu={props.toggleCollapsedMainMenu} />
   } else {
     mainMenu = <ExpandedMainMenu toggleBrowseMenu={props.toggleBrowseMenu} />
   }

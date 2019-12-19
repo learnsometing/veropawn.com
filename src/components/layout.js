@@ -13,11 +13,11 @@ class Layout extends React.Component {
     this.state = {
       headerModalLeft: {
         isOpen: false,
-        isMainMenu: false,
-        isBrowseMenu: false
+        isCollapsedMainMenu: false,
+        isNestedCategoryMenu: false,
       }
     }
-    this.toggleMainMenu = this.toggleMainMenu.bind(this);
+    this.toggleCollapsedMainMenu = this.toggleCollapsedMainMenu.bind(this);
     this.closeHeaderModalLeft = this.closeHeaderModalLeft.bind(this);
     this.setLeftModalToBrowse = this.setLeftModalToBrowse.bind(this);
     this.setLeftModalToMain = this.setLeftModalToMain.bind(this);
@@ -27,18 +27,18 @@ class Layout extends React.Component {
     this.setState({
       headerModalLeft: {
         isOpen: false,
-        isMainMenu: false,
-        isBrowseMenu: false
+        isCollapsedMainMenu: false,
+        isNestedCategoryMenu: false
       }
     });
   }
 
-  toggleMainMenu() {
+  toggleCollapsedMainMenu() {
     this.setState(state => ({
       headerModalLeft: {
         isOpen: !state.headerModalLeft.isOpen,
-        isMainMenu: !state.headerModalLeft.isMainMenu,
-        isBrowseMenu: false
+        isCollapsedMainMenu: !state.headerModalLeft.isCollapsedMainMenu,
+        isNestedCategoryMenu: false
       }
     }));
   }
@@ -47,8 +47,8 @@ class Layout extends React.Component {
     this.setState({
       headerModalLeft: {
         isOpen: true,
-        isMainMenu: false,
-        isBrowseMenu: true
+        isCollapsedMainMenu: false,
+        isNestedCategoryMenu: true
       }
     });
   }
@@ -57,8 +57,8 @@ class Layout extends React.Component {
     this.setState({
       headerModalLeft: {
         isOpen: true,
-        isMainMenu: true,
-        isBrowseMenu: false
+        isCollapsedMainMenu: true,
+        isNestedCategoryMenu: false
       }
     });
   }
@@ -69,7 +69,7 @@ class Layout extends React.Component {
         <div className={headerStyles.headerWrapper}>
           <header className={headerStyles.header}>
             <HeaderMenu
-              toggleMenu={this.toggleMainMenu}
+              toggleCollapsedMainMenu={this.toggleCollapsedMainMenu}
             />
           </header >
         </div>
