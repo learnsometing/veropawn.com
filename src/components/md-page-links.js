@@ -1,11 +1,11 @@
 import React from "react";
-import { graphql, StaticQuery } from "gatsby";
+import { graphql, useStaticQuery } from "gatsby";
 
 import DDMenuLink from "./dd-menu-link"
+import HeaderMenuLink from "./header-menu-link"
 
-export default () => (
-  <StaticQuery
-    query={graphql`
+export default ({ collapsed }) => {
+  const { allMarkdownRemark } = useStaticQuery(graphql`
       query MarkdownSlugs {
         allMarkdownRemark(sort: {fields: frontmatter___title}){
           nodes{
@@ -19,17 +19,31 @@ export default () => (
           }
         }
       }
-    `}
-    render={data => (
-      <>
-        {data.allMarkdownRemark.nodes.map(node => (
-          <DDMenuLink
-            key={node.id}
-            link={node.fields.slug}
-            value={node.frontmatter.title}
-          />
-        ))}
-      </>
-    )}
-  />
-);
+    `
+  )
+  let markdownPageLinks;
+
+  if (collapsed) {
+    markdownPageLinks = allMarkdownRemark.nodes.map(node => (
+      <DDMenuLink
+        key={node.id}
+        link={node.fields.slug}
+        value={node.frontmatter.title}
+      />
+    ));
+  } else {
+    markdownPageLinks = allMarkdownRemark.nodes.map(node => (
+      <HeaderMenuLink
+        key={node.id}
+        link={node.fields.slug}
+        value={node.frontmatter.title}
+      />
+    ));
+  }
+
+  return (
+    <>
+      {markdownPageLinks}
+    </>
+  );
+}
