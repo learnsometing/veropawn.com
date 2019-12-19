@@ -11,9 +11,11 @@ class Layout extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      headerModalLeftOpen: false,
-      mainMenuOpen: false,
-      browseMenuOpen: false
+      headerModalLeft: {
+        isOpen: false,
+        isMainMenu: false,
+        isBrowseMenu: false
+      }
     }
     this.toggleMainMenu = this.toggleMainMenu.bind(this);
     this.closeHeaderModalLeft = this.closeHeaderModalLeft.bind(this);
@@ -23,17 +25,21 @@ class Layout extends React.Component {
 
   closeHeaderModalLeft() {
     this.setState({
-      headerModalLeftOpen: false,
-      mainMenuOpen: false,
-      browseMenuOpen: false
+      headerModalLeft: {
+        isOpen: false,
+        isMainMenu: false,
+        isBrowseMenu: false
+      }
     });
   }
 
   toggleMainMenu() {
     this.setState(state => ({
-      headerModalLeftOpen: !state.headerModalLeftOpen,
-      mainMenuOpen: !state.mainMenuOpen,
-      browseMenuOpen: false
+      headerModalLeft: {
+        isOpen: !state.headerModalLeft.isOpen,
+        isMainMenu: !state.headerModalLeft.isMainMenu,
+        isBrowseMenu: false
+      }
     }));
   }
 
@@ -69,10 +75,8 @@ class Layout extends React.Component {
           </footer>
         </div>
         <HeaderModalLeft
-          isOpen={this.state.headerModalLeftOpen}
+          state={this.state.headerModalLeft}
           closeModal={this.closeHeaderModalLeft}
-          browseMenuOpen={this.state.browseMenuOpen}
-          mainMenuOpen={this.state.mainMenuOpen}
           openBrowseMenu={this.openBrowseMenu}
           closeBrowseMenu={this.closeBrowseMenu}
         />

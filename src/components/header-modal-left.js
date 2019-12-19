@@ -16,29 +16,23 @@ import BrowseByCategoryMenu from "./browse-category-menu";
 // import headerModalLeftStyles from "./header-modal-left.module.css";
 ReactModal.setAppElement('#___gatsby');
 
-export default (props) => {
-  const isOpen = props.isOpen;
-  const mainMenuOpen = props.mainMenuOpen;
-  const browseMenuOpen = props.browseMenuOpen;
+export default ({ state, closeModal, openBrowseMenu, closeBrowseMenu }) => {
+  let menu;
+  if (state.isMainMenu) {
+    menu = <CollapsedMainMenu
+      id="main-menu"
+      openBrowseMenu={openBrowseMenu}
+    />
+  } else if (state.isBrowseMenu) {
+    menu = <BrowseByCategoryMenu
+      closeBrowseMenu={closeBrowseMenu}
+    />;
+  }
 
-  let modal = null;
-  if (isOpen) {
-    let menu;
-
-    if (mainMenuOpen) {
-      menu = <CollapsedMainMenu
-        id="main-menu"
-        openBrowseMenu={props.openBrowseMenu}
-      />
-    } else if (browseMenuOpen) {
-      menu = <BrowseByCategoryMenu
-        closeBrowseMenu={props.closeBrowseMenu}
-      />;
-    }
-
-    modal = <ReactModal
-      isOpen={isOpen}
-      onRequestClose={props.closeModal}
+  return (
+    <ReactModal
+      isOpen={state.isOpen}
+      onRequestClose={closeModal}
       style={{
         overlay: {
           height: '100%',
@@ -63,7 +57,5 @@ export default (props) => {
     >
       {menu}
     </ReactModal >
-  }
-
-  return modal;
+  );
 }
