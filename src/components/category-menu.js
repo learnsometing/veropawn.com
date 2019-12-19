@@ -6,14 +6,14 @@
 */
 
 // External imports
-import React, { useState } from "react"
-import { FaAngleLeft } from "react-icons/fa"
+import React, { useState } from "react";
+import { FaAngleLeft } from "react-icons/fa";
 
 // Internal imports
-import ddMenuStyles from "./dropdown-menu.module.css"
-import DDMenuLink from "./dd-menu-link"
-import DDMenuBtn from "./dd-menu-btn"
-import BrowseByCategoryBtns from "./browse-category-menu-btns"
+import ddMenuStyles from "./dropdown-menu.module.css";
+import DDMenuBtn from "./dd-menu-btn";
+import CategoryMenuBtns from "./category-menu-btns";
+import SubcategoryMenuBtns from "./subcategory-menu-links";
 
 export default (props) => {
   const [subcatMenuOpen, setSubcatMenuOpen] = useState(false);
@@ -37,13 +37,7 @@ export default (props) => {
         <FaAngleLeft />
         {"Back"}
       </DDMenuBtn>
-      {subcatMenuLinks.map(node => (
-        <DDMenuLink
-          key={node.id}
-          link={node.slug}
-          value={node.subcategory}
-        />
-      ))}
+      <SubcategoryMenuBtns links={subcatMenuLinks} />
     </>
   } else {
     children = <>
@@ -51,7 +45,7 @@ export default (props) => {
         <FaAngleLeft />
         {"Main Menu"}
       </DDMenuBtn>
-      <BrowseByCategoryBtns onClick={openSubcatMenu} />
+      <CategoryMenuBtns onClick={openSubcatMenu} />
     </>;
   }
 
