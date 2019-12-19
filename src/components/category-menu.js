@@ -12,32 +12,38 @@ import { FaAngleLeft } from "react-icons/fa";
 // Internal imports
 import ddMenuStyles from "./dropdown-menu.module.css";
 import DDMenuBtn from "./dd-menu-btn";
+import DDMenuHeader from "./dd-menu-header";
 import CategoryMenuBtns from "./category-menu-btns";
-import SubcategoryMenuBtns from "./subcategory-menu-links";
+import SubcategoryMenuLinks from "./subcategory-menu-links";
 
 export default (props) => {
   const [subcatMenuOpen, setSubcatMenuOpen] = useState(false);
+  const [subcatMenuHeader, setSubcatMenuHeader] = useState("");
   const [subcatMenuLinks, setSubcatMenuLinks] = useState([]);
 
-  const openSubcatMenu = links => {
+  const openSubcatMenu = (header, links) => {
     setSubcatMenuOpen(true);
+    setSubcatMenuHeader(header);
     setSubcatMenuLinks(links);
   }
 
   const closeSubcatMenu = () => {
     setSubcatMenuOpen(false);
+    setSubcatMenuHeader('');
     setSubcatMenuLinks([]);
   }
 
   let children;
-
   if (subcatMenuOpen) {
     children = <>
       <DDMenuBtn key="back-to-categories" onClick={closeSubcatMenu}>
         <FaAngleLeft />
         {"Back"}
       </DDMenuBtn>
-      <SubcategoryMenuBtns links={subcatMenuLinks} />
+      <DDMenuHeader key={subcatMenuHeader}>
+        <span>{subcatMenuHeader}</span>
+      </DDMenuHeader>
+      <SubcategoryMenuLinks links={subcatMenuLinks} />
     </>
   } else if (props.isNested) {
     children = <>

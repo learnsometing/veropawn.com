@@ -29,7 +29,7 @@ export default (props) => {
       <DDMenuBtn
         children={category}
         key={category}
-        onClick={props.onClick.bind(null, filterNodesByCategory(category))}
+        onClick={props.onClick.bind(null, category, filterNodesByCategory(category))}
       />
     ))
   );
