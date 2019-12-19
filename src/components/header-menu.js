@@ -1,4 +1,5 @@
 import React from "react"
+import sizeMe from "react-sizeme"
 
 import headerStyles from "./header.module.css"
 
@@ -7,7 +8,7 @@ import DDStatusIcon from "./dd-menu-status-icon"
 
 const HeaderMenu = (props) => {
   let mainMenu;
-  if (props.width < 767) {
+  if (props.size.width < 767) {
     mainMenu = <button
       className={headerStyles.mainMenuBtn}
       onClick={props.toggleMenu}
@@ -17,11 +18,11 @@ const HeaderMenu = (props) => {
   }
 
   return (
-    <>
+    <nav className={headerStyles.nav}>
       <HeaderLogo />
       {mainMenu}
-    </>
+    </nav >
   );
 }
 
-export default HeaderMenu;
+export default sizeMe()(HeaderMenu);
