@@ -3,7 +3,8 @@
 *
 * Modal for header menu dropdown content that appears on the left side of the screen.
 * 
-* The modal renders either the main menu or browse menu content based on props.
+* The modal renders either the collapsed main menu, nested category menu, or 
+* category menu content based on props.
 * 
 */
 

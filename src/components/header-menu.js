@@ -1,8 +1,8 @@
 /*
 * Header Menu
 *
-* This menu component resides in the site header and responds to changes in
-* device width. Renders a different menu at each different size.
+* Child menu component to the site header. Renders the appropriate menu in
+* response to changes in its width.
 */
 
 import React from "react";
