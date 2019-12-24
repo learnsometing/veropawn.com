@@ -3,30 +3,17 @@
 *
 * Modal for header menu dropdown content that appears on the left side of the screen.
 * 
-* The modal renders either the collapsed main menu, nested category menu, or 
-* category menu content based on props.
+* Renders the menu in state.headerModalLeft.state.
 * 
 */
 
 import React from "react";
 import ReactModal from "react-modal";
 
-import CollapsedMainMenu from "./collapsed-main-menu";
-import CategoryMenu from "./category-menu";
-
 // import headerModalLeftStyles from "./header-modal-left.module.css";
 ReactModal.setAppElement('#___gatsby');
 
-export default ({ state, closeModal, setToNestedCategoryMenu, setToMainMenu }) => {
-  let menu;
-  if (state.isCollapsedMainMenu) {
-    menu = <CollapsedMainMenu openBrowseMenu={setToNestedCategoryMenu} />;
-  } else if (state.isNestedCategoryMenu) {
-    menu = <CategoryMenu backToMainMenu={setToMainMenu} isNested={true} />;
-  } else {
-    menu = <CategoryMenu backToMainMenu={setToMainMenu} isNested={false} />;
-  }
-
+export default ({ state, closeModal }) => {
   return (
     <ReactModal
       isOpen={state.isOpen}
@@ -53,7 +40,7 @@ export default ({ state, closeModal, setToNestedCategoryMenu, setToMainMenu }) =
         }
       }}
     >
-      {menu}
+      {state.menu}
     </ReactModal >
   );
 }

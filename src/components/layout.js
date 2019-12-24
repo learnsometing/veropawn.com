@@ -8,7 +8,10 @@ import headerStyles from "./header.module.css"
 import HeaderLogo from "./header-logo";
 import OpenDDBtn from "./open-dropdown-btn";
 import HeaderModalLeft from "./header-modal-left"
+import CollapsedMainMenu from "./collapsed-main-menu";
 import ExpandedMainMenu from "./expanded-main-menu";
+import CategoryMenu from "./category-menu";
+
 
 class Layout extends React.Component {
   constructor(props) {
@@ -16,71 +19,52 @@ class Layout extends React.Component {
     this.state = {
       headerModalLeft: {
         isOpen: false,
-        isCollapsedMainMenu: false,
-        isNestedCategoryMenu: false,
-        isCategoryMenu: false,
+        menu: null
       }
     }
-    this.toggleCollapsedMainMenu = this.toggleCollapsedMainMenu.bind(this);
-    this.toggleCategoryMenu = this.toggleCategoryMenu.bind(this);
     this.closeHeaderModalLeft = this.closeHeaderModalLeft.bind(this);
-    this.setLeftModalToNestedCategories = this.setLeftModalToNestedCategories.bind(this);
-    this.setLeftModalToMain = this.setLeftModalToMain.bind(this);
+    this.backToCollapsedMainMenu = this.openHeaderModalWithMenu.bind(
+      this,
+      <CollapsedMainMenu openBrowseMenu={this.openNestedCategoryMenu} />
+    );
+    this.openNestedCategoryMenu = this.openHeaderModalWithMenu.bind(
+      this,
+      <CategoryMenu backToMainMenu={this.backToCollapsedMainMenu} isNested={true} />
+    );
+    this.toggleCollapsedMainMenu = this.toggleHeaderModalWithMenu.bind(
+      this,
+      <CollapsedMainMenu openBrowseMenu={this.openNestedCategoryMenu} />
+    );
+    this.toggleCategoryMenu = this.toggleHeaderModalWithMenu.bind(
+      this,
+      <CategoryMenu backToMainMenu={this.backToCollapsedMainMenu} isNested={false} />
+    );
   }
 
   closeHeaderModalLeft() {
     this.setState({
       headerModalLeft: {
         isOpen: false,
-        isCollapsedMainMenu: false,
-        isNestedCategoryMenu: false,
-        isCategoryMenu: false
+        menu: null
       }
     });
   }
 
-  toggleCollapsedMainMenu() {
-    this.setState(state => ({
-      headerModalLeft: {
-        isOpen: !state.headerModalLeft.isOpen,
-        isCollapsedMainMenu: !state.headerModalLeft.isCollapsedMainMenu,
-        isNestedCategoryMenu: false,
-        isCategoryMenu: false
-      }
-    }));
-  }
-
-  toggleCategoryMenu() {
-    this.setState(state => ({
-      headerModalLeft: {
-        isOpen: !state.headerModalLeft.isOpen,
-        isCollapsedMainMenu: false,
-        isNestedCategoryMenu: false,
-        isCategoryMenu: !state.headerModalLeft.isCategoryMenu
-      }
-    }));
-  }
-
-  setLeftModalToNestedCategories() {
+  openHeaderModalWithMenu(menu) {
     this.setState({
       headerModalLeft: {
         isOpen: true,
-        isCollapsedMainMenu: false,
-        isNestedCategoryMenu: true,
-        isCategoryMenu: false
+        menu: menu
       }
     });
   }
 
-  setLeftModalToMain() {
-    this.setState({
-      headerModalLeft: {
-        isOpen: true,
-        isCollapsedMainMenu: true,
-        isNestedCategoryMenu: false,
-        isCategoryMenu: false
-      }
-    });
+  toggleHeaderModalWithMenu(menu) {
+    if (this.state.headerModalLeft.menu) {
+      this.closeHeaderModalLeft();
+    } else {
+      this.openHeaderModalWithMenu(menu);
+    }
   }
 
   render() {
@@ -107,8 +91,6 @@ class Layout extends React.Component {
         <HeaderModalLeft
           state={this.state.headerModalLeft}
           closeModal={this.closeHeaderModalLeft}
-          setToNestedCategoryMenu={this.setLeftModalToNestedCategories}
-          setToMainMenu={this.setLeftModalToMain}
         />
       </div>
     )
