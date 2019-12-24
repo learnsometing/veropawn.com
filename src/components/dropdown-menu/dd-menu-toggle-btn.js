@@ -1,7 +1,7 @@
 /*
 * Dropdown Menu Toggle Button
 *
-* Accepts a dropdown toggle functio and text as props.
+* Accepts a dropdown toggle function and text as props.
 *
 * Switches between up and down arrow icons when clicked.
 */
@@ -26,5 +26,5 @@ export default ({ value, toggleMenu }) => {
     >
       {value} <DDStatusIcon isOpen={isOpen} />
     </button>
-  )
+  );
 }

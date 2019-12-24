@@ -1,9 +1,34 @@
+/*
+* Category Menu Buttons
+*
+* Returns a list of buttons that each have a category's name as its text.
+* 
+* When clicked, each button should render a list of links to thes category's
+* subcategory pages.
+*/
+
 import React from "react";
 import { graphql, useStaticQuery } from "gatsby";
 
-import DDMenuBtn from "../dropdown-menu/dd-menu-btn"
+import DDMenuBtn from "../dropdown-menu/dd-menu-btn";
 
-export default (props) => {
+export const PureCategoryMenuBtns = ({ data, onClick }) => {
+  const filterNodesByCategory = (category) => {
+    return data.nodes.filter(node => node.category === category);
+  }
+
+  return (
+    data.distinct.map(category => (
+      <DDMenuBtn
+        children={category}
+        key={category}
+        onClick={onClick.bind(null, category, filterNodesByCategory(category))}
+      />
+    ))
+  );
+}
+
+export default ({ onClick }) => {
   const { allInvJson } = useStaticQuery(
     graphql`
       query {
@@ -20,17 +45,7 @@ export default (props) => {
     `
   );
 
-  const filterNodesByCategory = (category) => {
-    return allInvJson.nodes.filter(node => node.category === category);
-  }
-
   return (
-    allInvJson.distinct.map(category => (
-      <DDMenuBtn
-        children={category}
-        key={category}
-        onClick={props.onClick.bind(null, category, filterNodesByCategory(category))}
-      />
-    ))
+    <PureCategoryMenuBtns data={allInvJson} onClick={onClick} />
   );
 };
