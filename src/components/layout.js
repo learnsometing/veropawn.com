@@ -1,11 +1,14 @@
 import React from "react"
 import PropTypes from "prop-types"
+import sizeMe from "react-sizeme";
 
 import "./layout.css"
 import headerStyles from "./header.module.css"
 
-import HeaderMenu from "./header-menu"
+import HeaderLogo from "./header-logo";
+import OpenDDBtn from "./open-dropdown-btn";
 import HeaderModalLeft from "./header-modal-left"
+import ExpandedMainMenu from "./expanded-main-menu";
 
 class Layout extends React.Component {
   constructor(props) {
@@ -81,30 +84,33 @@ class Layout extends React.Component {
   }
 
   render() {
+    let mainMenu;
+    if (this.props.size.width < 768) {
+      mainMenu = <OpenDDBtn value={"Menu"} toggleMenu={this.toggleCollapsedMainMenu} />
+    } else {
+      mainMenu = <ExpandedMainMenu toggleCategoryMenu={this.toggleCategoryMenu} />
+    }
     return (
-      <>
+      <div id="root">
         <div className={headerStyles.headerWrapper}>
           <header className={headerStyles.header}>
-            <HeaderMenu
-              toggleCollapsedMainMenu={this.toggleCollapsedMainMenu}
-              toggleCategoryMenu={this.toggleCategoryMenu}
-            />
+            <nav className={headerStyles.nav}>
+              <HeaderLogo />
+              {mainMenu}
+            </nav >
           </header >
         </div>
-        <div id="layout">
-          <main>{this.props.children}</main>
-          <footer>
-            © {new Date().getFullYear()}, Built with
-            <a href="https://www.gatsbyjs.org">Gatsby</a>
-          </footer>
-        </div>
+        <main id="mainContainer">{this.props.children}</main>
+        <footer>
+          <span>{this.props.size.width}</span>
+        </footer>
         <HeaderModalLeft
           state={this.state.headerModalLeft}
           closeModal={this.closeHeaderModalLeft}
           setToNestedCategoryMenu={this.setLeftModalToNestedCategories}
           setToMainMenu={this.setLeftModalToMain}
         />
-      </>
+      </div>
     )
   }
 }
@@ -113,4 +119,4 @@ Layout.propTypes = {
   children: PropTypes.node.isRequired,
 }
 
-export default Layout;
+export default sizeMe()(Layout);
