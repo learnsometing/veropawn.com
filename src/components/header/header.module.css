@@ -51,26 +51,8 @@
   width: 100%;
 }
 
-.mainMenuBtn {
-  height: 48px;
-  position:fixed;
-  top:0;
-  left: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 0;
-  border: none; 
-  background-color: rgb(115,115,115);
-}
-
 @media only screen and (min-width: 768px) {
   .nav {
     justify-content: flex-start;
-  }
-
-  .mainMenuBtn {
-    height: 85%;
-    position: relative;;
   }
 }

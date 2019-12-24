@@ -1,16 +1,16 @@
-import React from "react"
-import PropTypes from "prop-types"
+import React from "react";
+import PropTypes from "prop-types";
 import sizeMe from "react-sizeme";
 
-import "./layout.css"
-import headerStyles from "./header.module.css"
+import "./layout.css";
+import headerStyles from "../header/header.module.css";
 
-import HeaderLogo from "./header-logo";
-import OpenDDBtn from "./open-dropdown-btn";
-import HeaderModalLeft from "./header-modal-left"
-import CollapsedMainMenu from "./collapsed-main-menu";
-import ExpandedMainMenu from "./expanded-main-menu";
-import CategoryMenu from "./category-menu";
+import HeaderLogo from "../header/header-logo";
+import DDMenuToggleBtn from "../dropdown-menu/dd-menu-toggle-btn";
+import HeaderModalLeft from "../modals/header-modal-left";
+import CollapsedMainMenu from "../header-modal-menus/collapsed-main-menu";
+import ExpandedMainMenu from "../header/expanded-main-menu";
+import CategoryMenu from "../header-modal-menus/category-menu";
 
 
 class Layout extends React.Component {
@@ -70,7 +70,7 @@ class Layout extends React.Component {
   render() {
     let mainMenu;
     if (this.props.size.width < 768) {
-      mainMenu = <OpenDDBtn value={"Menu"} toggleMenu={this.toggleCollapsedMainMenu} />
+      mainMenu = <DDMenuToggleBtn value={"Menu"} toggleMenu={this.toggleCollapsedMainMenu} />
     } else {
       mainMenu = <ExpandedMainMenu toggleCategoryMenu={this.toggleCategoryMenu} />
     }

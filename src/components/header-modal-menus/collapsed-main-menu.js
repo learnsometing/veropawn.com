@@ -8,16 +8,15 @@
 import React from "react"
 
 // Internal Imports
-import DDMenuBtn from "./dd-menu-btn"
-import ddMenuStyles from "./dropdown-menu.module.css"
-import MDPageLinks from "./md-page-links"
+import DDMenuBtn from "../dropdown-menu/dd-menu-btn"
+import headerModalMenuStyles from "./header-modal-menu.module.css"
+import MDPageLinks from "../shared/md-page-links"
 
 export default (props) => {
   return (
-    <ul className={ddMenuStyles.ulist}>
+    <ul className={headerModalMenuStyles.ulist}>
       <DDMenuBtn
         children="Categories"
-        className={ddMenuStyles.link}
         key="browse-by-category"
         onClick={props.openBrowseMenu}
       />

@@ -1,5 +1,5 @@
 /*
-* Open Dropdown Button
+* Dropdown Menu Toggle Button
 *
 * Accepts a dropdown toggle functio and text as props.
 *
@@ -8,7 +8,7 @@
 
 import React, { useState } from "react";
 
-import headerStyles from "./header.module.css";
+import ddMenuStyles from "./dd-menu.module.css";
 import DDStatusIcon from "./dd-menu-status-icon";
 
 export default ({ value, toggleMenu }) => {
@@ -21,7 +21,7 @@ export default ({ value, toggleMenu }) => {
 
   return (
     <button
-      className={headerStyles.mainMenuBtn}
+      className={ddMenuStyles.toggleMenuBtn}
       onClick={handleClick}
     >
       {value} <DDStatusIcon isOpen={isOpen} />

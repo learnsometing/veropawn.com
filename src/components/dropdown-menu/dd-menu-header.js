@@ -5,7 +5,7 @@
 */
 
 import React from "react";
-import ddMenuStyles from "./dropdown-menu.module.css";
+import ddMenuStyles from "./dd-menu.module.css";
 
 export default (props) => {
   return (

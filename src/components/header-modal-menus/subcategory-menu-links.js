@@ -1,5 +1,4 @@
 /*
-*
 * Subcategory Menu Links
 *
 * A simple component that returns a menu of links rendered via the links prop.
@@ -7,7 +6,7 @@
 
 import React from "react";
 
-import DDMenuLink from "./dd-menu-link";
+import DDMenuLink from "../dropdown-menu/dd-menu-link";
 
 export default ({ links }) => {
   return (

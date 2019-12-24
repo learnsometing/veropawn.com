@@ -2,7 +2,7 @@ import React from "react";
 import ReactHtmlParser from "react-html-parser";
 import { graphql } from "gatsby";
 
-import Layout from "../components/layout";
+import Layout from "../components/layout/layout";
 
 export default ({ data }) => {
   const createHtmlFromMarkup = () => {

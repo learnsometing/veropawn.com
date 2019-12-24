@@ -8,13 +8,13 @@
 import React from "react"
 
 // Internal Imports
-import OpenDDBtn from "./open-dropdown-btn"
-import MDPageLinks from "./md-page-links"
+import DDMenuToggleBtn from "../dropdown-menu/dd-menu-toggle-btn"
+import MDPageLinks from "../shared/md-page-links"
 
 export default (props) => {
   return (
     <>
-      <OpenDDBtn
+      <DDMenuToggleBtn
         value={"Categories"}
         key="browse-by-category"
         toggleMenu={props.toggleCategoryMenu}

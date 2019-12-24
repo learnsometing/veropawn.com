@@ -1,7 +1,7 @@
 import React from "react"
 import { graphql } from "gatsby"
-import Layout from "../components/layout"
-import ItemCard from "../components/item-card"
+import Layout from "../components/layout/layout"
+import ItemCard from "../components/item-card/item-card"
 
 export default ({ data }) => {
   const items = data.invJson.items

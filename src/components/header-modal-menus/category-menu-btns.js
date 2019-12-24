@@ -1,7 +1,7 @@
 import React from "react";
 import { graphql, useStaticQuery } from "gatsby";
 
-import DDMenuBtn from "./dd-menu-btn"
+import DDMenuBtn from "../dropdown-menu/dd-menu-btn"
 
 export default (props) => {
   const { allInvJson } = useStaticQuery(

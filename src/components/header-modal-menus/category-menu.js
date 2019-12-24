@@ -10,9 +10,9 @@ import React, { useState } from "react";
 import { FaAngleLeft } from "react-icons/fa";
 
 // Internal imports
-import ddMenuStyles from "./dropdown-menu.module.css";
-import DDMenuBtn from "./dd-menu-btn";
-import DDMenuHeader from "./dd-menu-header";
+import headerModalMenuStyles from "./header-modal-menu.module.css";
+import DDMenuBtn from "../dropdown-menu/dd-menu-btn";
+import DDMenuHeader from "../dropdown-menu/dd-menu-header";
 import CategoryMenuBtns from "./category-menu-btns";
 import SubcategoryMenuLinks from "./subcategory-menu-links";
 
@@ -58,7 +58,7 @@ export default (props) => {
   }
 
   return (
-    <ul className={ddMenuStyles.ulist}>
+    <ul className={headerModalMenuStyles.uList}>
       {children}
     </ul>
   );

@@ -1,8 +1,8 @@
 import React from "react";
 import { graphql, useStaticQuery } from "gatsby";
 
-import DDMenuLink from "./dd-menu-link"
-import HeaderMenuLink from "./header-menu-link"
+import DDMenuLink from "../dropdown-menu/dd-menu-link"
+import HeaderMenuLink from "../header/header-menu-link"
 
 export default ({ collapsed }) => {
   const { allMarkdownRemark } = useStaticQuery(graphql`

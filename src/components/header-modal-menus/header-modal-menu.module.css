@@ -1,0 +1,9 @@
+.uList {
+  width: 100%;
+  position: relative;
+  margin: 0;
+  background-color: #fff;
+  z-index: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
