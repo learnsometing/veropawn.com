@@ -5,7 +5,7 @@
 import React from "react";
 import renderer from "react-test-renderer";
 
-import DDMenuBtn from "../dd-menu-btn";
+import DDMenuBtn from "../dropdown-menu/dd-menu-btn";
 
 describe("Dropdown menu button", () => {
   test("Matches the snapshot", () => {
