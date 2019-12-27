@@ -1,9 +1,9 @@
 /*
 * Category Menu Buttons
 *
-* Returns a list of buttons that each have a category's name as its text.
+* Returns a list of buttons that each have a category name as text.
 * 
-* When clicked, each button should render a list of links to thes category's
+* When clicked, each button should render a list of links to the category's
 * subcategory pages.
 */
 

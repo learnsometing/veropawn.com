@@ -8,9 +8,9 @@ import React from "react";
 
 import DDMenuLink from "../dropdown-menu/dd-menu-link";
 
-export default ({ links }) => {
+export default ({ nodes }) => {
   return (
-    links.map(node => (
+    nodes.map(node => (
       <DDMenuLink
         key={node.id}
         link={node.slug}
