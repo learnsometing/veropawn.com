@@ -28,7 +28,7 @@ export const PureCategoryMenuBtns = ({ data, onClick }) => {
   );
 }
 
-export default ({ onClick }) => {
+export default ({ openSubcatMenu }) => {
   const { allInvJson } = useStaticQuery(
     graphql`
       query {
@@ -46,6 +46,6 @@ export default ({ onClick }) => {
   );
 
   return (
-    <PureCategoryMenuBtns data={allInvJson} onClick={onClick} />
+    <PureCategoryMenuBtns data={allInvJson} onClick={openSubcatMenu} />
   );
 };
