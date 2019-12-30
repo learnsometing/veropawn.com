@@ -4,7 +4,7 @@ import React from "react";
 import { cleanup, fireEvent, render } from "@testing-library/react";
 
 import { withSubcategoryMenu } from "../header-modal-menus/category-menu";
-import { CategoryMenuBtnsMock, NestedCategoryMenuMock } from "../../../__mocks__/category-menu-mocks";
+import { CategoryMenuBtnsMock, NestedCategoryMenuMock } from "../__mocks__/category-menu-mocks";
 
 // Mock data
 import catMenuBtnsData from "../__fixtures__/category-menu-btns-data";

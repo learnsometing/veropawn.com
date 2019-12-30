@@ -85,6 +85,6 @@ export function withSubcategoryMenu(Component, backToMainMenu = undefined) {
       );
     };
   }
-  WithSubcategoryMenu.displayName = `WithSubscategory(${getDisplayName(Component)})`;
+  WithSubcategoryMenu.displayName = `WithSubcategory(${getDisplayName(Component)})`;
   return WithSubcategoryMenu;
 }
