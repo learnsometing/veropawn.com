@@ -8,11 +8,10 @@
 */
 
 import React from "react";
-import { graphql, useStaticQuery } from "gatsby";
 
 import DDMenuBtn from "../dropdown-menu/dd-menu-btn";
 
-export const PureCategoryMenuBtns = ({ data, onClick }) => {
+export default ({ data, onClick }) => {
   const filterNodesByCategory = (category) => {
     return data.nodes.filter(node => node.category === category);
   }
@@ -27,25 +26,3 @@ export const PureCategoryMenuBtns = ({ data, onClick }) => {
     ))
   );
 }
-
-export default ({ openSubcatMenu }) => {
-  const { allInvJson } = useStaticQuery(
-    graphql`
-      query {
-        allInvJson(sort: {fields: category}) {
-          distinct(field: category)
-          nodes{
-            category
-            id
-            subcategory
-            slug
-          }
-        }
-      }
-    `
-  );
-
-  return (
-    <PureCategoryMenuBtns data={allInvJson} onClick={openSubcatMenu} />
-  );
-};

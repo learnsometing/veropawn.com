@@ -5,7 +5,7 @@ import { render, fireEvent } from "@testing-library/react";
 
 import catMenuBtnsData from "../__fixtures__/category-menu-btns-data";
 import subcatNodes from "../__fixtures__/subcategory-nodes";
-import { PureCategoryMenuBtns as CategoryMenuBtns } from "../header-modal-menus/category-menu-btns";
+import CategoryMenuBtns from "../header-modal-menus/category-menu-btns";
 
 describe("Category Menu Buttons", () => {
   const { data } = catMenuBtnsData;

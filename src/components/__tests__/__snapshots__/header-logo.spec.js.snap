@@ -14,7 +14,6 @@ exports[`HeaderLogo component Matches the snapshot 1`] = `
       <img
         alt="Cash Pawn and Jewelry Logo"
         className="svg"
-        src="/static/logo-c88db6fb705fc71a30bcbcbbdd1c72b8.svg"
       />
     </div>
   </span>

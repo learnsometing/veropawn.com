@@ -1,5 +1,7 @@
 import React from "react"
 import { graphql } from "gatsby"
+
+import "../components/layout/layout.css";
 import Layout from "../components/layout/layout"
 import ItemCard from "../components/item-card/item-card"
 

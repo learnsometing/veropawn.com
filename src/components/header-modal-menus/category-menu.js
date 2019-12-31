@@ -6,85 +6,60 @@
 */
 
 // External imports
-import React from "react";
+import React, { useState } from "react";
 import { FaAngleLeft } from "react-icons/fa";
 
 // Internal imports
 import headerModalMenuStyles from "./header-modal-menu.module.css";
 import DDMenuBtn from "../dropdown-menu/dd-menu-btn";
 import DDMenuHeader from "../dropdown-menu/dd-menu-header";
+import CategoryMenuBtns from "./category-menu-btns";
 import SubcategoryMenuLinks from "./subcategory-menu-links";
 
-function getDisplayName(Component) {
-  return Component.displayName || Component.name || 'Component';
-}
+export default ({ data, ...props }) => {
+  const [subcatMenuOpen, setSubcatMenuOpen] = useState(false);
+  const [subcatMenuHeader, setSubcatMenuHeader] = useState('');
+  const [subcatMenuLinks, setSubcatMenuLinks] = useState([]);
 
-export function withSubcategoryMenu(Component, backToMainMenu = undefined) {
-  class WithSubcategoryMenu extends React.Component {
-    constructor(props) {
-      super(props);
-      this.state = {
-        subcatMenuOpen: false,
-        subcatMenuHeader: "",
-        subcatMenuLinks: []
-      }
-
-      this.openSubcatMenu = this.openSubcatMenu.bind(this);
-      this.closeSubcatMenu = this.closeSubcatMenu.bind(this);
-    }
-
-    openSubcatMenu = (header, links) => {
-      this.setState({
-        subcatMenuOpen: true,
-        subcatMenuHeader: header,
-        subcatMenuLinks: links
-      });
-    }
-
-    closeSubcatMenu = () => {
-      this.setState({
-        subcatMenuOpen: false,
-        subcatMenuHeader: '',
-        subcatMenuLinks: []
-      });
-    }
-
-    render() {
-      const openSubcatMenu = this.openSubcatMenu;
-      const closeSubcatMenu = this.closeSubcatMenu;
-
-      const subcatMenuOpen = this.state.subcatMenuOpen;
-      const subcatMenuHeader = this.state.subcatMenuHeader;
-      const subcatMenuLinks = this.state.subcatMenuLinks;
-
-      let children;
-
-      if (getDisplayName(Component).includes("CategoryMenuBtns")) {
-        children = <Component onClick={openSubcatMenu} />;
-      } else if (getDisplayName(Component).includes("NestedCategoryMenu")) {
-        children = <Component onClick={openSubcatMenu} backToMainMenu={backToMainMenu} />;
-      };
-
-      if (subcatMenuOpen) {
-        children = <>
-          <DDMenuBtn key="back-to-categories" onClick={closeSubcatMenu}>
-            <FaAngleLeft />
-            {"Back"}
-          </DDMenuBtn>
-          <DDMenuHeader key={subcatMenuHeader}>
-            <span>{subcatMenuHeader}</span>
-          </DDMenuHeader>
-          <SubcategoryMenuLinks nodes={subcatMenuLinks} />
-        </>
-      }
-
-      return (
-        <ul className={headerModalMenuStyles.uList}>
-          {children}
-        </ul>
-      );
-    };
+  const openSubcatMenu = (header, links) => {
+    setSubcatMenuOpen(true);
+    setSubcatMenuHeader(header);
+    setSubcatMenuLinks(links);
   }
-  WithSubcategoryMenu.displayName = `WithSubcategory(${getDisplayName(Component)})`;
-  return WithSubcategoryMenu;
+
+  const closeSubcatMenu = () => {
+    setSubcatMenuOpen(false);
+    setSubcatMenuHeader('');
+    setSubcatMenuLinks([]);
+  }
+
+  let menu;
+
+  if (subcatMenuOpen) {
+    menu =
+      <>
+        <DDMenuBtn key="back-to-categories" onClick={closeSubcatMenu}>
+          <FaAngleLeft />
+          {"Back"}
+        </DDMenuBtn>
+        <DDMenuHeader key={subcatMenuHeader}>
+          {subcatMenuHeader}
+        </DDMenuHeader>
+        <SubcategoryMenuLinks nodes={subcatMenuLinks} />
+      </>;
+  } else {
+    menu =
+      <>
+        <DDMenuHeader key={"categories"}>
+          Categories
+        </DDMenuHeader>
+        <CategoryMenuBtns data={data} onClick={openSubcatMenu} />
+      </>
+  }
+
+  return (
+    <ul className={headerModalMenuStyles.uList}>
+      {menu}
+    </ul>
+  );
 }
