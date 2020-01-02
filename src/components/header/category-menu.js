@@ -1,21 +1,55 @@
-/*
-* Category Menu
-*
-* A dropdown menu that exposes the categories of items in the pawn shop's
-* inventory to the user.
-*/
-
 // External imports
 import React, { useState } from "react";
 import { FaAngleLeft } from "react-icons/fa";
 
 // Internal imports
 import DDMenuBtn from "../dropdown-menu/dd-menu-btn";
+import DDMenuLink from "../dropdown-menu/dd-menu-link";
 import DDMenuHeader from "../dropdown-menu/dd-menu-header";
-import CategoryMenuBtns from "./category-menu-btns";
-import SubcategoryMenuLinks from "./subcategory-menu-links";
+
+const CategoryMenuBtns = ({ data, onClick }) => {
+  /*
+  * Returns a list of buttons that each have a category name as text.
+  * 
+  * When clicked, each button should render a list of links to the category's
+  * subcategory pages.
+  */
+
+  const filterNodesByCategory = (category) => {
+    return data.nodes.filter(node => node.category === category);
+  }
+
+  return (
+    data.distinct.map(category => (
+      <DDMenuBtn
+        children={category}
+        key={category}
+        onClick={onClick.bind(null, category, filterNodesByCategory(category))}
+      />
+    ))
+  );
+}
+
+const SubcategoryMenuLinks = ({ nodes }) => {
+  return (
+    nodes.map(node => (
+      <DDMenuLink
+        key={node.id}
+        link={node.slug}
+        value={node.subcategory}
+      />
+    ))
+  );
+}
 
 export default ({ data, ...props }) => {
+  /*
+  * Category Menu
+  *
+  * A dropdown menu that exposes the categories of items in the pawn shop's
+  * inventory to the user.
+  */
+
   const [subcatMenuOpen, setSubcatMenuOpen] = useState(false);
   const [subcatMenuHeader, setSubcatMenuHeader] = useState('');
   const [subcatMenuLinks, setSubcatMenuLinks] = useState([]);
