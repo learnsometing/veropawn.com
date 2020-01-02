@@ -3,19 +3,19 @@
 *
 * Modal for header menu dropdown content that appears on the left side of the screen.
 * 
-* Renders the menu in state.headerModalLeft.state.
-* 
 */
 
 import React from "react";
 import ReactModal from "react-modal";
 
+import headerModalLeftStyles from "./header-modal-left.module.css";
+
 ReactModal.setAppElement('#___gatsby');
 
-export default ({ state, closeModal }) => {
+export default ({ isOpen, closeModal, children }) => {
   return (
     <ReactModal
-      isOpen={state.isOpen}
+      isOpen={isOpen}
       onRequestClose={closeModal}
       style={{
         overlay: {
@@ -31,6 +31,7 @@ export default ({ state, closeModal }) => {
           top: '48px',
           left: 0,
           margin: 0,
+          border: 'none',
           borderRadius: 0,
           backgroundColor: '#fff',
           zIndex: 1,
@@ -39,7 +40,9 @@ export default ({ state, closeModal }) => {
         }
       }}
     >
-      {state.menu}
+      <ul className={headerModalLeftStyles.uList}>
+        {children}
+      </ul >
     </ReactModal >
   );
 }

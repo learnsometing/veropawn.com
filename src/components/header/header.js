@@ -10,23 +10,16 @@ import HeaderLogo from "../header/header-logo";
 import CollapsedMainMenu from "../header-modal-menus/collapsed-main-menu";
 import ExpandedMainMenu from "../header/expanded-main-menu";
 
+import { withHeaderModalLeft } from "../header-modal-menus/with-header-modal-left";
 ReactModal.setAppElement('#___gatsby');
 
 export const PureHeader = ({ size, ...props }) => {
 
-  let headerMenu;
+  let HeaderMenu;
   if (size.width < 768) {
-    headerMenu =
-      <CollapsedMainMenu
-        allMarkdownRemark={props.allMarkdownRemark}
-        allInvJson={props.allInvJson}
-      />;
+    HeaderMenu = withHeaderModalLeft(CollapsedMainMenu);
   } else {
-    headerMenu =
-      <ExpandedMainMenu
-        allMarkdownRemark={props.allMarkdownRemark}
-        allInvJson={props.allInvJson}
-      />;
+    HeaderMenu = withHeaderModalLeft(ExpandedMainMenu);
   }
 
   return (
@@ -34,7 +27,10 @@ export const PureHeader = ({ size, ...props }) => {
       <header className={headerStyles.header}>
         <nav className={headerStyles.nav}>
           <HeaderLogo logo={props.logo} />
-          {headerMenu}
+          <HeaderMenu
+            allInvJson={props.allInvJson}
+            allMarkdownRemark={props.allMarkdownRemark}
+          />
           <span>{size.width}</span>
         </nav >
       </header >
@@ -42,7 +38,7 @@ export const PureHeader = ({ size, ...props }) => {
   );
 }
 
-export const Header = ({ size, ...props }) => {
+export const Header = ({ size }) => {
   const { logo, allMarkdownRemark, allInvJson } = useStaticQuery(
     graphql`
       query {

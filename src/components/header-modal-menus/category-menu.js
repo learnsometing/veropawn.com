@@ -10,7 +10,6 @@ import React, { useState } from "react";
 import { FaAngleLeft } from "react-icons/fa";
 
 // Internal imports
-import headerModalMenuStyles from "./header-modal-menu.module.css";
 import DDMenuBtn from "../dropdown-menu/dd-menu-btn";
 import DDMenuHeader from "../dropdown-menu/dd-menu-header";
 import CategoryMenuBtns from "./category-menu-btns";
@@ -33,33 +32,25 @@ export default ({ data, ...props }) => {
     setSubcatMenuLinks([]);
   }
 
-  let menu;
-
-  if (subcatMenuOpen) {
-    menu =
+  return (
+    subcatMenuOpen
+      ?
       <>
         <DDMenuBtn key="back-to-categories" onClick={closeSubcatMenu}>
           <FaAngleLeft />
-          {"Back"}
+          {"Categories"}
         </DDMenuBtn>
         <DDMenuHeader key={subcatMenuHeader}>
           {subcatMenuHeader}
         </DDMenuHeader>
         <SubcategoryMenuLinks nodes={subcatMenuLinks} />
-      </>;
-  } else {
-    menu =
+      </>
+      :
       <>
         <DDMenuHeader key={"categories"}>
           Categories
         </DDMenuHeader>
         <CategoryMenuBtns data={data} onClick={openSubcatMenu} />
       </>
-  }
-
-  return (
-    <ul className={headerModalMenuStyles.uList}>
-      {menu}
-    </ul>
   );
 }
