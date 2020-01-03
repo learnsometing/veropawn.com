@@ -11,18 +11,14 @@ import { airToolPages, allInvJson } from "../__fixtures__/category-menu-data";
 describe("CategoryMenu", () => {
   const subcategories = airToolPages.map(node => node.subcategory);
 
-  afterAll(() => {
-    cleanup;
-  });
+  afterEach(cleanup);
 
   it("Should render the default menu correctly", () => {
     const { queryByRole, queryAllByRole } = render(<CategoryMenu data={allInvJson} />);
+    const buttonText = queryAllByRole('button').map(button => button.textContent);
 
     // The default category menu should give each distinct category its own button
-    queryAllByRole('button').forEach(button => {
-      expect(allInvJson.distinct.includes(button.textContent)).toBeTruthy();
-      expect(button.textContent).not.toBe("Categories");
-    });
+    expect(buttonText).toEqual(allInvJson.distinct);
 
     // The default category menu should not contain any subcategory links
     expect(queryByRole('link')).toBeFalsy();
@@ -35,15 +31,13 @@ describe("CategoryMenu", () => {
     fireEvent.click(queryByText("Air Tools"));
 
     const backButton = queryByRole('button');
-    const subcatPageLinks = queryAllByRole('link');
+    const subcatPageLinks = queryAllByRole('link').map(link => link.textContent);
 
     // The button that takes the user back to the category menu should be present
     expect(backButton.textContent).toBe("Categories");
 
     // Each page of subcategories for the selected category should be given a link
-    subcatPageLinks.forEach(link => {
-      expect(subcategories.includes(link.textContent)).toBeTruthy();
-    });
+    expect(subcatPageLinks).toEqual(subcategories);
   });
 
   it("Should take the user back when the 'Categories' button is clicked", () => {
@@ -63,9 +57,10 @@ describe("CategoryMenu", () => {
 
     // Subcategory menu should be replaced with default menu
     expect(firstButton.textContent).not.toBe("Categories");
-    queryAllByRole('button').forEach(button => {
-      expect(allInvJson.distinct.includes(button.textContent)).toBeTruthy();
-    });
+
+    const buttonText = queryAllByRole('button').map(button => button.textContent);
+
+    expect(buttonText).toEqual(allInvJson.distinct);
 
     // No subcategory links should remain
     expect(queryByRole('link')).toBeFalsy();
