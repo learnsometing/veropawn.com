@@ -6,10 +6,29 @@ import allMarkdownRemark from "../__fixtures__/all-markdown-remark";
 import MDPageLinks from "../shared/md-page-links";
 
 describe("MDPageLinks", () => {
-  it("Renders the correct links when collapsed", () => {
+  it("Supplies the correct information to each link when rendered", () => {
     const { queryAllByRole } = render(
       <MDPageLinks
-        allMarkdownRemark={allMarkdownRemark}
+        data={allMarkdownRemark}
+        collapsed={true}
+      />
+    );
+
+    const links = queryAllByRole('link');
+
+    const slugs = allMarkdownRemark.nodes.map(node => node.fields.slug);
+    const values = allMarkdownRemark.nodes.map(node => node.frontmatter.title);
+
+    links.forEach(link => {
+      expect(slugs.some(slug => link.href.includes(slug))).toBeTruthy();
+      expect(values).toContain(link.textContent);
+    });
+  });
+
+  it("Renders dropdown menu links when collapsed", () => {
+    const { queryAllByRole } = render(
+      <MDPageLinks
+        data={allMarkdownRemark}
         collapsed={true}
       />
     );
@@ -17,10 +36,10 @@ describe("MDPageLinks", () => {
     queryAllByRole('link').forEach(link => expect(link.parentElement.tagName).toBe("LI"));
   });
 
-  it("Renders the correct links when not collapsed", () => {
+  it("Renders header links when expanded", () => {
     const { queryAllByRole } = render(
       <MDPageLinks
-        allMarkdownRemark={allMarkdownRemark}
+        data={allMarkdownRemark}
         collapsed={false}
       />
     );

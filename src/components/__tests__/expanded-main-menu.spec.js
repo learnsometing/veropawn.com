@@ -6,7 +6,6 @@ import allMarkdownRemark from "../__fixtures__/all-markdown-remark";
 import ExpandedMainMenu from "../header/expanded-main-menu";
 
 describe('ExpandedMainMenu', () => {
-  // need to mock the toggleMenu function
   const toggleMenuMock = jest.fn(menu => { if (menu) { return true } });
 
   afterEach(cleanup);
@@ -24,7 +23,7 @@ describe('ExpandedMainMenu', () => {
     const categoryMenuToggleBtn = queryByRole('button');
     const children = Array.from(categoryMenuToggleBtn.childNodes);
     expect(categoryMenuToggleBtn.textContent).toMatch(/\w\b\s/);
-    expect(children).toContain(queryByTestId("down"));
+    expect(children).toContain(queryByTestId("fa-angle-down-icon"));
   });
 
   it('should render the menu button with an up arrow when isOpen', () => {
@@ -40,7 +39,7 @@ describe('ExpandedMainMenu', () => {
     const categoryMenuToggleBtn = queryByRole('button');
     const children = Array.from(categoryMenuToggleBtn.childNodes);
     expect(categoryMenuToggleBtn.textContent).toMatch(/\w\b\s/);
-    expect(children).toContain(queryByTestId("up"));
+    expect(children).toContain(queryByTestId("fa-angle-up-icon"));
   });
 
   it('should have a working toggleMenu function', () => {

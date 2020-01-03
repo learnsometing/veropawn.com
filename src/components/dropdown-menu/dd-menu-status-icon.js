@@ -9,10 +9,10 @@ import React from "react";
 import { FaAngleUp, FaAngleDown } from "react-icons/fa";
 
 export default ({ isOpen }) => {
-  let icon = <FaAngleDown data-testid={"down"} />;
+  let icon = <FaAngleDown data-testid={"fa-angle-down-icon"} />;
 
   if (isOpen) {
-    icon = <FaAngleUp data-testid={"up"} />;
+    icon = <FaAngleUp data-testid={"fa-angle-up-icon"} />;
   }
 
   return icon;

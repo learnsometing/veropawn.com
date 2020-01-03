@@ -27,7 +27,7 @@ export default (props) => {
         toggleMenu={toggleMenu}
       />
       <MDPageLinks
-        allMarkdownRemark={props.allMarkdownRemark}
+        data={props.allMarkdownRemark}
         collapsed={false}
       />
     </>
