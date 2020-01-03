@@ -25,7 +25,7 @@ describe("CategoryMenu", () => {
   });
 
   it("Should render the correct subcat menu when its button is clicked", () => {
-    const { queryByText, queryByRole, queryAllByRole } = render(<CategoryMenu data={allInvJson} />);
+    const { queryByText, queryByRole, queryAllByRole, queryByTestId } = render(<CategoryMenu data={allInvJson} />);
 
     // Click the air tools button to open the air tools menu
     fireEvent.click(queryByText("Air Tools"));
@@ -34,14 +34,15 @@ describe("CategoryMenu", () => {
     const subcatPageLinks = queryAllByRole('link').map(link => link.textContent);
 
     // The button that takes the user back to the category menu should be present
-    expect(backButton.textContent).toBe("Categories");
+    expect(backButton.childNodes).toContain(queryByTestId('angle-left-icon'));
+    expect(backButton.textContent).toBeTruthy();
 
     // Each page of subcategories for the selected category should be given a link
     expect(subcatPageLinks).toEqual(subcategories);
   });
 
   it("Should take the user back when the 'Categories' button is clicked", () => {
-    const { queryByText, queryByRole, queryAllByRole } = render(<CategoryMenu data={allInvJson} />);
+    const { queryByText, queryByRole, queryAllByRole, queryByTestId } = render(<CategoryMenu data={allInvJson} />);
 
     // Open the Air Tools menu
     fireEvent.click(queryByText("Air Tools"));
@@ -56,10 +57,13 @@ describe("CategoryMenu", () => {
     firstButton = queryAllByRole('button')[0];
 
     // Subcategory menu should be replaced with default menu
-    expect(firstButton.textContent).not.toBe("Categories");
+
+    // first button does not have the angle icon in it (only the back button does)
+    expect(firstButton.childNodes).not.toContain(queryByTestId('angle-left-icon'));
 
     const buttonText = queryAllByRole('button').map(button => button.textContent);
 
+    // The text of all the buttons is equal to the distinct array
     expect(buttonText).toEqual(allInvJson.distinct);
 
     // No subcategory links should remain

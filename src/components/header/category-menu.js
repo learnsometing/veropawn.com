@@ -71,7 +71,7 @@ export default ({ data, ...props }) => {
       ?
       <>
         <DDMenuBtn key="back-to-categories" onClick={closeSubcatMenu}>
-          <FaAngleLeft />
+          <FaAngleLeft data-testid="angle-left-icon" />
           {"Categories"}
         </DDMenuBtn>
         <DDMenuHeader key={subcatMenuHeader}>
