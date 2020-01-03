@@ -2,12 +2,10 @@
 import React from "react";
 import { render } from "@testing-library/react";
 
-import remarkData from "../__fixtures__/all-markdown-remark";
+import allMarkdownRemark from "../__fixtures__/all-markdown-remark";
 import MDPageLinks from "../shared/md-page-links";
 
 describe("MDPageLinks", () => {
-  const { allMarkdownRemark } = remarkData;
-
   it("Renders the correct links when collapsed", () => {
     const { queryAllByRole } = render(
       <MDPageLinks
