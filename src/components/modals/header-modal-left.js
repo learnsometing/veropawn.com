@@ -10,13 +10,12 @@ import ReactModal from "react-modal";
 
 import headerModalLeftStyles from "./header-modal-left.module.css";
 
-ReactModal.setAppElement('#___gatsby');
-
 export default ({ isOpen, closeModal, children }) => {
   return (
     <ReactModal
       isOpen={isOpen}
       onRequestClose={closeModal}
+      role={'menu'}
       style={{
         overlay: {
           height: '100%',
