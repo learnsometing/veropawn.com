@@ -1,9 +1,9 @@
 {
-  "name": "gatsby-starter-default",
+  "name": "cash-pawn-and-jewelry-website",
   "private": true,
-  "description": "A simple starter to get up and developing quickly with Gatsby",
-  "version": "0.1.0",
-  "author": "Kyle Mathews <mathews.kyle@gmail.com>",
+  "description": "A website catalogue of Cash Pawn and Jewelry's inventory",
+  "version": "0.2.0",
+  "author": "Brian Monaccio <brianmonaccio@gmail.com>",
   "dependencies": {
     "gatsby": "^2.18.11",
     "gatsby-image": "^2.2.36",
@@ -49,9 +49,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/gatsbyjs/gatsby-starter-default"
+    "url": "https://github.com/learnsometing/veropawn.com"
   },
   "bugs": {
-    "url": "https://github.com/gatsbyjs/gatsby/issues"
+    "url": "https://github.com/learnsometing/veropawn.com/issues"
   }
 }
