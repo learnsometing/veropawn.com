@@ -3,9 +3,7 @@ import React, { useState } from "react";
 import { FaAngleLeft } from "react-icons/fa";
 
 // Internal imports
-import DDMenuBtn from "../dropdown-menu/dd-menu-btn";
-import DDMenuLink from "../dropdown-menu/dd-menu-link";
-import DDMenuHeader from "../dropdown-menu/dd-menu-header";
+import { DDMenuBtn, DDMenuLink, DDMenuHeader } from "../dropdown-menu/dd-menu";
 
 const CategoryMenuBtns = ({ data, onClick }) => {
   /*

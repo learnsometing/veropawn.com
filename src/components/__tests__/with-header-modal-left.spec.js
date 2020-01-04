@@ -1,7 +1,7 @@
 import React from "react";
 import { fireEvent, render } from "@testing-library/react";
 
-import { withHeaderModalLeft } from "../header/with-header-modal-left";
+import { withHeaderModalLeft } from "../header/header";
 import ExpandedCategoryMenuMock from "../__mocks__/expanded-main-menu-mock";
 
 describe('withHeaderModal', () => {

@@ -1,7 +1,7 @@
 /*
 * Collapsed Main Menu
 *
-* The main menu that is rendered when the screen width is below 767 px.
+* The main menu that is rendered when the screen width is below 668 px.
 */
 
 // Node_Modules Imports
@@ -9,9 +9,7 @@ import React, { useState } from "react";
 import { FaAngleLeft } from "react-icons/fa";
 
 // Internal Imports
-import DDMenuHeader from "../dropdown-menu/dd-menu-header";
-import DDMenuBtn from "../dropdown-menu/dd-menu-btn";
-import DDMenuToggleBtn from "../dropdown-menu/dd-menu-toggle-btn";
+import { DDMenuHeader, DDMenuBtn, DDMenuToggleBtn } from "../dropdown-menu/dd-menu";
 import MDPageLinks from "../shared/md-page-links";
 
 import CategoryMenu from "./category-menu";

@@ -6,7 +6,7 @@ import React from "react";
 import renderer from "react-test-renderer";
 
 import logoData from "../__fixtures__/logo-data"
-import HeaderLogo from "../header/header-logo";
+import { HeaderLogo } from "../header/header";
 
 describe("HeaderLogo component", () => {
   test("Matches the snapshot", () => {

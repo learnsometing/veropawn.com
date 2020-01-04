@@ -8,7 +8,7 @@
 import React from "react";
 
 // Internal Imports
-import DDMenuToggleBtn from "../dropdown-menu/dd-menu-toggle-btn";
+import { DDMenuToggleBtn } from "../dropdown-menu/dd-menu";
 import MDPageLinks from "../shared/md-page-links";
 
 import CategoryMenu from "./category-menu";

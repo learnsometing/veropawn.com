@@ -1,7 +1,12 @@
 import React from "react";
+import { Link } from "gatsby";
 
-import DDMenuLink from "../dropdown-menu/dd-menu-link"
-import HeaderMenuLink from "../header/header-menu-link"
+import { DDMenuLink } from "../dropdown-menu/dd-menu";
+import headerStyles from "../header/header.module.css";
+
+export const HeaderMenuLink = (props) => (
+  <Link className={headerStyles.link} to={props.link}>{props.value}</Link>
+);
 
 export default ({ data, collapsed }) => {
   let LinkType = HeaderMenuLink;

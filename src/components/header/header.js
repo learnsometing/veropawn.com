@@ -1,15 +1,60 @@
-// Imports from Node_Modules
-import React from "react";
-import { graphql, useStaticQuery } from "gatsby";
+// Node_Modules Imports
+import React, { useState } from "react";
+import { graphql, Link, useStaticQuery } from "gatsby";
 import sizeMe from "react-sizeme";
 
-// Imports used in PureHeader/Header
+// Internal Imports
 import headerStyles from "../header/header.module.css";
-import HeaderLogo from "../header/header-logo";
+import HeaderModalLeft from "../modals/header-modal-left";
 import CollapsedMainMenu from "../header/collapsed-main-menu";
 import ExpandedMainMenu from "../header/expanded-main-menu";
 
-import { withHeaderModalLeft } from "../header/with-header-modal-left";
+export const HeaderLogo = ({ logo }) => (
+  // A link to the home page that contains the site's SVG logo
+
+  <Link to='/' className={headerStyles.link}>
+    <span className={headerStyles.iconWrapper}>
+      <div className={headerStyles.svgWrapper}>
+        <img
+          className={headerStyles.svg}
+          src={logo.publicURL}
+          alt="Cash Pawn and Jewelry Logo"
+        />
+      </div>
+    </span>
+  </Link>
+);
+
+export const withHeaderModalLeft = MenuComponent => {
+  return props => {
+    const [isOpen, setIsOpen] = useState(false);
+    const [modalMenu, setModalMenu] = useState(null);
+
+    const toggleMenu = (menu) => {
+      setIsOpen(!isOpen);
+      setModalMenu(modalMenu ? null : menu);
+    };
+
+    const closeModal = () => {
+      setIsOpen(false);
+      setModalMenu(null);
+    };
+
+    return (
+      <>
+        <MenuComponent
+          allInvJson={props.allInvJson}
+          allMarkdownRemark={props.allMarkdownRemark}
+          isOpen={isOpen}
+          toggleMenu={toggleMenu}
+        />
+        <HeaderModalLeft isOpen={isOpen} closeModal={closeModal} >
+          {modalMenu}
+        </HeaderModalLeft>
+      </>
+    );
+  }
+}
 
 export const PureHeader = ({ size, ...props }) => {
   let HeaderMenu;

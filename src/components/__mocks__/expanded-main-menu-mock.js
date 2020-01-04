@@ -2,7 +2,7 @@
 
 import React from "react";
 
-import DDMenuToggleBtn from "../dropdown-menu/dd-menu-toggle-btn";
+import { DDMenuToggleBtn } from "../dropdown-menu/dd-menu";
 
 export default (props) => {
   const toggleMenu = props.toggleMenu.bind(null, <li>Test Item</li>);
