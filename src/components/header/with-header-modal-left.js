@@ -11,14 +11,9 @@ import React, { useState } from "react";
 import HeaderModalLeft from "../modals/header-modal-left";
 
 export const withHeaderModalLeft = MenuComponent => {
-  const WithHeaderModalLeft = props => {
+  return props => {
     const [isOpen, setIsOpen] = useState(false);
     const [modalMenu, setModalMenu] = useState(null);
-
-    const openModalWithMenu = (menu) => {
-      setIsOpen(true);
-      setModalMenu(menu);
-    };
 
     const toggleMenu = (menu) => {
       setIsOpen(!isOpen);
@@ -36,7 +31,6 @@ export const withHeaderModalLeft = MenuComponent => {
           allInvJson={props.allInvJson}
           allMarkdownRemark={props.allMarkdownRemark}
           isOpen={isOpen}
-          openModalWithMenu={openModalWithMenu}
           toggleMenu={toggleMenu}
         />
         <HeaderModalLeft isOpen={isOpen} closeModal={closeModal} >
@@ -45,6 +39,4 @@ export const withHeaderModalLeft = MenuComponent => {
       </>
     );
   }
-
-  return WithHeaderModalLeft;
 }
