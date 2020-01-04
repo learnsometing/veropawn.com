@@ -1,10 +1,6 @@
 import React from "react";
-// import ReactDOM from "react-dom";
-// import TestUtils from "react-dom/test-utils";
-import { fireEvent, render, queryByRole } from "@testing-library/react";
+import { fireEvent, render } from "@testing-library/react";
 
-// import { allInvJson } from "../__fixtures__/category-menu-data";
-// import allMarkdownRemark from "../__fixtures__/all-markdown-remark";
 import { withHeaderModalLeft } from "../header/with-header-modal-left";
 import ExpandedCategoryMenuMock from "../__mocks__/expanded-main-menu-mock";
 
