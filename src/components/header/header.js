@@ -2,21 +2,19 @@
 import React from "react";
 import { graphql, useStaticQuery } from "gatsby";
 import sizeMe from "react-sizeme";
-import ReactModal from "react-modal";
 
 // Imports used in PureHeader/Header
 import headerStyles from "../header/header.module.css";
 import HeaderLogo from "../header/header-logo";
-import CollapsedMainMenu from "../header-modal-menus/collapsed-main-menu";
+import CollapsedMainMenu from "../header/collapsed-main-menu";
 import ExpandedMainMenu from "../header/expanded-main-menu";
 
-import { withHeaderModalLeft } from "../header-modal-menus/with-header-modal-left";
-ReactModal.setAppElement('#___gatsby');
+import { withHeaderModalLeft } from "../header/with-header-modal-left";
 
 export const PureHeader = ({ size, ...props }) => {
-
   let HeaderMenu;
-  if (size.width < 768) {
+
+  if (size.width < 668) {
     HeaderMenu = withHeaderModalLeft(CollapsedMainMenu);
   } else {
     HeaderMenu = withHeaderModalLeft(ExpandedMainMenu);
