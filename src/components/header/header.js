@@ -85,7 +85,7 @@ export const Header = ({ size }) => {
   const { logo, allMarkdownRemark, allInvJson } = useStaticQuery(
     graphql`
       query {
-        logo: file(relativePath: { eq: "logo.svg" }) {
+        logo: file(relativePath: { eq: "logos-and-icons/logo.svg" }) {
           publicURL
         }
         
@@ -107,7 +107,9 @@ export const Header = ({ size }) => {
             category
             id
             subcategory
-            slug
+            fields {
+              slug
+            }
           }
         }
       }

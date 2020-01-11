@@ -10,31 +10,63 @@ const { createFilePath } = require("gatsby-source-filesystem");
 exports.onCreateNode = ({ node, actions, getNode }) => {
   const { createNodeField } = actions
 
-  // you only want to operate on `Mdx` nodes. If you had content from a
-  // remote CMS you could also check to see if the parent node was a
-  // `File` node here
-  if (node.internal.type === "MarkdownRemark") {
-    const value = createFilePath({ node, getNode });
+  const generateSlug = (node) => {
+    // Slugify a string
+    const _slugify = (str) => {
+      str = str.replace(/^\s+|\s+$/g, '');
 
-    createNodeField({
-      // Name of the field you are adding
-      name: "slug",
-      // Individual MarkdownRemark node
-      node,
-      // Generated value based on filepath. You don't need a separating "/" before
-      // the value because createFilePath returns a path with the leading "/".
-      value: `${value}`,
-    })
+      // Make the string lowercase
+      str = str.toLowerCase();
+
+      // Remove accents, swap ñ for n, etc
+      var from = "ÁÄÂÀÃÅČÇĆĎÉĚËÈÊẼĔȆÍÌÎÏŇÑÓÖÒÔÕØŘŔŠŤÚŮÜÙÛÝŸŽáäâàãåčçćďéěëèêẽĕȇíìîïňñóöòôõøðřŕšťúůüùûýÿžþÞĐđßÆa·/_,:;";
+      var to = "AAAAAACCCDEEEEEEEEIIIINNOOOOOORRSTUUUUUYYZaaaaaacccdeeeeeeeeiiiinnooooooorrstuuuuuyyzbBDdBAa------";
+      for (var i = 0, l = from.length; i < l; i++) {
+        str = str.replace(new RegExp(from.charAt(i), 'g'), to.charAt(i));
+      }
+
+      // Remove invalid chars
+      str = str.replace(/[^a-z0-9 -]/g, '')
+        // Collapse whitespace and replace by -
+        .replace(/\s+/g, '-')
+        // Collapse dashes
+        .replace(/-+/g, '-');
+
+      return str;
+    }
+
+    let value;
+
+    if (node.internal.type === "MarkdownRemark") {
+      value = createFilePath({ node, getNode });
+    } else if (node.internal.type === "InvJson") {
+      value = `/${_slugify(node.category)}/${_slugify(node.subcategory)}`;
+    }
+
+    return value;
   }
+
+  createNodeField({
+    // Name of the field you are adding
+    name: "slug",
+    // Individual MarkdownRemark node
+    node,
+    // Generated value based on filepath. You don't need a separating "/" before
+    // the value because createFilePath returns a path with the leading "/".
+    value: generateSlug(node),
+  });
+
 }
 
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions;
   const invPages = await graphql(`
-    query {
+    query categorizationData {
       allInvJson {
-        edges {
-          node {
+        nodes {
+          category
+          subcategory
+          fields {
             slug
           }
         }
@@ -55,16 +87,17 @@ exports.createPages = async ({ graphql, actions }) => {
         }
       }
     }
-  `)
+  `);
 
-  // Create a page for each page in the inventory data json file
-  invPages.data.allInvJson.edges.forEach(({ node }) => {
+  // Create a page for each entry in the inventory data json file
+  invPages.data.allInvJson.nodes.forEach(node => {
     createPage({
-      path: node.slug,
-      component: path.resolve(`./src/templates/inv-page.js`),
+      path: node.fields.slug,
+      component: path.resolve(`./src/templates/invPage/inv-page.js`),
       context: {
         // Data passed to context is available in page queries as GraphQL variables.
-        slug: node.slug,
+        category: node.category,
+        subcategory: node.subcategory
       }
     });
   });
