@@ -36,7 +36,10 @@ export const DDMenuHeader = (props) => {
 
 export const DDMenuLink = (props) => (
   <li className={ddMenuStyles.listItem}>
-    <Link className={ddMenuStyles.link} to={props.link}>{props.value}</Link>
+    <Link className={ddMenuStyles.link} to={props.link}>
+      {props.children}
+      {props.text}
+    </Link>
   </li>
 );
 

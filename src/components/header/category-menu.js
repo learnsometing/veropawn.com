@@ -60,10 +60,10 @@ const SubcategoryMenuLinks = ({ nodes }) => {
         <DDMenuLink
           key={node.id}
           link={node.fields.slug}
-          value={prettySubcategory}
+          text={prettySubcategory}
         />
       );
-    })
+    }).sort((CompA, CompB) => sortByButtonText(CompA, CompB))
   );
 }
 
