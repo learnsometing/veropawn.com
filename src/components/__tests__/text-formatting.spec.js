@@ -1,4 +1,4 @@
-import { prettifyCatOrSubcatName, toTitleCase } from "../util/text-formatting";
+import { prettifyCatOrSubcatName, prettifyDescript, toTitleCase } from "../util/text-formatting";
 
 describe('toTitleCase', () => {
   it('should convert a single uppercase word to title case', () => {
@@ -36,5 +36,11 @@ describe('prettifyCatOrSubcatName', () => {
 
   it('should replace any instances of "(S)" with "S"', () => {
     expect(prettifyCatOrSubcatName("Foreign Coin(S)")).toEqual("Foreign Coins");
+  });
+});
+
+describe('prettifyDescript', () => {
+  it(`should replace any instances of "W/" with " With "`, () => {
+    expect(prettifyDescript("W/")).toEqual(" With ");
   });
 });

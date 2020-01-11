@@ -6,13 +6,36 @@ h2 {
   font-size: 1.25em;
 }
 
-li {
+.listItem {
+  width:  290px;
+  flex-basis: auto;
   list-style: none;
+  padding: 1rem;
+  margin-bottom: 0;
 }
 
 .itemCard {
-  border-bottom: 1px solid #404040;
+  width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
-  padding-bottom: 8px;
+  background: none;
+  border: none;
+}
+
+.itemCard:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+}
+
+.itemDescriptText {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 1rem 0;
+  font-family: 'Helvetica Neue', 'Helvetica', sans-serif;
+  font-size: 1rem;
+  font-weight: 500;
 }

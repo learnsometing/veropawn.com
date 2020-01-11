@@ -30,3 +30,18 @@ export const prettifyCatOrSubcatName = str => {
 
   return str;
 }
+
+export const prettifyDescript = str => {
+  // Converts ugly database values to prettier ones suitable for the web.
+  // ex: "LADIES RING W/STONES" => Ladies Ring With Stones
+
+  // Title case every string first
+  str = toTitleCase(str);
+
+  if (str.includes("W/")) {
+    const split = str.split("W/").map(statement => statement.trim());
+    str = split.join(' With ');
+  }
+
+  return str
+}

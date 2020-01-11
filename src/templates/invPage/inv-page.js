@@ -1,8 +1,11 @@
 import React from "react";
 import { graphql } from "gatsby";
 
+import SEO from "../../components/seo";
 import Layout from "../../components/layout/layout";
 import ItemCard from "../../components/item-card/item-card";
+import { prettifyCatOrSubcatName } from "../../components/util/text-formatting";
+import invPageStyles from "./inv-page.module.css";
 
 export const getPhotosOfItem = (photoNodes, invNum) => {
   // Return the photos that include invNum in their name.
@@ -21,6 +24,7 @@ export default ({ data }) => {
   // Inventory data from the current page
   const category = data.inv.category;
   const subcategory = data.inv.subcategory;
+  const prettySubcategory = prettifyCatOrSubcatName(subcategory);
   const items = data.inv.items;
   // Default photo used throughout the app
   const defaultPhoto = data.defaultPhoto;
@@ -43,7 +47,8 @@ export default ({ data }) => {
 
   return (
     <Layout>
-      <ul>
+      <SEO title={prettySubcategory} />
+      <ul className={invPageStyles.itemsUL}>
         {itemCards}
       </ul>
     </Layout>
@@ -61,27 +66,28 @@ export const query = graphql`
         invNum
         modelNum
       }
-    }
+  }
 
-    defaultPhoto: file(relativePath: {regex: "/0_default/"}) {
-      base
-      childImageSharp {
-        fluid {
-          aspectRatio
-          base64
-          sizes
-          src
-          srcSet
-        }
+  defaultPhoto: file(relativePath: {regex: "/0_default/"}) {
+    base
+    childImageSharp {
+      fluid {
+        aspectRatio
+        base64
+        sizes
+        src
+        srcSet
       }
     }
+  }
 
-    allPhotos: allFile(
-      filter: {
+  allPhotos: allFile(
+    filter: {
       extension: {regex: "/jpeg/"},
       relativeDirectory: {eq: "items"},
       base: {ne: "0_default.jpeg"}
-    }, sort: {fields: base}) {
+    }, 
+    sort: {fields: base}) {
       nodes {
         base
         childImageSharp {

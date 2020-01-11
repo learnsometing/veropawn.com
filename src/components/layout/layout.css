@@ -631,7 +631,7 @@ pre tt:after {
 
 #mainContainer {
   height: 100%;
-  max-width: 960px;
+  max-width: 1024px;
   margin: 0 auto;
   margin-top: 48px;
   padding: 15px;

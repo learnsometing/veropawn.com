@@ -1,29 +1,34 @@
 import React from "react";
 import Img from "gatsby-image";
+import PropTypes from "prop-types";
 
 import itemCardStyles from "./item-card.module.css";
-import { toTitleCase } from "../util/text-formatting";
+import { prettifyDescript } from "../util/text-formatting";
 
-export default ({ category, item, photos, subcategory }) => {
+const ItemCard = ({ category, item, onClick, photos, subcategory }) => {
   const mainPhoto = photos[0];
-
   return (
-    <li>
-      <div className={itemCardStyles.itemCard}>
-        <div className={itemCardStyles.mainPhotoContainer}>
+    <li className={itemCardStyles.listItem}>
+      <button className={itemCardStyles.itemCard} onClick={onClick.bind(null, photos)}>
+        <div className={itemCardStyles.mainPhoto}>
           <Img fluid={mainPhoto.childImageSharp.fluid} />
         </div>
-        <span>
-          <h2>
-            {toTitleCase(item.descript)}
-          </h2>
-        </span>
-        <span>
-          <button>
-            View Details
-        </button>
-        </span>
-      </div>
+        <div>
+          <span className={itemCardStyles.itemDescriptText}>
+            {prettifyDescript(item.descript)}
+          </span>
+        </div>
+      </button>
     </li>
   );
 }
+
+ItemCard.propTypes = {
+  category: PropTypes.string,
+  item: PropTypes.object.isRequired,
+  onClick: PropTypes.func.isRequired,
+  photos: PropTypes.array.isRequired,
+  subcategory: PropTypes.string
+};
+
+export default ItemCard;
