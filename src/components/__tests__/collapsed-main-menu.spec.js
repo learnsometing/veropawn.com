@@ -1,9 +1,11 @@
+//node_modules
 import React from "react";
 import { fireEvent, render } from "@testing-library/react";
-
-import { allInvJson } from "../__fixtures__/category-menu-data";
+import '@testing-library/jest-dom/extend-expect';
+// fixtures
+import { allInvJson, prettyCategories } from "../__fixtures__/category-menu-data";
 import allMarkdownRemark from "../__fixtures__/all-markdown-remark";
-
+//components
 import CollapsedMainMenu, { MainMenu } from "../header/collapsed-main-menu";
 
 describe('MainMenu', () => {
@@ -22,10 +24,10 @@ describe('MainMenu', () => {
     }
 
     // should have a heading
-    expect(queryByRole('heading')).toBeTruthy();
+    expect(queryByRole('heading')).toBeInTheDocument();
 
     // should have a button that opens the category menu
-    expect(queryByRole('button')).toBeTruthy();
+    expect(queryByRole('button')).toBeInTheDocument();
 
     // rest of the menu should be filled with links to the markdown generated pages
     queryAllByRole('link').forEach(link => (
@@ -49,13 +51,12 @@ describe('MainMenu', () => {
     fireEvent.click(openCategoryMenuBtn);
 
     const mainMenuBtn = queryByText('Main Menu');
-    const mainMenuBtnChildNodes = Array.from(mainMenuBtn.childNodes);
     const categoryBtns = queryAllByRole('button').slice(1);
     const categoryBtnTextList = categoryBtns.map(btn => btn.textContent);
 
-    expect(mainMenuBtnChildNodes).toContain(queryByTestId('fa-angle-left-icon'));
-    expect(mainMenuBtn.textContent).toMatch(/\s/);
-    expect(categoryBtnTextList).toEqual(categories);
+    expect(mainMenuBtn).toContainElement(queryByTestId('fa-angle-left-icon'));
+    expect(mainMenuBtn).toHaveTextContent(/\s/);
+    expect(categoryBtnTextList).toEqual(prettyCategories);
   });
 
   it('should render the default menu when the "Main Menu" button is clicked', () => {

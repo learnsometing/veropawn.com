@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "gatsby";
 import { FaAngleUp, FaAngleDown } from "react-icons/fa";
+import PropTypes from "prop-types";
 
 import ddMenuStyles from "./dd-menu.module.css";
 
@@ -9,10 +10,19 @@ export const DDMenuBtn = (props) => {
     <li className={ddMenuStyles.listItem}>
       <button className={ddMenuStyles.link} onClick={props.onClick}>
         {props.children}
+        {props.text}
       </button>
     </li>
   );
 }
+
+DDMenuBtn.propTypes = {
+  children: PropTypes.oneOfType([
+    PropTypes.array,
+    PropTypes.object
+  ]),
+  text: PropTypes.string
+};
 
 export const DDMenuHeader = (props) => {
   return (

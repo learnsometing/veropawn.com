@@ -28,9 +28,12 @@ export const MainMenu = (props) => {
   return (
     categoryMenuOpen
       ? <>
-        <DDMenuBtn key="back-to-main-menu" onClick={backToMainMenu} >
+        <DDMenuBtn
+          key="back-to-main-menu"
+          onClick={backToMainMenu}
+          text={"Main Menu"}
+        >
           <FaAngleLeft data-testid="fa-angle-left-icon" />
-          {"Main Menu"}
         </DDMenuBtn>
         <CategoryMenu data={props.allInvJson} />
       </>
@@ -38,9 +41,11 @@ export const MainMenu = (props) => {
         <DDMenuHeader key="main-menu">
           Main Menu
         </DDMenuHeader>
-        <DDMenuBtn key="browse-by-category" onClick={openCategoryMenu}>
-          Categories
-        </DDMenuBtn>
+        <DDMenuBtn
+          key="browse-by-category"
+          onClick={openCategoryMenu}
+          text={"Categories"}
+        />
         <MDPageLinks data={props.allMarkdownRemark} collapsed={true} />
       </>
   );
