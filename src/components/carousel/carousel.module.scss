@@ -1,0 +1,115 @@
+.carousel {
+  position: absolute;
+  top: 63px;
+  left: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 15px 0;
+  padding: 0 15px;
+}
+
+/*  Carousel Slides  */
+
+.slideContainer {
+  position: relative;
+  width: 100%;
+  max-width: 1024px;
+  top: 0;
+  left: 0;
+}
+
+.slide {
+  border-radius: 4px;
+}
+
+.currentSlide {
+  display: block;
+}
+
+.hiddenSlide {
+  display: none;
+}
+
+$active-color: hsla(0, 0%, 0%, 0.6);
+$inactive-color: hsla(0, 0%, 0%, 0.2);
+
+/*  Carousel Controls  */
+
+.controlContainer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  max-width: 1024px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.controls {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+  width: 100%;
+  padding: 0 5px;
+}
+
+.carouselControl {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  width: 50px;
+  border-radius: 50px;
+  border: none;
+}
+
+.enabledCarouselControl {
+  background-color: $active-color;
+}
+
+.enabledCarouselControl:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+}
+
+.disabledCarouselControl {
+  background-color: $inactive-color;
+}
+
+/*  Carousel Position Indicator and Display  */
+
+.posIndicator {
+  position: relative;
+  display: inline-block;
+  height: 0.75em;
+  width: 0.75em;
+  margin: 0 6px;
+}
+
+.activePosIndicator {
+  color: $active-color;
+}
+
+.inactivePosIndicator {
+  color: $inactive-color;
+}
+
+.carouselPositionContainer {
+  position: absolute;
+  left: 0;
+  bottom: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 0 5px;
+}
