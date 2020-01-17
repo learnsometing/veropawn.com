@@ -11,15 +11,15 @@ exports.extractDetails = (record) => {
   * For firearms, brand, serial no., ammo type, and action are details.
   */
 
-  const getMake = (_makeAndModel, _modelNum) => {
-    return _makeAndModel.replace(_modelNum, '').trim();
+  const getBrand = (_brandAndModel, _modelNum) => {
+    return _brandAndModel.replace(_modelNum, '').trim();
   };
 
   const _isSerial = _detail => {
     return _detail.includes('#');
   };
 
-  const getDetails = ((_getMake, _setDetails) => {
+  const getDetails = (_getBrand, _setDetails) => {
     return (_cleanDesc2, record) => {
       const _model = record.model;
       const _invNum = record.invNum;
@@ -38,13 +38,13 @@ exports.extractDetails = (record) => {
       }
 
       let _makeAndModel = _rawDetailsArr[0];
-      let _make = _getMake(_makeAndModel, _model);
+      let _make = _getBrand(_makeAndModel, _model);
 
-      let _refinedDetailsArr = [..._rawDetailsArr.values()];
+      let _refinedDetailsArr = [..._rawDetailsArr];
       _refinedDetailsArr.splice(0, 1, _make);
       return _setDetails(_refinedDetailsArr);
     };
-  });
+  };
 
   const _defaultItem = ((_details) => {
     const _setDetails = (_detailsArr) => {
@@ -58,15 +58,15 @@ exports.extractDetails = (record) => {
       return _details;
     };
 
-    return { getDetails: getDetails.bind(null, getMake, _setDetails) };
+    return { getDetails: getDetails.bind(null, getBrand, _setDetails) };
   })({ brand: '', serial: '', });
 
   const _firearm = ((_details) => {
-    const _getMake = (_makeAndModel, _modelNum) => {
-      let _make = (_modelNum == '' || _modelNum == 'NONE')
-        ? _makeAndModel.replace('NONE', '')
-        : _makeAndModel.replace(_modelNum, '');
-      return _make.trim();
+    const _getBrand = (_brandAndModel, _modelNum) => {
+      let _brand = (_modelNum == '' || _modelNum == 'NONE')
+        ? _brandAndModel.replace('NONE', '')
+        : _brandAndModel.replace(_modelNum, '');
+      return _brand.trim();
     };
 
     const _setDetails = (_detailsArr) => {
@@ -79,37 +79,37 @@ exports.extractDetails = (record) => {
         }
         return _cleanedAmmo;
       };
-      for (let i = 0; i < _detailsArr.length; i++) {
+      _detailsArr.forEach((_detail, i) => {
         switch (i) {
           case 0:
-            _details.brand = toTitleCase(_detailsArr[i]);
+            _details.brand = toTitleCase(_detail);
             break;
           case 1:
-            _details.serial = _detailsArr[i];
+            _details.serial = _detail;
             break;
           case 2:
-            _details.ammo = _formattedAmmoType(_detailsArr[i]);
+            _details.ammo = _formattedAmmoType(_detail);
             break;
           case 3:
-            _details.action = toTitleCase(_detailsArr[i]);
+            _details.action = toTitleCase(_detail);
             break;
         }
-      }
+      });
       return _details;
     };
 
-    return { getDetails: getDetails.bind(null, _getMake, _setDetails) };
+    return { getDetails: getDetails.bind(null, _getBrand, _setDetails) };
   })({ brand: '', serial: '', ammo: '', action: '' });
 
   const _jewelry = ((_details) => {
-    const _getMake = (_makeAndModel, _modelNum) => {
-      let _make;
-      if (_makeAndModel == "NONE NONE") {
-        _make = "NONE";
+    const _getBrand = (_brandAndModel, _modelNum) => {
+      let _brand;
+      if (_brandAndModel == "NONE NONE") {
+        _brand = "NONE";
       } else {
-        _make = _makeAndModel.replace(_modelNum, '');
+        _brand = _brandAndModel.replace(_modelNum, '');
       }
-      return _make.trim();
+      return _brand.trim();
     };
 
     const _setDetails = (_detailsArr) => {
@@ -186,7 +186,7 @@ exports.extractDetails = (record) => {
       return _details;
     };
 
-    return { getDetails: getDetails.bind(null, _getMake, _setDetails) };
+    return { getDetails: getDetails.bind(null, _getBrand, _setDetails) };
   })({ brand: '', serial: '', metal: '', mass: '' });
 
   const _coinOrCollectible = ((_details) => {
@@ -202,7 +202,7 @@ exports.extractDetails = (record) => {
       return _details;
     }
 
-    return { getDetails: getDetails.bind(null, getMake, _setDetails) };
+    return { getDetails: getDetails.bind(null, getBrand, _setDetails) };
   })({ type: '', additional: '', });
 
   const _cleanedDescript2 = (record, category) => {

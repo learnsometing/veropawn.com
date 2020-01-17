@@ -110,3 +110,20 @@ exports.prettifyDescript = str => {
 
   return str
 };
+
+exports.prettifyHeaders = header => {
+  switch (header) {
+    case 'LEVEL1_FK':
+      return 'category';
+    case 'LEVEL2_FK':
+      return 'subcategory';
+    case 'DESCRIPT':
+      return 'descript';
+    case 'DESCRIPT2':
+      return 'descript2';
+    case 'INVNUM':
+      return 'invNum';
+    case 'MODELNUM':
+      return 'model';
+  };
+};

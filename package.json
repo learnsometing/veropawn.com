@@ -5,6 +5,7 @@
   "version": "0.2.0",
   "author": "Brian Monaccio <brianmonaccio@gmail.com>",
   "dependencies": {
+    "csv-parser": "^2.3.2",
     "gatsby": "^2.18.11",
     "gatsby-image": "^2.2.36",
     "gatsby-plugin-manifest": "^2.2.33",
@@ -17,6 +18,7 @@
     "gatsby-transformer-remark": "^2.6.42",
     "gatsby-transformer-sharp": "^2.3.9",
     "node-sass": "^4.13.0",
+    "objects-to-csv": "^1.3.6",
     "prop-types": "^15.7.2",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
@@ -34,6 +36,7 @@
     "babel-preset-gatsby": "^0.2.26",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^24.9.0",
+    "neat-csv": "^5.1.0",
     "prettier": "^1.19.1",
     "react-test-renderer": "^16.12.0"
   },
@@ -48,7 +51,8 @@
     "start": "npm run develop",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
-    "test": "jest"
+    "test": "jest",
+    "produce": "node data-processing/produce-json.js"
   },
   "repository": {
     "type": "git",
