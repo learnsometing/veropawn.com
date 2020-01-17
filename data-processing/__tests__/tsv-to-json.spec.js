@@ -1,6 +1,6 @@
 jest.mock('../util/process-csv');
 const { catFksToNames, subcatFksToNames, prettifiedInvData } = require("../util/__mocks__/parse-csv");
-const { processCSVFiles } = require('../produce-json');
+const { processCSVFiles } = require('../tsv-to-json');
 
 describe('processCSVFiles', () => {
   it('should return an array of promises each resolved to the result of processedCSV', () => {
