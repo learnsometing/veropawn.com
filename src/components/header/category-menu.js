@@ -5,20 +5,6 @@ import { FaAngleLeft } from "react-icons/fa";
 
 // components and functions
 import { DDMenuBtn, DDMenuLink, DDMenuHeader } from "../dropdown-menu/dd-menu";
-import { prettifyCatOrSubcatName } from "../util/text-formatting";
-
-export const sortByButtonText = (ComponentA, ComponentB) => {
-  if (typeof ComponentA.props.text !== 'string' || typeof ComponentB.props.text !== 'string') {
-    throw new TypeError('Invalid prop `text` supplied to `DDMenuBtn`, expected string');
-  }
-
-  if (ComponentA.props.text < ComponentB.props.text) {
-    return -1;
-  } else if (ComponentA.props.text > ComponentB.props.text) {
-    return 1;
-  }
-  return 0;
-}
 
 const CategoryMenuBtns = ({ data, onClick }) => {
   /*
@@ -28,23 +14,17 @@ const CategoryMenuBtns = ({ data, onClick }) => {
   * subcategory pages.
   */
 
-  const filterNodesByCategory = (category) => {
+  const _filterNodesByCategory = (category) => {
     return data.nodes.filter(node => node.category === category);
   }
 
-  return (
-    data.distinct.map(category => {
-      let prettyCategory = prettifyCatOrSubcatName(category);
-
-      return (
-        <DDMenuBtn
-          key={category}
-          onClick={onClick.bind(null, prettyCategory, filterNodesByCategory(category))}
-          text={prettyCategory}
-        />
-      );
-    }).sort((CompA, CompB) => sortByButtonText(CompA, CompB))
-  );
+  return data.distinct.map(category => (
+    <DDMenuBtn
+      key={category}
+      onClick={onClick.bind(null, category, _filterNodesByCategory(category))}
+      text={category}
+    />
+  ));
 }
 
 CategoryMenuBtns.propTypes = {
@@ -54,16 +34,15 @@ CategoryMenuBtns.propTypes = {
 
 const SubcategoryMenuLinks = ({ nodes }) => {
   return (
-    nodes.map(node => {
-      const prettySubcategory = prettifyCatOrSubcatName(node.subcategory);
+    nodes.map((node, idx) => {
       return (
         <DDMenuLink
-          key={node.id}
+          key={idx}
           link={node.fields.slug}
-          text={prettySubcategory}
+          text={node.subcategory}
         />
       );
-    }).sort((CompA, CompB) => sortByButtonText(CompA, CompB))
+    })
   );
 }
 
@@ -100,7 +79,7 @@ export default ({ data, ...props }) => {
       ?
       <>
         <DDMenuBtn key="back-to-categories" onClick={closeSubcatMenu}>
-          <FaAngleLeft data-testid="angle-left-icon" />
+          <FaAngleLeft data-testid="fa-angle-left-icon" />
           {"Categories"}
         </DDMenuBtn>
         <DDMenuHeader key={subcatMenuHeader}>

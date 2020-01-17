@@ -1,66 +1,4 @@
-// Mock data for Category Menu Btns
-// Data for Subcategory Menu Links component
-
-export const airToolPages = [
-  {
-    "category": "TOOLS-AIR",
-    "subcategory": "COMPRESSOR",
-    "id": "e97140ab-cf8c-5009-a418-578e535fb3b6",
-    "fields": {
-      "slug": "/tools-air/compressor"
-    }
-  },
-  {
-    "category": "TOOLS-AIR",
-    "subcategory": "CUTTER",
-    "id": "1021fc30-e61f-55bb-a50f-58994b2759bd",
-    "fields": {
-      "slug": "/tools-air/cutter"
-    }
-  },
-  {
-    "category": "TOOLS-AIR",
-    "subcategory": "IMPACT WRENCH",
-    "id": "e50e8045-26c3-511a-abc2-7491ea0db2c6",
-    "fields": {
-      "slug": "/tools-air/impact-wrench"
-    }
-  },
-  {
-    "category": "TOOLS-AIR",
-    "subcategory": "NAILER",
-    "id": "83e80c27-d157-5786-844b-94915af5174c",
-    "fields": {
-      "slug": "/tools-air/nailer"
-    }
-  },
-  {
-    "category": "TOOLS-AIR",
-    "subcategory": "RATCHET",
-    "id": "fc8e61b1-ac83-5263-bc51-b0071948ec10",
-    "fields": {
-      "slug": "/tools-air/ratchet"
-    }
-  },
-  {
-    "category": "TOOLS-AIR",
-    "subcategory": "SANDER",
-    "id": "fdceb568-ab06-5e15-82f5-6ec776011b74",
-    "fields": {
-      "slug": "/tools-air/sander"
-    }
-  },
-  {
-    "category": "TOOLS-AIR",
-    "subcategory": "TOOL SET",
-    "id": "6a2dfdcd-918b-51fa-a8e2-9bd1285951c9",
-    "fields": {
-      "slug": "/tools-air/tool-set"
-    }
-  }
-];
-
-export const prettyAirToolSubcategories = [
+export const airToolSubcategories = [
   "Compressor",
   "Cutter",
   "Impact Wrench",
@@ -70,789 +8,773 @@ export const prettyAirToolSubcategories = [
   "Tool Set",
 ];
 
-export const allInvJson = {
+export const allPagesJson = {
   "distinct": [
-    "CAMERA EQUIPMENT",
-    "COINS",
-    "COLLECTIBLES",
-    "DEFENSE ACCESSORIES",
-    "ELECTRONICS",
-    "FIREARM",
-    "GAMES",
-    "HOUSEHOLD",
-    "JEWELRY",
-    "LAWN & GARDEN",
-    "MUSICAL INSTRUMENTS",
-    "SPORTING EQUIPMENT",
-    "TOOLS-AIR",
-    "TOOLS-HAND",
-    "TOOLS-POWER"
+    "Air Tools",
+    "Camera Equipment",
+    "Coins",
+    "Collectibles",
+    "Defense Accessories",
+    "Electronics",
+    "Firearm",
+    "Games",
+    "Hand Tools",
+    "Household",
+    "Jewelry",
+    "Lawn & Garden",
+    "Musical Instruments",
+    "Power Tools",
+    "Sporting Equipment"
   ],
   "nodes": [
     {
-      "category": "TOOLS-HAND",
-      "subcategory": "AC GAUGES",
-      "id": "fea23af3-7946-50db-9944-9a5754187a05",
+      "category": "Hand Tools",
+      "subcategory": "Ac Gauges",
       "fields": {
-        "slug": "/tools-hand/ac-gauges"
-      }
+        "slug": "/hand-tools/ac-gauges/"
+      },
+      "id": "04953059-d2ce-51a5-b8e2-d32ad87a9fdc"
     },
     {
-      "category": "DEFENSE ACCESSORIES",
-      "subcategory": "AMMUNITION",
-      "id": "7fbdbac8-824e-5de9-bb7e-5767672fde46",
+      "category": "Defense Accessories",
+      "subcategory": "Ammunition",
       "fields": {
-        "slug": "/defense-accessories/ammunition"
-      }
+        "slug": "/defense-accessories/ammunition/"
+      },
+      "id": "f94bb494-19fb-52e4-90ca-7af616ce5dd3"
     },
     {
-      "category": "JEWELRY",
-      "subcategory": "ANKLET",
-      "id": "56fc6c61-fda3-52be-9d73-d66678594c6b",
+      "category": "Jewelry",
+      "subcategory": "Anklet",
       "fields": {
-        "slug": "/jewelry/anklet"
-      }
+        "slug": "/jewelry/anklet/"
+      },
+      "id": "fdbdcdd4-6885-5cd5-a8af-5370924b3baf"
     },
     {
-      "category": "COLLECTIBLES",
-      "subcategory": "ART",
-      "id": "22b69685-2a07-565e-962a-db29c7f5cfcc",
+      "category": "Collectibles",
+      "subcategory": "Art",
       "fields": {
-        "slug": "/collectibles/art"
-      }
+        "slug": "/collectibles/art/"
+      },
+      "id": "ee49c5ae-dd52-5402-8289-b2f548b54e96"
     },
     {
-      "category": "FIREARM",
-      "subcategory": "BLACK POWDER",
-      "id": "384a62cc-0cb2-5e77-8a99-c4b041ae3b7b",
+      "category": "Musical Instruments",
+      "subcategory": "Bass Guitar",
       "fields": {
-        "slug": "/firearm/black-powder"
-      }
+        "slug": "/musical-instruments/bass-guitar/"
+      },
+      "id": "6a181f3a-8192-581c-be3e-9f2f8354af01"
     },
     {
-      "category": "LAWN & GARDEN",
-      "subcategory": "BLOWER",
-      "id": "1366f609-918b-5999-adbc-ebd5d523d534",
+      "category": "Firearm",
+      "subcategory": "Black Powder",
       "fields": {
-        "slug": "/lawn-garden/blower"
-      }
+        "slug": "/firearm/black-powder/"
+      },
+      "id": "1623c41e-41a8-51b3-8fc7-9137dae462cb"
     },
     {
-      "category": "DEFENSE ACCESSORIES",
-      "subcategory": "BODY ARMOR",
-      "id": "db68224e-ab33-5877-a6eb-e1fdad0c0f14",
+      "category": "Lawn & Garden",
+      "subcategory": "Blower",
       "fields": {
-        "slug": "/defense-accessories/body-armor"
-      }
+        "slug": "/lawn-garden/blower/"
+      },
+      "id": "2c054114-c15e-5823-a029-8779b0a90cbc"
     },
     {
-      "category": "JEWELRY",
-      "subcategory": "BRACELET",
-      "id": "21dd2f0c-6a04-50e9-9af3-2eafc2046740",
+      "category": "Defense Accessories",
+      "subcategory": "Body Armor",
       "fields": {
-        "slug": "/jewelry/bracelet"
-      }
+        "slug": "/defense-accessories/body-armor/"
+      },
+      "id": "c30e6a23-3f2a-5468-bc42-e5e0a7333f8d"
     },
     {
-      "category": "TOOLS-POWER",
-      "subcategory": "BUFFER",
-      "id": "f3b00553-63d5-5846-859f-859fe6b18e06",
+      "category": "Jewelry",
+      "subcategory": "Bracelet",
       "fields": {
-        "slug": "/tools-power/buffer"
-      }
+        "slug": "/jewelry/bracelet/"
+      },
+      "id": "a011f03c-8cb4-527d-b925-472992e5e1d6"
     },
     {
-      "category": "TOOLS-HAND",
-      "subcategory": "CALIPERS",
-      "id": "475ae82b-0e89-5e3f-9709-d1c8427ac1de",
+      "category": "Power Tools",
+      "subcategory": "Buffer",
       "fields": {
-        "slug": "/tools-hand/calipers"
-      }
+        "slug": "/power-tools/buffer/"
+      },
+      "id": "d11b72ab-1aab-5ebd-93db-7bf876c575b3"
     },
     {
-      "category": "CAMERA EQUIPMENT",
-      "subcategory": "CAMERA",
-      "id": "ecfcf19f-6cb4-59a9-b293-12829ee9977d",
+      "category": "Hand Tools",
+      "subcategory": "Calipers",
       "fields": {
-        "slug": "/camera-equipment/camera"
-      }
+        "slug": "/hand-tools/calipers/"
+      },
+      "id": "523b635b-230b-523d-8e52-139f4ed4f386"
     },
     {
-      "category": "ELECTRONICS",
-      "subcategory": "CELL PHONES",
-      "id": "a0d9d6f8-48cd-5421-94c7-31e66c4b7e96",
+      "category": "Camera Equipment",
+      "subcategory": "Camera",
       "fields": {
-        "slug": "/electronics/cell-phones"
-      }
+        "slug": "/camera-equipment/camera/"
+      },
+      "id": "b2a3f45d-bd12-5794-9c6a-49815c1c686b"
     },
     {
-      "category": "LAWN & GARDEN",
-      "subcategory": "CHAIN SAW",
-      "id": "da0b483e-9b58-539b-88c9-ae1ce4fb385b",
+      "category": "Electronics",
+      "subcategory": "Cell Phones",
       "fields": {
-        "slug": "/lawn-garden/chain-saw"
-      }
+        "slug": "/electronics/cell-phones/"
+      },
+      "id": "d266a832-f18a-5bd9-a066-580c8cb1309c"
     },
     {
-      "category": "TOOLS-POWER",
-      "subcategory": "CHARGER",
-      "id": "0d1b7265-5c55-57a8-8f4c-d061890b7fd7",
+      "category": "Lawn & Garden",
+      "subcategory": "Chain Saw",
       "fields": {
-        "slug": "/tools-power/charger"
-      }
+        "slug": "/lawn-garden/chain-saw/"
+      },
+      "id": "2d2b4ead-9241-5a53-81a5-4ca2d6033252"
     },
     {
-      "category": "TOOLS-POWER",
-      "subcategory": "CHIPPING HAMMER",
-      "id": "adccef69-b061-5e94-84eb-1c97f88ebaf2",
+      "category": "Power Tools",
+      "subcategory": "Charger",
       "fields": {
-        "slug": "/tools-power/chipping-hammer"
-      }
+        "slug": "/power-tools/charger/"
+      },
+      "id": "94b15338-c6ef-5aba-b15b-cc9b24c36223"
     },
     {
-      "category": "TOOLS-POWER",
-      "subcategory": "CHOP SAW",
-      "id": "457c4d5c-1a19-5e9b-a96a-f81c50c91e33",
+      "category": "Power Tools",
+      "subcategory": "Chipping Hammer",
       "fields": {
-        "slug": "/tools-power/chop-saw"
-      }
+        "slug": "/power-tools/chipping-hammer/"
+      },
+      "id": "dbada996-b27b-523d-b7dd-bc92106b5f5d"
     },
     {
-      "category": "TOOLS-POWER",
-      "subcategory": "CIRCULAR SAW",
-      "id": "97c9527a-c8ff-56c5-9975-85d26ce308c7",
+      "category": "Power Tools",
+      "subcategory": "Chop Saw",
       "fields": {
-        "slug": "/tools-power/circular-saw"
-      }
+        "slug": "/power-tools/chop-saw/"
+      },
+      "id": "f2674293-6b32-5b1d-ae15-dae2726bb873"
     },
     {
-      "category": "TOOLS-AIR",
-      "subcategory": "COMPRESSOR",
-      "id": "e97140ab-cf8c-5009-a418-578e535fb3b6",
+      "category": "Power Tools",
+      "subcategory": "Circular Saw",
       "fields": {
-        "slug": "/tools-air/compressor"
-      }
+        "slug": "/power-tools/circular-saw/"
+      },
+      "id": "e1a3ca23-473a-5f8a-a15a-6ad7c35697c8"
     },
     {
-      "category": "ELECTRONICS",
-      "subcategory": "COMPUTER SYSTEM",
-      "id": "147f45b5-bf84-56e0-bdfd-f00e22fd19b4",
+      "category": "Air Tools",
+      "subcategory": "Compressor",
       "fields": {
-        "slug": "/electronics/computer-system"
-      }
+        "slug": "/air-tools/compressor/"
+      },
+      "id": "6d928833-512a-5c79-b13f-708ba5c80854"
     },
     {
-      "category": "GAMES",
-      "subcategory": "CONSOLE",
-      "id": "2a231d18-6781-5749-bc48-b90004887adf",
+      "category": "Electronics",
+      "subcategory": "Computer System",
       "fields": {
-        "slug": "/games/console"
-      }
+        "slug": "/electronics/computer-system/"
+      },
+      "id": "17fdfaeb-f5ef-5aa9-824b-f69090ca1c9a"
     },
     {
-      "category": "TOOLS-AIR",
-      "subcategory": "CUTTER",
-      "id": "1021fc30-e61f-55bb-a50f-58994b2759bd",
+      "category": "Games",
+      "subcategory": "Console",
       "fields": {
-        "slug": "/tools-air/cutter"
-      }
+        "slug": "/games/console/"
+      },
+      "id": "ac59f312-b720-5b42-b9f7-3ded4b6c9e32"
     },
     {
-      "category": "TOOLS-POWER",
-      "subcategory": "DETECTOR",
-      "id": "80d2ec2d-e6c7-545e-bf7e-a87fa237bb7e",
+      "category": "Air Tools",
+      "subcategory": "Cutter",
       "fields": {
-        "slug": "/tools-power/detector"
-      }
+        "slug": "/air-tools/cutter/"
+      },
+      "id": "346c9763-4af7-5172-9be4-fc1135611536"
     },
     {
-      "category": "SPORTING EQUIPMENT",
-      "subcategory": "DIVE BC",
-      "id": "f0607fbf-fc78-58d9-9a11-2ad682cc44e2",
+      "category": "Power Tools",
+      "subcategory": "Detector",
       "fields": {
-        "slug": "/sporting-equipment/dive-bc"
-      }
+        "slug": "/power-tools/detector/"
+      },
+      "id": "3eb266d8-5ff8-5855-9a43-5448c16f1dc8"
     },
     {
-      "category": "COLLECTIBLES",
-      "subcategory": "DOLL",
-      "id": "a06c64ea-1283-5484-9688-455fff6f53c1",
+      "category": "Sporting Equipment",
+      "subcategory": "Dive Bc",
       "fields": {
-        "slug": "/collectibles/doll"
-      }
+        "slug": "/sporting-equipment/dive-bc/"
+      },
+      "id": "8b20edb8-6b4a-5b51-9e9f-8a58c12b6198"
     },
     {
-      "category": "TOOLS-POWER",
-      "subcategory": "DRILL",
-      "id": "adddd8d2-50c8-59cd-8bf6-72712157f229",
+      "category": "Collectibles",
+      "subcategory": "Doll",
       "fields": {
-        "slug": "/tools-power/drill"
-      }
+        "slug": "/collectibles/doll/"
+      },
+      "id": "dc8b1656-d98f-5539-aa20-4bdf481bde48"
     },
     {
-      "category": "MUSICAL INSTRUMENTS",
-      "subcategory": "DRUM",
-      "id": "91e3ba40-17fa-526b-88af-2e72c0a009c9",
+      "category": "Power Tools",
+      "subcategory": "Drill",
       "fields": {
-        "slug": "/musical-instruments/drum"
-      }
+        "slug": "/power-tools/drill/"
+      },
+      "id": "858bbb98-c3e4-5c63-ab35-988508dc206e"
     },
     {
-      "category": "JEWELRY",
-      "subcategory": "EARRINGS",
-      "id": "bbe6bc1a-5e39-59bd-8e24-c11c58beec17",
+      "category": "Musical Instruments",
+      "subcategory": "Drum",
       "fields": {
-        "slug": "/jewelry/earrings"
-      }
+        "slug": "/musical-instruments/drum/"
+      },
+      "id": "1544d1d4-3ccb-5bf4-b0d8-291e2f6a1231"
     },
     {
-      "category": "LAWN & GARDEN",
-      "subcategory": "EDGERS",
-      "id": "f54643b1-a6c2-55e1-9ecb-c59f402618d6",
+      "category": "Jewelry",
+      "subcategory": "Earrings",
       "fields": {
-        "slug": "/lawn-garden/edgers"
-      }
+        "slug": "/jewelry/earrings/"
+      },
+      "id": "effc4f92-9b6e-5c2d-96b3-64c92dcf5bcc"
     },
     {
-      "category": "TOOLS-POWER",
-      "subcategory": "FASTENER",
-      "id": "4726710e-4e2d-5dab-b2c4-072453a5837a",
+      "category": "Lawn & Garden",
+      "subcategory": "Edgers",
       "fields": {
-        "slug": "/tools-power/fastener"
-      }
+        "slug": "/lawn-garden/edgers/"
+      },
+      "id": "69755041-6e88-5f38-80c1-928b9bcd77c8"
     },
     {
-      "category": "SPORTING EQUIPMENT",
-      "subcategory": "FISHING REEL",
-      "id": "6322c4f3-77ad-5c2b-be20-7a61e1d63028",
+      "category": "Musical Instruments",
+      "subcategory": "Electric Guitar",
       "fields": {
-        "slug": "/sporting-equipment/fishing-reel"
-      }
+        "slug": "/musical-instruments/electric-guitar/"
+      },
+      "id": "7c6fa791-d2de-5321-90a3-5f7e3f24bd2f"
     },
     {
-      "category": "COINS",
-      "subcategory": "FOREIGN COIN(S)",
-      "id": "86adc82e-7b1a-5000-ac9f-e8790096bc4c",
+      "category": "Power Tools",
+      "subcategory": "Fastener",
       "fields": {
-        "slug": "/coins/foreign-coins"
-      }
+        "slug": "/power-tools/fastener/"
+      },
+      "id": "29651648-bc6e-57f1-ad21-d992f2fa62e3"
     },
     {
-      "category": "LAWN & GARDEN",
-      "subcategory": "GENERATOR",
-      "id": "93ea160c-ccc4-57f6-b4c5-0c0470d50719",
+      "category": "Sporting Equipment",
+      "subcategory": "Fishing Reel",
       "fields": {
-        "slug": "/lawn-garden/generator"
-      }
+        "slug": "/sporting-equipment/fishing-reel/"
+      },
+      "id": "f6962870-7a67-5312-80f2-c7bd6e3fe88b"
     },
     {
-      "category": "TOOLS-POWER",
-      "subcategory": "GRINDER",
-      "id": "15c1e500-ba81-5009-b525-cc4328e61d80",
+      "category": "Coins",
+      "subcategory": "Foreign Coins",
       "fields": {
-        "slug": "/tools-power/grinder"
-      }
+        "slug": "/coins/foreign-coins/"
+      },
+      "id": "634ea856-50bb-5f46-beb3-619714c6d7fd"
     },
     {
-      "category": "MUSICAL INSTRUMENTS",
-      "subcategory": "GUITAR",
-      "id": "7f3bfe2c-be0b-532d-b136-ef96786b965e",
+      "category": "Lawn & Garden",
+      "subcategory": "Generator",
       "fields": {
-        "slug": "/musical-instruments/guitar"
-      }
+        "slug": "/lawn-garden/generator/"
+      },
+      "id": "942a6cf3-f165-5ae8-9a2a-f2fbe103d9cf"
     },
     {
-      "category": "MUSICAL INSTRUMENTS",
-      "subcategory": "GUITAR/BASS",
-      "id": "ad1ac1fb-ddc4-530c-9ca8-ef4d153e8709",
+      "category": "Power Tools",
+      "subcategory": "Grinder",
       "fields": {
-        "slug": "/musical-instruments/guitar-bass"
-      }
+        "slug": "/power-tools/grinder/"
+      },
+      "id": "e9073b44-0732-5532-a343-c159474ec1b7"
     },
     {
-      "category": "MUSICAL INSTRUMENTS",
-      "subcategory": "GUITAR/ELECTRIC",
-      "id": "bf37433b-bd9c-5091-9231-ccd104992506",
+      "category": "Musical Instruments",
+      "subcategory": "Guitar",
       "fields": {
-        "slug": "/musical-instruments/guitar-electric"
-      }
+        "slug": "/musical-instruments/guitar/"
+      },
+      "id": "715375b1-5b6e-5010-8e28-c850581ed649"
     },
     {
-      "category": "TOOLS-POWER",
-      "subcategory": "HAMMER DRILL",
-      "id": "8e90430a-2302-5df3-9b90-48a3c58546f9",
+      "category": "Power Tools",
+      "subcategory": "Hammer Drill",
       "fields": {
-        "slug": "/tools-power/hammer-drill"
-      }
+        "slug": "/power-tools/hammer-drill/"
+      },
+      "id": "72a120a2-660f-5edb-927c-b2acdc92b811"
     },
     {
-      "category": "TOOLS-AIR",
-      "subcategory": "IMPACT WRENCH",
-      "id": "e50e8045-26c3-511a-abc2-7491ea0db2c6",
+      "category": "Power Tools",
+      "subcategory": "Impact Wrench",
       "fields": {
-        "slug": "/tools-air/impact-wrench"
-      }
+        "slug": "/power-tools/impact-wrench/"
+      },
+      "id": "283d6152-dd36-5494-aef9-4054cd452d1b"
     },
     {
-      "category": "TOOLS-POWER",
-      "subcategory": "IMPACT WRENCH",
-      "id": "eb7d3291-78bb-50f1-bbc9-57c77b2b7841",
+      "category": "Air Tools",
+      "subcategory": "Impact Wrench",
       "fields": {
-        "slug": "/tools-power/impact-wrench"
-      }
+        "slug": "/air-tools/impact-wrench/"
+      },
+      "id": "ca019c03-d446-5cdb-9cac-20eb2d3aac86"
     },
     {
-      "category": "TOOLS-POWER",
-      "subcategory": "JIG SAW",
-      "id": "996e83ad-aeda-52df-99f0-93d814645b7c",
+      "category": "Power Tools",
+      "subcategory": "Jig Saw",
       "fields": {
-        "slug": "/tools-power/jig-saw"
-      }
+        "slug": "/power-tools/jig-saw/"
+      },
+      "id": "c9ed7d60-66ac-5dfa-b5f0-5ab0dfafd925"
     },
     {
-      "category": "DEFENSE ACCESSORIES",
-      "subcategory": "KNIFE",
-      "id": "ca3863e4-85e7-5313-965b-05db2983bd9d",
+      "category": "Defense Accessories",
+      "subcategory": "Knife",
       "fields": {
-        "slug": "/defense-accessories/knife"
-      }
+        "slug": "/defense-accessories/knife/"
+      },
+      "id": "90bde055-a9b9-5865-b9d4-588200a01274"
     },
     {
-      "category": "TOOLS-HAND",
-      "subcategory": "KNOCKOUT PUNCH",
-      "id": "0ec25690-7665-525f-83bf-a4f383142db9",
+      "category": "Hand Tools",
+      "subcategory": "Knockout Punch",
       "fields": {
-        "slug": "/tools-hand/knockout-punch"
-      }
+        "slug": "/hand-tools/knockout-punch/"
+      },
+      "id": "b3b0b583-f670-5d04-8126-eadc06c601a6"
     },
     {
-      "category": "DEFENSE ACCESSORIES",
-      "subcategory": "LASER POINTER",
-      "id": "3533dea3-f30c-52c8-97fb-078d68d13e76",
+      "category": "Defense Accessories",
+      "subcategory": "Laser Pointer",
       "fields": {
-        "slug": "/defense-accessories/laser-pointer"
-      }
+        "slug": "/defense-accessories/laser-pointer/"
+      },
+      "id": "1304c443-e193-559c-8e8f-34141a9b47a1"
     },
     {
-      "category": "TOOLS-HAND",
-      "subcategory": "LEVEL",
-      "id": "7dfec1ef-b857-5fa5-86d7-f79d5d66c101",
+      "category": "Power Tools",
+      "subcategory": "Level",
       "fields": {
-        "slug": "/tools-hand/level"
-      }
+        "slug": "/power-tools/level/"
+      },
+      "id": "9872b05e-54df-56fb-9081-f5ea3ee5131a"
     },
     {
-      "category": "TOOLS-POWER",
-      "subcategory": "LEVEL",
-      "id": "23011da4-09d5-56ba-9f66-58ebfad1d158",
+      "category": "Hand Tools",
+      "subcategory": "Level",
       "fields": {
-        "slug": "/tools-power/level"
-      }
+        "slug": "/hand-tools/level/"
+      },
+      "id": "48786aff-0350-5b98-a335-9d3319239478"
     },
     {
-      "category": "TOOLS-HAND",
-      "subcategory": "LIGHT",
-      "id": "d934961b-de25-5810-9c06-7c503c184f6e",
+      "category": "Hand Tools",
+      "subcategory": "Light",
       "fields": {
-        "slug": "/tools-hand/light"
-      }
+        "slug": "/hand-tools/light/"
+      },
+      "id": "f7e1d6cf-5167-56fc-8758-cca4cd26f1ff"
     },
     {
-      "category": "DEFENSE ACCESSORIES",
-      "subcategory": "MAGAZINE",
-      "id": "fe073ea5-0dd5-5cba-9dec-7f8317b9ddf7",
+      "category": "Defense Accessories",
+      "subcategory": "Magazine",
       "fields": {
-        "slug": "/defense-accessories/magazine"
-      }
+        "slug": "/defense-accessories/magazine/"
+      },
+      "id": "1f819f26-c18f-50fc-b552-493803bb6b8e"
     },
     {
-      "category": "TOOLS-HAND",
-      "subcategory": "METER",
-      "id": "d7dc336d-aa1d-5b29-a131-aa1ec21072a6",
+      "category": "Hand Tools",
+      "subcategory": "Meter",
       "fields": {
-        "slug": "/tools-hand/meter"
-      }
+        "slug": "/hand-tools/meter/"
+      },
+      "id": "69e183b9-06ad-5ef2-b6e9-76c84d80fdcd"
     },
     {
-      "category": "TOOLS-HAND",
-      "subcategory": "MICROMETER",
-      "id": "6aec976e-a31d-503a-8b6d-a751b4fb44bc",
+      "category": "Hand Tools",
+      "subcategory": "Micrometer",
       "fields": {
-        "slug": "/tools-hand/micrometer"
-      }
+        "slug": "/hand-tools/micrometer/"
+      },
+      "id": "acf8a124-de30-5548-89d8-02f3b850bb05"
     },
     {
-      "category": "TOOLS-POWER",
-      "subcategory": "MILL",
-      "id": "10c89d9c-4589-5dc9-aebb-68a6cb790ed9",
+      "category": "Power Tools",
+      "subcategory": "Mill",
       "fields": {
-        "slug": "/tools-power/mill"
-      }
+        "slug": "/power-tools/mill/"
+      },
+      "id": "cef7e9b8-b462-541d-8913-90fa39fb5dfa"
     },
     {
-      "category": "TOOLS-POWER",
-      "subcategory": "MITER BOX SAW",
-      "id": "6fb3eacc-09e0-531b-b0d3-3414af635668",
+      "category": "Power Tools",
+      "subcategory": "Miter Box Saw",
       "fields": {
-        "slug": "/tools-power/miter-box-saw"
-      }
+        "slug": "/power-tools/miter-box-saw/"
+      },
+      "id": "d36d3067-b73c-548e-a1db-d69848395ad6"
     },
     {
-      "category": "TOOLS-POWER",
-      "subcategory": "MORTISER",
-      "id": "cb536833-3572-5014-9444-9cb68e988360",
+      "category": "Power Tools",
+      "subcategory": "Mortiser",
       "fields": {
-        "slug": "/tools-power/mortiser"
-      }
+        "slug": "/power-tools/mortiser/"
+      },
+      "id": "567370d2-bda7-5a07-97b7-8484f461ac78"
     },
     {
-      "category": "TOOLS-POWER",
-      "subcategory": "MULTI TOOL",
-      "id": "86f14ae4-7bc2-57cd-8636-66468c33ddab",
+      "category": "Power Tools",
+      "subcategory": "Multi Tool",
       "fields": {
-        "slug": "/tools-power/multi-tool"
-      }
+        "slug": "/power-tools/multi-tool/"
+      },
+      "id": "d88dfe18-1a05-5caf-ac09-d6f243c2bc7b"
     },
     {
-      "category": "TOOLS-AIR",
-      "subcategory": "NAILER",
-      "id": "83e80c27-d157-5786-844b-94915af5174c",
+      "category": "Power Tools",
+      "subcategory": "Nailer",
       "fields": {
-        "slug": "/tools-air/nailer"
-      }
+        "slug": "/power-tools/nailer/"
+      },
+      "id": "7f824ecd-df5b-58b1-9b7a-046333503d3e"
     },
     {
-      "category": "TOOLS-POWER",
-      "subcategory": "NAILER",
-      "id": "2d2b62fd-9edb-587e-89a2-fe8cb242be4c",
+      "category": "Air Tools",
+      "subcategory": "Nailer",
       "fields": {
-        "slug": "/tools-power/nailer"
-      }
+        "slug": "/air-tools/nailer/"
+      },
+      "id": "64db174c-7973-520f-a4d8-381899c9e7d1"
     },
     {
-      "category": "JEWELRY",
-      "subcategory": "NECKLACE",
-      "id": "48a38cfa-89b5-5ced-ba5b-3568cd70d8e1",
+      "category": "Jewelry",
+      "subcategory": "Necklace",
       "fields": {
-        "slug": "/jewelry/necklace"
-      }
+        "slug": "/jewelry/necklace/"
+      },
+      "id": "2ad005c4-5ff7-5ea4-b22a-43a98552e0b1"
     },
     {
-      "category": "SPORTING EQUIPMENT",
-      "subcategory": "NIGHT VISION",
-      "id": "c13c6213-e4a8-5066-97f9-61cb63bf1d8b",
+      "category": "Sporting Equipment",
+      "subcategory": "Night Vision",
       "fields": {
-        "slug": "/sporting-equipment/night-vision"
-      }
+        "slug": "/sporting-equipment/night-vision/"
+      },
+      "id": "e8d2f54d-51fc-5c53-8bc6-c26fa70b9960"
     },
     {
-      "category": "COLLECTIBLES",
-      "subcategory": "PEN",
-      "id": "30723988-37b5-58e9-9437-3a8ce8efb0f2",
+      "category": "Collectibles",
+      "subcategory": "Pen",
       "fields": {
-        "slug": "/collectibles/pen"
-      }
+        "slug": "/collectibles/pen/"
+      },
+      "id": "250c2773-27cb-5046-b8a2-7f76f7a6ca60"
     },
     {
-      "category": "JEWELRY",
-      "subcategory": "PENDANT/CHARM",
-      "id": "f04a2fd6-2716-5eb1-807e-f0e4f3a9aee1",
+      "category": "Jewelry",
+      "subcategory": "Pendant & Charm",
       "fields": {
-        "slug": "/jewelry/pendant-charm"
-      }
+        "slug": "/jewelry/pendant-charm/"
+      },
+      "id": "d0233522-db91-501e-af6e-10d21840f3ba"
     },
     {
-      "category": "DEFENSE ACCESSORIES",
-      "subcategory": "PEPPER SPRAY",
-      "id": "46eadef2-2eaa-5ce6-b578-f1ef00b43d6a",
+      "category": "Defense Accessories",
+      "subcategory": "Pepper Spray",
       "fields": {
-        "slug": "/defense-accessories/pepper-spray"
-      }
+        "slug": "/defense-accessories/pepper-spray/"
+      },
+      "id": "b85e49b1-5434-5fcc-a591-4339551ea25e"
     },
     {
-      "category": "FIREARM",
-      "subcategory": "PISTOL",
-      "id": "2fdfe672-4737-5b19-8954-ea14fa6b42a1",
+      "category": "Firearm",
+      "subcategory": "Pistol",
       "fields": {
-        "slug": "/firearm/pistol"
-      }
+        "slug": "/firearm/pistol/"
+      },
+      "id": "8484120e-9470-5cca-8bb8-81a72919fd60"
     },
     {
-      "category": "TOOLS-HAND",
-      "subcategory": "PLIERS",
-      "id": "c29001ca-0634-5927-891d-9589f0e9c3ff",
+      "category": "Hand Tools",
+      "subcategory": "Pliers",
       "fields": {
-        "slug": "/tools-hand/pliers"
-      }
+        "slug": "/hand-tools/pliers/"
+      },
+      "id": "4ed25849-4530-57aa-b528-d5d440162f7a"
     },
     {
-      "category": "TOOLS-POWER",
-      "subcategory": "PUMP",
-      "id": "a0ed0d29-7c51-585e-93fe-35b8de2dc4c7",
+      "category": "Power Tools",
+      "subcategory": "Pump",
       "fields": {
-        "slug": "/tools-power/pump"
-      }
+        "slug": "/power-tools/pump/"
+      },
+      "id": "71b1014c-18e2-5c99-b8c5-d6db55e43514"
     },
     {
-      "category": "TOOLS-HAND",
-      "subcategory": "PUNCH DRIVER",
-      "id": "09c95b23-c49a-5af8-8470-e12ffa9f89b0",
+      "category": "Hand Tools",
+      "subcategory": "Punch Driver",
       "fields": {
-        "slug": "/tools-hand/punch-driver"
-      }
+        "slug": "/hand-tools/punch-driver/"
+      },
+      "id": "a15c1154-dda8-59aa-8a31-633f0be1cddf"
     },
     {
-      "category": "TOOLS-AIR",
-      "subcategory": "RATCHET",
-      "id": "fc8e61b1-ac83-5263-bc51-b0071948ec10",
+      "category": "Air Tools",
+      "subcategory": "Ratchet",
       "fields": {
-        "slug": "/tools-air/ratchet"
-      }
+        "slug": "/air-tools/ratchet/"
+      },
+      "id": "090188a9-7a98-50ed-bfdf-4c892c0406cc"
     },
     {
-      "category": "TOOLS-HAND",
-      "subcategory": "RATCHET",
-      "id": "50dda419-c873-54dd-ae09-8330ddd3a05d",
+      "category": "Power Tools",
+      "subcategory": "Reciprocal Saw",
       "fields": {
-        "slug": "/tools-hand/ratchet"
-      }
+        "slug": "/power-tools/reciprocal-saw/"
+      },
+      "id": "6dfce390-0785-5116-9b76-53c852922e93"
     },
     {
-      "category": "TOOLS-POWER",
-      "subcategory": "RECIPROCAL SAW",
-      "id": "846431fd-9908-536b-96cd-deb95d2d3ec1",
+      "category": "Firearm",
+      "subcategory": "Revolver",
       "fields": {
-        "slug": "/tools-power/reciprocal-saw"
-      }
+        "slug": "/firearm/revolver/"
+      },
+      "id": "34fcf628-4431-554b-a577-d22e809615b0"
     },
     {
-      "category": "FIREARM",
-      "subcategory": "REVOLVER",
-      "id": "e5cbb2f7-437a-50f5-8f93-8035cd0069b3",
+      "category": "Firearm",
+      "subcategory": "Rifle",
       "fields": {
-        "slug": "/firearm/revolver"
-      }
+        "slug": "/firearm/rifle/"
+      },
+      "id": "867dcdf5-a397-5e5f-b13a-381eebce66e6"
     },
     {
-      "category": "FIREARM",
-      "subcategory": "RIFLE",
-      "id": "5141abc9-22b9-5e21-9003-f3e45557f350",
+      "category": "Jewelry",
+      "subcategory": "Ring",
       "fields": {
-        "slug": "/firearm/rifle"
-      }
+        "slug": "/jewelry/ring/"
+      },
+      "id": "3b61d42a-d546-5e12-a957-7fabf98eb3a9"
     },
     {
-      "category": "JEWELRY",
-      "subcategory": "RING",
-      "id": "ca70576c-b39c-5e42-a39a-da13d93d39e7",
+      "category": "Power Tools",
+      "subcategory": "Router",
       "fields": {
-        "slug": "/jewelry/ring"
-      }
+        "slug": "/power-tools/router/"
+      },
+      "id": "09a4826c-5ea4-5df1-a9c6-c61e34db962a"
     },
     {
-      "category": "TOOLS-POWER",
-      "subcategory": "ROUTER",
-      "id": "f753a73e-f578-54e8-8089-2eec811cfdf2",
+      "category": "Household",
+      "subcategory": "Safe",
       "fields": {
-        "slug": "/tools-power/router"
-      }
+        "slug": "/household/safe/"
+      },
+      "id": "039f9260-7913-5076-b8be-ac1dd22aaecd"
     },
     {
-      "category": "HOUSEHOLD",
-      "subcategory": "SAFE",
-      "id": "9fcecaec-029a-5438-9a23-783460d59514",
+      "category": "Power Tools",
+      "subcategory": "Sander",
       "fields": {
-        "slug": "/household/safe"
-      }
+        "slug": "/power-tools/sander/"
+      },
+      "id": "2a22b024-e023-52d5-8c5f-8cb3ef734f86"
     },
     {
-      "category": "TOOLS-AIR",
-      "subcategory": "SANDER",
-      "id": "fdceb568-ab06-5e15-82f5-6ec776011b74",
+      "category": "Air Tools",
+      "subcategory": "Sander",
       "fields": {
-        "slug": "/tools-air/sander"
-      }
+        "slug": "/air-tools/sander/"
+      },
+      "id": "56de72c1-cbf3-5a57-9d0a-e6b97c1a6e3f"
     },
     {
-      "category": "TOOLS-POWER",
-      "subcategory": "SANDER",
-      "id": "8521b1c5-d34d-5c8e-b138-6666ded7451f",
+      "category": "Power Tools",
+      "subcategory": "Saw",
       "fields": {
-        "slug": "/tools-power/sander"
-      }
+        "slug": "/power-tools/saw/"
+      },
+      "id": "c897512f-edd6-53ff-90ea-9049306f51c6"
     },
     {
-      "category": "TOOLS-POWER",
-      "subcategory": "SAW",
-      "id": "dae3f9ab-2643-5cc7-9a4f-e268d709785b",
+      "category": "Power Tools",
+      "subcategory": "Scale",
       "fields": {
-        "slug": "/tools-power/saw"
-      }
+        "slug": "/power-tools/scale/"
+      },
+      "id": "b18e8d7d-7f15-5651-ac03-8910f49663a4"
     },
     {
-      "category": "TOOLS-POWER",
-      "subcategory": "SCALE",
-      "id": "be0121c5-ebb2-521d-97d3-ce6cba83ed80",
+      "category": "Power Tools",
+      "subcategory": "Screwgun",
       "fields": {
-        "slug": "/tools-power/scale"
-      }
+        "slug": "/power-tools/screwgun/"
+      },
+      "id": "68ce0535-3bc8-5ddd-a4de-97f7fb2707e1"
     },
     {
-      "category": "TOOLS-POWER",
-      "subcategory": "SCREWGUN",
-      "id": "13d942d1-5dc4-5615-9de3-3eb7f1f53d3b",
+      "category": "Firearm",
+      "subcategory": "Shotgun",
       "fields": {
-        "slug": "/tools-power/screwgun"
-      }
+        "slug": "/firearm/shotgun/"
+      },
+      "id": "19a2ef76-d7eb-5ac5-bdfd-97b7ca0e5e93"
     },
     {
-      "category": "FIREARM",
-      "subcategory": "SHOTGUN",
-      "id": "177ea4bc-df2c-5577-8cac-aed85a46cdb1",
+      "category": "Coins",
+      "subcategory": "Slug",
       "fields": {
-        "slug": "/firearm/shotgun"
-      }
+        "slug": "/coins/slug/"
+      },
+      "id": "fd7f7204-c308-5363-a554-26459ae4204e"
     },
     {
-      "category": "COINS",
-      "subcategory": "SLUG",
-      "id": "898aa7d9-e766-51ab-a6ed-120448449d28",
+      "category": "Hand Tools",
+      "subcategory": "Socket",
       "fields": {
-        "slug": "/coins/slug"
-      }
+        "slug": "/hand-tools/socket/"
+      },
+      "id": "16bfe0ea-a214-5282-9f0b-435b2d58c013"
     },
     {
-      "category": "TOOLS-HAND",
-      "subcategory": "SOCKET",
-      "id": "07d2f516-e2ed-5095-82b7-b9fbe89b2b35",
+      "category": "Power Tools",
+      "subcategory": "Table Saw",
       "fields": {
-        "slug": "/tools-hand/socket"
-      }
+        "slug": "/power-tools/table-saw/"
+      },
+      "id": "35df5667-4887-51da-847e-ae4d7b7eef9c"
     },
     {
-      "category": "TOOLS-POWER",
-      "subcategory": "TABLE SAW",
-      "id": "d2e192e4-b3d1-52d8-a1e4-cc513635423b",
+      "category": "Electronics",
+      "subcategory": "Tablets",
       "fields": {
-        "slug": "/tools-power/table-saw"
-      }
+        "slug": "/electronics/tablets/"
+      },
+      "id": "df7bb011-575d-5dd7-982c-5eb7ba9b7bed"
     },
     {
-      "category": "ELECTRONICS",
-      "subcategory": "TABLETS",
-      "id": "d13684cd-356e-5112-b933-3529c3ce4491",
+      "category": "Hand Tools",
+      "subcategory": "Tap & Die Set",
       "fields": {
-        "slug": "/electronics/tablets"
-      }
+        "slug": "/hand-tools/tap-die-set/"
+      },
+      "id": "abb9ed3e-f98f-5a66-a6fd-f165cee23b3f"
     },
     {
-      "category": "TOOLS-HAND",
-      "subcategory": "TAP & DIE SET",
-      "id": "ef38b850-da3b-5b0a-acf1-0b12c58f85ed",
+      "category": "Power Tools",
+      "subcategory": "Tester",
       "fields": {
-        "slug": "/tools-hand/tap-die-set"
-      }
+        "slug": "/power-tools/tester/"
+      },
+      "id": "cb5bc084-374e-580f-b2cb-a125e014ccc2"
     },
     {
-      "category": "TOOLS-POWER",
-      "subcategory": "TESTER",
-      "id": "9fbc6692-8fcc-57a0-9405-8707878bb83c",
+      "category": "Power Tools",
+      "subcategory": "Tile Saw",
       "fields": {
-        "slug": "/tools-power/tester"
-      }
+        "slug": "/power-tools/tile-saw/"
+      },
+      "id": "363da33c-fe97-5435-834b-81f2bb061245"
     },
     {
-      "category": "TOOLS-POWER",
-      "subcategory": "TILE SAW",
-      "id": "35d9f48c-9c92-585b-9c62-f26cf9652b4c",
+      "category": "Air Tools",
+      "subcategory": "Tool Set",
       "fields": {
-        "slug": "/tools-power/tile-saw"
-      }
+        "slug": "/air-tools/tool-set/"
+      },
+      "id": "a09ed2de-6f3b-5f80-a607-197ae9ebe932"
     },
     {
-      "category": "TOOLS-AIR",
-      "subcategory": "TOOL SET",
-      "id": "6a2dfdcd-918b-51fa-a8e2-9bd1285951c9",
+      "category": "Hand Tools",
+      "subcategory": "Torque Wrench",
       "fields": {
-        "slug": "/tools-air/tool-set"
-      }
+        "slug": "/hand-tools/torque-wrench/"
+      },
+      "id": "7f274b9c-c2cd-5612-95cf-f54ea0d26312"
     },
     {
-      "category": "TOOLS-HAND",
-      "subcategory": "TORQUE WRENCH",
-      "id": "7f8130f0-357e-5378-a3c6-13048be883eb",
+      "category": "Sporting Equipment",
+      "subcategory": "Trolling",
       "fields": {
-        "slug": "/tools-hand/torque-wrench"
-      }
+        "slug": "/sporting-equipment/trolling/"
+      },
+      "id": "70175d3f-acb4-52da-aa4b-dadf778eb8df"
     },
     {
-      "category": "SPORTING EQUIPMENT",
-      "subcategory": "TROLLING",
-      "id": "a27b97e6-cb69-52c9-be9d-2aa89e76653e",
+      "category": "Coins",
+      "subcategory": "Us Coins",
       "fields": {
-        "slug": "/sporting-equipment/trolling"
-      }
+        "slug": "/coins/us-coins/"
+      },
+      "id": "2d78177d-9a5a-5c72-be9b-3bb2a635cc0c"
     },
     {
-      "category": "ELECTRONICS",
-      "subcategory": "TV",
-      "id": "d7bdb006-0948-513d-a40c-bc2c67974db3",
+      "category": "Musical Instruments",
+      "subcategory": "Violin",
       "fields": {
-        "slug": "/electronics/tv"
-      }
+        "slug": "/musical-instruments/violin/"
+      },
+      "id": "5cb62700-b676-5ccb-b68c-01605781ff75"
     },
     {
-      "category": "COINS",
-      "subcategory": "US COIN(S)",
-      "id": "2879da96-eb4f-5edd-8239-8e5ad1f70ad6",
+      "category": "Jewelry",
+      "subcategory": "Watch",
       "fields": {
-        "slug": "/coins/us-coins"
-      }
+        "slug": "/jewelry/watch/"
+      },
+      "id": "7ec7a213-4e63-55cd-84c4-ab079b281ded"
     },
     {
-      "category": "MUSICAL INSTRUMENTS",
-      "subcategory": "VIOLIN",
-      "id": "b678e4b3-5f19-5d5c-929c-6e121ff5c419",
+      "category": "Lawn & Garden",
+      "subcategory": "Weed Eater",
       "fields": {
-        "slug": "/musical-instruments/violin"
-      }
+        "slug": "/lawn-garden/weed-eater/"
+      },
+      "id": "0f6f02ea-05cb-58d4-bbbf-dfd076505fa2"
     },
     {
-      "category": "JEWELRY",
-      "subcategory": "WATCH",
-      "id": "ce279425-5918-5358-863a-0d568c9ea865",
+      "category": "Power Tools",
+      "subcategory": "Welder",
       "fields": {
-        "slug": "/jewelry/watch"
-      }
+        "slug": "/power-tools/welder/"
+      },
+      "id": "8cca73f3-bb13-5c9c-99ae-5fa45c7e6eff"
     },
     {
-      "category": "LAWN & GARDEN",
-      "subcategory": "WEED EATER",
-      "id": "2b41b8d6-2cb0-57a9-be9f-130681b4ca4e",
+      "category": "Hand Tools",
+      "subcategory": "Wrench",
       "fields": {
-        "slug": "/lawn-garden/weed-eater"
-      }
-    },
-    {
-      "category": "TOOLS-POWER",
-      "subcategory": "WELDER",
-      "id": "07e4f1f1-f480-5d97-9b68-e10dc37a8b40",
-      "fields": {
-        "slug": "/tools-power/welder"
-      }
-    },
-    {
-      "category": "TOOLS-HAND",
-      "subcategory": "WRENCH",
-      "id": "48777c6f-02d3-5dd9-9397-bded40530b33",
-      "fields": {
-        "slug": "/tools-hand/wrench"
-      }
+        "slug": "/hand-tools/wrench/"
+      },
+      "id": "02d739d1-57db-5ecd-b323-70b87d5f0021"
     }
   ]
 };
 
-export const prettyCategories = [
+export const distinctCategories = [
   "Air Tools",
   "Camera Equipment",
   "Coins",

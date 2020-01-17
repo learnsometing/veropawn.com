@@ -16,8 +16,8 @@ module.exports = {
     {
       resolve: `gatsby-source-filesystem`,
       options: {
-        name: `invData`,
-        path: `${__dirname}/src/inv-data/`,
+        name: `data`,
+        path: `${__dirname}/src/data/`,
       },
     },
     {

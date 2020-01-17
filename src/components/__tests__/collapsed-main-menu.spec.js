@@ -3,7 +3,7 @@ import React from "react";
 import { fireEvent, render } from "@testing-library/react";
 import '@testing-library/jest-dom/extend-expect';
 // fixtures
-import { allInvJson, prettyCategories } from "../__fixtures__/category-menu-data";
+import { allPagesJson, distinctCategories } from "../__fixtures__/category-menu-data";
 import allMarkdownRemark from "../__fixtures__/all-markdown-remark";
 //components
 import CollapsedMainMenu, { MainMenu } from "../header/collapsed-main-menu";
@@ -14,7 +14,7 @@ describe('MainMenu', () => {
   it('should render the default menu correctly', () => {
     const { queryByRole, queryAllByRole } = render(
       <MainMenu
-        allInvJson={allInvJson}
+        allPagesJson={allPagesJson}
         allMarkdownRemark={allMarkdownRemark}
       />
     );
@@ -36,10 +36,9 @@ describe('MainMenu', () => {
   });
 
   it('should render the category menu when the "categories" button is clicked', () => {
-    const categories = allInvJson.distinct;
     const { queryByRole, queryAllByRole, queryByText, queryByTestId } = render(
       <MainMenu
-        allInvJson={allInvJson}
+        allPagesJson={allPagesJson}
         allMarkdownRemark={allMarkdownRemark}
       />
     );
@@ -56,13 +55,13 @@ describe('MainMenu', () => {
 
     expect(mainMenuBtn).toContainElement(queryByTestId('fa-angle-left-icon'));
     expect(mainMenuBtn).toHaveTextContent(/\s/);
-    expect(categoryBtnTextList).toEqual(prettyCategories);
+    expect(categoryBtnTextList).toEqual(distinctCategories);
   });
 
   it('should render the default menu when the "Main Menu" button is clicked', () => {
     const { queryByRole, queryAllByRole, queryByText } = render(
       <MainMenu
-        allInvJson={allInvJson}
+        allPagesJson={allPagesJson}
         allMarkdownRemark={allMarkdownRemark}
       />
     );
@@ -104,7 +103,7 @@ describe('CollapsedMainMenu', () => {
   it('should render the menu toggle button correctly', () => {
     const { queryByRole, queryByTestId } = render(
       <CollapsedMainMenu
-        allInvJson={allInvJson}
+        allPagesJson={allPagesJson}
         allMarkdownRemark={allMarkdownRemark}
         isOpen={false}
         toggleMenu={toggleMenuMock}
@@ -120,7 +119,7 @@ describe('CollapsedMainMenu', () => {
   it('should render the menu toggle button with an up arrow if isOpen', () => {
     const { queryByRole, queryByTestId } = render(
       <CollapsedMainMenu
-        allInvJson={allInvJson}
+        allPagesJson={allPagesJson}
         allMarkdownRemark={allMarkdownRemark}
         isOpen={true}
         toggleMenu={toggleMenuMock}
@@ -136,7 +135,7 @@ describe('CollapsedMainMenu', () => {
   it('should have a working toggleMenu function', () => {
     const { queryByRole } = render(
       <CollapsedMainMenu
-        allInvJson={allInvJson}
+        allPagesJson={allPagesJson}
         allMarkdownRemark={allMarkdownRemark}
         isOpen={false}
         toggleMenu={toggleMenuMock}

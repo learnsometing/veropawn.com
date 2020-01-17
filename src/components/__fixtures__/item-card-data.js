@@ -1,15 +1,10 @@
-export const pageData = {
-  category: 'FIREARM',
-  subcategory: 'PISTOL',
-  items: [
-    {
-      descript: "HANDGUN W/ CASE 2 MAGS",
-      descript2: "PISTOL FIREARM NORTH AMERICAN ARMS GUARDIAN .380, #BD02378, 380, SEMI-AUTOMATIC; HANDGUN W/ CASE 2 MAGS",
-      invNum: "G-31149-1",
-      modelNum: "GUARDIAN .380"
-    }
-  ]
-}
+export const itemData = {
+  "subcategory": "Ring",
+  "descript": "Women's Ring With Stones",
+  "fields": {
+    "slug": "/jewelry/ring/12345"
+  }
+};
 
 
 export const photos = [

@@ -43,7 +43,7 @@ export const withHeaderModalLeft = MenuComponent => {
     return (
       <>
         <MenuComponent
-          allInvJson={props.allInvJson}
+          allPagesJson={props.allPagesJson}
           allMarkdownRemark={props.allMarkdownRemark}
           isOpen={isOpen}
           toggleMenu={toggleMenu}
@@ -71,7 +71,7 @@ export const PureHeader = ({ size, ...props }) => {
         <nav className={headerStyles.nav}>
           <HeaderLogo logo={props.logo} />
           <HeaderMenu
-            allInvJson={props.allInvJson}
+            allPagesJson={props.allPagesJson}
             allMarkdownRemark={props.allMarkdownRemark}
           />
           <span>{size.width}</span>
@@ -82,7 +82,7 @@ export const PureHeader = ({ size, ...props }) => {
 }
 
 export const Header = ({ size }) => {
-  const { logo, allMarkdownRemark, allInvJson } = useStaticQuery(
+  const { logo, allMarkdownRemark, allPagesJson } = useStaticQuery(
     graphql`
       query {
         logo: file(relativePath: { eq: "logos-and-icons/logo.svg" }) {
@@ -101,15 +101,15 @@ export const Header = ({ size }) => {
           }
         }
 
-        allInvJson(sort: {fields: category}) {
+        allPagesJson(sort: {fields: subcategory}) {
           distinct(field: category)
-          nodes{
+          nodes {
             category
-            id
             subcategory
             fields {
               slug
             }
+            id
           }
         }
       }
@@ -121,7 +121,7 @@ export const Header = ({ size }) => {
       size={size}
       logo={logo}
       allMarkdownRemark={allMarkdownRemark}
-      allInvJson={allInvJson}
+      allPagesJson={allPagesJson}
     />
   );
 }

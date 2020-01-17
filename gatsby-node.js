@@ -39,8 +39,10 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
 
     if (node.internal.type === "MarkdownRemark") {
       value = createFilePath({ node, getNode });
-    } else if (node.internal.type === "InvJson") {
-      value = `/${_slugify(node.category)}/${_slugify(node.subcategory)}`;
+    } else if (node.internal.type === "ItemsJson") {
+      value = `/${_slugify(node.category)}/${_slugify(node.subcategory)}/${node.id}`;
+    } else if (node.internal.type === "PagesJson") {
+      value = `/${_slugify(node.category)}/${_slugify(node.subcategory)}/`
     }
 
     return value;
@@ -51,21 +53,28 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
     name: "slug",
     // Individual MarkdownRemark node
     node,
-    // Generated value based on filepath. You don't need a separating "/" before
-    // the value because createFilePath returns a path with the leading "/".
     value: generateSlug(node),
   });
-
 }
 
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions;
-  const invPages = await graphql(`
-    query categorizationData {
-      allInvJson {
+  const pagesJson = await graphql(`
+    query pages {
+      allPagesJson {
         nodes {
-          category
-          subcategory
+          fields {
+            slug
+          }
+        }
+      }
+    }
+  `);
+
+  const itemsJson = await graphql(`
+    query items {
+      allItemsJson {
+        nodes {
           fields {
             slug
           }
@@ -77,33 +86,31 @@ exports.createPages = async ({ graphql, actions }) => {
   const markdown = await graphql(`
     query MDContent {
       allMarkdownRemark{
-        edges{
-          node{
-            id
-            fields {
-              slug
-            }
+        nodes{
+          id
+          fields {
+            slug
           }
         }
       }
     }
   `);
+  // Create a page for each item
 
-  // Create a page for each entry in the inventory data json file
-  invPages.data.allInvJson.nodes.forEach(node => {
+  // Create a page for each subcategory of item
+  pagesJson.data.allPagesJson.nodes.forEach(node => {
     createPage({
       path: node.fields.slug,
       component: path.resolve(`./src/templates/invPage/inv-page.js`),
       context: {
         // Data passed to context is available in page queries as GraphQL variables.
-        category: node.category,
-        subcategory: node.subcategory
+        slug: node.fields.slug
       }
     });
   });
 
   // Create a page for each markdown file.
-  markdown.data.allMarkdownRemark.edges.forEach(({ node }) => {
+  markdown.data.allMarkdownRemark.nodes.forEach(node => {
     createPage({
       path: node.fields.slug,
       component: path.resolve(`./src/templates/markdown-page.js`),

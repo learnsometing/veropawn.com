@@ -35,7 +35,7 @@ export const MainMenu = (props) => {
         >
           <FaAngleLeft data-testid="fa-angle-left-icon" />
         </DDMenuBtn>
-        <CategoryMenu data={props.allInvJson} />
+        <CategoryMenu data={props.allPagesJson} />
       </>
       : <>
         <DDMenuHeader key="main-menu">
@@ -55,7 +55,7 @@ export default (props) => {
   const toggleMenu = props.toggleMenu.bind(
     null,
     <MainMenu
-      allInvJson={props.allInvJson}
+      allPagesJson={props.allPagesJson}
       allMarkdownRemark={props.allMarkdownRemark}
     />
   );

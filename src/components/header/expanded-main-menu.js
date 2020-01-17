@@ -14,7 +14,7 @@ import MDPageLinks from "../shared/md-page-links";
 import CategoryMenu from "./category-menu";
 
 export default (props) => {
-  const _categoryMenu = <CategoryMenu data={props.allInvJson} />
+  const _categoryMenu = <CategoryMenu data={props.allPagesJson} />
 
   const toggleMenu = props.toggleMenu.bind(null, _categoryMenu);
 

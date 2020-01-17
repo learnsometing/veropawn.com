@@ -4,7 +4,6 @@ import { graphql } from "gatsby";
 import SEO from "../../components/seo";
 import Layout from "../../components/layout/layout";
 import ItemCard from "../../components/item-card/item-card";
-import { prettifyCatOrSubcatName } from "../../components/util/text-formatting";
 import invPageStyles from "./inv-page.module.css";
 
 export const getPhotosOfItem = (photoNodes, invNum) => {
@@ -22,32 +21,27 @@ export const getPhotosOfItem = (photoNodes, invNum) => {
 
 export default ({ data }) => {
   // Inventory data from the current page
-  const category = data.inv.category;
-  const subcategory = data.inv.subcategory;
-  const prettySubcategory = prettifyCatOrSubcatName(subcategory);
-  const items = data.inv.items;
+  const subcategory = data.inv.nodes[0].subcategory;
   // Default photo used throughout the app
   const defaultPhoto = data.defaultPhoto;
   // Every node sourced from allImageSharp
   const allPhotoNodes = data.allPhotos.nodes;
 
-  const itemCards = items.map((item, index) => {
-    let photos = getPhotosOfItem(allPhotoNodes, item.invNum);
+  const itemCards = data.inv.nodes.map(node => {
+    let photos = getPhotosOfItem(allPhotoNodes, node.invNum);
     if (!photos.length) { photos = [defaultPhoto] }
     return (
       <ItemCard
-        category={category}
-        key={index}
-        item={item}
+        key={node.id}
+        item={node}
         photos={photos}
-        subcategory={subcategory}
       />
     );
   });
 
   return (
     <Layout>
-      <SEO title={prettySubcategory} />
+      <SEO title={subcategory} />
       <ul className={invPageStyles.itemsUL}>
         {itemCards}
       </ul>
@@ -56,17 +50,17 @@ export default ({ data }) => {
 }
 
 export const query = graphql`
-  query($category: String!, $subcategory: String!) {
-    inv: invJson(category: {eq: $category }, subcategory: {eq: $subcategory}) {
-      category
-      subcategory
-      items {
-        descript
-        descript2
-        invNum
-        modelNum
+  query($slug: String!) {
+    inv: allItemsJson(filter: {fields: {slug: {regex: $slug}}}, , sort: {fields: invNum,}) {
+        nodes {
+          descript
+          fields {
+            slug
+          }
+          id
+          subcategory
+        }
       }
-  }
 
   defaultPhoto: file(relativePath: {regex: "/0_default/"}) {
     base
@@ -80,26 +74,24 @@ export const query = graphql`
       }
     }
   }
-
+  
   allPhotos: allFile(
     filter: {
-      extension: {regex: "/jpeg/"},
-      relativeDirectory: {eq: "items"},
-      base: {ne: "0_default.jpeg"}
-    }, 
-    sort: {fields: base}) {
-      nodes {
-        base
-        childImageSharp {
-          fluid {
-            aspectRatio
-            base64
-            sizes
-            src
-            srcSet
-          }
+      extension: { regex: "/jpeg/" },
+      relativeDirectory: { eq: "items" },
+      base: { ne: "0_default.jpeg" }
+    },
+    sort: { fields: base }
+  ){
+    nodes {
+      base
+      childImageSharp {
+        fluid(maxWidth: 1024){
+          ...GatsbyImageSharpFluid
         }
       }
+      id
     }
   }
-`
+}
+`;
