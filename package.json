@@ -2,7 +2,7 @@
   "name": "cash-pawn-and-jewelry-website",
   "private": true,
   "description": "A website catalogue of Cash Pawn and Jewelry's inventory",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "author": "Brian Monaccio <brianmonaccio@gmail.com>",
   "dependencies": {
     "csv-parser": "^2.3.2",
@@ -20,6 +20,7 @@
     "node-sass": "^4.13.0",
     "objects-to-csv": "^1.3.6",
     "prop-types": "^15.7.2",
+    "rc-pagination": "^1.20.12",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-helmet": "^5.2.1",

@@ -1,0 +1,165 @@
+$lightBlue: #1188CC;
+$trimColor: rgba(0, 0, 0, 0.6);
+$sans: 'Helvetica Neue', 'Helvetica', sans-serif;
+$CTABorder: 2px solid rgba(0, 0, 0, 0.6);
+$CTALinkBorder: 2px solid $lightBlue;
+
+.itemsUL {
+  margin: 0;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+h2 {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin: 1em 0;
+  font-size: 1.25em;
+}
+
+.listItem {
+  width:  50%;
+  flex-basis: auto;
+  list-style: none;
+  padding: 5px;
+  margin-bottom: 0;
+}
+
+.itemCard {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: none;
+  border: none;
+  text-decoration: none;
+  color: #000;
+}
+
+.itemCard:hover {
+  cursor: pointer;
+  transform: scale(1.05);
+  text-decoration: underline;
+}
+
+.itemDescriptText {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 1rem 0;
+  font-family: 'Helvetica Neue', 'Helvetica', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.paginationContainer {
+  width: 100%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.pagination {
+  margin: 1rem 0;
+}
+
+.pagination > li{
+  width: 40px;
+  margin: 0 5px;
+}
+
+.CTAContainer {
+  width: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-top: $CTABorder;
+  border-bottom: $CTABorder;
+  padding: 23px 0;
+  font-family: $sans;
+}
+
+.CTAHeader {
+  font-size: 24px;
+}
+
+.CTALink {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.75rem;
+  text-decoration: none;
+  color: #000;
+  border: $CTABorder;
+  border-radius: 4px;
+}
+
+.CTALink:hover {
+  border: $CTALinkBorder;
+  color: $lightBlue;
+}
+
+.CTALink:active {
+  border: 2px solid #0779AD;
+  color: #0779AD;
+}
+
+.pageTitleContainer {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  border-bottom: 1px solid $trimColor;
+}
+
+.pageTitle {
+  margin: .5em 0;
+  font-family: $sans;
+  font-size: 24px;
+  color: #000;
+}
+
+.displayRangeTextContainer {
+  width: 100%;
+  position: sticky;
+  top: 48px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px 0;
+  bottom: 0;
+  background-color: #fff;
+  z-index: 2;
+  border-bottom: 1px solid $trimColor;
+  font-family: $sans;
+}
+
+@media only screen and (min-width: 667px) {
+  .pageHeader, .displayRangeTextContainer {
+    top: 54px;
+  }
+
+  .listItem {
+    width: 33.3%;
+  }
+}
+
+@media only screen and (min-width: 730px) {
+  .pageHeader, .displayRangeTextContainer {
+    top: 60px;
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+  .pageHeader, .displayRangeTextContainer {
+    top: 72px;
+  }
+}
