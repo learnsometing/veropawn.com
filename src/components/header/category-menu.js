@@ -23,6 +23,7 @@ const CategoryMenuBtns = ({ data, onClick }) => {
       key={category}
       onClick={onClick.bind(null, category, _filterNodesByCategory(category))}
       text={category}
+      isNavButton={false}
     />
   ));
 }
@@ -78,7 +79,11 @@ export default ({ data, ...props }) => {
     subcatMenuOpen
       ?
       <>
-        <DDMenuBtn key="back-to-categories" onClick={closeSubcatMenu}>
+        <DDMenuBtn
+          key="back-to-categories"
+          onClick={closeSubcatMenu}
+          isNavButton={true}
+        >
           <FaAngleLeft data-testid="fa-angle-left-icon" />
           {"Categories"}
         </DDMenuBtn>

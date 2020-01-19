@@ -4,7 +4,7 @@ import "@testing-library/jest-dom/extend-expect";
 
 import Carousel, { CarouselPositionDisplay, CarouselPositionIndicator, CarouselSlides, CarouselControl } from "../carousel/carousel";
 
-import { photos } from "../__fixtures__/item-card-data";
+import { allPhotoNodes } from "../../templates/__fixtures__/all-photos";
 
 describe('CarouselPositionIndicator', () => {
   it('should have posIndicator and activePosIndicator classes when isActive', () => {
@@ -59,7 +59,7 @@ describe('CarouselPositionDisplay', () => {
 
 describe('CarouselSlides', () => {
   const alt = "Alt Text";
-
+  const photos = allPhotoNodes.slice(0, 6);
   it('should render each photo passed as props', () => {
     const { queryAllByAltText } = render(
       <CarouselSlides
@@ -127,6 +127,7 @@ describe('CarouselControl', () => {
 
 describe('Carousel', () => {
   const alt = "Handgun With Case 2 Mags";
+  const photos = allPhotoNodes.slice(0, 3);
 
   it('should render the main photo into the carousel on mount', () => {
     const { queryByAltText } = render(

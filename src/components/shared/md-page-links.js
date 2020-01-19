@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "gatsby";
 
 import { DDMenuLink } from "../dropdown-menu/dd-menu";
-import headerStyles from "../header/header.module.css";
+import headerStyles from "../header/header.module.scss";
 
 export const HeaderMenuLink = (props) => (
   <Link className={headerStyles.link} to={props.link}>{props.text}</Link>

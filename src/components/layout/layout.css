@@ -128,6 +128,9 @@ button,
 input {
   overflow: visible;
 }
+button:hover {
+  cursor: pointer;
+}
 button,
 select {
   text-transform: none;
@@ -207,7 +210,7 @@ html {
   box-sizing: inherit;
 }
 body {
-  color: hsla(0, 0%, 0%, 0.8);
+  color: #000;
   font-family: georgia, serif;
   font-weight: normal;
   word-wrap: break-word;
@@ -627,18 +630,36 @@ pre tt:after {
 #root {
   width: 100%;
   height: 100%;
+  margin-top: 48px;
 }
 
 #mainContainer {
   height: 100%;
   max-width: 1024px;
   margin: 0 auto;
-  margin-top: 48px;
-  padding: 15px;
+  padding: 5px;
 }
 
 @media only screen and (max-width: 480px) {
   html {
     font-size: 100%;
+  }
+}
+
+@media only screen and (min-width: 667px) {
+  #root{
+    margin-top: 54px;
+  }
+}
+
+@media only screen and (min-width: 730px) {
+  #root{
+    margin-top: 60px;
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+  #root{
+    margin-top: 72px;
   }
 }

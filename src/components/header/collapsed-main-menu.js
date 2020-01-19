@@ -6,7 +6,7 @@
 
 // Node_Modules Imports
 import React, { useState } from "react";
-import { FaAngleLeft } from "react-icons/fa";
+import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 
 // Internal Imports
 import { DDMenuHeader, DDMenuBtn, DDMenuToggleBtn } from "../dropdown-menu/dd-menu";
@@ -32,6 +32,7 @@ export const MainMenu = (props) => {
           key="back-to-main-menu"
           onClick={backToMainMenu}
           text={"Main Menu"}
+          isNavButton={true}
         >
           <FaAngleLeft data-testid="fa-angle-left-icon" />
         </DDMenuBtn>
@@ -45,7 +46,11 @@ export const MainMenu = (props) => {
           key="browse-by-category"
           onClick={openCategoryMenu}
           text={"Categories"}
-        />
+          isNavButton={true}
+          isIconAfterText={true}
+        >
+          <FaAngleRight data-testid="fa-angle-right-icon" />
+        </DDMenuBtn>
         <MDPageLinks data={props.allMarkdownRemark} collapsed={true} />
       </>
   );

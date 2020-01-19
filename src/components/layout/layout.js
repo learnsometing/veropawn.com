@@ -8,6 +8,7 @@ import Header from "../header/header";
 const Layout = (props) => {
   return (
     <div id="root">
+      {/* <SEO title={subcategory} /> */}
       <Header />
       <main id="mainContainer">{props.children}</main>
     </div>

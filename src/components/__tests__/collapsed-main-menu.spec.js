@@ -12,7 +12,7 @@ describe('MainMenu', () => {
   const titles = allMarkdownRemark.nodes.map(node => node.frontmatter.title);
 
   it('should render the default menu correctly', () => {
-    const { queryByRole, queryAllByRole } = render(
+    const { queryByRole, queryByTestId, queryAllByRole } = render(
       <MainMenu
         allPagesJson={allPagesJson}
         allMarkdownRemark={allMarkdownRemark}
@@ -24,7 +24,7 @@ describe('MainMenu', () => {
     }
 
     // should have a heading
-    expect(queryByRole('heading')).toBeInTheDocument();
+    expect(queryByTestId('dd-menu-heading')).toBeInTheDocument();
 
     // should have a button that opens the category menu
     expect(queryByRole('button')).toBeInTheDocument();
@@ -59,7 +59,7 @@ describe('MainMenu', () => {
   });
 
   it('should render the default menu when the "Main Menu" button is clicked', () => {
-    const { queryByRole, queryAllByRole, queryByText } = render(
+    const { queryByRole, queryAllByRole, queryByText, queryByTestId } = render(
       <MainMenu
         allPagesJson={allPagesJson}
         allMarkdownRemark={allMarkdownRemark}
@@ -85,7 +85,7 @@ describe('MainMenu', () => {
     // Assertions
 
     // user should see the main menu heading again
-    expect(queryByRole('heading').textContent).toBe('Main Menu');
+    expect(queryByTestId('dd-menu-heading').textContent).toBe('Main Menu');
 
     // should have a button that opens the category menu
     expect(queryByRole('button').textContent).toBe('Categories');

@@ -21,19 +21,20 @@ export default ({ isOpen, closeModal, children }) => {
           height: '100%',
           width: '100%',
           backgroundColor: 'rgba(0, 0, 0, 0.7)',
-          zIndex: 1
+          zIndex: 2
         },
         content: {
-          width: '85vw',
+          width: '300px',
           height: '100%',
           position: 'fixed',
           top: '48px',
           left: 0,
+          padding: '0',
           margin: 0,
           border: 'none',
           borderRadius: 0,
           backgroundColor: '#fff',
-          zIndex: 1,
+          zIndex: 3,
           overflowY: 'auto',
           overflowX: 'hidden'
         }

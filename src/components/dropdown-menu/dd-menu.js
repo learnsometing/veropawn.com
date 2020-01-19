@@ -3,18 +3,27 @@ import { Link } from "gatsby";
 import { FaAngleUp, FaAngleDown } from "react-icons/fa";
 import PropTypes from "prop-types";
 
-import ddMenuStyles from "./dd-menu.module.css";
+import styles from "./dd-menu.module.css";
 
 export const DDMenuBtn = (props) => {
+  let buttonClass = props.isNavButton ? styles.navButton : styles.button
+  let children = props.isIconAfterText
+    ? <>
+      {props.text}
+      {props.children}
+    </>
+    : <>
+      {props.children}
+      {props.text}
+    </>
   return (
-    <li className={ddMenuStyles.listItem}>
-      <button className={ddMenuStyles.link} onClick={props.onClick}>
-        {props.children}
-        {props.text}
+    <li className={styles.listItem}>
+      <button className={buttonClass} onClick={props.onClick}>
+        {children}
       </button>
     </li>
   );
-}
+};
 
 DDMenuBtn.propTypes = {
   children: PropTypes.oneOfType([
@@ -26,17 +35,17 @@ DDMenuBtn.propTypes = {
 
 export const DDMenuHeader = (props) => {
   return (
-    <li className={ddMenuStyles.listItem}>
-      <h2 className={ddMenuStyles.heading}>
+    <li className={styles.listItem}>
+      <header className={styles.heading} data-testid="dd-menu-heading">
         {props.children}
-      </h2>
+      </header>
     </li>
   );
 }
 
 export const DDMenuLink = (props) => (
-  <li className={ddMenuStyles.listItem}>
-    <Link className={ddMenuStyles.link} to={props.link}>
+  <li className={styles.listItem}>
+    <Link className={styles.link} to={props.link}>
       {props.children}
       {props.text}
     </Link>
@@ -62,7 +71,7 @@ export const DDMenuToggleBtn = ({ isOpen, value, toggleMenu }) => {
 
   return (
     <button
-      className={ddMenuStyles.toggleMenuBtn}
+      className={styles.toggleMenuBtn}
       onClick={toggleMenu}
     >
       {value} <DDMenuStatusIcon isOpen={isOpen} />
