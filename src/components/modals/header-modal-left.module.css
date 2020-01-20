@@ -1,10 +1,55 @@
+.content {
+  width: 100%;
+  max-width: 1024px;
+  inset: 0;
+  padding: 0;
+  margin: 0 auto;
+  border: none;
+  border-radius: 0;
+  background-color: transparent;
+  z-index: 3;
+  overflow-y: hidden;
+  overflow-x: hidden;
+}
+
+.uListWrapper {
+  height: 100%;
+  width: 272px;
+  overflow-y: auto;
+}
+
 .uList {
   width: 100%;
-  position: relative;
+  top: 48px;
   margin: 0;
-  padding-bottom: 68px;
   background-color: #fff;
   z-index: 1;
   overflow-y: auto;
   overflow-x: hidden;
+}
+
+.content, .uListWrapper, .uList {
+  position: relative;
+}
+
+@media only screen and (min-width: 667px) {
+  .uList {
+    top: 54px;
+  }
+}
+
+@media only screen and (min-width: 730px) {
+  .uList {
+    top: 60px;
+  }
+}
+
+@media only screen and (min-width: 1024px){
+  .uList {
+    top: 72px;
+  }
+
+  .uListWrapper {
+    width: 40%;
+  }
 }

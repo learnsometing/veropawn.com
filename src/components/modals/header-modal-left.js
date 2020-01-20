@@ -8,7 +8,7 @@
 import React from "react";
 import ReactModal from "react-modal";
 
-import headerModalLeftStyles from "./header-modal-left.module.css";
+import styles from "./header-modal-left.module.css";
 
 export default ({ isOpen, closeModal, children }) => {
   return (
@@ -20,29 +20,20 @@ export default ({ isOpen, closeModal, children }) => {
         overlay: {
           height: '100%',
           width: '100%',
+          display: 'flex',
+          justifyContent: 'center',
           backgroundColor: 'rgba(0, 0, 0, 0.7)',
           zIndex: 2
         },
-        content: {
-          width: '300px',
-          height: '100%',
-          position: 'fixed',
-          top: '48px',
-          left: 0,
-          padding: '0',
-          margin: 0,
-          border: 'none',
-          borderRadius: 0,
-          backgroundColor: '#fff',
-          zIndex: 3,
-          overflowY: 'auto',
-          overflowX: 'hidden'
-        }
+        content: { inset: '0', }
       }}
+      className={styles.content}
     >
-      <ul className={headerModalLeftStyles.uList}>
-        {children}
-      </ul >
+      <div className={styles.uListWrapper}>
+        <ul className={styles.uList}>
+          {children}
+        </ul >
+      </div>
     </ReactModal >
   );
 }
