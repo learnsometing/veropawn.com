@@ -52,7 +52,7 @@ exports.extractDetails = (record) => {
         if (_isSerial(_detail)) {
           _details.serial = _detail;
         } else {
-          _details.brand = toTitleCase(_detail);
+          _details.brand = _detail;
         }
       });
       return _details;
@@ -82,7 +82,7 @@ exports.extractDetails = (record) => {
       _detailsArr.forEach((_detail, i) => {
         switch (i) {
           case 0:
-            _details.brand = toTitleCase(_detail);
+            _details.brand = _detail;
             break;
           case 1:
             _details.serial = _detail;
@@ -159,7 +159,7 @@ exports.extractDetails = (record) => {
       _detailsArr.forEach((_detail, i) => {
         switch (i) {
           case 0:
-            _details.brand = toTitleCase(_detail);
+            _details.brand = _detail;
             break;
           case 1:
             if (_isMass(_detail)) {
@@ -195,7 +195,7 @@ exports.extractDetails = (record) => {
         if (_index == 1) {
           _details.additional = _detail;
         } else {
-          _details.type = toTitleCase(_detail);
+          _details.type = _detail;
         }
       });
 

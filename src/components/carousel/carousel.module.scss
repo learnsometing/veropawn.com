@@ -1,14 +1,12 @@
 .carousel {
-  position: absolute;
-  top: 63px;
-  left: 0;
+  position: relative;
   width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  margin: 15px 0;
-  padding: 0 15px;
+  padding: 0 10px;
+  margin-bottom: 15px;
 }
 
 /*  Carousel Slides  */
@@ -22,7 +20,7 @@
 }
 
 .slide {
-  border-radius: 4px;
+  border-radius: 2px;
 }
 
 .currentSlide {
@@ -84,6 +82,10 @@ $inactive-color: hsla(0, 0%, 0%, 0.2);
   background-color: $inactive-color;
 }
 
+.disabledCarouselControl:hover {
+  cursor: not-allowed;
+}
+
 /*  Carousel Position Indicator and Display  */
 
 .posIndicator {
@@ -112,4 +114,10 @@ $inactive-color: hsla(0, 0%, 0%, 0.2);
   align-items: center;
   width: 100%;
   padding: 0 5px;
+}
+
+@media only screen and (max-height: 414px) and (max-width: 896px){
+  .carousel {
+    width: 85%;
+  }
 }

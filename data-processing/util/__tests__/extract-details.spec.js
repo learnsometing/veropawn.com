@@ -12,7 +12,7 @@ describe('extractDetails from Firearm types', () => {
     }
 
     expect(extractDetails(record)).toEqual({
-      brand: 'Browning',
+      brand: 'BROWNING',
       serial: '#X63480',
       ammo: '16 Gauge',
       action: 'Single-Shot'
@@ -30,7 +30,7 @@ describe('extractDetails from Firearm types', () => {
     }
 
     expect(extractDetails(record)).toEqual({
-      brand: 'Browning',
+      brand: 'BROWNING',
       serial: '#X63480',
       ammo: '16 Gauge',
       action: 'Single-Shot'
@@ -48,7 +48,7 @@ describe('extractDetails from Firearm types', () => {
     }
 
     expect(extractDetails(record)).toEqual({
-      brand: 'Browning',
+      brand: 'BROWNING',
       serial: '#X63480',
       ammo: '16 Gauge',
       action: 'Single-Shot'
@@ -84,7 +84,7 @@ describe('extractDetails from Firearm types', () => {
     }
 
     expect(extractDetails(record)).toEqual({
-      brand: 'Glock',
+      brand: 'GLOCK',
       serial: '#PTG061',
       ammo: '9 mm',
       action: 'Semi-Automatic'
@@ -102,7 +102,7 @@ describe('extractDetails from Firearm types', () => {
     }
 
     expect(extractDetails(record)).toEqual({
-      brand: 'Glock',
+      brand: 'GLOCK',
       serial: '#LFH095',
       ammo: '.45 Caliber',
       action: 'Semi-Automatic'
@@ -120,7 +120,7 @@ describe('extractDetails from Firearm types', () => {
     }
 
     expect(extractDetails(record)).toEqual({
-      brand: 'Winchester',
+      brand: 'WINCHESTER',
       serial: '#107679',
       ammo: '12 Gauge',
       action: 'Single-Shot'
@@ -153,7 +153,7 @@ describe('extractDetails from Jewelry types', () => {
     }
 
     expect(extractDetails(record)).toEqual({
-      brand: 'Bulova',
+      brand: 'BULOVA',
       serial: '#s17453654',
       metal: 'N/A',
       mass: '86.50 grams'
@@ -189,7 +189,7 @@ describe('extractDetails from Jewelry types', () => {
     }
 
     expect(extractDetails(record)).toEqual({
-      brand: 'Hamilton',
+      brand: 'HAMILTON',
       serial: '',
       metal: 'Plat',
       mass: '14.20 grams'
@@ -207,7 +207,7 @@ describe('extractDetails from Jewelry types', () => {
     }
 
     expect(extractDetails(record)).toEqual({
-      brand: 'None',
+      brand: 'NONE',
       serial: '',
       metal: 'Sterling Silver',
       mass: '22.80 grams'
@@ -225,7 +225,7 @@ describe('extractDetails from Jewelry types', () => {
     }
 
     expect(extractDetails(record)).toEqual({
-      brand: 'None',
+      brand: 'NONE',
       serial: '#12345',
       metal: '',
       mass: '22.80 grams'
@@ -243,7 +243,7 @@ describe('extractDetails from Jewelry types', () => {
     }
 
     expect(extractDetails(record)).toEqual({
-      brand: 'None',
+      brand: 'NONE',
       serial: '',
       metal: '',
       mass: '2.20 grams'
@@ -261,7 +261,7 @@ describe('extractDetails from Jewelry types', () => {
     }
 
     expect(extractDetails(record)).toEqual({
-      brand: 'None',
+      brand: 'NONE',
       serial: '',
       metal: '14kt Gold',
       mass: '14.00 grams'
@@ -294,7 +294,7 @@ describe('extractDetails default behavior', () => {
     }
 
     expect(extractDetails(record)).toEqual({
-      brand: 'Ryobi',
+      brand: 'RYOBI',
       serial: '#AB124570622'
     })
   });
@@ -310,7 +310,7 @@ describe('extractDetails default behavior', () => {
     }
 
     expect(extractDetails(record)).toEqual({
-      brand: 'Matco',
+      brand: 'MATCO',
       serial: ''
     })
   });
@@ -326,7 +326,7 @@ describe('extractDetails default behavior', () => {
     }
 
     expect(extractDetails(record)).toEqual({
-      brand: 'None',
+      brand: 'NONE',
       serial: ''
     })
   });
@@ -360,7 +360,7 @@ describe('extractDetails from Coins/Collectibles', () => {
     }
 
     expect(extractDetails(record)).toEqual({
-      type: 'Johnson Matthey',
+      type: 'JOHNSON MATTHEY',
       additional: '#A051912'
     })
   });
@@ -376,7 +376,7 @@ describe('extractDetails from Coins/Collectibles', () => {
     }
 
     expect(extractDetails(record)).toEqual({
-      type: 'None',
+      type: 'NONE',
       additional: ''
     })
   });

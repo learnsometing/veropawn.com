@@ -59,33 +59,20 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
 
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions;
-  const pagesJson = await graphql(`
-    query pages {
-      allPagesJson {
+  const { data } = await graphql(`
+    query {
+      allSubcatPages: allPagesJson {
         nodes {
           fields {
             slug
           }
-        }
-      }
-    }
-  `);
-
-  const itemsJson = await graphql(`
-    query items {
-      allItemsJson {
-        nodes {
-          fields {
-            slug
+          items{
+            invNum
           }
         }
       }
-    }
-  `);
 
-  const markdown = await graphql(`
-    query MDContent {
-      allMarkdownRemark{
+      allMarkdownPages: allMarkdownRemark{
         nodes{
           id
           fields {
@@ -93,30 +80,53 @@ exports.createPages = async ({ graphql, actions }) => {
           }
         }
       }
+
+      allItemPages: allItemsJson {
+        nodes {
+          fields {
+            slug
+          }
+          invNum
+        }
+      }
     }
   `);
-  // Create a page for each item
 
   // Create a page for each subcategory of item
-  pagesJson.data.allPagesJson.nodes.forEach(node => {
+  data.allSubcatPages.nodes.forEach(node => {
+    let allMainPhotoNames = node.items.map(item => `${item.invNum}_a`);
     createPage({
       path: node.fields.slug,
       component: path.resolve(`./src/templates/shopping-page/shopping-page.js`),
       context: {
         // Data passed to context is available in page queries as GraphQL variables.
-        slug: node.fields.slug
+        slug: node.fields.slug,
+        photoNames: allMainPhotoNames
       }
     });
   });
 
   // Create a page for each markdown file.
-  markdown.data.allMarkdownRemark.nodes.forEach(node => {
+  data.allMarkdownPages.nodes.forEach(node => {
     createPage({
       path: node.fields.slug,
       component: path.resolve(`./src/templates/markdown-page.js`),
       context: {
         id: node.id,
       }
-    })
-  })
+    });
+  });
+
+  // Create a page for each item
+  data.allItemPages.nodes.forEach(node => {
+    const regex = `/${node.invNum}_/`
+    createPage({
+      path: node.fields.slug,
+      component: path.resolve('./src/templates/item-page/item-page.js'),
+      context: {
+        regex: regex,
+        slug: node.fields.slug,
+      }
+    });
+  });
 }
