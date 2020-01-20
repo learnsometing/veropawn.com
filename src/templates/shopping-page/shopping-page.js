@@ -73,7 +73,7 @@ export const CallToAction = ({ currentPage, ...props }) => {
   const _getCTA = currentPage => {
     const contact = {
       header: "Interested in an item?",
-      text: "We're ready to answer any questions you have.",
+      text: "We're ready to answer your questions.",
       linkText: "Contact Us",
       link: "/contact/"
     };
@@ -208,8 +208,7 @@ FilterBar.propTypes = {
 export const PureShoppingPage = ({ allItems, defaultPhoto, allMainPhotos, subcategory, width, ...props }) => {
   const numItems = allItems.length;
   const initialItemsOnPage = allItems.slice(0, 24);
-  const initialUpperLimit = _setUpperLimitText(24);
-
+  const initialUpperLimit = _setUpperLimitText(24, numItems);
   const [filteredItems, setFilteredItems] = useState(allItems);
   const [itemsOnPage, setItemsOnPage] = useState(initialItemsOnPage);
   const [displayRangeText, setDisplayRangeText] = useState(`Items 1-${initialUpperLimit} of ${numItems}`);
@@ -257,7 +256,7 @@ export const ShoppingPage = ({ data, size }) => {
   return (
     <div id="root">
       <SEO title={subcategory} />
-      <Header />
+      <Header width={width} />
       <PureShoppingPage
         allItems={allItems}
         allMainPhotos={allMainPhotos}
@@ -272,49 +271,50 @@ export const ShoppingPage = ({ data, size }) => {
 export default sizeMe()(ShoppingPage);
 
 export const query = graphql`
-  query($slug: String!) {
-      inv: allItemsJson(filter: {fields: {slug: {regex: $slug } } }, , sort: {fields: invNum, }) {
+  query($photoNames: [String!], $slug: String!) {
+
+    inv: allItemsJson(filter: {fields: {slug: {regex: $slug } } }, sort: {fields: invNum, }){
       nodes {
-      descript
-          fields {
-      slug
+        descript
+        fields {
+          slug
+        }
+        id
+        invNum
+        subcategory
+      }
     }
-    id
-    invNum
-    subcategory
-  }
-}
 
-defaultPhoto: file(relativePath: {regex: "/0_default/" }) {
+    defaultPhoto: file(relativePath: {regex: "/0_default/" }) {
       base
-  childImageSharp {
-      fluid {
-      aspectRatio
-      base64
-    sizes
-    src
-    srcSet
-  }
-}
-}
+      childImageSharp {
+        fluid {
+          aspectRatio
+          base64
+          sizes
+          src
+          srcSet
+        }
+      }
+    }
 
-allMainPhotos: allFile(
-  filter: {
-      extension: {regex: "/[jpeg png jpg]/" },
-  relativeDirectory: {eq: "items" },
-  base: {ne: "0_default.jpeg", regex: "/_a/" }
+    allMainPhotos: allFile(
+      filter: {
+        extension: {regex: "/[jpeg png jpg]/" },
+        relativeDirectory: {eq: "items" },
+        name: {ne: "0_default", in: $photoNames }
       },
-  sort: {fields: base }
-){
+      sort: {fields: base }){
       nodes {
-      base
-    childImageSharp {
-      fluid(maxWidth: 1024){
-      ...GatsbyImageSharpFluid
+        name
+        childImageSharp {
+          fluid(maxWidth: 1024){
+            ...GatsbyImageSharpFluid
+          }
+        }
+        id
+      }
     }
-    }
-    id
+
   }
-}
-}
 `;

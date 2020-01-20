@@ -83,12 +83,22 @@ h2 {
   align-items: center;
   border-top: $CTABorder;
   border-bottom: $CTABorder;
-  padding: 23px 0;
+  padding: 15px 0;
   font-family: $sans;
 }
 
 .CTAHeader {
   font-size: 24px;
+  margin: 15px 0;
+  margin-top:0;
+}
+
+.CTAContainer div p {
+  width: 100%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  text-align: center;
 }
 
 .CTALink {
