@@ -15,7 +15,7 @@ describe('Header', () => {
         allInvJson={allInvJson}
         allMarkdownRemark={allMarkdownRemark}
         logo={data}
-        size={{ width: 666 }}
+        width={666}
       />
     );
 
@@ -28,7 +28,7 @@ describe('Header', () => {
         allInvJson={allInvJson}
         allMarkdownRemark={allMarkdownRemark}
         logo={data}
-        size={{ width: 667 }}
+        width={667}
       />
     );
 

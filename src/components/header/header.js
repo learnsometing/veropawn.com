@@ -1,7 +1,6 @@
 // Node_Modules Imports
 import React, { useState } from "react";
 import { graphql, Link, useStaticQuery } from "gatsby";
-import sizeMe from "react-sizeme";
 
 // Internal Imports
 import styles from "./header.module.scss";
@@ -56,10 +55,10 @@ export const withHeaderModalLeft = MenuComponent => {
   }
 }
 
-export const PureHeader = ({ size, ...props }) => {
+export const PureHeader = ({ width, ...props }) => {
   let HeaderMenu;
 
-  if (size.width < 667) {
+  if (width < 667) {
     HeaderMenu = withHeaderModalLeft(CollapsedMainMenu);
   } else {
     HeaderMenu = withHeaderModalLeft(ExpandedMainMenu);
@@ -82,7 +81,7 @@ export const PureHeader = ({ size, ...props }) => {
   );
 };
 
-export const Header = ({ size }) => {
+export default ({ width }) => {
   const { logo, allMarkdownRemark, allPagesJson } = useStaticQuery(
     graphql`
       query {
@@ -119,12 +118,10 @@ export const Header = ({ size }) => {
 
   return (
     <PureHeader
-      size={size}
+      width={width}
       logo={logo}
       allMarkdownRemark={allMarkdownRemark}
       allPagesJson={allPagesJson}
     />
   );
 }
-
-export default sizeMe()(Header);

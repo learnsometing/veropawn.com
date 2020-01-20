@@ -9,9 +9,10 @@ export default ({ data }) => {
     const html = data.markdownRemark.html;
     return ReactHtmlParser(html);
   }
+  const title = data.markdownRemark.frontmatter.title;
 
   return (
-    <Layout>
+    <Layout title={title}>
       <div>
         {createHtmlFromMarkup()}
       </div>
@@ -22,6 +23,9 @@ export default ({ data }) => {
 export const query = graphql`
   query($id: String) {
     markdownRemark(id: {eq: $id}) {
+      frontmatter {
+        title
+      }
       html
     }
   }

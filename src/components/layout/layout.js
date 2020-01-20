@@ -1,15 +1,18 @@
 import React from "react";
 import PropTypes from "prop-types";
+import sizeMe from "react-sizeme";
 
 import "./layout.css";
 
 import Header from "../header/header";
+import SEO from "../../components/seo";
 
-const Layout = (props) => {
+const Layout = ({ size, ...props }) => {
+  const width = size.width;
   return (
     <div id="root">
-      {/* <SEO title={subcategory} /> */}
-      <Header />
+      <SEO title={props.title} />
+      <Header width={width} />
       <main id="mainContainer">{props.children}</main>
     </div>
   )
@@ -19,4 +22,4 @@ Layout.propTypes = {
   children: PropTypes.node.isRequired,
 }
 
-export default Layout;
+export default sizeMe()(Layout);
