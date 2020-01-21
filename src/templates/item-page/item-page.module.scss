@@ -98,26 +98,47 @@ $sans: 'Helvetica Neue', 'Helvetica', sans-serif;
 
 }
 
-.cardCTA {
-  padding: 15px;
+.interestedCTA {
+  padding: 15px 10px;
   font-size: 0.9rem;
+}
+
+.CTAHeader {
+  margin: 15px 0;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.CTAText {
+  font-size: 20px;
+  font-weight: 500;
 }
 
 .telWrapper {
   width: 100%;
   font-size: 1.2rem;
+  border-top: 2px solid rgba(0, 0, 0, 0.3);
+  border-bottom: 2px solid rgba(0, 0, 0, 0.3);
 }
 
 .tel {
   cursor: default;
+  margin: 15px 0;
   text-decoration: none;
   color: #000;
-  width: fit-content;
-  margin: 0 15px;
 }
 
 .tel:hover {
   cursor: default;
+}
+
+.telIcon {
+  width: 24px;
+  height: 24px;
+}
+
+.telNumber {
+  margin: 0 5px;
 }
 
 @media only screen and (max-height: 414px) and (max-width: 896px) {
