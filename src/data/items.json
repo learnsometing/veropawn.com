@@ -859,8 +859,8 @@
     "subcategory": "Foreign Coins",
     "descript": "Krugerrand Gold Coin",
     "details": {
-      "type": "FOREIGN",
-      "additional": ""
+      "brand": "FOREIGN",
+      "serial": ""
     },
     "invNum": "33394-1",
     "model": ""
@@ -1174,8 +1174,8 @@
     "subcategory": "Us Coins",
     "descript": "Us 2 Dollar Coin",
     "details": {
-      "type": "US COINS",
-      "additional": ""
+      "brand": "US COINS",
+      "serial": ""
     },
     "invNum": "134377-3",
     "model": ""
@@ -1684,8 +1684,8 @@
     "subcategory": "Slug",
     "descript": "10 Oz Silver Bar",
     "details": {
-      "type": "JOHNSON MATTHEY",
-      "additional": "#A051912"
+      "brand": "JOHNSON MATTHEY",
+      "serial": "#A051912"
     },
     "invNum": "33340-1",
     "model": ""
@@ -2900,8 +2900,8 @@
     "subcategory": "Slug",
     "descript": "Half Pound Round Silver Coin",
     "details": {
-      "type": "NONE",
-      "additional": ""
+      "brand": "NONE",
+      "serial": ""
     },
     "invNum": "I-584",
     "model": ""
@@ -3788,8 +3788,8 @@
     "subcategory": "Us Coins",
     "descript": "Last Us Large Dollar 1917 Money",
     "details": {
-      "type": "US COINS",
-      "additional": ""
+      "brand": "US COINS",
+      "serial": ""
     },
     "invNum": "235019-1",
     "model": ""
@@ -3874,10 +3874,10 @@
   },
   {
     "category": "Collectibles",
-    "subcategory": "Pen",
+    "subcategory": "Pen/Pencil",
     "descript": "Silver Pen",
     "details": {
-      "brand": "/PENCIL  SHEAFFER",
+      "brand": "SHEAFFER",
       "serial": ""
     },
     "invNum": "32529-1",
@@ -4203,8 +4203,8 @@
     "subcategory": "Foreign Coins",
     "descript": "1/4 Oz Gold Coin",
     "details": {
-      "type": "FOREIGN",
-      "additional": ""
+      "brand": "FOREIGN",
+      "serial": ""
     },
     "invNum": "234951-1",
     "model": ""
@@ -4314,8 +4314,8 @@
     "subcategory": "Us Coins",
     "descript": "10 Silver Coins",
     "details": {
-      "type": "US COINS",
-      "additional": ""
+      "brand": "US COINS",
+      "serial": ""
     },
     "invNum": "33364-1",
     "model": ""
@@ -7052,8 +7052,8 @@
     "subcategory": "Us Coins",
     "descript": "50 Dollar American Buffalo",
     "details": {
-      "type": "US COINS",
-      "additional": "#70019995"
+      "brand": "US COINS",
+      "serial": "#70019995"
     },
     "invNum": "134377-4",
     "model": ""
@@ -7921,8 +7921,8 @@
     "subcategory": "Slug",
     "descript": "Silver Bar 10oz Bar",
     "details": {
-      "type": "NORTHWEST MINT",
-      "additional": ""
+      "brand": "NORTHWEST MINT",
+      "serial": ""
     },
     "invNum": "32353-1",
     "model": ""
@@ -8249,8 +8249,8 @@
     "subcategory": "Slug",
     "descript": "Half Pound Round Silver Coin",
     "details": {
-      "type": "NONE",
-      "additional": ""
+      "brand": "NONE",
+      "serial": ""
     },
     "invNum": "I-585",
     "model": ""
@@ -8260,8 +8260,8 @@
     "subcategory": "Us Coins",
     "descript": "Double Eagle Coin",
     "details": {
-      "type": "US COINS",
-      "additional": ""
+      "brand": "US COINS",
+      "serial": ""
     },
     "invNum": "134276-1",
     "model": ""
@@ -8295,8 +8295,8 @@
     "subcategory": "Slug",
     "descript": "Half Pound Round Silver Coin",
     "details": {
-      "type": "NONE",
-      "additional": ""
+      "brand": "NONE",
+      "serial": ""
     },
     "invNum": "I-583",
     "model": ""
@@ -9335,8 +9335,8 @@
     "subcategory": "Us Coins",
     "descript": "Asst Us Coin",
     "details": {
-      "type": "US COINS",
-      "additional": ""
+      "brand": "US COINS",
+      "serial": ""
     },
     "invNum": "235037-1",
     "model": ""
@@ -9821,8 +9821,8 @@
     "subcategory": "Us Coins",
     "descript": "Us Gold 3 Dollar Coin",
     "details": {
-      "type": "US COINS",
-      "additional": ""
+      "brand": "US COINS",
+      "serial": ""
     },
     "invNum": "134377-1",
     "model": ""
@@ -10012,8 +10012,8 @@
     "subcategory": "Foreign Coins",
     "descript": "1/10th Oz 1981 Krugrand",
     "details": {
-      "type": "FOREIGN",
-      "additional": ""
+      "brand": "FOREIGN",
+      "serial": ""
     },
     "invNum": "33686-1",
     "model": ""
@@ -10316,8 +10316,8 @@
     "subcategory": "Slug",
     "descript": "Half Pound Round Silver Coin",
     "details": {
-      "type": "NONE",
-      "additional": ""
+      "brand": "NONE",
+      "serial": ""
     },
     "invNum": "I-582",
     "model": ""
@@ -10399,8 +10399,8 @@
     "subcategory": "Foreign Coins",
     "descript": "1 Kg Silver",
     "details": {
-      "type": "FOREIGN",
-      "additional": ""
+      "brand": "FOREIGN",
+      "serial": ""
     },
     "invNum": "134102-3",
     "model": ""
@@ -12271,8 +12271,8 @@
     "subcategory": "Us Coins",
     "descript": "Gold 1876 2.5 Dollar Coin",
     "details": {
-      "type": "US COINS",
-      "additional": ""
+      "brand": "US COINS",
+      "serial": ""
     },
     "invNum": "234934-1",
     "model": ""
@@ -13291,8 +13291,8 @@
     "subcategory": "Slug",
     "descript": "Gold Bar Shipwreck",
     "details": {
-      "type": "FOREIGN",
-      "additional": ""
+      "brand": "FOREIGN",
+      "serial": ""
     },
     "invNum": "32366-1",
     "model": ""
@@ -14259,8 +14259,8 @@
     "subcategory": "Foreign Coins",
     "descript": "Silver Coins",
     "details": {
-      "type": "FOREIGN",
-      "additional": ""
+      "brand": "FOREIGN",
+      "serial": ""
     },
     "invNum": "134102-2",
     "model": ""
@@ -14515,8 +14515,8 @@
     "subcategory": "Slug",
     "descript": "George Bush Coin 14k .25oz",
     "details": {
-      "type": "NONE",
-      "additional": "#77"
+      "brand": "NONE",
+      "serial": "#77"
     },
     "invNum": "33575-1",
     "model": ""
@@ -14591,8 +14591,8 @@
     "subcategory": "Us Coins",
     "descript": "2001 Buffalo Coin",
     "details": {
-      "type": "US COINS",
-      "additional": ""
+      "brand": "US COINS",
+      "serial": ""
     },
     "invNum": "235588-1",
     "model": ""
@@ -15104,8 +15104,8 @@
     "subcategory": "Us Coins",
     "descript": "Coin Gold",
     "details": {
-      "type": "US COINS",
-      "additional": ""
+      "brand": "US COINS",
+      "serial": ""
     },
     "invNum": "235502-1",
     "model": ""
@@ -16618,8 +16618,8 @@
     "subcategory": "Us Coins",
     "descript": "2001 & 2003 Silver American Eagle Coins Uncirculated",
     "details": {
-      "type": "SILVER   US COINS",
-      "additional": ""
+      "brand": "SILVER   US COINS",
+      "serial": ""
     },
     "invNum": "32289-1",
     "model": ""
@@ -17237,8 +17237,8 @@
     "subcategory": "Us Coins",
     "descript": "2 Oz Silver Coins",
     "details": {
-      "type": "US COINS",
-      "additional": ""
+      "brand": "US COINS",
+      "serial": ""
     },
     "invNum": "234910-1",
     "model": ""

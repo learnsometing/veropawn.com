@@ -1,5 +1,71 @@
 const { extractDetails } = require('../extract-details');
 
+describe('extractDetails default behavior', () => {
+  it('should successfully extract the brand and serial number from an item', () => {
+    let record = {
+      "category": "TOOLS-POWER",
+      "subcategory": "GRINDER",
+      "descript": "ANGLE GRINDER",
+      "descript2": "GRINDER TOOLS-POWER RYOBI AG402, #AB124570622; ANGLE GRINDER",
+      "invNum": "32570-1",
+      "model": "AG402"
+    }
+
+    expect(extractDetails(record)).toEqual({
+      brand: 'RYOBI',
+      serial: '#AB124570622'
+    })
+  });
+
+  it('should successfully extract the brand from an item without a model number', () => {
+    let record = {
+      "category": "TOOLS-POWER",
+      "subcategory": "IMPACT WRENCH",
+      "descript": "IMPACT 1 BATTERY CHARGER",
+      "descript2": "IMPACT WRENCH TOOLS-POWER MATCO; IMPACT 1 BATTERY CHARGER",
+      "invNum": "133871-1",
+      "model": ""
+    }
+
+    expect(extractDetails(record)).toEqual({
+      brand: 'MATCO',
+      serial: ''
+    })
+  });
+
+  it('should successfully extract NONE from an item without a model number or a brand', () => {
+    let record = {
+      "category": "DEFENSE ACCESSORIES",
+      "subcategory": "AMMUNITION",
+      "descript": "5400 ROUNDS OF 5.45X39",
+      "descript2": "AMMUNITION DEFENSE ACCESSORIES NONE; 5400 ROUNDS OF 5.45X39",
+      "invNum": "235218-1",
+      "model": ""
+    }
+
+    expect(extractDetails(record)).toEqual({
+      brand: 'NONE',
+      serial: ''
+    })
+  });
+
+  it('should successfully return the default details when an item has no extra details', () => {
+    let record = {
+      "category": "DEFENSE ACCESSORIES",
+      "subcategory": "PEPPER SPRAY",
+      "descript": "PEPPER SPRAY",
+      "descript2": "PEPPER SPRAY DEFENSE ACCESSORIES; PEPPER SPRAY",
+      "invNum": "I-897",
+      "model": ""
+    }
+
+    expect(extractDetails(record)).toEqual({
+      brand: '',
+      serial: ''
+    });
+  });
+});
+
 describe('extractDetails from Firearm types', () => {
   it('should correctly extract the details from an item with a model number', () => {
     let record = {
@@ -279,121 +345,5 @@ describe('extractDetails from Jewelry types', () => {
     };
 
     expect(() => { extractDetails(record) }).toThrow(RangeError);
-  });
-});
-
-describe('extractDetails default behavior', () => {
-  it('should successfully extract the brand and serial number from an item', () => {
-    let record = {
-      "category": "TOOLS-POWER",
-      "subcategory": "GRINDER",
-      "descript": "ANGLE GRINDER",
-      "descript2": "GRINDER TOOLS-POWER RYOBI AG402, #AB124570622; ANGLE GRINDER",
-      "invNum": "32570-1",
-      "model": "AG402"
-    }
-
-    expect(extractDetails(record)).toEqual({
-      brand: 'RYOBI',
-      serial: '#AB124570622'
-    })
-  });
-
-  it('should successfully extract the brand from an item without a model number', () => {
-    let record = {
-      "category": "TOOLS-POWER",
-      "subcategory": "IMPACT WRENCH",
-      "descript": "IMPACT 1 BATTERY CHARGER",
-      "descript2": "IMPACT WRENCH TOOLS-POWER MATCO; IMPACT 1 BATTERY CHARGER",
-      "invNum": "133871-1",
-      "model": ""
-    }
-
-    expect(extractDetails(record)).toEqual({
-      brand: 'MATCO',
-      serial: ''
-    })
-  });
-
-  it('should successfully extract NONE from an item without a model number or a brand', () => {
-    let record = {
-      "category": "DEFENSE ACCESSORIES",
-      "subcategory": "AMMUNITION",
-      "descript": "5400 ROUNDS OF 5.45X39",
-      "descript2": "AMMUNITION DEFENSE ACCESSORIES NONE; 5400 ROUNDS OF 5.45X39",
-      "invNum": "235218-1",
-      "model": ""
-    }
-
-    expect(extractDetails(record)).toEqual({
-      brand: 'NONE',
-      serial: ''
-    })
-  });
-
-  it('should successfully return the default details when an item has no extra details', () => {
-    let record = {
-      "category": "DEFENSE ACCESSORIES",
-      "subcategory": "PEPPER SPRAY",
-      "descript": "PEPPER SPRAY",
-      "descript2": "PEPPER SPRAY DEFENSE ACCESSORIES; PEPPER SPRAY",
-      "invNum": "I-897",
-      "model": ""
-    }
-
-    expect(extractDetails(record)).toEqual({
-      brand: '',
-      serial: ''
-    });
-  });
-});
-
-describe('extractDetails from Coins/Collectibles', () => {
-  it('should successfully extract the type and additional number from a coin', () => {
-    let record = {
-      "category": "COINS",
-      "subcategory": "SLUG",
-      "descript": "10 OZ SILVER BAR",
-      "descript2": "SLUG COINS JOHNSON MATTHEY, #A051912; 10 OZ SILVER BAR",
-      "invNum": "33340-1",
-      "model": ""
-    }
-
-    expect(extractDetails(record)).toEqual({
-      type: 'JOHNSON MATTHEY',
-      additional: '#A051912'
-    })
-  });
-
-  it('should successfully extract the brand from an item without a model number', () => {
-    let record = {
-      "category": "COINS",
-      "subcategory": "SLUG",
-      "descript": "HALF POUND ROUND SILVER COIN",
-      "descript2": "SLUG COINS NONE; HALF POUND ROUND SILVER COIN",
-      "invNum": "I-584",
-      "model": ""
-    }
-
-    expect(extractDetails(record)).toEqual({
-      type: 'NONE',
-      additional: ''
-    })
-  });
-
-  it('should successfully return the default details when an item has no extra details', () => {
-    let record = {
-      "category": "COINS",
-      "subcategory": "SLUG",
-      "descript": "HALF POUND ROUND SILVER COIN",
-      "descript2": "SLUG COINS; HALF POUND ROUND SILVER COIN",
-      "invNum": "I-583",
-      "model": ""
-    }
-
-    expect(extractDetails(record)).toEqual({
-      type: '',
-      additional: ''
-    });
   });
 });
