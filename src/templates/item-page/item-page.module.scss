@@ -1,130 +1,98 @@
-$sans: 'Helvetica Neue', 'Helvetica', sans-serif;
 
-.col {
-  display: flex;
-  flex-direction: column;
-}
-
-.row {
-  display: flex;
-}
-
-.centered{
-  justify-content: center;
-  align-items: center;
-}
-
-.start {
-  justify-content: flex-start;
-  align-items: center;
-}
-
-.content {
-  position: relative;
-  font-family: $sans;
-}
+/* Page Header */
 
 .header {
   width: 100%;
-  padding: 0 10px;
+  padding: 0 .625rem;
 }
 
 .pageHeading {
   margin: 0;
-  margin-top: 10px;
-  margin-bottom: 15px;
+  margin-top: 0.625rem;
+  margin-bottom: 1rem;
   font-weight: 500;
 }
 
-.detailsColumn {
-  width: 100%;
-}
+/* Details */
 
 .deetsCard {
-  width: 100%;
-  padding: 0 10px;
+  max-width: 1024px;
+  padding: 0 .625rem;
   color: #000;
 }
 
 .deetsWrapper {
-  width: 100%;
   background-color: rgba(0, 0, 0, 0.1);
   border-radius: 2px;
 }
 
 .deetsHeader {
-  width: 100%;
-  padding: 0 15px;
+  padding: 0 1rem;
 }
 
-.deetsHeading {
-  width: 100%;
+.deetsH2 {
   margin: 0;
-  padding: 15px 0;
-  font-size: 1rem;
+  padding: 1rem 0;
   font-weight: 500;
   border-bottom: 1px solid rgba(0, 0, 0, 0.3);
 }
 
 .deetsList {
-  width: 100%;
   margin: 0;
   padding: 0;
-  padding-top: 7.5px;
-  padding-bottom: 15px;
+  padding-top: .5rem;
+  padding-bottom: 1rem;
 }
 
 .deetsLI {
   list-style: none;
-  padding: 0 15px;
+  padding: 0 1rem;
   margin: 0;
 }
 
 .deet {
-  width: 100%;
-  font-size: 0.9rem;
   font-weight: 300;
-  padding: 7.5px 5px;
+  padding: 0.5rem .375rem;
   background-color: #fff;
-  margin: 7.5px 0;
+  margin: .5rem 0;
   border-radius: 1px;
 }
 
 .deetName {
-  margin: 0 5px;
+  margin: 0 .375rem;
+  font-weight: 500;
 }
 
-.deetValue {
-
+.deetsColumn, .deetsCard, .deetsWrapper,
+.deetsHeader, .deetsH2, .deetsList, .deet {
+  width: 100%;
 }
+
+/* CTA */
 
 .interestedCTA {
-  padding: 15px 10px;
-  font-size: 0.9rem;
-  padding-bottom: 10px;
+  padding: 1rem .625rem;
+  padding-bottom: 0.625rem;
 }
 
 .CTAHeader {
-  margin: 15px 0;
-  font-size: 24px;
+  margin: 1rem 0;
   font-weight: bold;
 }
 
 .CTAText {
-  font-size: 20px;
   font-weight: 500;
 }
 
-.telWrapper {
+.CTAWrapper {
   width: 100%;
-  font-size: 1.2rem;
   border-top: 2px solid rgba(0, 0, 0, 0.3);
   border-bottom: 2px solid rgba(0, 0, 0, 0.3);
 }
 
 .tel {
   cursor: default;
-  margin: 15px 0;
+  margin: 1rem 0;
   text-decoration: none;
   color: #000;
 }
@@ -134,16 +102,28 @@ $sans: 'Helvetica Neue', 'Helvetica', sans-serif;
 }
 
 .telIcon {
-  width: 24px;
-  height: 24px;
+  width: 1.5rem;
+  height: 1.5rem;
 }
 
 .telNumber {
-  margin: 0 5px;
+  margin: 0 .375rem;
+  font-weight: bold;
 }
 
 @media only screen and (max-height: 414px) and (max-width: 896px) {
   .detailsColumn {
     width: 85%;
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+  .detailsColumn {
+    max-width: 47.65625%;
+  }
+
+  .wrapper {
+    flex-direction: row;
+    align-items: flex-start;
   }
 }

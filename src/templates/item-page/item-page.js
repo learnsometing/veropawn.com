@@ -6,13 +6,16 @@ import { MdPhone } from "react-icons/md";
 
 import Layout from "../../components/layout/layout";
 import Carousel from "../../components/carousel/carousel";
-import styles from "./item-page.module.scss";
+
+import itemPage from "./item-page.module.scss";
+import layout from "../../styles/layout.module.css";
 
 export const Detail = ({ name, value, ...props }) => {
+  const detailClass = `${layout.rowStartCenter} ${itemPage.deet}`;
   return (
-    <li className={styles.deetsLI}>
-      <div className={`${styles.row} ${styles.start} ${styles.deet}`}>
-        <span className={styles.deetName}>{name}:</span><span>{value}</span>
+    <li className={itemPage.deetsLI}>
+      <div className={detailClass}>
+        <span className={itemPage.deetName}>{name}:</span><span>{value}</span>
       </div>
     </li>
   );
@@ -73,7 +76,7 @@ export const DetailsList = ({ category, details, id, invNum, model, ...props }) 
   let list = createTypedList(baseList, category, id, action, ammo, mass, metal);
 
   return (
-    <ul className={styles.deetsList}>
+    <ul className={itemPage.deetsList}>
       {list}
     </ul>
   );
@@ -87,54 +90,66 @@ DetailsList.propTypes = {
   model: PropTypes.string.isRequired,
 };
 
-export const DetailsCard = ({ children, ...props }) => (
-  <div className={styles.deetsCard}>
-    <div className={`${styles.col} ${styles.centered} ${styles.deetsWrapper}`}>
-      <header className={styles.deetsHeader}>
-        <h2 className={styles.deetsHeading}>
-          Details
+export const DetailsCard = ({ children, ...props }) => {
+  const detailsWrapperClass = `${layout.columnCenterCenter} ${itemPage.deetsWrapper}`;
+  const deetsH2Class = `${layout.rowCenterCenter} ${itemPage.deetsH2}`
+  return (
+    <div className={itemPage.deetsCard}>
+      <div className={detailsWrapperClass}>
+        <header className={itemPage.deetsHeader}>
+          <h2 className={deetsH2Class}>
+            Details
         </h2>
-      </header>
-      {children}
+        </header>
+        {children}
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 DetailsCard.propTypes = {
   children: PropTypes.object.isRequired,
 };
 
-const PageHeader = ({ descript }) => (
-  <header className={`${styles.col} ${styles.centered} ${styles.header}`}>
-    <h1 className={styles.pageHeading}>
-      {descript}
-    </h1>
-  </header>
-);
+const PageHeader = ({ descript }) => {
+  const pageHeaderClass = `${layout.columnCenterCenter} ${itemPage.header}`;
+  return (
+    <header className={pageHeaderClass}>
+      <h1 className={itemPage.pageHeading}>
+        {descript}
+      </h1>
+    </header>
+  );
+};
 
 PageHeader.propTypes = {
   descript: PropTypes.string.isRequired,
 };
 
-const InterestedCTA = () => (
-  <div className={`${styles.row} ${styles.start} ${styles.interestedCTA}`}>
-    <div className={`${styles.col} ${styles.centered} ${styles.telWrapper}`}>
-      <div className={styles.CTAHeader}>Interested?</div>
-      <div className={styles.CTAText}>Give us a call.</div>
-      <div>
-        <a
-          className={`${styles.row} ${styles.start} ${styles.tel}`}
-          href="tel:+17722995626"
-        >
-          <IconContext.Provider value={{ size: '26px' }}>
-            <MdPhone />
-          </IconContext.Provider>
-          <span className={styles.telNumber}>(772) 299-5626</span>
-        </a>
+const InterestedCTA = () => {
+  const interestedCTAClass = `${layout.rowStartCenter} ${itemPage.interestedCTA}`;
+  const CTAWrapperClass = `${layout.columnCenterCenter} ${itemPage.CTAWrapper}`;
+  const telClass = `${layout.rowStartCenter} ${itemPage.tel}`;
+  return (
+    <div className={interestedCTAClass}>
+      <div className={CTAWrapperClass}>
+        <h2 className={itemPage.CTAHeader}>Interested?</h2>
+        <div className={itemPage.CTAText}>Give us a call.</div>
+        <div>
+          <a
+            className={telClass}
+            href="tel:+17722995626"
+          >
+            <IconContext.Provider value={{ size: '1.25rem' }}>
+              <MdPhone />
+            </IconContext.Provider>
+            <span className={itemPage.telNumber}>(772) 299-5626</span>
+          </a>
+        </div>
       </div>
     </div>
-  </div>
-);
+  );
+};
 
 const ItemPage = ({ data }) => {
   // Unpack the data used on the page
@@ -145,24 +160,28 @@ const ItemPage = ({ data }) => {
   const title = `${descript}-${id}`
   let carouselPhotos = photos.length ? photos : defaultPhoto;
 
+  const detailsColumnClass = `${layout.column} ${itemPage.deetsColumn}`;
+  const wrapperClass = `${layout.columnCenterCenter} ${itemPage.wrapper}`;
   return (
     <Layout title={title}>
-      <PageHeader descript={descript} />
-      <div className={`${styles.content} ${styles.col} ${styles.centered}`}>
-        <Carousel alt={descript} photos={carouselPhotos} />
-        <div className={`${styles.col} ${styles.detailsColumn}`}>
-          <DetailsCard>
-            <DetailsList
-              category={category}
-              details={details}
-              id={id}
-              invNum={invNum}
-              model={model}
-            />
-          </DetailsCard>
-          <InterestedCTA />
+      <main id="content">
+        <PageHeader descript={descript} />
+        <div className={wrapperClass}>
+          <Carousel alt={descript} photos={carouselPhotos} />
+          <div className={detailsColumnClass}>
+            <DetailsCard>
+              <DetailsList
+                category={category}
+                details={details}
+                id={id}
+                invNum={invNum}
+                model={model}
+              />
+            </DetailsCard>
+          </div>
         </div>
-      </div>
+        <InterestedCTA />
+      </main>
     </Layout>
   )
 };

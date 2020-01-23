@@ -9,8 +9,8 @@ import React, { useState } from "react";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 
 // Internal Imports
-import { DDMenuHeader, DDMenuBtn, DDMenuToggleBtn } from "../dropdown-menu/dd-menu";
-import MDPageLinks from "../shared/md-page-links";
+import { DDMenuHeader, DDMenuBtn, DDMenuToggleBtn } from "./dd-menu";
+import MDPageLinks from "./md-page-links";
 
 import CategoryMenu from "./category-menu";
 

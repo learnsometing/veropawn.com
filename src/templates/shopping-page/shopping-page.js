@@ -5,20 +5,22 @@ import PropTypes from "prop-types";
 import RCPagination from 'rc-pagination';
 import localeInfo from 'rc-pagination/lib/locale/en_US';
 import 'rc-pagination/assets/index.css';
-import sizeMe from "react-sizeme";
 
-import SEO from "../../components/seo";
-import Header from "../../components/header/header";
+import Layout from "../../components/layout/layout";
 import getPhotosOfItem from "../util/getPhotosOfItem";
-import "../../components/layout/layout.css";
-import styles from "./shopping-page.module.scss";
+
+import shoppingPage from "./shopping-page.module.scss";
+import layout from "../../styles/layout.module.css";
 
 export const ItemCard = ({ item, photo }) => {
   const descript = item.descript;
+  const itemCardClass = `${layout.column} ${shoppingPage.itemCard}`;
+  const itemDescriptTextClass = `${layout.rowCenterCenter} ${shoppingPage.itemDescriptText}`;
+
   return (
-    <li className={styles.listItem}>
-      <Link className={styles.itemCard} to={item.fields.slug}>
-        <div className={styles.mainPhoto}>
+    <li className={shoppingPage.listItem}>
+      <Link className={itemCardClass} to={item.fields.slug}>
+        <div className={shoppingPage.mainPhoto}>
           <Img
             alt={`${descript}`}
             fluid={photo.childImageSharp.fluid}
@@ -28,7 +30,7 @@ export const ItemCard = ({ item, photo }) => {
           />
         </div>
         <div>
-          <span className={styles.itemDescriptText}>
+          <span className={itemDescriptTextClass}>
             {item.descript}
           </span>
         </div>
@@ -51,9 +53,10 @@ export const ItemCards = ({ items, defaultPhoto, photos, ...props }) => {
   };
 
   const itemCards = _createItemCards(items);
+  const itemCardsClass = `${layout.rowStartStart} ${shoppingPage.itemsUL}`;
 
   return (
-    <ul className={styles.itemsUL}>
+    <ul className={itemCardsClass}>
       {itemCards}
     </ul>
   );
@@ -89,16 +92,19 @@ export const CallToAction = ({ currentPage, ...props }) => {
   };
 
   const CTA = _getCTA(currentPage);
+  const CTAContainerClass = `${layout.columnCenterCenter} ${shoppingPage.CTAContainer}`;
+  const CTATextClass = `${layout.rowCenterCenter} ${shoppingPage.CTAText}`
+  const CTALinkClass = `${layout.rowCenterCenter} ${shoppingPage.CTALink}`;
 
   return (
-    <div className={styles.CTAContainer}>
+    <div className={CTAContainerClass}>
       <div>
-        <h2 className={styles.CTAHeader}>{CTA.header}</h2>
+        <h2 className={shoppingPage.CTAHeader}>{CTA.header}</h2>
       </div>
       <div>
-        <p>{CTA.text}</p>
+        <p className={CTATextClass}>{CTA.text}</p>
       </div>
-      <Link to={CTA.link} className={styles.CTALink}>{CTA.linkText}</Link>
+      <Link to={CTA.link} className={CTALinkClass}>{CTA.linkText}</Link>
     </div>
   );
 };
@@ -112,7 +118,7 @@ const _setUpperLimitText = (upperLimit, numItems) => {
   return _upperLimit.toString();
 };
 
-export const Pagination = ({ items, setDisplayRangeText, setItemsOnPage, width, ...props }) => {
+export const Pagination = ({ items, setDisplayRangeText, setItemsOnPage, ...props }) => {
   const numItems = items.length;
   const itemsPerPage = 24;
   const [currentPage, setCurrentPage] = useState(1);
@@ -162,16 +168,16 @@ export const Pagination = ({ items, setDisplayRangeText, setItemsOnPage, width, 
   return (
     <>
       <CallToAction currentPage={currentPage} />
-      <div className={styles.paginationContainer}>
+      <div className={shoppingPage.paginationContainer}>
         <RCPagination
           current={currentPage}
-          className={styles.pagination}
+          className={shoppingPage.pagination}
           total={numItems}
           defaultPageSize={24}
           onChange={onChange}
           hideOnSinglePage={true}
           showPrevNextJumpers={false}
-          showLessItems={width < 568 ? true : false}
+          showLessItems={true}
           locale={localeInfo}
           data-testid="rc-pagination"
         />
@@ -188,12 +194,15 @@ Pagination.propTypes = {
 };
 
 export const FilterBar = ({ displayRangeText, subcategory }) => {
+  const pageTitleContainerClass = `${layout.rowCenterCenter} ${shoppingPage.pageTitleContainer}`;
+  const displayRangeTextContainerClass = `${layout.rowCenterCenter} ${shoppingPage.displayRangeTextContainer}`;
+
   return (
     <>
-      <div className={styles.pageTitleContainer}>
-        <h1 className={styles.pageTitle}>{subcategory}</h1>
+      <div className={pageTitleContainerClass}>
+        <h1 className={shoppingPage.pageTitle}>{subcategory}</h1>
       </div>
-      <div className={styles.displayRangeTextContainer} >
+      <div className={displayRangeTextContainerClass} >
         {displayRangeText}
       </div>
     </>
@@ -205,7 +214,7 @@ FilterBar.propTypes = {
   subcategory: PropTypes.string.isRequired,
 };
 
-export const PureShoppingPage = ({ allItems, defaultPhoto, allMainPhotos, subcategory, width, ...props }) => {
+export const PureShoppingPage = ({ allItems, defaultPhoto, allMainPhotos, subcategory, ...props }) => {
   const numItems = allItems.length;
   const initialItemsOnPage = allItems.slice(0, 24);
   const initialUpperLimit = _setUpperLimitText(24, numItems);
@@ -219,7 +228,7 @@ export const PureShoppingPage = ({ allItems, defaultPhoto, allMainPhotos, subcat
         displayRangeText={displayRangeText}
         subcategory={subcategory}
       />
-      <main id="mainContainer">
+      <main id="content">
         <ItemCards
           items={itemsOnPage}
           defaultPhoto={defaultPhoto}
@@ -229,7 +238,6 @@ export const PureShoppingPage = ({ allItems, defaultPhoto, allMainPhotos, subcat
           items={filteredItems}
           setDisplayRangeText={setDisplayRangeText}
           setItemsOnPage={setItemsOnPage}
-          width={width}
         />
       </main>
     </>
@@ -241,34 +249,27 @@ PureShoppingPage.propTypes = {
   allMainPhotos: PropTypes.array.isRequired,
   defaultPhoto: PropTypes.object.isRequired,
   subcategory: PropTypes.string.isRequired,
-  width: PropTypes.number.isRequired
 };
 
-export const ShoppingPage = ({ data, size }) => {
+export default ({ data }) => {
   const allItems = data.inv.nodes;
   // Default photo used throughout the app
   const defaultPhoto = data.defaultPhoto;
   // Every image with '_a' identifier
   const allMainPhotos = data.allMainPhotos.nodes;
   const subcategory = allItems[0].subcategory;
-  const width = size.width;
 
   return (
-    <div id="root">
-      <SEO title={subcategory} />
-      <Header width={width} />
+    <Layout title={subcategory}>
       <PureShoppingPage
         allItems={allItems}
         allMainPhotos={allMainPhotos}
         defaultPhoto={defaultPhoto}
         subcategory={subcategory}
-        width={width}
       />
-    </div>
+    </Layout>
   );
 };
-
-export default sizeMe()(ShoppingPage);
 
 export const query = graphql`
   query($photoNames: [String!], $slug: String!) {

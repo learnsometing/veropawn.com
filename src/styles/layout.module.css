@@ -1,0 +1,49 @@
+/* Reusable flex classes: DIRECTION-JUSTIFICIATION-ALIGNMENT */
+
+.row-center-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.row-start-center {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.row-start {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.row-start-start {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.row-space-btn-center {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+}
+
+.column-center-center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.column-start-center {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}

@@ -2,10 +2,12 @@ import React from "react";
 import PropTypes from "prop-types";
 import sizeMe from "react-sizeme";
 
+import "../../styles/base.scss";
 import "./layout.css";
 
-import Header from "../header/header";
 import SEO from "../../components/seo";
+import Header from "../header/header";
+import Footer from "../footer/footer";
 
 const Layout = ({ size, ...props }) => {
   const width = size.width;
@@ -13,7 +15,8 @@ const Layout = ({ size, ...props }) => {
     <div id="root">
       <SEO title={props.title} />
       <Header width={width} />
-      <main id="mainContainer">{props.children}</main>
+      {props.children}
+      <Footer />
     </div>
   )
 }

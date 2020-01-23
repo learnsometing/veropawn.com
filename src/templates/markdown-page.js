@@ -10,12 +10,11 @@ export default ({ data }) => {
     return ReactHtmlParser(html);
   }
   const title = data.markdownRemark.frontmatter.title;
-
   return (
     <Layout title={title}>
-      <div>
+      <main id="content">
         {createHtmlFromMarkup()}
-      </div>
+      </main>
     </Layout>
   );
 }

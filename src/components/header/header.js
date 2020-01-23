@@ -3,28 +3,33 @@ import React, { useState } from "react";
 import { graphql, Link, useStaticQuery } from "gatsby";
 
 // Internal Imports
-import styles from "./header.module.scss";
-import HeaderModalLeft from "../modals/header-modal-left";
+import header from "./header.module.scss";
+import layout from "../../styles/layout.module.css";
+
+import HeaderMenuModal from "./header-menu-modal";
 import CollapsedMainMenu from "../header/collapsed-main-menu";
 import ExpandedMainMenu from "../header/expanded-main-menu";
 
-export const HeaderLogo = ({ logo }) => (
+export const HeaderLogo = ({ logo }) => {
   // A link to the home page that contains the site's SVG logo
+  const linkClass = `${layout.rowCenterCenter} ${header.link}`;
 
-  <Link to='/' className={styles.link}>
-    <span className={styles.iconWrapper}>
-      <div className={styles.svgWrapper}>
-        <img
-          className={styles.svg}
-          src={logo.publicURL}
-          alt="Cash Pawn and Jewelry Logo"
-        />
-      </div>
-    </span>
-  </Link>
-);
+  return (
+    <Link to='/' className={linkClass}>
+      <span className={header.iconWrapper}>
+        <div className={header.svgWrapper}>
+          <img
+            className={header.svg}
+            src={logo.publicURL}
+            alt="Cash Pawn and Jewelry Logo"
+          />
+        </div>
+      </span>
+    </Link>
+  );
+};
 
-export const withHeaderModalLeft = MenuComponent => {
+export const withHeaderMenuModal = MenuComponent => {
   return props => {
     const [isOpen, setIsOpen] = useState(false);
     const [modalMenu, setModalMenu] = useState(null);
@@ -47,9 +52,9 @@ export const withHeaderModalLeft = MenuComponent => {
           isOpen={isOpen}
           toggleMenu={toggleMenu}
         />
-        <HeaderModalLeft isOpen={isOpen} closeModal={closeModal} >
+        <HeaderMenuModal isOpen={isOpen} closeModal={closeModal} >
           {modalMenu}
-        </HeaderModalLeft>
+        </HeaderMenuModal>
       </>
     );
   }
@@ -57,18 +62,21 @@ export const withHeaderModalLeft = MenuComponent => {
 
 export const PureHeader = ({ width, ...props }) => {
   let HeaderMenu;
+  const headerWrapperClass = `${layout.columnCenterCenter} ${header.headerWrapper}`;
+  const navClass = `${layout.rowCenterCenter} ${header.nav}`;
+  const navBarClass = `${layout.rowStartCenter} ${header.navBar}`;
 
   if (width < 667) {
-    HeaderMenu = withHeaderModalLeft(CollapsedMainMenu);
+    HeaderMenu = withHeaderMenuModal(CollapsedMainMenu);
   } else {
-    HeaderMenu = withHeaderModalLeft(ExpandedMainMenu);
+    HeaderMenu = withHeaderMenuModal(ExpandedMainMenu);
   }
 
   return (
-    <div className={styles.headerWrapper}>
-      <header className={styles.header}>
-        <nav className={styles.nav}>
-          <div className={styles.navBar}>
+    <div className={headerWrapperClass}>
+      <header className={header.header}>
+        <nav className={navClass}>
+          <div className={navBarClass}>
             <HeaderLogo logo={props.logo} />
             <HeaderMenu
               allPagesJson={props.allPagesJson}

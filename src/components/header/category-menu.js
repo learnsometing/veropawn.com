@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import { FaAngleLeft } from "react-icons/fa";
 
 // components and functions
-import { DDMenuBtn, DDMenuLink, DDMenuHeader } from "../dropdown-menu/dd-menu";
+import { DDMenuBtn, DDMenuLink, DDMenuHeader } from "./dd-menu";
 
 const CategoryMenuBtns = ({ data, onClick }) => {
   /*

@@ -8,8 +8,8 @@
 import React from "react";
 
 // Internal Imports
-import { DDMenuToggleBtn } from "../dropdown-menu/dd-menu";
-import MDPageLinks from "../shared/md-page-links";
+import { DDMenuToggleBtn } from "./dd-menu";
+import MDPageLinks from "./md-page-links";
 
 import CategoryMenu from "./category-menu";
 

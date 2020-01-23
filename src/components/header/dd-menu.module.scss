@@ -1,0 +1,38 @@
+$bottom-border: 1px solid rgba(0, 0, 0, 0.3);
+
+.heading {
+  padding: .375rem;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.heading, .link, .button, .navButton {
+  width: 100%;
+  border-bottom: $bottom-border;
+  color: #000;
+  font-weight: 500;
+  z-index: 1;
+}
+
+.heading, .link {
+  height: 3rem;
+}
+
+.navButton {
+  font-size: 1.125rem;
+}
+
+.button:hover, .link:hover, .toggleMenuBtn:hover{
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.toggleMenuBtn {
+  color: #fff;
+  font-weight: bold;
+}
+
+@media only screen and (min-width: 667px) {
+  .toggleMenuBtn {
+    height: 85%;
+  }
+}

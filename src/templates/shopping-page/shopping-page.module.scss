@@ -1,43 +1,53 @@
 $lightBlue: #1188CC;
 $trimColor: rgba(0, 0, 0, 0.6);
-$sans: 'Helvetica Neue', 'Helvetica', sans-serif;
 $CTABorder: 2px solid rgba(0, 0, 0, 0.6);
 $CTALinkBorder: 2px solid $lightBlue;
 
-.itemsUL {
-  margin: 0;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  align-items: flex-start;
+/*                Filter Bar                 */
+
+.pageTitleContainer {
+  position: relative;
+  border-bottom: 1px solid $trimColor;
+  background-color: #fff;
 }
 
-h2 {
-  display: flex;
-  justify-content: center;
+.pageTitle {
+  margin: .5em 0;
+}
+
+.displayRangeTextContainer {
+  position: sticky;
+  top: 3rem;
+  padding: .375rem 0;
+  background-color: #fff;
+  z-index: 2;
+  border-bottom: 1px solid $trimColor;
+}
+
+.pageTitleContainer, .displayRangeTextContainer {
   width: 100%;
-  margin: 1em 0;
-  font-size: 1.25em;
+  max-width: 1024px;
+  margin: 0 auto;
+}
+
+/*                 Item Cards                */
+
+.itemsUL {
+  margin: 0;
+  flex-wrap: wrap;
 }
 
 .listItem {
-  width:  50%;
+  width: 50%;
   flex-basis: auto;
-  list-style: none;
-  padding: 5px;
+  padding: .375rem;
   margin-bottom: 0;
 }
 
 .itemCard {
-  width: 100%;
   height: 100%;
-  display: flex;
-  flex-direction: column;
-  background: none;
+  background: transparent;
   border: none;
-  text-decoration: none;
-  color: #000;
 }
 
 .itemCard:hover {
@@ -47,16 +57,16 @@ h2 {
 }
 
 .itemDescriptText {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   text-align: center;
   padding: 1rem 0;
-  font-family: 'Helvetica Neue', 'Helvetica', sans-serif;
-  font-size: 14px;
   font-weight: 500;
 }
+
+.itemCard, .itemDescriptText {
+  width: 100%;
+}
+
+/*                Pagination                */
 
 .paginationContainer {
   width: 100%;
@@ -74,42 +84,24 @@ h2 {
   margin: 0 5px;
 }
 
+/*                CTA                */
+
 .CTAContainer {
-  width: 100%;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
   border-top: $CTABorder;
   border-bottom: $CTABorder;
-  padding: 15px 0;
-  font-family: $sans;
-}
-
-.CTAHeader {
-  font-size: 24px;
-  margin: 15px 0;
-  margin-top:0;
-}
-
-.CTAContainer div p {
-  width: 100%;
-  position: relative;
-  display: flex;
-  justify-content: center;
-  text-align: center;
+  padding: 1.45rem 0;
 }
 
 .CTALink {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 0.75rem;
+  padding: 1rem;
   text-decoration: none;
-  color: #000;
-  border: $CTABorder;
+  border: 2px solid #000;
   border-radius: 4px;
+  font-weight: bold;
+}
+
+.CTAText {
+  font-weight: 400;
 }
 
 .CTALink:hover {
@@ -122,39 +114,13 @@ h2 {
   color: #0779AD;
 }
 
-.pageTitleContainer {
-  position: relative;
-  display: flex;
-  justify-content: center;
+.CTAContainer, .CTA div p {
   width: 100%;
-  border-bottom: 1px solid $trimColor;
-}
-
-.pageTitle {
-  margin: .5em 0;
-  font-family: $sans;
-  font-size: 24px;
-  color: #000;
-}
-
-.displayRangeTextContainer {
-  width: 100%;
-  position: sticky;
-  top: 48px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 5px 0;
-  bottom: 0;
-  background-color: #fff;
-  z-index: 2;
-  border-bottom: 1px solid $trimColor;
-  font-family: $sans;
 }
 
 @media only screen and (min-width: 667px) {
   .pageHeader, .displayRangeTextContainer {
-    top: 54px;
+    top: 3.375rem;
   }
 
   .listItem {
@@ -164,12 +130,12 @@ h2 {
 
 @media only screen and (min-width: 730px) {
   .pageHeader, .displayRangeTextContainer {
-    top: 60px;
+    top: 3.75rem;
   }
 }
 
 @media only screen and (min-width: 1024px) {
   .pageHeader, .displayRangeTextContainer {
-    top: 72px;
+    top: 4.5rem;
   }
 }

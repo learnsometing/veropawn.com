@@ -4,11 +4,12 @@ import Img from "gatsby-image";
 import { FaAngleLeft, FaAngleRight, FaDollarSign } from "react-icons/fa";
 import { IconContext } from "react-icons";
 
-import styles from "./carousel.module.scss";
+import carousel from "./carousel.module.scss";
+import layout from "../../styles/layout.module.css";
 
 export const CarouselPositionIndicator = ({ isActive }) => {
-  const activeClass = `${styles.posIndicator} ${styles.activePosIndicator}`;
-  const inactiveClass = `${styles.posIndicator} ${styles.inactivePosIndicator}`;
+  const activeClass = `${carousel.posIndicator} ${carousel.activePosIndicator}`;
+  const inactiveClass = `${carousel.posIndicator} ${carousel.inactivePosIndicator}`;
 
   return (
     <IconContext.Provider
@@ -25,11 +26,13 @@ CarouselPositionIndicator.propTypes = {
 
 export const CarouselPositionDisplay = ({ currentIndex, length }) => {
   const controls = [];
+  const carouselPosContainerClass = `${layout.rowCenterCenter} ${carousel.carouselPosContainer}`;
+
   for (let i = 0; i < length; i++) {
     let isActive = i === currentIndex ? true : false;
     controls.push(<CarouselPositionIndicator key={i} isActive={isActive} />);
   }
-  return <div className={styles.carouselPositionContainer}>{controls}</div>;
+  return <div className={carouselPosContainerClass}>{controls}</div>;
 };
 
 CarouselPositionDisplay.propTypes = {
@@ -45,8 +48,8 @@ export const CarouselSlides = ({ alt, currentIndex, photos }) => {
       fluid={photo.childImageSharp.fluid}
       loading={'eager'}
       className={idx === currentIndex
-        ? `${styles.slide} ${styles.currentSlide}`
-        : `${styles.slide} ${styles.hiddenSlide}`
+        ? `${carousel.slide} ${carousel.currentSlide}`
+        : `${carousel.slide} ${carousel.hiddenSlide}`
       }
     />
   ));
@@ -58,18 +61,21 @@ CarouselSlides.propTypes = {
   photos: PropTypes.array.isRequired
 };
 
-export const CarouselControl = ({ children, isDisabled, onClick }) => (
-  <button
-    className={isDisabled
-      ? ` ${styles.carouselControl} ${styles.disabledCarouselControl}`
-      : ` ${styles.carouselControl} ${styles.enabledCarouselControl}`
-    }
-    disabled={isDisabled}
-    onClick={onClick}
-  >
-    {children}
-  </button>
-);
+export const CarouselControl = ({ children, isDisabled, onClick }) => {
+  const controlClass = `${layout.columnCenterCenter} ${carousel.carouselControl}`;
+  return (
+    <button
+      className={isDisabled
+        ? ` ${controlClass} ${carousel.disabledCarouselControl}`
+        : ` ${controlClass} ${carousel.enabledCarouselControl}`
+      }
+      disabled={isDisabled}
+      onClick={onClick}
+    >
+      {children}
+    </button>
+  );
+};
 
 CarouselControl.propTypes = {
   isDisabled: PropTypes.bool.isRequired,
@@ -87,11 +93,15 @@ const Carousel = ({ alt, photos }) => {
     setCurrentIndex(prevIndex);
   };
 
+  const carouselClass = `${layout.columnStartCenter} ${carousel.carousel}`;
+  const controlContainerClass = `${layout.rowSpaceBtnCenter} ${carousel.controlContainer}`;
+  const controlsClass = `${layout.rowSpaceBtnCenter} ${carousel.controls}`;
+
   return (
-    <div className={styles.carousel}>
-      <div className={styles.slideContainer}>
+    <div className={carouselClass}>
+      <div className={carousel.slideContainer}>
         <CarouselSlides alt={alt} currentIndex={currentIndex} photos={photos} />
-        <div className={styles.controlContainer}>
+        <div className={controlContainerClass}>
           <IconContext.Provider
             value={{
               color: isDisabled
@@ -100,7 +110,7 @@ const Carousel = ({ alt, photos }) => {
               size: '1.5em'
             }}
           >
-            <div className={styles.controls}>
+            <div className={controlsClass}>
               <CarouselControl isDisabled={isDisabled} onClick={setPrevPhoto} >
                 <FaAngleLeft data-testid="fa-angle-left-icon" />
               </CarouselControl>
