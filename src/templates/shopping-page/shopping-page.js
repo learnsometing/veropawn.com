@@ -6,7 +6,7 @@ import RCPagination from 'rc-pagination';
 import localeInfo from 'rc-pagination/lib/locale/en_US';
 import 'rc-pagination/assets/index.css';
 
-import Layout from "../../components/layout/layout";
+import SizedLayout from "../../components/layout/layout";
 import getPhotosOfItem from "../util/getPhotosOfItem";
 
 import shoppingPage from "./shopping-page.module.scss";
@@ -260,14 +260,14 @@ export default ({ data }) => {
   const subcategory = allItems[0].subcategory;
 
   return (
-    <Layout title={subcategory}>
+    <SizedLayout title={subcategory}>
       <PureShoppingPage
         allItems={allItems}
         allMainPhotos={allMainPhotos}
         defaultPhoto={defaultPhoto}
         subcategory={subcategory}
       />
-    </Layout>
+    </SizedLayout>
   );
 };
 

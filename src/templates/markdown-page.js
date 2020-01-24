@@ -2,7 +2,7 @@ import React from "react";
 import ReactHtmlParser from "react-html-parser";
 import { graphql } from "gatsby";
 
-import Layout from "../components/layout/layout";
+import SizedLayout from "../components/layout/layout";
 
 export default ({ data }) => {
   const createHtmlFromMarkup = () => {
@@ -11,11 +11,11 @@ export default ({ data }) => {
   }
   const title = data.markdownRemark.frontmatter.title;
   return (
-    <Layout title={title}>
+    <SizedLayout title={title}>
       <main id="content">
         {createHtmlFromMarkup()}
       </main>
-    </Layout>
+    </SizedLayout>
   );
 }
 

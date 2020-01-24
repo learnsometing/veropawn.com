@@ -9,8 +9,7 @@ import SEO from "../../components/seo";
 import Header from "../header/header";
 import Footer from "../footer/footer";
 
-const Layout = ({ size, ...props }) => {
-  const width = size.width;
+export const Layout = ({ width, ...props }) => {
   return (
     <div id="root">
       <SEO title={props.title} />
@@ -19,10 +18,17 @@ const Layout = ({ size, ...props }) => {
       <Footer />
     </div>
   )
-}
+};
 
 Layout.propTypes = {
   children: PropTypes.node.isRequired,
-}
+  width: PropTypes.number.isRequired,
+};
 
-export default sizeMe()(Layout);
+const SizedLayout = ({ size, ...props }) => (
+  <Layout width={size.width}>
+    {props.children}
+  </Layout>
+);
+
+export default sizeMe()(SizedLayout);
