@@ -2,7 +2,7 @@ import React from "react";
 import { render } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 
-import { createBaseList, createTypedList, Detail, DetailsList, DetailsCard, ItemPage } from "../item-page/item-page";
+import { createBaseList, createTypedList, Detail, DetailsList, DetailsCard } from "../item-page/details";
 import { firearm, jewelry, general } from "../__fixtures__/items-json";
 
 describe('Detail', () => {
