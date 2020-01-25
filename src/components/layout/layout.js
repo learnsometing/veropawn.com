@@ -26,7 +26,7 @@ Layout.propTypes = {
 };
 
 const SizedLayout = ({ size, ...props }) => (
-  <Layout width={size.width}>
+  <Layout title={props.title} width={size.width}>
     {props.children}
   </Layout>
 );

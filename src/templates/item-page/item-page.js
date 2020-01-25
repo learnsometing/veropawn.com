@@ -1,115 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { graphql } from "gatsby";
 import { IconContext } from "react-icons";
 import { MdPhone } from "react-icons/md";
+import sizeMe from "react-sizeme";
 
-import Layout from "../../components/layout/layout";
+import { Layout } from "../../components/layout/layout";
+import { DetailsCard, DetailsList } from "./details";
 import Carousel from "../../components/carousel/carousel";
+import FullScreenCarousel from "./full-screen-carousel";
 
 import itemPage from "./item-page.module.scss";
 import layout from "../../styles/layout.module.css";
-
-export const Detail = ({ name, value, ...props }) => {
-  const detailClass = `${layout.rowStartCenter} ${itemPage.deet}`;
-  return (
-    <li className={itemPage.deetsLI}>
-      <div className={detailClass}>
-        <span className={itemPage.deetName}>{name}:</span><span>{value}</span>
-      </div>
-    </li>
-  );
-};
-
-Detail.propTypes = {
-  name: PropTypes.string.isRequired,
-  value: PropTypes.string.isRequired
-};
-
-export const createBaseList = (brand, model, invNum, id) => {
-  let _brand = brand;
-  let _model = model;
-  if (brand === '' || brand === null || brand.match(/none/i)) {
-    _brand = 'N/A';
-  }
-
-  if (model === '' || model === null || model.match(/none/i)) {
-    _model = 'N/A';
-  }
-
-  return [
-    <Detail key={`${id}-invNum`} name={"Inventory #"} value={invNum} />,
-    <Detail key={`${id}-brand`} name={"Brand"} value={_brand} />,
-    <Detail key={`${id}-model`} name={"Model"} value={_model} />,
-  ];
-};
-
-export const createTypedList = (baseList, category, id, action, ammo, mass, metal) => {
-  let typedList = [...baseList.values()];
-
-  if (category === 'Firearm') {
-    typedList.push(
-      <Detail key={`${id}-ammo`} name={"Ammunition"} value={ammo} />,
-      <Detail key={`${id}-action`} name={"Action"} value={action} />
-    );
-  } else if (category === 'Jewelry') {
-    typedList.push(
-      <Detail key={`${id}-metal`} name={"Metals"} value={metal} />,
-      <Detail key={`${id}-mass`} name={"Mass"} value={mass} />
-    );
-  }
-
-  return typedList;
-};
-
-export const DetailsList = ({ category, details, id, invNum, model, ...props }) => {
-  const {
-    action,
-    ammo,
-    brand,
-    mass,
-    metal,
-    serial,
-  } = details;
-
-  let baseList = createBaseList(brand, model, invNum, id);
-  let list = createTypedList(baseList, category, id, action, ammo, mass, metal);
-
-  return (
-    <ul className={itemPage.deetsList}>
-      {list}
-    </ul>
-  );
-};
-
-DetailsList.propTypes = {
-  category: PropTypes.string.isRequired,
-  details: PropTypes.object.isRequired,
-  id: PropTypes.string.isRequired,
-  invNum: PropTypes.string.isRequired,
-  model: PropTypes.string.isRequired,
-};
-
-export const DetailsCard = ({ children, ...props }) => {
-  const detailsWrapperClass = `${layout.columnCenterCenter} ${itemPage.deetsWrapper}`;
-  const deetsH2Class = `${layout.rowCenterCenter} ${itemPage.deetsH2}`
-  return (
-    <div className={itemPage.deetsCard}>
-      <div className={detailsWrapperClass}>
-        <header className={itemPage.deetsHeader}>
-          <h2 className={deetsH2Class}>
-            Details
-        </h2>
-        </header>
-        {children}
-      </div>
-    </div>
-  );
-};
-
-DetailsCard.propTypes = {
-  children: PropTypes.object.isRequired,
-};
 
 const PageHeader = ({ descript }) => {
   const pageHeaderClass = `${layout.columnCenterCenter} ${itemPage.header}`;
@@ -140,7 +42,7 @@ const InterestedCTA = () => {
             className={telClass}
             href="tel:+17722995626"
           >
-            <IconContext.Provider value={{ size: '1.25rem' }}>
+            <IconContext.Provider value={{ size: '1.25em' }}>
               <MdPhone />
             </IconContext.Provider>
             <span className={itemPage.telNumber}>(772) 299-5626</span>
@@ -151,46 +53,71 @@ const InterestedCTA = () => {
   );
 };
 
-const ItemPage = ({ data }) => {
-  // Unpack the data used on the page
-  const { category, descript, details, invNum, id, model } = data.item;
-  const defaultPhoto = [data.defaultPhoto];
-  const photos = data.photos.nodes;
+export const ResponsiveCarousel = ({ alt, photos, size }) => {
+  var [carouselIndex, setCarouselIndex] = useState(0);
 
-  const title = `${descript}-${id}`
-  let carouselPhotos = photos.length ? photos : defaultPhoto;
-
-  const detailsColumnClass = `${layout.column} ${itemPage.deetsColumn}`;
-  const wrapperClass = `${layout.columnCenterCenter} ${itemPage.wrapper}`;
+  if (size.width >= 736 && size.height >= 375) {
+    return (
+      <FullScreenCarousel
+        alt={alt}
+        onIndexChange={setCarouselIndex}
+        photos={photos}
+        startIndex={carouselIndex}
+      />
+    );
+  }
   return (
-    <Layout title={title}>
+    <Carousel
+      alt={alt}
+      onIndexChange={setCarouselIndex}
+      photos={photos}
+      startIndex={carouselIndex}
+    />
+  );
+};
+
+const ItemPage = ({ data, size }) => {
+  // Unpack the data used on the page
+  var { category, descript, details, invNum, id, model } = data.item;
+  var defaultPhoto = [data.defaultPhoto];
+  var photos = data.photos.nodes;
+  var carouselPhotos = photos.length ? photos : defaultPhoto;
+
+  const title = `${descript}-${id}`;
+  const wrapperClass = `${layout.columnCenterCenter} ${itemPage.wrapper}`;
+
+  return (
+    <Layout title={title} width={size.width}>
       <main id="content">
         <PageHeader descript={descript} />
         <div className={wrapperClass}>
-          <Carousel alt={descript} photos={carouselPhotos} />
-          <div className={detailsColumnClass}>
-            <DetailsCard>
-              <DetailsList
-                category={category}
-                details={details}
-                id={id}
-                invNum={invNum}
-                model={model}
-              />
-            </DetailsCard>
-          </div>
+          <ResponsiveCarousel
+            alt={descript}
+            photos={carouselPhotos}
+            size={size}
+          />
+          <DetailsCard>
+            <DetailsList
+              category={category}
+              details={details}
+              id={id}
+              invNum={invNum}
+              model={model}
+            />
+          </DetailsCard>
         </div>
         <InterestedCTA />
       </main>
     </Layout>
-  )
+  );
+
 };
 
 ItemPage.propTypes = {
   data: PropTypes.object.isRequired
 };
 
-export default ItemPage;
+export default sizeMe({ monitorHeight: true })(ItemPage);
 
 export const query = graphql`
   query($regex: String!, $slug: String!) {
