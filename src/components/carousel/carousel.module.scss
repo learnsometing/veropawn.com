@@ -98,14 +98,12 @@ $inactive-color: hsla(0, 0%, 0%, 0.2);
   padding: 0 .375rem;
 }
 
-@media only screen and (max-height: 414px) and (max-width: 896px){
-  .carousel {
-    width: 85%;
+@media only screen and (min-width: 736px) and (min-height: 375px) {
+  .carouselPosContainer {
+    padding: 0 4rem;
   }
-}
 
-@media only screen and (min-width: 1024px) {
   .carousel {
-    max-width: 47.65625%;
+    margin-bottom: 0
   }
 }

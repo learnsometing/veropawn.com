@@ -82,15 +82,28 @@ CarouselControl.propTypes = {
   onClick: PropTypes.func.isRequired
 };
 
-const Carousel = ({ alt, photos }) => {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const length = photos.length;
-  const isDisabled = length < 2;
-  const setNextPhoto = () => setCurrentIndex((currentIndex + 1) % length);
+const Carousel = ({ alt, startIndex, photos, onIndexChange }) => {
+  // keeps track of its own index but can also take a start index that
+  // specifies which of the photos to display when the carousel is first opened.
+  var [currentIndex, setCurrentIndex] = useState(startIndex);
+  var length = photos.length;
+  var isDisabled = length < 2;
+
+  const setNextPhoto = () => {
+    let nextIndex = (currentIndex + 1) % length;
+    setCurrentIndex(nextIndex)
+    if (onIndexChange) {
+      onIndexChange(nextIndex)
+    }
+  };
+
   const setPrevPhoto = () => {
     let prevIndex = (currentIndex - 1) % length;
     if (prevIndex === -1) { prevIndex += length; }
     setCurrentIndex(prevIndex);
+    if (onIndexChange) {
+      onIndexChange(prevIndex)
+    }
   };
 
   const carouselClass = `${layout.columnStartCenter} ${carousel.carousel}`;
@@ -131,7 +144,13 @@ const Carousel = ({ alt, photos }) => {
 
 Carousel.propTypes = {
   alt: PropTypes.string.isRequired,
-  photos: PropTypes.array.isRequired
+  startIndex: PropTypes.number,
+  photos: PropTypes.array.isRequired,
+  onIndexChange: PropTypes.func,
 };
+
+Carousel.defaultProps = {
+  startIndex: 0,
+}
 
 export default Carousel;

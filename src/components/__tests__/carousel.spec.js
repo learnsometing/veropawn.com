@@ -128,6 +128,9 @@ describe('CarouselControl', () => {
 describe('Carousel', () => {
   const alt = "Handgun With Case 2 Mags";
   const photos = allPhotoNodes.slice(0, 3);
+  var onIndexChangeMock = jest.fn();
+
+  beforeEach(() => onIndexChangeMock.mockReset());
 
   it('should render the main photo into the carousel on mount', () => {
     const { queryByAltText } = render(
@@ -210,5 +213,59 @@ describe('Carousel', () => {
 
     expect(prevBtn).toBeDisabled();
     expect(nextBtn).toBeDisabled();
+  });
+
+  it('should display the correct photo if given a startIndex', () => {
+    const { queryAllByAltText } = render(
+      <Carousel alt={alt} photos={photos} startIndex={2} />
+    );
+
+    // get the div elements that wrap the Img tags
+    const photoElements = queryAllByAltText(/Handgun With Case 2 Mags/);
+    const photoElementWrappers = photoElements.map(el => el.parentElement.parentElement);
+
+    expect(photoElementWrappers[0]).toHaveClass('slide hiddenSlide gatsby-image-wrapper');
+    expect(photoElementWrappers[1]).toHaveClass('slide hiddenSlide gatsby-image-wrapper');
+    expect(photoElementWrappers[2]).toHaveClass('slide currentSlide gatsby-image-wrapper');
+  });
+
+  it('should still cycle through the photos correctly if given a startIndex', () => {
+    const { queryAllByAltText, queryByTestId } = render(
+      <Carousel alt={alt} photos={photos} startIndex={2} />
+    );
+    const photoElements = queryAllByAltText(/Handgun With Case 2 Mags/);
+    // get the div elements that wrap the Img tags
+    const photoElementWrappers = photoElements.map(el => el.parentElement.parentElement);
+    const nextBtn = queryByTestId('fa-angle-right-icon').parentElement;
+    const prevBtn = queryByTestId('fa-angle-left-icon').parentElement;
+
+    expect(photoElementWrappers[0]).toHaveClass('slide hiddenSlide gatsby-image-wrapper');
+    expect(photoElementWrappers[1]).toHaveClass('slide hiddenSlide gatsby-image-wrapper');
+    expect(photoElementWrappers[2]).toHaveClass('slide currentSlide gatsby-image-wrapper');
+
+    fireEvent.click(nextBtn);
+
+    expect(photoElementWrappers[0]).toHaveClass('slide currentSlide gatsby-image-wrapper');
+    expect(photoElementWrappers[1]).toHaveClass('slide hiddenSlide gatsby-image-wrapper');
+    expect(photoElementWrappers[2]).toHaveClass('slide hiddenSlide gatsby-image-wrapper');
+
+    fireEvent.click(prevBtn);
+
+    expect(photoElementWrappers[0]).toHaveClass('slide hiddenSlide gatsby-image-wrapper');
+    expect(photoElementWrappers[1]).toHaveClass('slide hiddenSlide gatsby-image-wrapper');
+    expect(photoElementWrappers[2]).toHaveClass('slide currentSlide gatsby-image-wrapper');
+  });
+
+  it('should call the onIndexChange prop if provided', () => {
+    const { queryByTestId } = render(
+      <Carousel alt={alt} photos={photos} startIndex={2} onIndexChange={onIndexChangeMock} />
+    );
+    const nextBtn = queryByTestId('fa-angle-right-icon').parentElement;
+    const prevBtn = queryByTestId('fa-angle-left-icon').parentElement;
+
+    fireEvent.click(nextBtn);
+    fireEvent.click(prevBtn);
+
+    expect(onIndexChangeMock.mock.calls.length).toEqual(2);
   });
 });
