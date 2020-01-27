@@ -1,6 +1,6 @@
 $lightBlue: #1188CC;
 $trimColor: rgba(0, 0, 0, 0.6);
-$CTABorder: 2px solid rgba(0, 0, 0, 0.3);
+$CTABorder: 2px solid rgba(0, 0, 0, 0.2);
 $CTALinkBorder: 2px solid $lightBlue;
 
 /*                Filter Bar                 */
@@ -80,11 +80,6 @@ $CTALinkBorder: 2px solid $lightBlue;
   margin: 1rem 0;
 }
 
-.pagination > li{
-  width: 40px;
-  margin: 0 5px;
-}
-
 /*                CTA                */
 
 .CTAContainer {
@@ -103,6 +98,7 @@ $CTALinkBorder: 2px solid $lightBlue;
 
 .CTAText {
   font-weight: 400;
+  text-align: center;
 }
 
 .CTALink:hover {

@@ -3,7 +3,7 @@ $primary-font-family: 'Helvetica Neue', 'Helvetica', sans-serif;
 html {
   height: 100%;
   width: auto;
-  font-family: sans-serif;
+  font-family: $primary-font-family;
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
 }

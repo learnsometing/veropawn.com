@@ -1,0 +1,57 @@
+/* Custom styles to replace rc pagination styles */
+
+$active-color: #BD3D0D;
+$inactive-color: rgba(0, 0, 0, 0.2);
+
+.rc-pagination > li{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border: 1px solid $inactive-color;
+  border-radius: 3px;
+  font-size: 0.75rem;
+}
+
+.rc-pagination-item > a,
+.rc-pagination-prev a,
+.rc-pagination-next a{
+  color: #000;
+}
+
+.rc-pagination-item:hover, 
+.rc-pagination > .rc-pagination-prev:hover,
+.rc-pagination > .rc-pagination-next:hover {
+  border-color: $active-color;
+}
+
+.rc-pagination-item:hover a,
+.rc-pagination > .rc-pagination-prev:hover a,
+.rc-pagination > .rc-pagination-next:hover a {
+  color: $active-color;
+}
+
+.rc-pagination > .rc-pagination-prev, 
+.rc-pagination > .rc-pagination-next {
+  font-size: 1.25rem;
+}
+
+.rc-pagination-item-active,
+.rc-pagination-item-active a,
+.rc-pagination-item-active:hover a {
+  background-color: $active-color;
+  color: #fff;
+}
+
+.rc-pagination-disabled > a {
+  color: $inactive-color !important;
+}
+
+.rc-pagination-disabled:hover {
+  border-color: $inactive-color !important;
+}
+
+.rc-pagination-disabled:hover a {
+  color: $inactive-color !important;
+}
