@@ -2,9 +2,11 @@ import React from "react";
 import { fireEvent, render } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 
-import { CallToAction, ItemCard, ItemCards, Pagination, PureShoppingPage as ShoppingPage } from "../shopping-page/shopping-page";
+import { CallToAction, DisplayRange, ItemCard, ItemCards, PureShoppingPage, query } from "../shopping-page/shopping-page";
 import { defaultPhoto, mainPhotos } from "../__fixtures__/all-photos";
 import { allItemsJson, rings } from "../__fixtures__/all-items-json";
+
+Object.defineProperty(window, 'scrollTo', { value: undefined });
 
 describe('ItemCard', () => {
   it('should render the item card with a photo and with the item descript', () => {
@@ -47,134 +49,39 @@ describe('CallToAction', () => {
   });
 });
 
-describe('Pagination', () => {
-  let displayRangeText;
-  let itemsOnPage;
-  const setDisplayRangeText = txt => displayRangeText = txt;
-  const setItemsOnPage = items => itemsOnPage = items;
-  const items = rings.nodes;
-  Object.defineProperty(window, 'scrollTo', { value: undefined });
-
-  beforeEach(() => {
-    displayRangeText = undefined;
-    itemsOnPage = undefined;
-  });
-
-  it('should render the pagination with less buttons when width < 568px', () => {
-    const { queryByTestId } = render(
-      <Pagination
-        items={items}
-        setDisplayRangeText={setDisplayRangeText}
-        setItemsOnPage={setItemsOnPage}
-        width={320}
+describe('DisplayRange', () => {
+  it('should set the correct displayRangeText when upperLimit is in bounds', () => {
+    const { queryByText } = render(
+      <DisplayRange
+        lowerLimit={24}
+        numItems={48}
+        upperLimit={48}
       />
     );
 
-    const pagination = queryByTestId("rc-pagination");
-
-    expect(pagination).toBeInTheDocument();
-    // only five buttons on screen, one is hidden until third page is reached
-    expect(pagination.childElementCount).toBeLessThan(7);
+    expect(queryByText('Items 25-48 of 48')).toBeInTheDocument();
   });
 
-  it('should render the full pagination when width >= 568px', () => {
-    const { queryByTestId } = render(
-      <Pagination
-        items={items}
-        setDisplayRangeText={setDisplayRangeText}
-        setItemsOnPage={setItemsOnPage}
-        width={800}
+  it('should set the correct displayRangeText when upperLimit is out of bounds', () => {
+    const { queryByText } = render(
+      <DisplayRange
+        lowerLimit={24}
+        numItems={35}
+        upperLimit={48}
       />
     );
 
-    const pagination = queryByTestId("rc-pagination");
-
-    expect(pagination).toBeInTheDocument();
-    expect(pagination.childElementCount).toBeGreaterThan(7);
-  });
-
-  it('should set displayRangeText to the correct items when the page is changed forward', () => {
-    const { queryByTitle } = render(
-      <Pagination
-        items={items}
-        setDisplayRangeText={setDisplayRangeText}
-        setItemsOnPage={setItemsOnPage}
-        width={320}
-      />
-    );
-
-    const page2Btn = queryByTitle('2');
-
-    fireEvent.click(page2Btn);
-
-    expect(displayRangeText).toBe('Items 25-48 of 192');
-  });
-
-  it('should set displayRangeText to the correct items when the page is changed backwards', () => {
-    const { queryByTitle } = render(
-      <Pagination
-        items={items}
-        setDisplayRangeText={setDisplayRangeText}
-        setItemsOnPage={setItemsOnPage}
-        width={320}
-      />
-    );
-
-    const page2Btn = queryByTitle('2');
-    const page3Btn = queryByTitle('3');
-
-    fireEvent.click(page3Btn);
-    fireEvent.click(page2Btn);
-
-    expect(displayRangeText).toBe('Items 25-48 of 192');
-  });
-
-  it('should set itemsOnPage to the correct items when the page is changed forward', () => {
-    const { queryByTitle } = render(
-      <Pagination
-        items={items}
-        setDisplayRangeText={setDisplayRangeText}
-        setItemsOnPage={setItemsOnPage}
-        width={320}
-      />
-    );
-
-    const page2Btn = queryByTitle('2');
-
-    fireEvent.click(page2Btn);
-
-    expect(itemsOnPage).toEqual(items.slice(24, 48));
-  });
-
-  it('should set itemsOnPage to the correct items when the page is changed backwards', () => {
-    const { queryByTitle } = render(
-      <Pagination
-        items={items}
-        setDisplayRangeText={setDisplayRangeText}
-        setItemsOnPage={setItemsOnPage}
-        width={320}
-      />
-    );
-
-    const page2Btn = queryByTitle('2');
-    const page3Btn = queryByTitle('3');
-
-    fireEvent.click(page3Btn);
-
-    expect(itemsOnPage).toEqual(items.slice(48, 72));
-
-    fireEvent.click(page2Btn);
-
-    expect(itemsOnPage).toEqual(items.slice(24, 48));
+    expect(queryByText('Items 25-35 of 35')).toBeInTheDocument();
   });
 });
 
-describe('ShoppingPage', () => {
+describe('PureShoppingPage', () => {
   const allItems = rings.nodes;
   const subcategory = allItems[0].subcategory;
+
   it('should only render 24 items per page', () => {
     const { queryAllByRole } = render(
-      <ShoppingPage
+      <PureShoppingPage
         allItems={allItems}
         allMainPhotos={mainPhotos}
         defaultPhoto={defaultPhoto}
@@ -194,9 +101,9 @@ describe('ShoppingPage', () => {
     ));
   });
 
-  it('should update itemsOnPage after changing pages', () => {
-    const { queryAllByRole, queryByTitle } = render(
-      <ShoppingPage
+  it('should set itemsOnPage correctly when the page is changed forward', () => {
+    const { queryAllByTestId, queryByTitle } = render(
+      <PureShoppingPage
         allItems={allItems}
         allMainPhotos={mainPhotos}
         defaultPhoto={defaultPhoto}
@@ -205,22 +112,20 @@ describe('ShoppingPage', () => {
       />
     );
 
-    const expectedItems = allItems.slice(24, 48);
-    const page2Button = queryByTitle('2');
+    const page2Btn = queryByTitle('2');
 
-    fireEvent.click(page2Button);
+    const descripts = allItems.slice(24, 48).map(item => item.descript);
 
-    const lists = queryAllByRole('list');
-    const itemCards = lists[0];
+    fireEvent.click(page2Btn);
 
-    expectedItems.forEach((item, index) => (
-      expect(itemCards.children[index]).toHaveTextContent(item.descript)
-    ));
+    let itemCardTexts = queryAllByTestId('item-card-text').map(span => span.textContent);
+
+    itemCardTexts.forEach(text => expect(descripts).toContain(text));
   });
 
-  it('should update displayRangeText after changing pages', () => {
-    const { queryByText, queryByTitle } = render(
-      <ShoppingPage
+  it('should set itemsOnPage to the correct items when the page is changed backwards', () => {
+    const { queryAllByTestId, queryByTitle } = render(
+      <PureShoppingPage
         allItems={allItems}
         allMainPhotos={mainPhotos}
         defaultPhoto={defaultPhoto}
@@ -229,7 +134,54 @@ describe('ShoppingPage', () => {
       />
     );
 
-    const expectedText = /Items 169-192/;
+    const page2Btn = queryByTitle('2');
+    const page3Btn = queryByTitle('3');
+
+    fireEvent.click(page3Btn);
+
+    fireEvent.click(page2Btn);
+
+    const descripts = allItems.slice(24, 48).map(item => item.descript);
+
+    let itemCardTexts = queryAllByTestId('item-card-text').map(span => span.textContent);
+
+    itemCardTexts.forEach(text => expect(descripts).toContain(text));
+  });
+
+  it('should set itemsOnPage to the correct items when the last page is visited', () => {
+    const { queryAllByTestId, queryByTitle } = render(
+      <PureShoppingPage
+        allItems={allItems}
+        allMainPhotos={mainPhotos}
+        defaultPhoto={defaultPhoto}
+        subcategory={subcategory}
+        width={667}
+      />
+    );
+
+    const page8Button = queryByTitle('8');
+    // only 186 items
+    const descripts = allItems.slice(168, 192).map(item => item.descript);
+
+    fireEvent.click(page8Button);
+
+    let itemCardTexts = queryAllByTestId('item-card-text').map(span => span.textContent);
+
+    itemCardTexts.forEach(text => expect(descripts).toContain(text));
+  });
+
+  it('should update upperLimit and lowerLimit after changing pages', () => {
+    const { queryByText, queryByTitle } = render(
+      <PureShoppingPage
+        allItems={allItems}
+        allMainPhotos={mainPhotos}
+        defaultPhoto={defaultPhoto}
+        subcategory={subcategory}
+        width={667}
+      />
+    );
+
+    const expectedText = /Items 169-186/;
     const page8Button = queryByTitle('8');
 
     fireEvent.click(page8Button);

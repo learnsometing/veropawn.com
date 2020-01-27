@@ -1,16 +1,17 @@
-import React, { useState } from "react";
-import { graphql, Link } from "gatsby";
-import Img from "gatsby-image";
-import PropTypes from "prop-types";
+import React, { useState } from 'react';
+import { graphql, Link } from 'gatsby';
+import Img from 'gatsby-image';
+import PropTypes from 'prop-types';
 import RCPagination from 'rc-pagination';
+import sizeMe from 'react-sizeme';
 import localeInfo from 'rc-pagination/lib/locale/en_US';
 import 'rc-pagination/assets/index.css';
+import { Layout } from '../../components/layout/layout';
+import getPhotosOfItem from '../util/getPhotosOfItem';
 
-import SizedLayout from "../../components/layout/layout";
-import getPhotosOfItem from "../util/getPhotosOfItem";
-
-import shoppingPage from "./shopping-page.module.scss";
-import layout from "../../styles/layout.module.css";
+import shoppingPage from './shopping-page.module.scss';
+import layout from '../../styles/layout.module.css';
+import './pagination.scss';
 
 export const ItemCard = ({ item, photo }) => {
   const descript = item.descript;
@@ -30,7 +31,7 @@ export const ItemCard = ({ item, photo }) => {
           />
         </div>
         <div>
-          <span className={itemDescriptTextClass}>
+          <span className={itemDescriptTextClass} data-testid="item-card-text">
             {item.descript}
           </span>
         </div>
@@ -75,17 +76,17 @@ export const CallToAction = ({ currentPage, ...props }) => {
 
   const _getCTA = currentPage => {
     const contact = {
-      header: "Interested in an item?",
+      header: 'Interested in an item?',
       text: "We're ready to answer your questions.",
-      linkText: "Contact Us",
-      link: "/contact/"
+      linkText: 'Contact Us',
+      link: '/contact/'
     };
 
     const about = {
-      header: "Did you know?",
-      text: "Your valuables can be used as credit towards any purchase.",
-      linkText: "Learn More",
-      link: "/about/"
+      header: 'Did you know?',
+      text: 'Your valuables can be used as credit toward any purchase.',
+      linkText: 'Learn More',
+      link: '/about/'
     };
 
     return _isCurrentPageEven(currentPage) ? contact : about;
@@ -113,120 +114,75 @@ CallToAction.propTypes = {
   currentPage: PropTypes.number.isRequired,
 };
 
-const _setUpperLimitText = (upperLimit, numItems) => {
-  let _upperLimit = upperLimit > numItems ? numItems : upperLimit;
-  return _upperLimit.toString();
-};
-
-export const Pagination = ({ items, setDisplayRangeText, setItemsOnPage, ...props }) => {
-  const numItems = items.length;
-  const itemsPerPage = 24;
-  const [currentPage, setCurrentPage] = useState(1);
-
-  const _calcLimits = (page, itemsPerPage) => {
-    const _calcUpperLimit = (_page, _itemsPerPage) => {
-      return Math.ceil(_page * _itemsPerPage);
-    };
-
-    const _calcLowerLimit = (_upperLimit, _itemsPerPage) => {
-      return Math.ceil(_upperLimit - _itemsPerPage);
-    };
-
-    const upperLimit = _calcUpperLimit(page, itemsPerPage);
-    const lowerLimit = _calcLowerLimit(upperLimit, itemsPerPage);
-
-    return [lowerLimit, upperLimit];
-  };
-
-  const _setLimitsText = (lowerLimit, upperLimit, numItems) => {
-    const _setLowerLimitText = (lowerLimit) => {
-      return lowerLimit + 1;
-    };
-
-    const upperLimitText = _setUpperLimitText(upperLimit, numItems);
-    const lowerLimitText = _setLowerLimitText(lowerLimit);
-
-    return [lowerLimitText, upperLimitText]
-  };
-
-  const onChange = page => {
-    setCurrentPage(page);
-
-    const [lowerLimit, upperLimit] = _calcLimits(page, itemsPerPage);
-
-    setItemsOnPage(items.slice(lowerLimit, upperLimit));
-
-    const [lowerLimitText, upperLimitText] = _setLimitsText(lowerLimit, upperLimit, numItems);
-
-    setDisplayRangeText(`Items ${lowerLimitText}-${upperLimitText} of ${numItems}`)
-
-    if (typeof window.scrollTo !== 'undefined') {
-      window.scrollTo(0, 0);
-    }
-  };
+export const DisplayRange = ({ lowerLimit, numItems, upperLimit }) => {
+  var lowerLimitText = setLowerLimitText(lowerLimit);
+  var upperLimitText = setUpperLimitText(numItems, upperLimit);
+  var text = `Items ${lowerLimitText}-${upperLimitText} of ${numItems}`;
+  var displayRangeTextContainerClass = `${layout.rowCenterCenter} ${shoppingPage.displayRangeTextContainer}`;
 
   return (
-    <>
-      <CallToAction currentPage={currentPage} />
-      <div className={shoppingPage.paginationContainer}>
-        <RCPagination
-          current={currentPage}
-          className={shoppingPage.pagination}
-          total={numItems}
-          defaultPageSize={24}
-          onChange={onChange}
-          hideOnSinglePage={true}
-          showPrevNextJumpers={false}
-          showLessItems={true}
-          locale={localeInfo}
-          data-testid="rc-pagination"
-        />
-      </div>
-    </>
+    <div className={displayRangeTextContainerClass} >
+      {text}
+    </div>
   );
+
+  function setUpperLimitText(numItems, upperLimit) {
+    let _upperLimit = upperLimit;
+
+    if (upperLimit > numItems) {
+      _upperLimit = numItems;
+    }
+
+    return _upperLimit.toString();
+  }
+
+  function setLowerLimitText(lowerLimit) {
+    let _lowerLimit = lowerLimit + 1;
+    return _lowerLimit.toString();
+  }
+};
+
+DisplayRange.propTypes = {
+  lowerLimit: PropTypes.number.isRequired,
+  numItems: PropTypes.number.isRequired,
+  upperLimit: PropTypes.number.isRequired,
+};
+
+export const PageHeader = ({ subcategory }) => {
+  var pageTitleContainerClass = `${layout.rowCenterCenter} ${shoppingPage.pageTitleContainer}`;
+
+  return (
+    <div className={pageTitleContainerClass}>
+      <h1 className={shoppingPage.pageTitle}>{subcategory}</h1>
+    </div>
+  );
+};
+
+PageHeader.propTypes = {
+  subcategory: PropTypes.string.isRequired,
 }
 
-Pagination.propTypes = {
-  items: PropTypes.array.isRequired,
-  setDisplayRangeText: PropTypes.func.isRequired,
-  setItemsOnPage: PropTypes.func.isRequired,
-  width: PropTypes.number.isRequired
-};
+export const PureShoppingPage = (props) => {
+  var { allItems, defaultPhoto, allMainPhotos, subcategory, width } = props;
+  var numItems = allItems.length;
+  var itemsPerPage = 24;
 
-export const FilterBar = ({ displayRangeText, subcategory }) => {
-  const pageTitleContainerClass = `${layout.rowCenterCenter} ${shoppingPage.pageTitleContainer}`;
-  const displayRangeTextContainerClass = `${layout.rowCenterCenter} ${shoppingPage.displayRangeTextContainer}`;
-
-  return (
-    <>
-      <div className={pageTitleContainerClass}>
-        <h1 className={shoppingPage.pageTitle}>{subcategory}</h1>
-      </div>
-      <div className={displayRangeTextContainerClass} >
-        {displayRangeText}
-      </div>
-    </>
-  );
-};
-
-FilterBar.propTypes = {
-  displayRangeText: PropTypes.string.isRequired,
-  subcategory: PropTypes.string.isRequired,
-};
-
-export const PureShoppingPage = ({ allItems, defaultPhoto, allMainPhotos, subcategory, ...props }) => {
-  const numItems = allItems.length;
-  const initialItemsOnPage = allItems.slice(0, 24);
-  const initialUpperLimit = _setUpperLimitText(24, numItems);
-  const [filteredItems, setFilteredItems] = useState(allItems);
-  const [itemsOnPage, setItemsOnPage] = useState(initialItemsOnPage);
-  const [displayRangeText, setDisplayRangeText] = useState(`Items 1-${initialUpperLimit} of ${numItems}`);
+  // TODO: Implement item filtration!
+  // var [filteredItems, setFilteredItems] = useState(allItems);
+  var [currentPage, setCurrentPage] = useState(1);
+  var [upperLimit, setUpperLimit] = useState(calcUpperLimit(itemsPerPage, currentPage));
+  var [lowerLimit, setLowerLimit] = useState(calcLowerLimit(itemsPerPage, upperLimit));
+  var [itemsOnPage, setItemsOnPage] = useState(allItems.slice(lowerLimit, upperLimit));
 
   return (
     <>
-      <FilterBar
-        displayRangeText={displayRangeText}
+      <PageHeader
         subcategory={subcategory}
+      />
+      <DisplayRange
+        lowerLimit={lowerLimit}
+        numItems={numItems}
+        upperLimit={upperLimit}
       />
       <main id="content">
         <ItemCards
@@ -234,14 +190,47 @@ export const PureShoppingPage = ({ allItems, defaultPhoto, allMainPhotos, subcat
           defaultPhoto={defaultPhoto}
           photos={allMainPhotos}
         />
-        <Pagination
-          items={filteredItems}
-          setDisplayRangeText={setDisplayRangeText}
-          setItemsOnPage={setItemsOnPage}
-        />
+        <CallToAction currentPage={currentPage} />
+        <div className={shoppingPage.paginationContainer}>
+          <RCPagination
+            current={currentPage}
+            className={shoppingPage.pagination}
+            total={numItems}
+            defaultPageSize={24}
+            onChange={onChange}
+            hideOnSinglePage={true}
+            showPrevNextJumpers={false}
+            showLessItems={width < 568 ? true : false}
+            locale={localeInfo}
+            data-testid="rc-pagination"
+          />
+        </div>
       </main>
     </>
   );
+
+  function calcUpperLimit(itemsPerPage, page) {
+    return Math.floor(page * itemsPerPage);
+  }
+
+  function calcLowerLimit(itemsPerPage, upperLimit) {
+    return Math.floor(upperLimit - itemsPerPage);
+  }
+
+  function onChange(page) {
+    const upperLimit = calcUpperLimit(itemsPerPage, page);
+    const lowerLimit = calcLowerLimit(itemsPerPage, upperLimit);
+    const itemsOnPage = allItems.slice(lowerLimit, upperLimit);
+
+    setCurrentPage(page);
+    setUpperLimit(upperLimit);
+    setLowerLimit(lowerLimit);
+    setItemsOnPage(itemsOnPage);
+
+    if (typeof window.scrollTo !== 'undefined') {
+      window.scrollTo(0, 0);
+    }
+  }
 };
 
 PureShoppingPage.propTypes = {
@@ -249,27 +238,31 @@ PureShoppingPage.propTypes = {
   allMainPhotos: PropTypes.array.isRequired,
   defaultPhoto: PropTypes.object.isRequired,
   subcategory: PropTypes.string.isRequired,
+  width: PropTypes.number.isRequired,
 };
 
-export default ({ data }) => {
-  const allItems = data.inv.nodes;
+const ShoppingPage = ({ data, size }) => {
+  var allItems = data.inv.nodes;
   // Default photo used throughout the app
-  const defaultPhoto = data.defaultPhoto;
+  var defaultPhoto = data.defaultPhoto;
   // Every image with '_a' identifier
-  const allMainPhotos = data.allMainPhotos.nodes;
-  const subcategory = allItems[0].subcategory;
-
+  var allMainPhotos = data.allMainPhotos.nodes;
+  var subcategory = allItems[0].subcategory;
+  var width = size.width;
   return (
-    <SizedLayout title={subcategory}>
+    <Layout title={subcategory} width={width}>
       <PureShoppingPage
         allItems={allItems}
         allMainPhotos={allMainPhotos}
         defaultPhoto={defaultPhoto}
         subcategory={subcategory}
+        width={width}
       />
-    </SizedLayout>
+    </Layout>
   );
 };
+
+export default sizeMe()(ShoppingPage);
 
 export const query = graphql`
   query($photoNames: [String!], $slug: String!) {

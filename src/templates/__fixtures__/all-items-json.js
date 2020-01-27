@@ -1695,59 +1695,5 @@ export const rings = {
       "invNum": "31046-1",
       "subcategory": "Ring"
     },
-    {
-      "descript": "Figure 8 Women's Ring",
-      "fields": {
-        "slug": "/jewelry/ring/81a33bcc-3365-58d8-ad9f-e31d2191ed63"
-      },
-      "id": "81a33bcc-3365-58d8-ad9f-e31d2191ed63",
-      "invNum": "31064-1",
-      "subcategory": "Ring"
-    },
-    {
-      "descript": "Women's Ring With Diamonds",
-      "fields": {
-        "slug": "/jewelry/ring/dae44c25-80fa-5d5a-b8b5-56c726cff64a"
-      },
-      "id": "dae44c25-80fa-5d5a-b8b5-56c726cff64a",
-      "invNum": "31138-5",
-      "subcategory": "Ring"
-    },
-    {
-      "descript": "Women's Ring With Diamond",
-      "fields": {
-        "slug": "/jewelry/ring/07eaa07b-80b9-5b08-a5e2-e272299d433f"
-      },
-      "id": "07eaa07b-80b9-5b08-a5e2-e272299d433f",
-      "invNum": "31138-7",
-      "subcategory": "Ring"
-    },
-    {
-      "descript": "Ring With Diamonds",
-      "fields": {
-        "slug": "/jewelry/ring/1e194d18-98eb-535a-9256-feb3d514d191"
-      },
-      "id": "1e194d18-98eb-535a-9256-feb3d514d191",
-      "invNum": "31150-1",
-      "subcategory": "Ring"
-    },
-    {
-      "descript": "Men's Ring Band",
-      "fields": {
-        "slug": "/jewelry/ring/5e8494af-5f7d-5c17-92d0-46856b6e63a1"
-      },
-      "id": "5e8494af-5f7d-5c17-92d0-46856b6e63a1",
-      "invNum": "31218-1",
-      "subcategory": "Ring"
-    },
-    {
-      "descript": "Women's Ring With Stones",
-      "fields": {
-        "slug": "/jewelry/ring/8dbf3375-64fa-56e7-8a8d-8dbacf96dddb"
-      },
-      "id": "8dbf3375-64fa-56e7-8a8d-8dbacf96dddb",
-      "invNum": "31294-1",
-      "subcategory": "Ring"
-    }
   ]
 }
