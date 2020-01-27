@@ -305,7 +305,7 @@ export const query = graphql`
         relativeDirectory: {eq: "items" },
         name: {ne: "0_default", in: $photoNames }
       },
-      sort: {fields: base }){
+      sort: {fields: name }){
       nodes {
         name
         childImageSharp {

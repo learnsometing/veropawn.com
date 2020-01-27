@@ -137,7 +137,9 @@ export const query = graphql`
       model
     }
 
-    photos: allFile(filter: {relativeDirectory: {eq: "items"}, name: {regex: $regex}}) {
+    photos: allFile(
+      filter: {relativeDirectory: {eq: "items"}, name: {regex: $regex}},
+      sort: {fields: name }) {
       nodes {
         name
         id
