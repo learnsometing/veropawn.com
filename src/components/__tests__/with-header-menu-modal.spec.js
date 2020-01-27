@@ -1,14 +1,14 @@
 import React from "react";
 import { fireEvent, render } from "@testing-library/react";
 
-import { withHeaderModalLeft } from "../header/header";
+import { withHeaderMenuModal } from "../header/header";
 import ExpandedCategoryMenuMock from "../__mocks__/expanded-main-menu-mock";
 
 describe('withHeaderModal', () => {
   it('should correctly render the passed component', () => {
-    const WithHeaderModalLeft = withHeaderModalLeft(ExpandedCategoryMenuMock);
+    const WithHeaderMenuModal = withHeaderMenuModal(ExpandedCategoryMenuMock);
 
-    const { queryByRole, queryByTestId } = render(<WithHeaderModalLeft />);
+    const { queryByRole, queryByTestId } = render(<WithHeaderMenuModal />);
 
     const toggleCategoryMenuBtn = queryByRole('button');
     const faAngleDownIcon = queryByTestId('fa-angle-down-icon');
@@ -19,10 +19,10 @@ describe('withHeaderModal', () => {
   });
 
   it('should render the correct menu in the modal when toggleMenu is called', () => {
-    const WithHeaderModalLeft = withHeaderModalLeft(ExpandedCategoryMenuMock);
+    const WithHeaderMenuModal = withHeaderMenuModal(ExpandedCategoryMenuMock);
 
     const { queryByRole, queryByText, queryByTestId } = render(
-      <WithHeaderModalLeft />
+      <WithHeaderMenuModal />
     );
 
     // Get the toggle category button

@@ -2,7 +2,7 @@
 
 exports[`HeaderLogo component Matches the snapshot 1`] = `
 <a
-  className="link"
+  className="rowCenterCenter link"
   href="/"
 >
   <span
