@@ -27,6 +27,9 @@
   margin: 0;
   background-color: #fff;
   overflow-x: hidden;
+}
+
+.uListWrapper, .uList {
   visibility: visible;
 }
 
