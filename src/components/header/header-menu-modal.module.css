@@ -43,7 +43,8 @@
 }
 
 .content, .overlay {
-  inset: 0;
+  top: 0;
+  left: 0;
 }
 
 @media only screen and (min-width: 667px) {
