@@ -28,8 +28,7 @@
     "react-icons": "^3.8.0",
     "react-modal": "^3.11.1",
     "react-onclickoutside": "^6.9.0",
-    "react-sizeme": "^2.6.10",
-    "semantic-ui-react": "^0.88.2"
+    "react-sizeme": "^2.6.10"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^4.2.4",
