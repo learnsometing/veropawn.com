@@ -29,9 +29,14 @@
   z-index: 5;
 }
 
-.fullScreenIcon:hover, .minimizeIcon:hover {
-  background-color: rgba(0, 0, 0, .6);
+.fullScreenIcon:hover{
+  transform: scale(1.1);
 }
+
+.minimizeIcon:hover {
+  transform: scale(0.9);
+}
+
 
 /*                modal               */
 .overlay {
