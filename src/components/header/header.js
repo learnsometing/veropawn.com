@@ -6,6 +6,7 @@ import { graphql, Link, useStaticQuery } from "gatsby";
 import header from "./header.module.scss";
 import layout from "../../styles/layout.module.css";
 
+import { DDMenuLink } from "./dd-menu";
 import HeaderMenuModal from "./header-menu-modal";
 import CollapsedMainMenu from "../header/collapsed-main-menu";
 import ExpandedMainMenu from "../header/expanded-main-menu";
@@ -26,6 +27,33 @@ export const HeaderLogo = ({ logo }) => {
         </div>
       </span>
     </Link>
+  );
+};
+
+export const HeaderMenuLink = (props) => {
+  const linkClass = `${layout.rowCenterCenter} ${header.link}`
+  return (
+    <Link className={linkClass} to={props.link}>{props.text}</Link>
+  );
+};
+
+export const MDPageLinks = ({ data, collapsed }) => {
+  let LinkType = HeaderMenuLink;
+
+  if (collapsed) {
+    LinkType = DDMenuLink;
+  }
+
+  return (
+    <>
+      {data.nodes.map(node => (
+        <LinkType
+          key={node.id}
+          link={node.fields.slug}
+          text={node.frontmatter.title}
+        />
+      ))}
+    </>
   );
 };
 
@@ -58,7 +86,7 @@ export const withHeaderMenuModal = MenuComponent => {
       </>
     );
   }
-}
+};
 
 export const PureHeader = ({ width, ...props }) => {
   let HeaderMenu;

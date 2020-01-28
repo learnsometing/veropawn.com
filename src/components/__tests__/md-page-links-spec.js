@@ -3,7 +3,7 @@ import React from "react";
 import { render } from "@testing-library/react";
 
 import allMarkdownRemark from "../__fixtures__/all-markdown-remark";
-import MDPageLinks from "../header/md-page-links";
+import { MDPageLinks } from "../header/header";
 
 describe("MDPageLinks", () => {
   it("Supplies the correct information to each link when rendered", () => {
