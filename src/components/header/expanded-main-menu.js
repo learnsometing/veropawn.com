@@ -9,7 +9,7 @@ import React from "react";
 
 // Internal Imports
 import { DDMenuToggleBtn } from "./dd-menu";
-import MDPageLinks from "./md-page-links";
+import { HeaderMenuLink, MDPageLinks } from "./header";
 
 import CategoryMenu from "./category-menu";
 
@@ -26,6 +26,8 @@ export default (props) => {
         key="browse-by-category"
         toggleMenu={toggleMenu}
       />
+      <HeaderMenuLink link={'/jewelry/ring'} text={'Rings'} />
+      <HeaderMenuLink link={'/firearm/pistol'} text={'Pistols'} />
       <MDPageLinks
         data={props.allMarkdownRemark}
         collapsed={false}

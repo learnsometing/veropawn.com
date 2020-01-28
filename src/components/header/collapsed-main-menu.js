@@ -9,8 +9,8 @@ import React, { useState } from "react";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 
 // Internal Imports
-import { DDMenuHeader, DDMenuBtn, DDMenuToggleBtn } from "./dd-menu";
-import MDPageLinks from "./md-page-links";
+import { DDMenuHeader, DDMenuBtn, DDMenuLink, DDMenuToggleBtn } from "./dd-menu";
+import { MDPageLinks } from "./header";
 
 import CategoryMenu from "./category-menu";
 
@@ -51,6 +51,8 @@ export const MainMenu = (props) => {
         >
           <FaAngleRight data-testid="fa-angle-right-icon" />
         </DDMenuBtn>
+        <DDMenuLink link={'/jewelry/ring'} text={'Rings'} />
+        <DDMenuLink link={'/firearm/pistol'} text={'Pistols'} />
         <MDPageLinks data={props.allMarkdownRemark} collapsed={true} />
       </>
   );

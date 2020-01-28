@@ -19,20 +19,21 @@ describe('MainMenu', () => {
       />
     );
 
-    const linkTextIsInTitles = (text) => {
-      return titles.includes(text);
-    }
-
     // should have a heading
     expect(queryByTestId('dd-menu-heading')).toBeInTheDocument();
 
     // should have a button that opens the category menu
     expect(queryByRole('button')).toBeInTheDocument();
 
+    var links = queryAllByRole('link').map(link => link.textContent);
     // rest of the menu should be filled with links to the markdown generated pages
-    queryAllByRole('link').forEach(link => (
-      expect(linkTextIsInTitles(link.textContent)).toBeTruthy()
-    ));
+    // and other hardcoded links
+    titles.forEach(title => (
+      expect(links)).toContain(title)
+    );
+
+    expect(links).toContain('Rings');
+    expect(links).toContain('Pistols');
   });
 
   it('should render the category menu when the "categories" button is clicked', () => {
@@ -66,10 +67,6 @@ describe('MainMenu', () => {
       />
     );
 
-    const linkTextIsInTitles = (text) => {
-      return titles.includes(text);
-    }
-
     // locate the 'categories' button
     const openCategoryMenuBtn = queryByRole('button');
 
@@ -90,10 +87,15 @@ describe('MainMenu', () => {
     // should have a button that opens the category menu
     expect(queryByRole('button').textContent).toBe('Categories');
 
+    var links = queryAllByRole('link').map(link => link.textContent);
     // rest of the menu should be filled with links to the markdown generated pages
-    queryAllByRole('link').forEach(link => (
-      expect(linkTextIsInTitles(link.textContent)).toBeTruthy()
-    ));
+    // and other hardcoded links
+    titles.forEach(title => (
+      expect(links)).toContain(title)
+    );
+
+    expect(links).toContain('Rings');
+    expect(links).toContain('Pistols');
   });
 });
 
