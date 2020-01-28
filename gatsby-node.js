@@ -110,7 +110,7 @@ exports.createPages = async ({ graphql, actions }) => {
   data.allMarkdownPages.nodes.forEach(node => {
     createPage({
       path: node.fields.slug,
-      component: path.resolve(`./src/templates/markdown-page.js`),
+      component: path.resolve(`./src/templates/markdown-page/markdown-page.js`),
       context: {
         id: node.id,
       }
