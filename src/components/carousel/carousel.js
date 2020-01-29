@@ -1,11 +1,13 @@
-import React, { useState } from "react";
-import PropTypes from "prop-types";
-import Img from "gatsby-image";
-import { FaAngleLeft, FaAngleRight, FaDollarSign } from "react-icons/fa";
-import { IconContext } from "react-icons";
+import React from 'react';
+import PropTypes from 'prop-types';
+import Img from 'gatsby-image';
+import { FaAngleLeft, FaAngleRight, FaDollarSign } from 'react-icons/fa';
+import { IconContext } from 'react-icons';
 
-import carousel from "./carousel.module.scss";
-import layout from "../../styles/layout.module.css";
+import carousel from './carousel.module.scss';
+import layout from '../../styles/layout.module.css';
+
+import { useCurrentIndex } from './hooks/useCurrentIndex';
 
 export const CarouselPositionIndicator = ({ isActive }) => {
   const activeClass = `${carousel.posIndicator} ${carousel.activePosIndicator}`;
@@ -61,7 +63,7 @@ CarouselSlides.propTypes = {
   photos: PropTypes.array.isRequired
 };
 
-export const CarouselControl = ({ children, isDisabled, onClick }) => {
+export const CarouselControl = ({ children, isDisabled, name, onClick }) => {
   const controlClass = `${layout.columnCenterCenter} ${carousel.carouselControl}`;
   return (
     <button
@@ -70,6 +72,7 @@ export const CarouselControl = ({ children, isDisabled, onClick }) => {
         : ` ${controlClass} ${carousel.enabledCarouselControl}`
       }
       disabled={isDisabled}
+      name={name}
       onClick={onClick}
     >
       {children}
@@ -85,27 +88,11 @@ CarouselControl.propTypes = {
 const Carousel = ({ alt, startIndex, photos, onIndexChange }) => {
   // keeps track of its own index but can also take a start index that
   // specifies which of the photos to display when the carousel is first opened.
-  var [currentIndex, setCurrentIndex] = useState(startIndex);
   var length = photos.length;
+  var currentIndex = useCurrentIndex(startIndex, onIndexChange, length);
   var isDisabled = length < 2;
 
-  const setNextPhoto = () => {
-    let nextIndex = (currentIndex + 1) % length;
-    setCurrentIndex(nextIndex)
-    if (onIndexChange) {
-      onIndexChange(nextIndex)
-    }
-  };
-
-  const setPrevPhoto = () => {
-    let prevIndex = (currentIndex - 1) % length;
-    if (prevIndex === -1) { prevIndex += length; }
-    setCurrentIndex(prevIndex);
-    if (onIndexChange) {
-      onIndexChange(prevIndex)
-    }
-  };
-
+  // css classes because couldn't configure scss partials
   const carouselClass = `${layout.columnStartCenter} ${carousel.carousel}`;
   const controlContainerClass = `${layout.rowSpaceBtnCenter} ${carousel.controlContainer}`;
   const controlsClass = `${layout.rowSpaceBtnCenter} ${carousel.controls}`;
@@ -113,7 +100,7 @@ const Carousel = ({ alt, startIndex, photos, onIndexChange }) => {
   return (
     <div className={carouselClass}>
       <div className={carousel.slideContainer}>
-        <CarouselSlides alt={alt} currentIndex={currentIndex} photos={photos} />
+        <CarouselSlides alt={alt} currentIndex={currentIndex.value} photos={photos} />
         <div className={controlContainerClass}>
           <IconContext.Provider
             value={{
@@ -124,16 +111,24 @@ const Carousel = ({ alt, startIndex, photos, onIndexChange }) => {
             }}
           >
             <div className={controlsClass}>
-              <CarouselControl isDisabled={isDisabled} onClick={setPrevPhoto} >
+              <CarouselControl
+                isDisabled={isDisabled}
+                name="prev"
+                onClick={currentIndex.onClick}
+              >
                 <FaAngleLeft data-testid="fa-angle-left-icon" />
               </CarouselControl>
-              <CarouselControl isDisabled={isDisabled} onClick={setNextPhoto} >
+              <CarouselControl
+                isDisabled={isDisabled}
+                name="next"
+                onClick={currentIndex.onClick}
+              >
                 <FaAngleRight data-testid="fa-angle-right-icon" />
               </CarouselControl>
             </div>
           </IconContext.Provider>
           <CarouselPositionDisplay
-            currentIndex={currentIndex}
+            currentIndex={currentIndex.value}
             length={length}
           />
         </div>
