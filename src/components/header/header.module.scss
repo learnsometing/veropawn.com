@@ -1,13 +1,13 @@
-.header {
-  max-width: 1024px;
-}
-
 .headerWrapper {
   position: fixed;
   top: 0;
   height: 3rem;
   width: 100%;
   z-index: 3;
+}
+
+.header {
+  max-width: 1024px;
 }
 
 .header, .nav, .navBar, .svgWrapper, .svg {
