@@ -85,48 +85,57 @@ CarouselControl.propTypes = {
   onClick: PropTypes.func.isRequired
 };
 
+export const NextPrevBtns = ({ isDisabled, onClick }) => {
+  var controlsClass = `${layout.rowSpaceBtnCenter} ${carousel.controls}`;
+  return (
+    <IconContext.Provider
+      value={{
+        color: isDisabled
+          ? 'hsla(255, 255%, 255%, 0.5)'
+          : 'hsla(255, 255%, 255%, 0.8)',
+        size: '1.5em'
+      }}
+    >
+      <div className={controlsClass}>
+        <CarouselControl
+          isDisabled={isDisabled}
+          name="prev"
+          onClick={onClick}
+        >
+          <FaAngleLeft data-testid="fa-angle-left-icon" />
+        </CarouselControl>
+        <CarouselControl
+          isDisabled={isDisabled}
+          name="next"
+          onClick={onClick}
+        >
+          <FaAngleRight data-testid="fa-angle-right-icon" />
+        </CarouselControl>
+      </div>
+    </IconContext.Provider>
+  );
+};
+
 const Carousel = ({ alt, startIndex, photos, onIndexChange }) => {
   // keeps track of its own index but can also take a start index that
   // specifies which of the photos to display when the carousel is first opened.
   var length = photos.length;
-  var currentIndex = useCurrentIndex(startIndex, onIndexChange, length);
   var isDisabled = length < 2;
+  var currentIndex = useCurrentIndex(startIndex, onIndexChange, length);
 
   // css classes because couldn't configure scss partials
   const carouselClass = `${layout.columnStartCenter} ${carousel.carousel}`;
   const controlContainerClass = `${layout.rowSpaceBtnCenter} ${carousel.controlContainer}`;
-  const controlsClass = `${layout.rowSpaceBtnCenter} ${carousel.controls}`;
 
   return (
     <div className={carouselClass}>
       <div className={carousel.slideContainer}>
         <CarouselSlides alt={alt} currentIndex={currentIndex.value} photos={photos} />
         <div className={controlContainerClass}>
-          <IconContext.Provider
-            value={{
-              color: isDisabled
-                ? 'hsla(255, 255%, 255%, 0.5)'
-                : 'hsla(255, 255%, 255%, 0.8)',
-              size: '1.5em'
-            }}
-          >
-            <div className={controlsClass}>
-              <CarouselControl
-                isDisabled={isDisabled}
-                name="prev"
-                onClick={currentIndex.onClick}
-              >
-                <FaAngleLeft data-testid="fa-angle-left-icon" />
-              </CarouselControl>
-              <CarouselControl
-                isDisabled={isDisabled}
-                name="next"
-                onClick={currentIndex.onClick}
-              >
-                <FaAngleRight data-testid="fa-angle-right-icon" />
-              </CarouselControl>
-            </div>
-          </IconContext.Provider>
+          <NextPrevBtns
+            isDisabled={isDisabled}
+            onClick={currentIndex.onClick}
+          />
           <CarouselPositionDisplay
             currentIndex={currentIndex.value}
             length={length}
