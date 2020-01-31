@@ -54,6 +54,8 @@ export const MainMenu = (props) => {
         <DDMenuLink link={'/jewelry/ring'} text={'Rings'} />
         <DDMenuLink link={'/firearm/pistol'} text={'Pistols'} />
         <MDPageLinks data={props.allMarkdownRemark} collapsed={true} />
+        <DDMenuLink link={'/contact'} text={'Contact'} />
+
       </>
   );
 }

@@ -1,0 +1,63 @@
+.wrapper {
+  padding: 0.625rem;
+}
+
+.layout {
+  flex-wrap: wrap;
+}
+
+.secondaryHeading {
+  text-decoration: underline;
+}
+
+.info {
+  margin-bottom: 1.45rem;
+}
+
+.store {
+  font-weight: 500;
+  font-size: 1.1rem;
+}
+
+.address {
+  font-style: normal;
+  margin-bottom: 0;
+}
+
+.tel {
+  font-weight: 500;
+}
+
+.op-hours {
+  margin-bottom: 1.45rem;
+}
+
+.days {
+  font-weight: 500;
+}
+
+.mapWrapper {
+  width: 100%;
+  height: 300px;
+}
+
+.map {
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+@media only screen and (min-width: 568px){
+  .infoColumn {
+    padding: 0 1rem;
+    width: 45%;
+  }
+
+  .mapWrapper {
+    width: 50%;
+  }
+
+  .layout {
+    flex-wrap: nowrap;
+  }
+}

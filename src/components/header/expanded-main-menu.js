@@ -32,6 +32,7 @@ export default (props) => {
         data={props.allMarkdownRemark}
         collapsed={false}
       />
+      <HeaderMenuLink link={'/contact/'} text={'Contact'} />
     </>
   );
 }
