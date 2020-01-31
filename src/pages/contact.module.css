@@ -1,5 +1,5 @@
 .wrapper {
-  padding: 1.45rem 2rem;
+  padding: 1.45rem 1.45rem;
   height: 100%;
   width: 100%;
   max-width: 1024px;
@@ -12,6 +12,7 @@
 
 .secondaryHeading {
   text-decoration: underline;
+  word-break: break-word;
 }
 
 /*                Information                */
@@ -20,9 +21,10 @@
   width: 100%;
 }
 
-.info {
-  margin-right: 2.9rem;
+.section {
+  margin-right: 1.45rem;
   margin-bottom: 1.45rem;
+  flex-shrink: 1;
 }
 
 .store {
@@ -32,10 +34,26 @@
 .address {
   font-style: normal;
   margin-bottom: 0.625rem;
+  margin-right: 0.625rem;
+}
+
+.tel {
+  font-size: 0.875rem;
+}
+
+.btn {
+  padding: 1rem 0.75rem;
+  border: 2px solid black;
+  border-radius: 4px;
 }
 
 .store, .tel, .days {
   font-weight: 500;
+}
+
+.icon {
+  height: 1rem;
+  width: 1rem;
 }
 
 /*                Map               */
@@ -50,21 +68,27 @@
   height: 100%;
   border: 0;
 }
+
 /* General */
 
 @media only screen and (min-width: 568px){
+  .info {
+    flex-direction: row;
+  }
+
   .infoWrapper {
     flex-direction: row;
     justify-content: flex-start;
   }
+
+  .mapWrapper {
+    height: 300px;
+  }
 }
 
-@media only screen 
-and (min-width: 568px)
-and (min-height: 360px)
-and (max-height: 413px){
-  .mapWrapper {
-    height: 288px;
+@media only screen and (min-width: 580px){
+  .tel {
+    font-size: 1rem;
   }
 }
 
