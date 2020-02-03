@@ -39,19 +39,21 @@ MinimizeButton.propTypes = {
   onClick: PropTypes.func.isRequired,
 };
 
-const FullScreenCarousel = ({ alt, onIndexChange, photos, startIndex }) => {
+const FullScreenCarousel = ({ content, onIndexChange, startIndex }) => {
   var [isFullScreen, setIsFullScreen] = useState(false);
   var wrapperClass = `${fullScreenCarousel.wrapper}`;
   var overlayClassName = `${layout.columnCenterCenter} ${fullScreenCarousel.overlay}`;
   var contentClassName = `${fullScreenCarousel.content}`;
   var FSWrapperClass = `${fullScreenCarousel.FSWrapper}`;
+
   return (
     <>
-      <div className={wrapperClass}>
+      <div className={wrapperClass}
+        style={{ display: isFullScreen ? 'none' : 'flex' }}
+      >
         <Carousel
-          alt={alt}
+          content={content}
           startIndex={startIndex}
-          photos={photos}
           onIndexChange={onIndexChange}
         />
         <FullScreenButton onClick={openFSModal} />
@@ -65,9 +67,8 @@ const FullScreenCarousel = ({ alt, onIndexChange, photos, startIndex }) => {
       >
         <div className={FSWrapperClass}>
           <Carousel
-            alt={`${alt} Full Screen`}
+            content={content}
             startIndex={startIndex}
-            photos={photos}
           />
           <MinimizeButton onClick={closeFSModal} />
         </div>
@@ -85,9 +86,8 @@ const FullScreenCarousel = ({ alt, onIndexChange, photos, startIndex }) => {
 };
 
 FullScreenCarousel.propTypes = {
-  alt: PropTypes.string.isRequired,
+  content: PropTypes.arrayOf(PropTypes.object).isRequired,
   onIndexChange: PropTypes.func.isRequired,
-  photos: PropTypes.array.isRequired,
   startIndex: PropTypes.number
 };
 

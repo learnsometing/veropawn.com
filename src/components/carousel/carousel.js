@@ -42,12 +42,12 @@ CarouselPositionDisplay.propTypes = {
   length: PropTypes.number.isRequired,
 };
 
-export const CarouselSlides = ({ alt, currentIndex, photos }) => {
-  return photos.map((photo, idx) => (
+export const CarouselSlides = ({ content, currentIndex }) => {
+  return content.map((el, idx) => (
     <Img
-      alt={`${alt} ${idx}`}
-      key={photo.id}
-      fluid={photo.childImageSharp.fluid}
+      alt={el.alt}
+      key={el.photo.id}
+      fluid={el.photo.childImageSharp.fluid}
       loading={'eager'}
       className={idx === currentIndex
         ? `${carousel.slide} ${carousel.currentSlide}`
@@ -58,9 +58,8 @@ export const CarouselSlides = ({ alt, currentIndex, photos }) => {
 };
 
 CarouselSlides.propTypes = {
-  alt: PropTypes.string.isRequired,
+  content: PropTypes.arrayOf(PropTypes.object).isRequired,
   currentIndex: PropTypes.number.isRequired,
-  photos: PropTypes.array.isRequired
 };
 
 export const CarouselControl = ({ children, isDisabled, name, onClick }) => {
@@ -116,10 +115,10 @@ export const NextPrevBtns = ({ isDisabled, onClick }) => {
   );
 };
 
-const Carousel = ({ alt, startIndex, photos, onIndexChange }) => {
+const Carousel = ({ content, startIndex, onIndexChange }) => {
   // keeps track of its own index but can also take a start index that
   // specifies which of the photos to display when the carousel is first opened.
-  var length = photos.length;
+  var length = content.length;
   var isDisabled = length < 2;
   var currentIndex = useCurrentIndex(startIndex, onIndexChange, length);
 
@@ -130,7 +129,10 @@ const Carousel = ({ alt, startIndex, photos, onIndexChange }) => {
   return (
     <div className={carouselClass}>
       <div className={carousel.slideContainer}>
-        <CarouselSlides alt={alt} currentIndex={currentIndex.value} photos={photos} />
+        <CarouselSlides
+          content={content}
+          currentIndex={currentIndex.value}
+        />
         <div className={controlContainerClass}>
           <NextPrevBtns
             isDisabled={isDisabled}
@@ -147,14 +149,14 @@ const Carousel = ({ alt, startIndex, photos, onIndexChange }) => {
 }
 
 Carousel.propTypes = {
-  alt: PropTypes.string.isRequired,
+  content: PropTypes.arrayOf(PropTypes.object).isRequired,
   startIndex: PropTypes.number,
-  photos: PropTypes.array.isRequired,
   onIndexChange: PropTypes.func,
 };
 
 Carousel.defaultProps = {
   startIndex: 0,
+  onIndexChange: undefined,
 }
 
 export default Carousel;

@@ -3,7 +3,7 @@ import { fireEvent, render } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 
 import Carousel, { CarouselPositionDisplay, CarouselPositionIndicator, CarouselSlides, CarouselControl } from "../carousel/carousel";
-
+import createContentObj from '../../helpers/createContentObj';
 import { allPhotoNodes } from "../../templates/__fixtures__/all-photos";
 
 describe('CarouselPositionIndicator', () => {
@@ -60,12 +60,13 @@ describe('CarouselPositionDisplay', () => {
 describe('CarouselSlides', () => {
   const alt = "Alt Text";
   const photos = allPhotoNodes.slice(0, 6);
+  const content = createContentObj(alt, photos);
+
   it('should render each photo passed as props', () => {
     const { queryAllByAltText } = render(
       <CarouselSlides
-        alt={alt}
+        content={content}
         currentIndex={0}
-        photos={photos}
       />
     );
     const photoElements = queryAllByAltText(/Alt Text/);
@@ -77,9 +78,8 @@ describe('CarouselSlides', () => {
   it('should give each photo wrapper the correct class', () => {
     const { queryAllByAltText } = render(
       <CarouselSlides
-        alt={alt}
+        content={content}
         currentIndex={1}
-        photos={photos}
       />
     );
 
@@ -128,20 +128,21 @@ describe('CarouselControl', () => {
 describe('Carousel', () => {
   const alt = "Handgun With Case 2 Mags";
   const photos = allPhotoNodes.slice(0, 3);
+  var content = createContentObj(alt, photos);
   var onIndexChangeMock = jest.fn();
 
   beforeEach(() => onIndexChangeMock.mockReset());
 
   it('should render the main photo into the carousel on mount', () => {
     const { queryByAltText } = render(
-      <Carousel alt={alt} photos={photos} />
+      <Carousel content={content} />
     );
-    expect(queryByAltText('Handgun With Case 2 Mags 0')).toBeInTheDocument();
+    expect(queryByAltText('Handgun With Case 2 Mags 1')).toBeInTheDocument();
   });
 
   it('should correctly cycle through the photos when the next button is clicked', () => {
     const { queryAllByAltText, queryByTestId } = render(
-      <Carousel alt={alt} photos={photos} />
+      <Carousel content={content} />
     );
     const photoElements = queryAllByAltText(/Handgun With Case 2 Mags/);
     // get the div elements that wrap the Img tags
@@ -168,7 +169,7 @@ describe('Carousel', () => {
 
   it('should correctly cycle through the photos when the prev button is clicked', () => {
     const { queryAllByAltText, queryByTestId } = render(
-      <Carousel alt={alt} photos={photos} />
+      <Carousel content={content} />
     );
     const photoElements = queryAllByAltText(/Handgun With Case 2 Mags/);
     // get the div elements that wrap the Img tags
@@ -193,20 +194,9 @@ describe('Carousel', () => {
     expect(photoElementWrappers[0]).toHaveClass('slide currentSlide gatsby-image-wrapper');
   });
 
-  it('should disable both carousel buttons if photos is empty', () => {
-    const { queryByTestId } = render(
-      <Carousel alt={alt} photos={[]} />
-    );
-    const prevBtn = queryByTestId('fa-angle-left-icon').parentElement;
-    const nextBtn = queryByTestId('fa-angle-right-icon').parentElement;
-
-    expect(prevBtn).toBeDisabled();
-    expect(nextBtn).toBeDisabled();
-  });
-
   it('should disable both carousel buttons if photos.length is 1', () => {
     const { queryByTestId } = render(
-      <Carousel alt={alt} photos={[photos[0]]} />
+      <Carousel content={[{ alt: alt, photo: photos[0] }]} />
     );
     const prevBtn = queryByTestId('fa-angle-left-icon').parentElement;
     const nextBtn = queryByTestId('fa-angle-right-icon').parentElement;
@@ -217,7 +207,7 @@ describe('Carousel', () => {
 
   it('should display the correct photo if given a startIndex', () => {
     const { queryAllByAltText } = render(
-      <Carousel alt={alt} photos={photos} startIndex={2} />
+      <Carousel content={content} startIndex={2} />
     );
 
     // get the div elements that wrap the Img tags
@@ -231,7 +221,7 @@ describe('Carousel', () => {
 
   it('should still cycle through the photos correctly if given a startIndex', () => {
     const { queryAllByAltText, queryByTestId } = render(
-      <Carousel alt={alt} photos={photos} startIndex={2} />
+      <Carousel content={content} startIndex={2} />
     );
     const photoElements = queryAllByAltText(/Handgun With Case 2 Mags/);
     // get the div elements that wrap the Img tags
@@ -258,7 +248,7 @@ describe('Carousel', () => {
 
   it('should call the onIndexChange prop if provided', () => {
     const { queryByTestId } = render(
-      <Carousel alt={alt} photos={photos} startIndex={2} onIndexChange={onIndexChangeMock} />
+      <Carousel content={content} startIndex={2} onIndexChange={onIndexChangeMock} />
     );
     const nextBtn = queryByTestId('fa-angle-right-icon').parentElement;
     const prevBtn = queryByTestId('fa-angle-left-icon').parentElement;

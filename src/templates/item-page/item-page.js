@@ -53,24 +53,22 @@ const InterestedCTA = () => {
   );
 };
 
-export const ResponsiveCarousel = ({ alt, photos, size }) => {
+export const ResponsiveCarousel = ({ content, size }) => {
   var [carouselIndex, setCarouselIndex] = useState(0);
 
   if (size.width >= 736 && size.height >= 375) {
     return (
       <FullScreenCarousel
-        alt={alt}
+        content={content}
         onIndexChange={setCarouselIndex}
-        photos={photos}
         startIndex={carouselIndex}
       />
     );
   }
   return (
     <Carousel
-      alt={alt}
+      content={content}
       onIndexChange={setCarouselIndex}
-      photos={photos}
       startIndex={carouselIndex}
     />
   );
@@ -82,8 +80,15 @@ const ItemPage = ({ data, size }) => {
   var defaultPhoto = [data.defaultPhoto];
   var photos = data.photos.nodes;
   var carouselPhotos = photos.length ? photos : defaultPhoto;
+  var content = carouselPhotos.map((photo, idx) => {
+    return {
+      alt: `${descript} ${idx + 1}`,
+      photo: photo,
+    };
+  });
 
-  const title = `${descript}-${id}`;
+  console.log(content);
+  const title = `${descript}-${invNum}`;
   const wrapperClass = `${layout.columnCenterCenter} ${itemPage.wrapper}`;
 
   return (
@@ -92,8 +97,7 @@ const ItemPage = ({ data, size }) => {
         <PageHeader descript={descript} />
         <div className={wrapperClass}>
           <ResponsiveCarousel
-            alt={descript}
-            photos={carouselPhotos}
+            content={content}
             size={size}
           />
           <DetailsCard>
