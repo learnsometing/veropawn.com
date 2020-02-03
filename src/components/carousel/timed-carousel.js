@@ -1,14 +1,14 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-import { CarouselPositionDisplay, CarouselSlides, NextPrevBtns } from '../carousel/carousel';
+import { CarouselSlides, NextPrevBtns } from '../carousel/carousel';
 import { useCurrentIndex } from './hooks/useCurrentIndex';
 
 import layout from '../../styles/layout.module.css';
 import carousel from './carousel.module.scss';
 
-const TimedCarousel = ({ alts, photos, startIndex, onIndexChange }) => {
-  var length = photos.length;
+const TimedCarousel = ({ content, startIndex, onIndexChange }) => {
+  var length = content.length;
   var currentIndex = useCurrentIndex(startIndex, onIndexChange, length);
   const controlContainerClass = `${layout.rowSpaceBtnCenter} ${carousel.controlContainer}`;
 
@@ -18,11 +18,11 @@ const TimedCarousel = ({ alts, photos, startIndex, onIndexChange }) => {
   }, [currentIndex]);
 
   return (
-    <div >
+    <div>
       <div className={carousel.slideContainer}>
-        <CarouselSlides alt={alts[currentIndex]}
+        <CarouselSlides
+          content={content}
           currentIndex={currentIndex.value}
-          photos={photos}
         />
         <div className={controlContainerClass}>
           <NextPrevBtns
@@ -36,14 +36,14 @@ const TimedCarousel = ({ alts, photos, startIndex, onIndexChange }) => {
 };
 
 TimedCarousel.propTypes = {
-  alts: PropTypes.arrayOf(PropTypes.string),
+  content: PropTypes.arrayOf(PropTypes.object).isRequired,
   onIndexChange: PropTypes.func.isRequired,
-  photos: PropTypes.array.isRequired,
   startIndex: PropTypes.number
 };
 
 TimedCarousel.defaultProps = {
   startIndex: 0,
+  onIndexChange: undefined
 };
 
 export default TimedCarousel;

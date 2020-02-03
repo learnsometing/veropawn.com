@@ -6,16 +6,19 @@ import SEO from "../components/seo";
 import TimedCarousel from '../components/carousel/timed-carousel';
 
 const IndexPage = ({ data }) => {
-  var photos = data.photos.nodes;
-  var alts = photos.map(photo => photo.name.split('_')[1]);
+  var content = data.content.nodes.map(node => {
+    return {
+      alt: node.frontmatter.featuredImage.name,
+      photo: node.frontmatter.featuredImage,
+    }
+  });
 
   return (
     <SizedLayout title={"Home"}>
       <SEO title="Home" />
       <main id="content">
         <TimedCarousel
-          alts={alts}
-          photos={photos}
+          content={content}
         />
       </main>
     </SizedLayout>
@@ -26,23 +29,25 @@ export default IndexPage;
 
 export var query = graphql`
   query {
-    photos: allFile(
-      filter: {
-        extension: { regex: "/[jpeg png jpg]/" },
-        relativeDirectory: { eq: "index" },
-        name: { ne: "0_default" }
-      },
-      sort: { fields: name }
-    ){
+  
+    content: allMarkdownRemark(
+      filter: {fileAbsolutePath: {regex: "/index/"}}
+    ) {
       nodes {
-        name
-        childImageSharp {
-          fluid(maxWidth: 1024){
-            ...GatsbyImageSharpFluid
+        frontmatter {
+          title
+          featuredImage {
+            childImageSharp{
+              fluid(maxWidth: 1024){
+                ...GatsbyImageSharpFluid
+              }
+            }
+            name
           }
         }
-        id
+        html
       }
     }
+
   }
 `
