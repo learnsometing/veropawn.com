@@ -37,8 +37,8 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
 
     let value;
 
-    if (node.internal.type === "MarkdownRemark") {
-      value = createFilePath({ node, getNode });
+    if (node.internal.type === 'MarkdownRemark') {
+      value = `/${_slugify(node.frontmatter.title)}`;
     } else if (node.internal.type === "ItemsJson") {
       value = `/${_slugify(node.category)}/${_slugify(node.subcategory)}/${node.id}`;
     } else if (node.internal.type === "PagesJson") {
@@ -49,9 +49,7 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
   }
 
   createNodeField({
-    // Name of the field you are adding
     name: "slug",
-    // Individual MarkdownRemark node
     node,
     value: generateSlug(node),
   });
@@ -72,8 +70,10 @@ exports.createPages = async ({ graphql, actions }) => {
         }
       }
 
-      allMarkdownPages: allMarkdownRemark{
-        nodes{
+      allMarkdownPages: allMarkdownRemark(
+        filter: {fileAbsolutePath: {regex: "/pages/"}}
+      ){
+        nodes {
           id
           fields {
             slug
