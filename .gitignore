@@ -68,4 +68,6 @@ yarn-error.log
 # Yarn Integrity file
 .yarn-integrity
 
-src/images/*
+# ignore so changes to production don't conflict with dev
+src/images
+src/markdown
