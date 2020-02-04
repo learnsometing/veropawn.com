@@ -8,10 +8,6 @@ import markdownPage from './markdown-page.module.css';
 import layout from '../../styles/layout.module.css';
 
 export default ({ data }) => {
-  const createHtmlFromMarkup = () => {
-    const html = data.markdownRemark.html;
-    return ReactHtmlParser(html);
-  }
   const title = data.markdownRemark.frontmatter.title;
   var headerClassName = `${layout.rowCenterCenter} ${markdownPage.header}`;
 
@@ -22,7 +18,7 @@ export default ({ data }) => {
           <header className={headerClassName}>
             <h1>{title}</h1>
           </header>
-          {createHtmlFromMarkup()}
+          {ReactHtmlParser(data.markdownRemark.html)}
         </div>
       </main>
     </SizedLayout>

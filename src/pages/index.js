@@ -9,7 +9,9 @@ const IndexPage = ({ data }) => {
   var content = data.content.nodes.map(node => {
     return {
       alt: node.frontmatter.featuredImage.name,
+      html: node.html,
       photo: node.frontmatter.featuredImage,
+      title: node.frontmatter.title,
     }
   });
 
@@ -29,9 +31,9 @@ export default IndexPage;
 
 export var query = graphql`
   query {
-  
     content: allMarkdownRemark(
-      filter: {fileAbsolutePath: {regex: "/index/"}}
+      filter: {fileAbsolutePath: {regex: "/index/"}},
+      sort: {fields: fileAbsolutePath}
     ) {
       nodes {
         frontmatter {
