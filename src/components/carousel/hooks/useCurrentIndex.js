@@ -24,6 +24,9 @@ export function useCurrentIndex(startIndex, onIndexChange, length) {
     value,
     onClick: handleClick,
     setTimer,
+    get visibleRange() {
+      return [idx.prev, value, idx.next];
+    },
   };
 
   function handleClick(e) {

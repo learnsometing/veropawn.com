@@ -42,24 +42,40 @@ CarouselPositionDisplay.propTypes = {
   length: PropTypes.number.isRequired,
 };
 
-export const CarouselSlides = ({ content, currentIndex }) => {
-  return content.map((el, idx) => (
+export function Slide({ slide, className }) {
+  return (
     <Img
-      alt={el.alt}
-      key={el.photo.id}
-      fluid={el.photo.childImageSharp.fluid}
+      alt={slide.alt}
+      key={slide.photo.id}
+      fluid={slide.photo.childImageSharp.fluid}
       loading={'eager'}
-      className={idx === currentIndex
-        ? `${carousel.slide} ${carousel.currentSlide}`
-        : `${carousel.slide} ${carousel.hiddenSlide}`
-      }
+      className={className}
     />
-  ));
+  );
+}
+
+export const Slides = ({ content, current, visibleRange }) => {
+  // Make a list of all the slides
+  var slides = content.map((el, idx) => {
+    let className;
+
+    if (idx === current) {
+      className = carousel.currentSlide;
+    } else if (visibleRange.includes(idx)) {
+      className = carousel.slide;
+    } else {
+      className = carousel.hiddenSlide;
+    }
+
+    return <Slide slide={el} className={className} />;
+  });
+
+  return visibleRange.map(idx => slides[idx]);
 };
 
-CarouselSlides.propTypes = {
+Slides.propTypes = {
   content: PropTypes.arrayOf(PropTypes.object).isRequired,
-  currentIndex: PropTypes.number.isRequired,
+  current: PropTypes.number.isRequired,
 };
 
 export const CarouselControl = ({ children, isDisabled, name, onClick }) => {
@@ -85,33 +101,36 @@ CarouselControl.propTypes = {
 };
 
 export const NextPrevBtns = ({ isDisabled, onClick }) => {
+  var controlContainerClass = `${layout.rowSpaceBtnCenter} ${carousel.controlContainer}`;
   var controlsClass = `${layout.rowSpaceBtnCenter} ${carousel.controls}`;
   return (
-    <IconContext.Provider
-      value={{
-        color: isDisabled
-          ? 'hsla(255, 255%, 255%, 0.5)'
-          : 'hsla(255, 255%, 255%, 0.8)',
-        size: '1.5em'
-      }}
-    >
-      <div className={controlsClass}>
-        <CarouselControl
-          isDisabled={isDisabled}
-          name="prev"
-          onClick={onClick}
-        >
-          <FaAngleLeft data-testid="fa-angle-left-icon" />
-        </CarouselControl>
-        <CarouselControl
-          isDisabled={isDisabled}
-          name="next"
-          onClick={onClick}
-        >
-          <FaAngleRight data-testid="fa-angle-right-icon" />
-        </CarouselControl>
-      </div>
-    </IconContext.Provider>
+    <div className={controlContainerClass}>
+      <IconContext.Provider
+        value={{
+          color: isDisabled
+            ? 'hsla(255, 255%, 255%, 0.5)'
+            : 'hsla(255, 255%, 255%, 0.8)',
+          size: '1.5em'
+        }}
+      >
+        <div className={controlsClass}>
+          <CarouselControl
+            isDisabled={isDisabled}
+            name="prev"
+            onClick={onClick}
+          >
+            <FaAngleLeft data-testid="fa-angle-left-icon" />
+          </CarouselControl>
+          <CarouselControl
+            isDisabled={isDisabled}
+            name="next"
+            onClick={onClick}
+          >
+            <FaAngleRight data-testid="fa-angle-right-icon" />
+          </CarouselControl>
+        </div>
+      </IconContext.Provider>
+    </div>
   );
 };
 
@@ -124,27 +143,28 @@ const Carousel = ({ content, startIndex, onIndexChange }) => {
 
   // css classes because couldn't configure scss partials
   const carouselClass = `${layout.columnStartCenter} ${carousel.carousel}`;
-  const controlContainerClass = `${layout.rowSpaceBtnCenter} ${carousel.controlContainer}`;
+  var slideContainerClass = `${carousel.slideContainer}`;
 
   return (
-    <div className={carouselClass}>
-      <div className={carousel.slideContainer}>
-        <CarouselSlides
-          content={content}
-          currentIndex={currentIndex.value}
-        />
-        <div className={controlContainerClass}>
-          <NextPrevBtns
-            isDisabled={isDisabled}
-            onClick={currentIndex.onClick}
-          />
-          <CarouselPositionDisplay
-            currentIndex={currentIndex.value}
-            length={length}
+    <>
+      <div className={carouselClass}>
+        <div className={slideContainerClass}>
+          <Slides
+            content={content}
+            current={currentIndex.value}
+            visibleRange={currentIndex.visibleRange}
           />
         </div>
+        <NextPrevBtns
+          isDisabled={isDisabled}
+          onClick={currentIndex.onClick}
+        />
       </div>
-    </div>
+      <CarouselPositionDisplay
+        currentIndex={currentIndex.value}
+        length={length}
+      />
+    </>
   );
 }
 
