@@ -1,11 +1,16 @@
 $active-color: hsla(0, 0%, 0%, 0.8);
 
+.wrapper {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  padding: .625rem;
+}
+
 .carousel {
   position: relative;
   min-width: 100%;
   max-width: 1024px;
-  padding: 0 0.625rem;
-  margin-bottom: 1rem;
   visibility: visible;
 }
 
@@ -15,7 +20,6 @@ $active-color: hsla(0, 0%, 0%, 0.8);
   display: inline-flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
   top: 0;
   left: 0;
   overflow-x: hidden;
@@ -42,7 +46,7 @@ $active-color: hsla(0, 0%, 0%, 0.8);
   box-shadow: 0px 0px 6px 0px $active-color;
 }
 
-.singleSlide {
+.slideContainer, .singleSlide {
   width: 100%;
 }
 
@@ -79,8 +83,7 @@ $active-color: hsla(0, 0%, 0%, 0.8);
   width: 100%;
 }
 
-/*  Carousel Cues and Display  */
-
+/*                Cues and FS/Minimize buttons                */
 .cue {
   position: relative;
   display: inline-block;
@@ -90,9 +93,38 @@ $active-color: hsla(0, 0%, 0%, 0.8);
 }
 
 .cues {
+  position: absolute;
+  width: 100%;
   flex-wrap: wrap;
-  padding: 0 .625rem;
-  margin-bottom: 1rem;
+  padding: 0 2rem;
+}
+
+.FSControlContainer {
+  position: relative;
+  width: 100%;
+}
+
+.fullScreenIcon, .minimizeIcon {
+  position: relative;
+  bottom:0;
+  right: 0;
+  height: 2rem;
+  width: 2rem;
+  padding: 0;
+  margin: 1rem;
+  border-radius: 50%;
+}
+
+.minimizeIcon {
+  z-index: 5;
+}
+
+.fullScreenIcon:hover{
+  transform: scale(1.1);
+}
+
+.minimizeIcon:hover {
+  transform: scale(0.9);
 }
 
 /*                Content               */

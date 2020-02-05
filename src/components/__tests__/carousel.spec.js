@@ -2,7 +2,7 @@ import React from "react";
 import { fireEvent, render } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 
-import Carousel, { Cues, Cue, Slides, CarouselControl } from "../carousel/carousel";
+import Carousel, { Cues, Cue, Slides, CarouselControl, FullScreenButton } from "../carousel/carousel";
 import createContentObj from '../../helpers/createContentObj';
 import { allPhotoNodes } from "../../templates/__fixtures__/all-photos";
 
@@ -166,12 +166,30 @@ describe('CarouselControl', () => {
 
   it('should give the control the onClick fcn', () => {
     const { queryByRole } = render(
-      <CarouselControl isDisabled={false} onClick={onClick} />
+      <CarouselControl name={'next'} isDisabled={false} onClick={onClick} />
     );
 
     fireEvent.click(queryByRole('button'));
 
     expect(onClick.mock.calls.length).toEqual(1);
+  });
+});
+
+describe('FullScreenButton', () => {
+  var onClickMock = jest.fn();
+
+  beforeEach(() => onClickMock.mockReset());
+
+  it('should fire onClick when clicked', () => {
+    var { queryByTestId } = render(
+      <FullScreenButton onClick={onClickMock} />
+    );
+
+    var fullScreenButton = queryByTestId('md-fullscreen-icon');
+
+    fireEvent.click(fullScreenButton);
+
+    expect(onClickMock.mock.calls.length).toEqual(1);
   });
 });
 

@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Img from 'gatsby-image';
 import { FaAngleLeft, FaAngleRight, FaDollarSign } from 'react-icons/fa';
+import { MdFullscreen, MdFullscreenExit } from "react-icons/md";
+
 import { IconContext } from 'react-icons';
 import uniqueId from 'lodash/uniqueId';
 
@@ -47,10 +49,14 @@ Cue.propTypes = {
   isFullScreen: PropTypes.bool.isRequired,
 };
 
-export const Cues = ({ className, currentIndex, isFullScreen, length }) => {
+export const Cues = ({ currentIndex, isFullScreen, length }) => {
   var cues = createCues(length);
 
-  return <div className={className}>{cues}</div>;
+  return (
+    <div className={`${layout.rowCenterCenter} ${carousel.cues}`}>
+      {cues}
+    </div>
+  );
 
   function createCues(length) {
     let range = [...Array(length).keys()];
@@ -106,9 +112,11 @@ export const Slides = ({ content, isDisabled, visibleRange }) => {
   );
 
   function createSlides() {
+    // return either a single slide (one photo), or multiple slides
     let _slides;
 
     if (isDisabled) {
+      // isDisabled if content.length < 2, so return one slide.
       let slide = content[0];
       _slides = <Slide key={slide.photo.id} slide={slide} className={carousel.singleSlide} />;
     } else {
@@ -167,24 +175,29 @@ export const CarouselControl = ({ children, name, onClick }) => (
 );
 
 CarouselControl.propTypes = {
+  children: PropTypes.oneOfType([
+    PropTypes.array,
+    PropTypes.object,
+  ]),
+  name: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired
 };
 
 export const NextPrevBtns = ({ isDisabled, onClick }) => {
-  var controlContainerClass = `${layout.rowSpaceBtnCenter} ${carousel.controlContainer}`;
-  var controlsClass = `${layout.rowSpaceBtnCenter} ${carousel.controls}`;
-
-  if (isDisabled) { return null; }
+  // Returns null if isDisabled or buttons to move the carousel slides
+  if (isDisabled) {
+    return null;
+  }
 
   return (
-    <div className={controlContainerClass}>
+    <div className={`${layout.rowSpaceBtnCenter} ${carousel.controlContainer}`}>
       <IconContext.Provider
         value={{
           color: 'hsla(255, 255%, 255%, 0.8)',
           size: '1.5em'
         }}
       >
-        <div className={controlsClass}>
+        <div className={`${layout.rowSpaceBtnCenter} ${carousel.controls}`}>
           <CarouselControl
             name="prev"
             onClick={onClick}
@@ -203,19 +216,47 @@ export const NextPrevBtns = ({ isDisabled, onClick }) => {
   );
 };
 
-const Carousel = ({ content, startIndex, onIndexChange }) => {
-  // keeps track of its own index but can also take a start index that
-  // specifies which of the photos to display when the carousel is first opened.
+export const FullScreenButton = ({ onClick }) => (
+  <button className={carousel.fullScreenIcon} onClick={onClick}>
+    <IconContext.Provider value={{ color: '#000', size: '2em' }}>
+      <MdFullscreen data-testid="md-fullscreen-icon" />
+    </IconContext.Provider>
+  </button>
+);
+
+FullScreenButton.propTypes = {
+  onClick: PropTypes.func.isRequired,
+};
+
+export const MinimizeButton = ({ onClick }) => (
+  <button className={carousel.minimizeIcon} onClick={onClick}>
+    <IconContext.Provider value={{ color: 'rgba(255, 255, 255, 0.8)', size: '2em' }}>
+      <MdFullscreenExit data-testid="md-fullscreen-exit-icon" />
+    </IconContext.Provider>
+  </button>
+);
+
+MinimizeButton.propTypes = {
+  onClick: PropTypes.func.isRequired,
+};
+
+export function FSIcon({ isFullScreen, onClick }) {
+  var c = isFullScreen
+    ? <MinimizeButton onClick={onClick} />
+    : <FullScreenButton onClick={onClick} />;
+
+  return c;
+}
+
+const Carousel = (props) => {
+  var { content, isFullScreen, onFSIconClick, onIndexChange, startIndex } = props;
   var length = content.length;
   var isDisabled = length < 2;
   var currentIndex = useCurrentIndex(startIndex, onIndexChange, length);
 
-  // css classes because couldn't configure scss partials
-  const carouselClass = `${layout.columnStartCenter} ${carousel.carousel}`;
-
   return (
-    <>
-      <div className={carouselClass}>
+    <div className={`${layout.columnStartCenter} ${carousel.wrapper}`}>
+      <div className={`${carousel.carousel}`}>
         <Slides
           content={content}
           isDisabled={isDisabled}
@@ -226,24 +267,31 @@ const Carousel = ({ content, startIndex, onIndexChange }) => {
           onClick={currentIndex.onClick}
         />
       </div>
-      <Cues
-        className={`${layout.rowCenterCenter} ${carousel.cues}`}
-        currentIndex={currentIndex.value}
-        length={length}
-      />
-    </>
+      <div className={`${layout.rowEndCenter} ${carousel.FSControlContainer}`}>
+        <Cues
+          currentIndex={currentIndex.value}
+          isFullScreen={isFullScreen}
+          length={length}
+        />
+        <FSIcon isFullScreen={isFullScreen} onClick={onFSIconClick} />
+      </div>
+    </div>
   );
 }
 
 Carousel.propTypes = {
   content: PropTypes.arrayOf(PropTypes.object).isRequired,
-  startIndex: PropTypes.number,
-  onIndexChange: PropTypes.func,
+  isFullScreen: PropTypes.bool.isRequired,
+  onFSIconClick: PropTypes.func.isRequired,
+  onIndexChange: PropTypes.func.isRequired,
+  startIndex: PropTypes.number.isRequired,
 };
 
 Carousel.defaultProps = {
+  isFullScreen: false,
+  onFSIconClick: () => { },
+  onIndexChange: () => { },
   startIndex: 0,
-  onIndexChange: undefined,
 }
 
 export default Carousel;
