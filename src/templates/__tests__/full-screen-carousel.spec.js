@@ -5,7 +5,6 @@ import "@testing-library/jest-dom/extend-expect";
 import FullScreenCarousel, { FullScreenButton } from "../item-page/full-screen-carousel";
 import createContentObj from '../../helpers/createContentObj';
 import { mainPhotos } from "../__fixtures__/all-photos";
-import { create } from "react-test-renderer";
 
 describe('FullScreenButton', () => {
   var onClickMock = jest.fn();
@@ -34,24 +33,20 @@ describe('FullScreenCarousel', () => {
   beforeEach(() => onIndexChangeMock.mockReset());
 
   it('should use 0 as startIndex if startIndex is not passed in', () => {
-    var { queryAllByAltText } = render(
+    var { queryByAltText } = render(
       <FullScreenCarousel
         content={content}
         onIndexChange={onIndexChangeMock}
       />
     );
 
-    const photoElements = queryAllByAltText(/Women's Ring/);
-    // get the div elements that wrap the Img tags
-    const photoElementWrappers = photoElements.map(el => el.parentElement.parentElement);
+    var startPhoto = queryByAltText(/Women's Ring 1/);
 
-    expect(photoElementWrappers[0]).toHaveClass('slide currentSlide gatsby-image-wrapper');
-    expect(photoElementWrappers[1]).toHaveClass('slide hiddenSlide gatsby-image-wrapper');
-    expect(photoElementWrappers[2]).toHaveClass('slide hiddenSlide gatsby-image-wrapper');
+    expect(startPhoto.parentElement.parentElement).toHaveClass('currentSlide gatsby-image-wrapper');
   });
 
   it('should use the startIndex prop to display the correct photo', () => {
-    var { queryAllByAltText } = render(
+    var { queryByAltText } = render(
       <FullScreenCarousel
         content={content}
         onIndexChange={onIndexChangeMock}
@@ -59,13 +54,9 @@ describe('FullScreenCarousel', () => {
       />
     );
 
-    const photoElements = queryAllByAltText(/Women's Ring/);
-    // get the div elements that wrap the Img tags
-    const photoElementWrappers = photoElements.map(el => el.parentElement.parentElement);
+    var startPhoto = queryByAltText(/Women's Ring 3/);
 
-    expect(photoElementWrappers[0]).toHaveClass('slide hiddenSlide gatsby-image-wrapper');
-    expect(photoElementWrappers[1]).toHaveClass('slide hiddenSlide gatsby-image-wrapper');
-    expect(photoElementWrappers[2]).toHaveClass('slide currentSlide gatsby-image-wrapper');
+    expect(startPhoto.parentElement.parentElement).toHaveClass('currentSlide gatsby-image-wrapper');
   });
 
   it('should call onIndexChange when the std carousel photos are cycled', () => {

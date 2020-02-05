@@ -1,9 +1,10 @@
+$active-color: hsla(0, 0%, 0%, 0.8);
+
 .carousel {
   position: relative;
   min-width: 100%;
   max-width: 1024px;
-  height: 60%;
-  padding: 0 0.675rem;
+  padding: 0 0.625rem;
   margin-bottom: 1rem;
   visibility: visible;
 }
@@ -20,32 +21,30 @@
   overflow-x: hidden;
 }
 
-.slide {
+.slide, .currentSlide, .singleSlide {
   display: flex;
-  margin: 0 0.5rem;
-  height: 90%;
-  min-width: 70%;
 }
 
 .slide {
-  opacity: 0.4;
-}
-
-.hiddenSlide {
-  opacity: 0;
+  margin: 0 0.5rem;
+  min-width: 70%;
+  opacity: 0.5;
 }
 
 .currentSlide {
   min-width: 80%;
-  height: 100%;
-  opacity: 1;
-  transition: opacity 1s;
   /* left and right shadow */
-  box-shadow: 0px 0px 6px 0px rgba(0,0,0,0.8);
+  opacity: 1;
+  transition: opacity 1s ease;
 }
 
-$active-color: hsla(0, 0%, 0%, 0.8);
-$inactive-color: hsla(0, 0%, 0%, 0.4);
+.currentSlide, .singleSlide {
+  box-shadow: 0px 0px 6px 0px $active-color;
+}
+
+.singleSlide {
+  width: 100%;
+}
 
 /*  Carousel Controls  */
 
@@ -54,7 +53,7 @@ $inactive-color: hsla(0, 0%, 0%, 0.4);
   top: 0;
   left: 0;
   height: 100%;
-  padding: 0 0.675rem;
+  padding: 0 0.625rem;
 }
 
 .controls {
@@ -67,32 +66,22 @@ $inactive-color: hsla(0, 0%, 0%, 0.4);
   padding: 0;
   border-radius: 50px;
   border: none;
-}
-
-.enabledCarouselControl {
   background-color: $active-color;
+
 }
 
-.enabledCarouselControl:hover {
+.carouselControl:hover {
   cursor: pointer;
   transform: scale(1.1);
-}
-
-.disabledCarouselControl {
-  background-color: $inactive-color;
-}
-
-.disabledCarouselControl:hover {
-  cursor: not-allowed;
 }
 
 .controlContainer, .controls {
   width: 100%;
 }
 
-/*  Carousel Position Indicator and Display  */
+/*  Carousel Cues and Display  */
 
-.posIndicator {
+.cue {
   position: relative;
   display: inline-block;
   height: 0.75rem;
@@ -100,20 +89,10 @@ $inactive-color: hsla(0, 0%, 0%, 0.4);
   margin: 0 .375rem;
 }
 
-.activePosIndicator {
-  color: $active-color;
-}
-
-.inactivePosIndicator {
-  color: $inactive-color;
-}
-
-.carouselPosContainer {
+.cues {
   flex-wrap: wrap;
-  width: 100%;
-  padding: 0 .375rem;
-  margin: 1rem;
-  margin-top: 0;
+  padding: 0 .625rem;
+  margin-bottom: 1rem;
 }
 
 /*                Content               */
@@ -150,14 +129,4 @@ $inactive-color: hsla(0, 0%, 0%, 0.4);
   margin: 0.625rem 0;
   font-weight: bold;
   font-size: 1.1rem;
-}
-
-@media only screen and (min-width: 736px) and (min-height: 375px) {
-  .carouselPosContainer {
-    padding: 0 4rem;
-  }
-
-  .carousel {
-    margin-bottom: 0
-  }
 }

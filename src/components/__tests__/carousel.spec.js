@@ -2,94 +2,160 @@ import React from "react";
 import { fireEvent, render } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 
-import Carousel, { CarouselPositionDisplay, CarouselPositionIndicator, CarouselSlides, CarouselControl } from "../carousel/carousel";
+import Carousel, { Cues, Cue, Slides, CarouselControl } from "../carousel/carousel";
 import createContentObj from '../../helpers/createContentObj';
 import { allPhotoNodes } from "../../templates/__fixtures__/all-photos";
 
-describe('CarouselPositionIndicator', () => {
-  it('should have posIndicator and activePosIndicator classes when isActive', () => {
-    const { queryByTestId } = render(<CarouselPositionIndicator isActive={true} />);
+describe('Cue', () => {
+  it('should have the correct color when isActive and !isFullScreen', () => {
+    const { queryByTestId } = render(<Cue isActive={true} isFullScreen={false} />);
 
-    const positionIndicator = queryByTestId('carousel-pos-indicator');
+    const cue = queryByTestId('carousel-pos-indicator');
 
-    expect(positionIndicator).toHaveClass('posIndicator activePosIndicator');
+    expect(cue).toHaveStyle('color: rgba(0, 0, 0, 0.8)');
   });
 
-  it('should have posIndicator and inactivePosIndicator classes when !isActive', () => {
-    const { queryByTestId } = render(<CarouselPositionIndicator isActive={false} />);
+  it('should have the correct color when !isActive and !isFullScreen', () => {
+    const { queryByTestId } = render(<Cue isActive={false} isFullScreen={false} />);
 
-    const positionIndicator = queryByTestId('carousel-pos-indicator');
+    const cue = queryByTestId('carousel-pos-indicator');
 
-    expect(positionIndicator).toHaveClass('posIndicator inactivePosIndicator');
+    expect(cue).toHaveStyle('color: rgba(0, 0, 0, 0.4)');
+  });
+
+  it('should have the correct color when isActive and isFullScreen', () => {
+    const { queryByTestId } = render(<Cue isActive={true} isFullScreen={true} />);
+
+    const cue = queryByTestId('carousel-pos-indicator');
+
+    expect(cue).toHaveStyle('color: rgba(255, 255, 255, 0.8)');
+  });
+
+  it('should have the correct color when !isActive and isFullScreen', () => {
+    const { queryByTestId } = render(<Cue isActive={false} isFullScreen={true} />);
+
+    const cue = queryByTestId('carousel-pos-indicator');
+
+    expect(cue).toHaveStyle('color: rgba(255, 255, 255, 0.4)');
   });
 });
 
-describe('CarouselPositionDisplay', () => {
-  it('should render the number of CarouselPositionIndicators specified by "length"', () => {
+describe('Cues', () => {
+  it('should render the number of Cues specified by "length"', () => {
     const length = 3;
     const { queryAllByTestId } = render(
-      <CarouselPositionDisplay
+      <Cues
         currentIndex={0}
         length={length}
       />
     );
 
-    const posIndicators = queryAllByTestId('carousel-pos-indicator');
+    const cues = queryAllByTestId('carousel-pos-indicator');
 
-    expect(posIndicators.length).toBe(3);
-    posIndicators.forEach(indicator => expect(indicator).toBeInTheDocument());
+    expect(cues.length).toBe(3);
+    cues.forEach(indicator => expect(indicator).toBeInTheDocument());
   });
 
-  it('should give the posIndicator specified by currentIndex the activePosIndicator class', () => {
+  it('should give the cue specified by currentIndex the active color', () => {
     const length = 3;
     const { queryAllByTestId } = render(
-      <CarouselPositionDisplay
+      <Cues
         currentIndex={2}
         length={length}
       />
     );
 
-    const posIndicators = queryAllByTestId('carousel-pos-indicator');
+    const cues = queryAllByTestId('carousel-pos-indicator');
 
-    expect(posIndicators[0]).toHaveClass('posIndicator inactivePosIndicator');
-    expect(posIndicators[1]).toHaveClass('posIndicator inactivePosIndicator');
-    expect(posIndicators[2]).toHaveClass('posIndicator activePosIndicator');
+
+    expect(cues[0]).toHaveStyle('color: rgba(0, 0, 0, 0.4)');
+    expect(cues[1]).toHaveStyle('color: rgba(0, 0, 0, 0.4)');
+    expect(cues[2]).toHaveStyle('color: rgba(0, 0, 0, 0.8)');
+  });
+
+  it('should give the Cue specified by currentIndex the active color', () => {
+    const length = 3;
+    const { queryAllByTestId } = render(
+      <Cues
+        currentIndex={2}
+        isFullScreen={true}
+        length={length}
+      />
+    );
+
+    const cues = queryAllByTestId('carousel-pos-indicator');
+
+
+    expect(cues[0]).toHaveStyle('color: rgba(255, 255, 255, 0.4)');
+    expect(cues[1]).toHaveStyle('color: rgba(255, 255, 255, 0.4)');
+    expect(cues[2]).toHaveStyle('color: rgba(255, 255, 255, 0.8)');
   });
 });
 
-describe('CarouselSlides', () => {
+describe('Slides', () => {
   const alt = "Alt Text";
-  const photos = allPhotoNodes.slice(0, 6);
+  const photos = allPhotoNodes.slice(0, 4);
   const content = createContentObj(alt, photos);
 
-  it('should render each photo passed as props', () => {
-    const { queryAllByAltText } = render(
-      <CarouselSlides
-        content={content}
-        currentIndex={0}
+  it('should render the carousel correctly with a single photo', () => {
+    const { queryByAltText } = render(
+      <Slides
+        content={content.slice(0, 1)}
+        isDisabled={true}
+        visibleRange={[0, 0, 0]}
       />
     );
-    const photoElements = queryAllByAltText(/Alt Text/);
-
-    expect(photoElements.length).toEqual(photos.length);
-    photoElements.forEach(el => expect(el).toBeInTheDocument());
+    var image = queryByAltText(/Alt Text/);
+    expect(image).toBeInTheDocument();
+    // gatsby image wrapper. Can't reference directly.
+    var wrapper = image.parentElement.parentElement;
+    expect(wrapper).toHaveClass('singleSlide gatsby-image-wrapper');
   });
 
-  it('should give each photo wrapper the correct class', () => {
+  it('should render the carousel correctly with two photos', () => {
     const { queryAllByAltText } = render(
-      <CarouselSlides
-        content={content}
-        currentIndex={1}
+      <Slides
+        content={content.slice(0, 2)}
+        isDisabled={false}
+        visibleRange={[1, 0, 1]}
       />
     );
 
-    const photoElements = queryAllByAltText(/Alt Text/);
-    // get the div elements that the class is set on
-    const photoElementWrappers = photoElements.map(el => el.parentElement.parentElement);
-    // assert by class because the visibility assertion only checks inline style
-    expect(photoElementWrappers[0]).toHaveClass('slide hiddenSlide gatsby-image-wrapper');
-    expect(photoElementWrappers[1]).toHaveClass('slide currentSlide gatsby-image-wrapper');
-    expect(photoElementWrappers[2]).toHaveClass('slide hiddenSlide gatsby-image-wrapper');
+    var photos = queryAllByAltText(/Alt Text/);
+
+    expect(photos.length).toEqual(3);
+
+    photos.forEach(photo => expect(photo).toBeInTheDocument());
+
+    // gatsby image wrapper. Can't reference directly.
+    var wrappers = photos.map(photo => photo.parentElement.parentElement);
+
+    expect(wrappers[0]).toHaveClass('slide gatsby-image-wrapper')
+    expect(wrappers[1]).toHaveClass('currentSlide gatsby-image-wrapper')
+    expect(wrappers[2]).toHaveClass('slide gatsby-image-wrapper')
+  });
+
+  it('should render the carousel correctly with more than 2 photos', () => {
+    const { queryAllByAltText } = render(
+      <Slides
+        content={content.slice(0, 4)}
+        isDisabled={false}
+        visibleRange={[3, 0, 1]}
+      />
+    );
+
+    var photos = queryAllByAltText(/Alt Text/);
+
+    expect(photos.length).toEqual(3);
+
+    photos.forEach(photo => expect(photo).toBeInTheDocument());
+
+    // gatsby image wrapper. Can't reference directly.
+    var wrappers = photos.map(photo => photo.parentElement.parentElement);
+
+    expect(wrappers[0]).toHaveClass('slide gatsby-image-wrapper')
+    expect(wrappers[1]).toHaveClass('currentSlide gatsby-image-wrapper')
+    expect(wrappers[2]).toHaveClass('slide gatsby-image-wrapper')
   });
 });
 
@@ -97,22 +163,6 @@ describe('CarouselControl', () => {
   const onClick = jest.fn();
 
   beforeEach(() => onClick.mockReset());
-
-  it('should give the control the correct className when isDisabled', () => {
-    const { queryByRole } = render(
-      <CarouselControl isDisabled={true} onClick={onClick} />
-    );
-
-    expect(queryByRole('button')).toHaveClass("carouselControl disabledCarouselControl");
-  });
-
-  it('should give the control the correct className when !isDisabled', () => {
-    const { queryByRole } = render(
-      <CarouselControl isDisabled={false} onClick={onClick} />
-    );
-
-    expect(queryByRole('button')).toHaveClass("carouselControl enabledCarouselControl");
-  });
 
   it('should give the control the onClick fcn', () => {
     const { queryByRole } = render(
@@ -126,124 +176,85 @@ describe('CarouselControl', () => {
 });
 
 describe('Carousel', () => {
-  const alt = "Handgun With Case 2 Mags";
-  const photos = allPhotoNodes.slice(0, 3);
+  var alt = "Handgun With Case 2 Mags";
+  var photos = allPhotoNodes.slice(0, 4);
   var content = createContentObj(alt, photos);
   var onIndexChangeMock = jest.fn();
 
   beforeEach(() => onIndexChangeMock.mockReset());
 
-  it('should render the main photo into the carousel on mount', () => {
+  it('should render the main photo and prev/next photos into the carousel on mount', () => {
     const { queryByAltText } = render(
       <Carousel content={content} />
     );
     expect(queryByAltText('Handgun With Case 2 Mags 1')).toBeInTheDocument();
+    expect(queryByAltText('Handgun With Case 2 Mags 2')).toBeInTheDocument();
+    expect(queryByAltText('Handgun With Case 2 Mags 4')).toBeInTheDocument();
   });
 
-  it('should correctly cycle through the photos when the next button is clicked', () => {
-    const { queryAllByAltText, queryByTestId } = render(
+  it('should cycle through the photos when the next button is clicked', () => {
+    const { queryByAltText, queryByTestId } = render(
       <Carousel content={content} />
     );
-    const photoElements = queryAllByAltText(/Handgun With Case 2 Mags/);
-    // get the div elements that wrap the Img tags
-    const photoElementWrappers = photoElements.map(el => el.parentElement.parentElement);
+
+    const startPhoto = queryByAltText(/Handgun With Case 2 Mags 1/);
     const nextBtn = queryByTestId('fa-angle-right-icon').parentElement;
 
-    expect(photoElementWrappers[0]).toHaveClass('slide currentSlide gatsby-image-wrapper');
+    expect(startPhoto).toBeInTheDocument();
+    expect(startPhoto.parentElement.parentElement).toHaveClass('currentSlide gatsby-image-wrapper');
 
     fireEvent.click(nextBtn);
 
-    expect(photoElementWrappers[0]).toHaveClass('slide hiddenSlide gatsby-image-wrapper');
-    expect(photoElementWrappers[1]).toHaveClass('slide currentSlide gatsby-image-wrapper');
+    var photo2 = queryByAltText(/Handgun With Case 2 Mags 2/);
+    expect(photo2.parentElement.parentElement).toHaveClass('currentSlide gatsby-image-wrapper')
 
     fireEvent.click(nextBtn);
 
-    expect(photoElementWrappers[1]).toHaveClass('slide hiddenSlide gatsby-image-wrapper');
-    expect(photoElementWrappers[2]).toHaveClass('slide currentSlide gatsby-image-wrapper');
-
-    fireEvent.click(nextBtn);
-
-    expect(photoElementWrappers[2]).toHaveClass('slide hiddenSlide gatsby-image-wrapper');
-    expect(photoElementWrappers[0]).toHaveClass('slide currentSlide gatsby-image-wrapper');
+    var photo3 = queryByAltText(/Handgun With Case 2 Mags 3/);
+    expect(photo3.parentElement.parentElement).toHaveClass('currentSlide gatsby-image-wrapper')
   });
 
-  it('should correctly cycle through the photos when the prev button is clicked', () => {
-    const { queryAllByAltText, queryByTestId } = render(
+  it('should cycle through the photos when the next button is clicked', () => {
+    const { queryByAltText, queryByTestId } = render(
       <Carousel content={content} />
     );
-    const photoElements = queryAllByAltText(/Handgun With Case 2 Mags/);
-    // get the div elements that wrap the Img tags
-    const photoElementWrappers = photoElements.map(el => el.parentElement.parentElement);
+
+    const startPhoto = queryByAltText(/Handgun With Case 2 Mags 1/);
     const prevBtn = queryByTestId('fa-angle-left-icon').parentElement;
 
-    expect(photoElementWrappers[0]).toHaveClass('slide currentSlide gatsby-image-wrapper');
+    expect(startPhoto).toBeInTheDocument();
+    expect(startPhoto.parentElement.parentElement).toHaveClass('currentSlide gatsby-image-wrapper');
 
     fireEvent.click(prevBtn);
 
-    expect(photoElementWrappers[0]).toHaveClass('slide hiddenSlide gatsby-image-wrapper');
-    expect(photoElementWrappers[2]).toHaveClass('slide currentSlide gatsby-image-wrapper');
+    var photo4 = queryByAltText(/Handgun With Case 2 Mags 4/);
+    expect(photo4.parentElement.parentElement).toHaveClass('currentSlide gatsby-image-wrapper')
 
     fireEvent.click(prevBtn);
 
-    expect(photoElementWrappers[2]).toHaveClass('slide hiddenSlide gatsby-image-wrapper');
-    expect(photoElementWrappers[1]).toHaveClass('slide currentSlide gatsby-image-wrapper');
-
-    fireEvent.click(prevBtn);
-
-    expect(photoElementWrappers[1]).toHaveClass('slide hiddenSlide gatsby-image-wrapper');
-    expect(photoElementWrappers[0]).toHaveClass('slide currentSlide gatsby-image-wrapper');
+    var photo3 = queryByAltText(/Handgun With Case 2 Mags 3/);
+    expect(photo3.parentElement.parentElement).toHaveClass('currentSlide gatsby-image-wrapper')
   });
 
-  it('should disable both carousel buttons if photos.length is 1', () => {
+  it('should not render either carousel button if content.length is 1', () => {
     const { queryByTestId } = render(
       <Carousel content={[{ alt: alt, photo: photos[0] }]} />
     );
-    const prevBtn = queryByTestId('fa-angle-left-icon').parentElement;
-    const nextBtn = queryByTestId('fa-angle-right-icon').parentElement;
+    const prevBtn = queryByTestId('fa-angle-left-icon');
+    const nextBtn = queryByTestId('fa-angle-right-icon');
 
-    expect(prevBtn).toBeDisabled();
-    expect(nextBtn).toBeDisabled();
+    expect(prevBtn).not.toBeInTheDocument();
+    expect(nextBtn).not.toBeInTheDocument();
   });
 
-  it('should display the correct photo if given a startIndex', () => {
-    const { queryAllByAltText } = render(
+  it('should display the correct photo if given a startIndex other than 0', () => {
+    var { queryByAltText } = render(
       <Carousel content={content} startIndex={2} />
     );
 
-    // get the div elements that wrap the Img tags
-    const photoElements = queryAllByAltText(/Handgun With Case 2 Mags/);
-    const photoElementWrappers = photoElements.map(el => el.parentElement.parentElement);
+    var startPhoto = queryByAltText(/Handgun With Case 2 Mags 3/);
 
-    expect(photoElementWrappers[0]).toHaveClass('slide hiddenSlide gatsby-image-wrapper');
-    expect(photoElementWrappers[1]).toHaveClass('slide hiddenSlide gatsby-image-wrapper');
-    expect(photoElementWrappers[2]).toHaveClass('slide currentSlide gatsby-image-wrapper');
-  });
-
-  it('should still cycle through the photos correctly if given a startIndex', () => {
-    const { queryAllByAltText, queryByTestId } = render(
-      <Carousel content={content} startIndex={2} />
-    );
-    const photoElements = queryAllByAltText(/Handgun With Case 2 Mags/);
-    // get the div elements that wrap the Img tags
-    const photoElementWrappers = photoElements.map(el => el.parentElement.parentElement);
-    const nextBtn = queryByTestId('fa-angle-right-icon').parentElement;
-    const prevBtn = queryByTestId('fa-angle-left-icon').parentElement;
-
-    expect(photoElementWrappers[0]).toHaveClass('slide hiddenSlide gatsby-image-wrapper');
-    expect(photoElementWrappers[1]).toHaveClass('slide hiddenSlide gatsby-image-wrapper');
-    expect(photoElementWrappers[2]).toHaveClass('slide currentSlide gatsby-image-wrapper');
-
-    fireEvent.click(nextBtn);
-
-    expect(photoElementWrappers[0]).toHaveClass('slide currentSlide gatsby-image-wrapper');
-    expect(photoElementWrappers[1]).toHaveClass('slide hiddenSlide gatsby-image-wrapper');
-    expect(photoElementWrappers[2]).toHaveClass('slide hiddenSlide gatsby-image-wrapper');
-
-    fireEvent.click(prevBtn);
-
-    expect(photoElementWrappers[0]).toHaveClass('slide hiddenSlide gatsby-image-wrapper');
-    expect(photoElementWrappers[1]).toHaveClass('slide hiddenSlide gatsby-image-wrapper');
-    expect(photoElementWrappers[2]).toHaveClass('slide currentSlide gatsby-image-wrapper');
+    expect(startPhoto.parentElement.parentElement).toHaveClass('currentSlide gatsby-image-wrapper');
   });
 
   it('should call the onIndexChange prop if provided', () => {

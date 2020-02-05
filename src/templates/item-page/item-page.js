@@ -84,7 +84,6 @@ const ItemPage = ({ data, size }) => {
     : defaultPhoto;
   var content = createContentObj(descript, photos);
 
-  console.log(content);
   const title = `${descript}-${invNum}`;
   const wrapperClass = `${layout.columnCenterCenter} ${itemPage.wrapper}`;
 

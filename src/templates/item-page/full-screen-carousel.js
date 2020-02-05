@@ -4,7 +4,8 @@ import ReactModal from "react-modal";
 import { MdFullscreen, MdFullscreenExit } from "react-icons/md";
 import { IconContext } from "react-icons";
 
-import Carousel from "../../components/carousel/carousel";
+import { Slides, NextPrevBtns, Cues } from "../../components/carousel/carousel";
+import { useCurrentIndex } from '../../components/carousel/hooks/useCurrentIndex';
 
 import fullScreenCarousel from "./full-screen-carousel.module.css";
 import layout from "../../styles/layout.module.css";
@@ -13,7 +14,7 @@ export const FullScreenButton = ({ onClick }) => {
   var buttonClass = `${fullScreenCarousel.fullScreenIcon}`;
   return (
     <button className={buttonClass} onClick={onClick}>
-      <IconContext.Provider value={{ color: 'rgba(255, 255, 255, 0.8)', size: '2em' }}>
+      <IconContext.Provider value={{ color: '#000', size: '2em' }}>
         <MdFullscreen data-testid="md-fullscreen-icon" />
       </IconContext.Provider>
     </button>
@@ -41,22 +42,37 @@ MinimizeButton.propTypes = {
 
 const FullScreenCarousel = ({ content, onIndexChange, startIndex }) => {
   var [isFullScreen, setIsFullScreen] = useState(false);
-  var wrapperClass = `${fullScreenCarousel.wrapper}`;
+
   var overlayClassName = `${layout.columnCenterCenter} ${fullScreenCarousel.overlay}`;
   var contentClassName = `${fullScreenCarousel.content}`;
   var FSWrapperClass = `${fullScreenCarousel.FSWrapper}`;
 
+  var length = content.length;
+  var isDisabled = length < 2;
+  var currentIndex = useCurrentIndex(startIndex, onIndexChange, length);
+
   return (
     <>
-      <div className={wrapperClass}
-        style={{ display: isFullScreen ? 'none' : 'flex' }}
-      >
-        <Carousel
-          content={content}
-          startIndex={startIndex}
-          onIndexChange={onIndexChange}
-        />
-        <FullScreenButton onClick={openFSModal} />
+      <div className={`${layout.columnStartCenter} ${fullScreenCarousel.wrapper}`}>
+        <div className={fullScreenCarousel.carousel}>
+          <Slides
+            content={content}
+            isDisabled={isDisabled}
+            visibleRange={currentIndex.visibleRange}
+          />
+          <NextPrevBtns
+            isDisabled={isDisabled}
+            onClick={currentIndex.onClick}
+          />
+        </div>
+        <div className={`${layout.rowEndCenter} ${fullScreenCarousel.FSControlContainer}`} >
+          <Cues
+            className={`${layout.rowCenterCenter} ${fullScreenCarousel.cues}`}
+            currentIndex={currentIndex.value}
+            length={length}
+          />
+          <FullScreenButton onClick={openFSModal} />
+        </div>
       </div>
       <ReactModal
         ariaHideApp={false}
@@ -66,11 +82,28 @@ const FullScreenCarousel = ({ content, onIndexChange, startIndex }) => {
         className={contentClassName}
       >
         <div className={FSWrapperClass}>
-          <Carousel
-            content={content}
-            startIndex={startIndex}
-          />
-          <MinimizeButton onClick={closeFSModal} />
+          <div className={`${layout.columnStartCenter} ${fullScreenCarousel.wrapper}`}>
+            <div className={fullScreenCarousel.carousel}>
+              <Slides
+                content={content}
+                isDisabled={isDisabled}
+                visibleRange={currentIndex.visibleRange}
+              />
+              <NextPrevBtns
+                isDisabled={isDisabled}
+                onClick={currentIndex.onClick}
+              />
+            </div>
+            <div className={`${layout.rowEndCenter} ${fullScreenCarousel.FSControlContainer}`} >
+              <Cues
+                className={`${layout.rowCenterCenter} ${fullScreenCarousel.cues}`}
+                currentIndex={currentIndex.value}
+                isFullScreen={isFullScreen}
+                length={length}
+              />
+              <MinimizeButton onClick={closeFSModal} />
+            </div>
+          </div>
         </div>
       </ReactModal>
     </>
@@ -93,6 +126,7 @@ FullScreenCarousel.propTypes = {
 
 FullScreenCarousel.defaultProps = {
   startIndex: 0,
+  onIndexChange: undefined,
 };
 
 export default FullScreenCarousel;

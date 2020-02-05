@@ -1,12 +1,18 @@
+.carousel {
+  height: 100%;
+  flex-direction: column;
+}
+
 .wrapper {
   height: 100%;
+  width: 100%;
 }
 
 .FSWrapper {
   max-width: 1024px;
 }
 
-.wrapper, .FSWrapper {
+.carousel, .FSWrapper {
   position: relative;
   width: 100%;
 }
@@ -14,14 +20,13 @@
 /*                Icons               */
 
 .fullScreenIcon, .minimizeIcon {
-  position: absolute;
+  position: relative;
   bottom:0;
   right: 0;
   height: 2rem;
   width: 2rem;
-  margin: 1rem;
   padding: 0;
-  margin-right: 1.625rem;
+  margin: 1rem;
   border-radius: 50%;
 }
 
@@ -37,19 +42,31 @@
   transform: scale(0.9);
 }
 
+/*                Cues and FS/Minimize buttons                */
+.cues {
+  position: absolute;
+  width: 100%;
+  flex-wrap: wrap;
+  padding: 0 2rem;
+}
+
+.FSControlContainer {
+  position: relative;
+  width: 100%;
+}
 
 /*                modal               */
 .overlay {
   position: fixed;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: #000;
   z-index: 4;
 }
 
 .content {
   position: relative;
   max-width: 1024px;
-  padding: 0;
+  padding: 1rem;
   border: none;
   border-radius: 0;
   background-color: transparent;
@@ -66,13 +83,13 @@
 
 @media only screen and (min-aspect-ratio: 16/10){
   .content {
-    width: 80%;
+    width: 85%;
   }
 }
 
 @media only screen and (min-aspect-ratio: 16/9) and (max-aspect-ratio: 26/12){
   .content {
-    width: 70%;
+    width: 75%;
   }
 }
 
