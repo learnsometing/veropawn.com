@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import { graphql } from "gatsby";
 import { IconContext } from "react-icons";
@@ -7,8 +7,7 @@ import sizeMe from "react-sizeme";
 
 import { Layout } from "../../components/layout/layout";
 import { DetailsCard, DetailsList } from "./details";
-import Carousel from "../../components/carousel/carousel";
-import FullScreenCarousel from "./full-screen-carousel";
+import FullScreenCarousel from "../../components/carousel/full-screen-carousel";
 
 import itemPage from "./item-page.module.scss";
 import layout from "../../styles/layout.module.css";
@@ -54,27 +53,6 @@ const InterestedCTA = () => {
   );
 };
 
-export const ResponsiveCarousel = ({ content, size }) => {
-  var [carouselIndex, setCarouselIndex] = useState(0);
-
-  if (size.width >= 736 && size.height >= 375) {
-    return (
-      <FullScreenCarousel
-        content={content}
-        onIndexChange={setCarouselIndex}
-        startIndex={carouselIndex}
-      />
-    );
-  }
-  return (
-    <Carousel
-      content={content}
-      onIndexChange={setCarouselIndex}
-      startIndex={carouselIndex}
-    />
-  );
-};
-
 const ItemPage = ({ data, size }) => {
   // Unpack the data used on the page
   var { category, descript, details, invNum, id, model } = data.item;
@@ -92,10 +70,7 @@ const ItemPage = ({ data, size }) => {
       <main id="content">
         <PageHeader descript={descript} />
         <div className={wrapperClass}>
-          <ResponsiveCarousel
-            content={content}
-            size={size}
-          />
+          <FullScreenCarousel content={content} />
           <DetailsCard>
             <DetailsList
               category={category}
