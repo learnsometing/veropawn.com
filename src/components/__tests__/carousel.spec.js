@@ -1,205 +1,21 @@
-import React from "react";
-import { fireEvent, render } from "@testing-library/react";
-import "@testing-library/jest-dom/extend-expect";
+import React from 'react';
+import { act, fireEvent, render } from '@testing-library/react';
+import '@testing-library/jest-dom/extend-expect';
 
-import Carousel, { Cues, Cue, Slides, CarouselControl, FullScreenButton } from "../carousel/carousel";
-import createContentObj from '../../helpers/createContentObj';
-import { allPhotoNodes } from "../../templates/__fixtures__/all-photos";
-
-describe('Cue', () => {
-  it('should have the correct color when isActive and !isFullScreen', () => {
-    const { queryByTestId } = render(<Cue isActive={true} isFullScreen={false} />);
-
-    const cue = queryByTestId('carousel-pos-indicator');
-
-    expect(cue).toHaveStyle('color: rgba(0, 0, 0, 0.8)');
-  });
-
-  it('should have the correct color when !isActive and !isFullScreen', () => {
-    const { queryByTestId } = render(<Cue isActive={false} isFullScreen={false} />);
-
-    const cue = queryByTestId('carousel-pos-indicator');
-
-    expect(cue).toHaveStyle('color: rgba(0, 0, 0, 0.4)');
-  });
-
-  it('should have the correct color when isActive and isFullScreen', () => {
-    const { queryByTestId } = render(<Cue isActive={true} isFullScreen={true} />);
-
-    const cue = queryByTestId('carousel-pos-indicator');
-
-    expect(cue).toHaveStyle('color: rgba(255, 255, 255, 0.8)');
-  });
-
-  it('should have the correct color when !isActive and isFullScreen', () => {
-    const { queryByTestId } = render(<Cue isActive={false} isFullScreen={true} />);
-
-    const cue = queryByTestId('carousel-pos-indicator');
-
-    expect(cue).toHaveStyle('color: rgba(255, 255, 255, 0.4)');
-  });
-});
-
-describe('Cues', () => {
-  it('should render the number of Cues specified by "length"', () => {
-    const length = 3;
-    const { queryAllByTestId } = render(
-      <Cues
-        currentIndex={0}
-        length={length}
-      />
-    );
-
-    const cues = queryAllByTestId('carousel-pos-indicator');
-
-    expect(cues.length).toBe(3);
-    cues.forEach(indicator => expect(indicator).toBeInTheDocument());
-  });
-
-  it('should give the cue specified by currentIndex the active color', () => {
-    const length = 3;
-    const { queryAllByTestId } = render(
-      <Cues
-        currentIndex={2}
-        length={length}
-      />
-    );
-
-    const cues = queryAllByTestId('carousel-pos-indicator');
-
-
-    expect(cues[0]).toHaveStyle('color: rgba(0, 0, 0, 0.4)');
-    expect(cues[1]).toHaveStyle('color: rgba(0, 0, 0, 0.4)');
-    expect(cues[2]).toHaveStyle('color: rgba(0, 0, 0, 0.8)');
-  });
-
-  it('should give the Cue specified by currentIndex the active color', () => {
-    const length = 3;
-    const { queryAllByTestId } = render(
-      <Cues
-        currentIndex={2}
-        isFullScreen={true}
-        length={length}
-      />
-    );
-
-    const cues = queryAllByTestId('carousel-pos-indicator');
-
-
-    expect(cues[0]).toHaveStyle('color: rgba(255, 255, 255, 0.4)');
-    expect(cues[1]).toHaveStyle('color: rgba(255, 255, 255, 0.4)');
-    expect(cues[2]).toHaveStyle('color: rgba(255, 255, 255, 0.8)');
-  });
-});
-
-describe('Slides', () => {
-  const alt = "Alt Text";
-  const photos = allPhotoNodes.slice(0, 4);
-  const content = createContentObj(alt, photos);
-
-  it('should render the carousel correctly with a single photo', () => {
-    const { queryByAltText } = render(
-      <Slides
-        content={content.slice(0, 1)}
-        isDisabled={true}
-        visibleRange={[0, 0, 0]}
-      />
-    );
-    var image = queryByAltText(/Alt Text/);
-    expect(image).toBeInTheDocument();
-    // gatsby image wrapper. Can't reference directly.
-    var wrapper = image.parentElement.parentElement;
-    expect(wrapper).toHaveClass('singleSlide gatsby-image-wrapper');
-  });
-
-  it('should render the carousel correctly with two photos', () => {
-    const { queryAllByAltText } = render(
-      <Slides
-        content={content.slice(0, 2)}
-        isDisabled={false}
-        visibleRange={[1, 0, 1]}
-      />
-    );
-
-    var photos = queryAllByAltText(/Alt Text/);
-
-    expect(photos.length).toEqual(3);
-
-    photos.forEach(photo => expect(photo).toBeInTheDocument());
-
-    // gatsby image wrapper. Can't reference directly.
-    var wrappers = photos.map(photo => photo.parentElement.parentElement);
-
-    expect(wrappers[0]).toHaveClass('slide gatsby-image-wrapper')
-    expect(wrappers[1]).toHaveClass('currentSlide gatsby-image-wrapper')
-    expect(wrappers[2]).toHaveClass('slide gatsby-image-wrapper')
-  });
-
-  it('should render the carousel correctly with more than 2 photos', () => {
-    const { queryAllByAltText } = render(
-      <Slides
-        content={content.slice(0, 4)}
-        isDisabled={false}
-        visibleRange={[3, 0, 1]}
-      />
-    );
-
-    var photos = queryAllByAltText(/Alt Text/);
-
-    expect(photos.length).toEqual(3);
-
-    photos.forEach(photo => expect(photo).toBeInTheDocument());
-
-    // gatsby image wrapper. Can't reference directly.
-    var wrappers = photos.map(photo => photo.parentElement.parentElement);
-
-    expect(wrappers[0]).toHaveClass('slide gatsby-image-wrapper')
-    expect(wrappers[1]).toHaveClass('currentSlide gatsby-image-wrapper')
-    expect(wrappers[2]).toHaveClass('slide gatsby-image-wrapper')
-  });
-});
-
-describe('CarouselControl', () => {
-  const onClick = jest.fn();
-
-  beforeEach(() => onClick.mockReset());
-
-  it('should give the control the onClick fcn', () => {
-    const { queryByRole } = render(
-      <CarouselControl name={'next'} isDisabled={false} onClick={onClick} />
-    );
-
-    fireEvent.click(queryByRole('button'));
-
-    expect(onClick.mock.calls.length).toEqual(1);
-  });
-});
-
-describe('FullScreenButton', () => {
-  var onClickMock = jest.fn();
-
-  beforeEach(() => onClickMock.mockReset());
-
-  it('should fire onClick when clicked', () => {
-    var { queryByTestId } = render(
-      <FullScreenButton onClick={onClickMock} />
-    );
-
-    var fullScreenButton = queryByTestId('md-fullscreen-icon');
-
-    fireEvent.click(fullScreenButton);
-
-    expect(onClickMock.mock.calls.length).toEqual(1);
-  });
-});
+import Carousel from '../carousel/carousel';
+import { createContentArray } from '../../helpers/slides';
+import { allPhotoNodes } from '../../templates/__fixtures__/all-photos';
 
 describe('Carousel', () => {
-  var alt = "Handgun With Case 2 Mags";
+  var alt = 'Handgun With Case 2 Mags';
   var photos = allPhotoNodes.slice(0, 4);
-  var content = createContentObj(alt, photos);
+  var content = createContentArray(alt, photos);
   var onIndexChangeMock = jest.fn();
 
-  beforeEach(() => onIndexChangeMock.mockReset());
+  beforeEach(() => {
+    onIndexChangeMock.mockReset()
+    jest.useFakeTimers()
+  });
 
   it('should render the main photo and prev/next photos into the carousel on mount', () => {
     const { queryByAltText } = render(
@@ -210,26 +26,50 @@ describe('Carousel', () => {
     expect(queryByAltText('Handgun With Case 2 Mags 4')).toBeInTheDocument();
   });
 
-  it('should cycle through the photos when the next button is clicked', () => {
-    const { queryByAltText, queryByTestId } = render(
-      <Carousel content={content} />
+  it('should pass currentSlideStyle and slideStyle to the slides', () => {
+    const { queryAllByAltText } = render(
+      <Carousel
+        content={content}
+        currentSlideStyle={{ maxWidth: '50%' }}
+        slideStyle={{ minWidth: '100%' }}
+      />
     );
 
-    const startPhoto = queryByAltText(/Handgun With Case 2 Mags 1/);
-    const nextBtn = queryByTestId('fa-angle-right-icon').parentElement;
+    const photos = queryAllByAltText(/handgun with case 2 mags/i);
+    const slideWrappers = photos.map(photo => photo.parentElement.parentElement.parentElement);
 
-    expect(startPhoto).toBeInTheDocument();
-    expect(startPhoto.parentElement.parentElement).toHaveClass('currentSlide gatsby-image-wrapper');
+    expect(slideWrappers[0]).toHaveStyle('min-width: 100%');
+    expect(slideWrappers[1]).toHaveStyle('max-width: 50%');
+    expect(slideWrappers[2]).toHaveStyle('min-width: 100%');
+  });
 
-    fireEvent.click(nextBtn);
+  it('should pass isFullScreen to the Cues', () => {
+    const { queryAllByTestId } = render(
+      <Carousel
+        content={content}
+        isFullScreen={true}
+      />
+    );
 
-    var photo2 = queryByAltText(/Handgun With Case 2 Mags 2/);
-    expect(photo2.parentElement.parentElement).toHaveClass('currentSlide gatsby-image-wrapper')
+    let cues = queryAllByTestId('carousel-pos-indicator');
 
-    fireEvent.click(nextBtn);
+    expect(cues[0]).toHaveStyle('color: rgba(255, 255, 255, 0.8)');
+    cues.slice(1, cues.length).forEach(cue => (
+      expect(cue).toHaveStyle('color: rgba(255, 255, 255, 0.4)')
+    ));
+  });
 
-    var photo3 = queryByAltText(/Handgun With Case 2 Mags 3/);
-    expect(photo3.parentElement.parentElement).toHaveClass('currentSlide gatsby-image-wrapper')
+  it('should pass isFullScreen to FSControls', () => {
+    const { queryByTestId } = render(
+      <Carousel
+        content={content}
+        isFullScreen={true}
+      />
+    );
+
+    const FSIcon = queryByTestId('md-fullscreen-exit-icon');
+
+    expect(FSIcon).toHaveStyle('color: rgba(255, 255, 255, 0.8)');
   });
 
   it('should cycle through the photos when the next button is clicked', () => {
@@ -238,25 +78,55 @@ describe('Carousel', () => {
     );
 
     const startPhoto = queryByAltText(/Handgun With Case 2 Mags 1/);
+    let slideWrapper = startPhoto.parentElement.parentElement.parentElement
+    const nextBtn = queryByTestId('fa-angle-right-icon').parentElement;
+
+    expect(slideWrapper).toBeInTheDocument();
+    expect(slideWrapper).toHaveClass('currentSlide');
+
+    fireEvent.click(nextBtn);
+
+    const photo2 = queryByAltText(/Handgun With Case 2 Mags 2/);
+    slideWrapper = photo2.parentElement.parentElement.parentElement;
+    expect(slideWrapper).toHaveClass('currentSlide');
+
+    fireEvent.click(nextBtn);
+
+    const photo3 = queryByAltText(/Handgun With Case 2 Mags 3/);
+    slideWrapper = photo3.parentElement.parentElement.parentElement;
+    expect(slideWrapper).toHaveClass('currentSlide');
+  });
+
+  it('should cycle through the photos when the prev button is clicked', () => {
+    const { queryByAltText, queryByTestId } = render(
+      <Carousel content={content} />
+    );
+
+    const startPhoto = queryByAltText(/Handgun With Case 2 Mags 1/);
+    let slideWrapper = startPhoto.parentElement.parentElement.parentElement;
     const prevBtn = queryByTestId('fa-angle-left-icon').parentElement;
 
     expect(startPhoto).toBeInTheDocument();
-    expect(startPhoto.parentElement.parentElement).toHaveClass('currentSlide gatsby-image-wrapper');
+    expect(slideWrapper).toHaveClass('currentSlide');
 
     fireEvent.click(prevBtn);
 
     var photo4 = queryByAltText(/Handgun With Case 2 Mags 4/);
-    expect(photo4.parentElement.parentElement).toHaveClass('currentSlide gatsby-image-wrapper')
+    slideWrapper = photo4.parentElement.parentElement.parentElement;
+    expect(slideWrapper).toHaveClass('currentSlide');
 
     fireEvent.click(prevBtn);
 
     var photo3 = queryByAltText(/Handgun With Case 2 Mags 3/);
-    expect(photo3.parentElement.parentElement).toHaveClass('currentSlide gatsby-image-wrapper')
+    slideWrapper = photo3.parentElement.parentElement.parentElement;
+    expect(slideWrapper).toHaveClass('currentSlide');
   });
 
   it('should not render either carousel button if content.length is 1', () => {
+    const content = createContentArray(alt, photos[0]);
+
     const { queryByTestId } = render(
-      <Carousel content={[{ alt: alt, photo: photos[0] }]} />
+      <Carousel content={content} />
     );
     const prevBtn = queryByTestId('fa-angle-left-icon');
     const nextBtn = queryByTestId('fa-angle-right-icon');
@@ -266,13 +136,13 @@ describe('Carousel', () => {
   });
 
   it('should display the correct photo if given a startIndex other than 0', () => {
-    var { queryByAltText } = render(
+    const { queryByAltText } = render(
       <Carousel content={content} startIndex={2} />
     );
 
-    var startPhoto = queryByAltText(/Handgun With Case 2 Mags 3/);
-
-    expect(startPhoto.parentElement.parentElement).toHaveClass('currentSlide gatsby-image-wrapper');
+    const startPhoto = queryByAltText(/Handgun With Case 2 Mags 3/);
+    const slideWrapper = startPhoto.parentElement.parentElement.parentElement;
+    expect(slideWrapper).toHaveClass('currentSlide');
   });
 
   it('should call the onIndexChange prop if provided', () => {
@@ -286,5 +156,35 @@ describe('Carousel', () => {
     fireEvent.click(prevBtn);
 
     expect(onIndexChangeMock.mock.calls.length).toEqual(2);
+  });
+
+  it('should call setInterval with default interval when isTimed', () => {
+    render(
+      <Carousel content={content} isTimed={true} />
+    );
+
+    expect(setInterval).toHaveBeenCalledTimes(1);
+    expect(setInterval).toHaveBeenLastCalledWith(expect.any(Function), 8000);
+  });
+
+  it('should call setInterval with specified interval when isTimed', () => {
+    render(
+      <Carousel content={content} interval={1000} isTimed={true} />
+    );
+
+    expect(setInterval).toHaveBeenCalledTimes(1);
+    expect(setInterval).toHaveBeenLastCalledWith(expect.any(Function), 1000);
+  });
+
+  it('should display the next slide after the interval when isTimed', () => {
+    const { queryByAltText } = render(
+      <Carousel content={content} interval={1000} isTimed={true} />
+    );
+
+    expect(queryByAltText(/handgun with case 2 mags 3/i)).not.toBeInTheDocument();
+
+    act(() => jest.advanceTimersByTime(1000));
+
+    expect(queryByAltText(/handgun with case 2 mags 3/i)).toBeInTheDocument();
   });
 });

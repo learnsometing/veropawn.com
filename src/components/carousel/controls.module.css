@@ -1,0 +1,21 @@
+/*  Carousel Controls  */
+
+.controlsWrapper {
+  position: absolute;
+  padding: 0;
+  width: 100%;
+}
+
+.control {
+  height: 3.125rem;
+  width: 3.125rem;
+  padding: 0;
+  border-radius: 50px;
+  border: none;
+  background-color: hsla(0, 0%, 0%, 0.8);
+}
+
+.control:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+}

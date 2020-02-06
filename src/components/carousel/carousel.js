@@ -1,236 +1,20 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import Img from 'gatsby-image';
-import { FaAngleLeft, FaAngleRight } from 'react-icons/fa';
-import { MdFullscreen, MdFullscreenExit } from "react-icons/md";
-import ReactHtmlParser from 'react-html-parser';
-import { IconContext } from 'react-icons';
-import uniqueId from 'lodash/uniqueId';
 
 import Cues from './cues';
+import Slides from './slides';
+import Controls from './controls';
+import FSControls from './full-screen-controls';
 import { useCurrentIndex } from './hooks/useCurrentIndex';
 
 import carousel from './carousel.module.scss';
 import layout from '../../styles/layout.module.css';
 
-export const CarouselControl = ({ children, name, onClick }) => (
-  <button
-    className={`${layout.columnCenterCenter} ${carousel.carouselControl}`}
-    name={name}
-    onClick={onClick}
-  >
-    {children}
-  </button>
-);
-
-CarouselControl.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.array,
-    PropTypes.object,
-  ]),
-  name: PropTypes.string.isRequired,
-  onClick: PropTypes.func.isRequired
-};
-
-export const NextPrevBtns = ({ isDisabled, onClick }) => {
-  // Returns null if isDisabled or buttons to move the carousel slides
-  if (isDisabled) {
-    return null;
-  }
-
-  return (
-    <IconContext.Provider
-      value={{
-        color: 'hsla(255, 255%, 255%, 0.8)',
-        size: '1.5em'
-      }}
-    >
-      <div className={`${layout.rowSpaceBtnCenter} ${carousel.controls}`}>
-        <CarouselControl
-          name="prev"
-          onClick={onClick}
-        >
-          <FaAngleLeft data-testid="fa-angle-left-icon" />
-        </CarouselControl>
-        <CarouselControl
-          name="next"
-          onClick={onClick}
-        >
-          <FaAngleRight data-testid="fa-angle-right-icon" />
-        </CarouselControl>
-      </div>
-    </IconContext.Provider>
-  );
-};
-
-export function Slide({ slide, className, style }) {
-  return (
-    <div className={className} style={style}>
-      <Img
-        alt={slide.alt}
-        fluid={slide.photo.childImageSharp.fluid}
-        loading={'eager'}
-        className={carousel.img}
-      />
-      <TextOverlay content={slide} />
-    </div>
-  );
-}
-
-Slide.propTypes = {
-  slide: PropTypes.object.isRequired,
-  className: PropTypes.string.isRequired,
-  style: PropTypes.object.isRequired,
-};
-
-function TextOverlay({ content }) {
-  var html = content.html;
-  if (html) {
-    let title = content.title;
-    return (
-      <div className={carousel.textOverlayWrapper}>
-        <div className={`${layout.columnStartCenter} ${carousel.textOverlay}`}>
-          <p className={carousel.title}>{title}</p>
-          {ReactHtmlParser(html)}
-        </div>
-      </div>
-    );
-  }
-
-  return null;
-}
-
-export const Slides = (props) => {
-  var {
-    content,
-    currentSlideStyle,
-    isDisabled,
-    onClick,
-    slideStyle,
-    visibleRange
-  } = props;
-  // Make a list of all the slides
-  var slides = createSlides();
-
-  // Only display slides in the visible range (prev, current, next)
-  return (
-    <div className={carousel.slideContainer}>
-      {slides}
-      <NextPrevBtns
-        isDisabled={isDisabled}
-        onClick={onClick}
-      />
-    </div>
-  );
-
-  function createSlides() {
-    // return either a single slide (one photo), or multiple slides
-    let _slides;
-
-    if (isDisabled) {
-      // isDisabled if content.length < 2, so return one slide.
-      let slide = content[0];
-      _slides = <Slide key={slide.photo.id} slide={slide} className={carousel.singleSlide} />;
-    } else {
-      _slides = visibleRange.map((n, idx) => {
-        let slide = content[n];
-        let [className, style] = getClassAndStyle();
-        let key = getId();
-
-        return (
-          <Slide
-            key={key}
-            className={className}
-            slide={slide}
-            style={style}
-          />
-        );
-
-        function getClassAndStyle() {
-          let _className;
-          let _style = undefined;
-
-          if (idx === 1) {
-            _className = carousel.currentSlide;
-            if (currentSlideStyle) {
-              _style = currentSlideStyle;
-            }
-          } else {
-            _className = carousel.slide;
-            if (slideStyle) {
-              _style = slideStyle;
-            }
-          }
-
-          return [_className, _style];
-        }
-
-        function getId() {
-          /*
-          * Generate a key for the slide. When only two slides are in the 
-          * carousel, the data id can't be used, because the id will be repeated
-          * on the next and previous slide, causing duplication errors.
-          */
-
-          let id;
-          if (content.length === 2) {
-            id = uniqueId();
-          } else {
-            id = slide.photo.id;
-          }
-          return id;
-        }
-      });
-    }
-
-    return _slides;
-  }
-};
-
-Slides.propTypes = {
-  content: PropTypes.arrayOf(PropTypes.object).isRequired,
-  currentSlideStyle: PropTypes.string,
-  isDisabled: PropTypes.bool.isRequired,
-  slideStyle: PropTypes.string,
-  visibleRange: PropTypes.arrayOf(PropTypes.number).isRequired,
-};
-
-export const FullScreenButton = ({ onClick }) => (
-  <button className={carousel.fullScreenIcon} onClick={onClick}>
-    <IconContext.Provider value={{ color: '#000', size: '2em' }}>
-      <MdFullscreen data-testid="md-fullscreen-icon" />
-    </IconContext.Provider>
-  </button>
-);
-
-FullScreenButton.propTypes = {
-  onClick: PropTypes.func.isRequired,
-};
-
-export const MinimizeButton = ({ onClick }) => (
-  <button className={carousel.minimizeIcon} onClick={onClick}>
-    <IconContext.Provider value={{ color: 'rgba(255, 255, 255, 0.8)', size: '2em' }}>
-      <MdFullscreenExit data-testid="md-fullscreen-exit-icon" />
-    </IconContext.Provider>
-  </button>
-);
-
-MinimizeButton.propTypes = {
-  onClick: PropTypes.func.isRequired,
-};
-
-export function FSIcon({ isFullScreen, onClick }) {
-  var c = isFullScreen
-    ? <MinimizeButton onClick={onClick} />
-    : <FullScreenButton onClick={onClick} />;
-
-  return c;
-}
-
 const Carousel = (props) => {
   var {
     content,
     currentSlideStyle,
+    interval,
     isFullScreen,
     isTimed,
     onFSIconClick,
@@ -242,24 +26,30 @@ const Carousel = (props) => {
   var length = content.length;
   var isDisabled = length < 2;
   var currentIndex = useCurrentIndex(startIndex, onIndexChange, length);
+
   useEffect(() => {
     if (isTimed) {
-      let timerID = currentIndex.setTimer(8000);
+      let timerID = currentIndex.setTimer(interval);
       return () => clearInterval(timerID);
     }
-  }, [currentIndex, isTimed]);
+  }, [currentIndex, interval, isTimed]);
 
   return (
     <div className={`${layout.columnStartCenter} ${carousel.wrapper}`}>
       <div className={`${carousel.carousel}`}>
-        <Slides
-          content={content}
-          currentSlideStyle={currentSlideStyle}
-          isDisabled={isDisabled}
-          onClick={currentIndex.onClick}
-          slideStyle={slideStyle}
-          visibleRange={currentIndex.visibleRange}
-        />
+        <div className={`${layout.rowCenterCenter} ${carousel.slideContainer}`}>
+          <Slides
+            content={content}
+            currentSlideStyle={currentSlideStyle}
+            isDisabled={isDisabled}
+            slideStyle={slideStyle}
+            visibleRange={currentIndex.visibleRange}
+          />
+          <Controls
+            isDisabled={isDisabled}
+            onClick={currentIndex.onClick}
+          />
+        </div>
       </div>
       <div className={`${layout.rowEndCenter} ${carousel.FSControlContainer}`}>
         <Cues
@@ -267,7 +57,7 @@ const Carousel = (props) => {
           isFullScreen={isFullScreen}
           length={length}
         />
-        <FSIcon isFullScreen={isFullScreen} onClick={onFSIconClick} />
+        <FSControls isFullScreen={isFullScreen} onClick={onFSIconClick} />
       </div>
     </div>
   );
@@ -275,20 +65,24 @@ const Carousel = (props) => {
 
 Carousel.propTypes = {
   content: PropTypes.arrayOf(PropTypes.object).isRequired,
-  currentSlideStyle: PropTypes.string,
+  currentSlideStyle: PropTypes.object,
+  interval: PropTypes.number,
   isFullScreen: PropTypes.bool.isRequired,
   isTimed: PropTypes.bool.isRequired,
   onFSIconClick: PropTypes.func.isRequired,
   onIndexChange: PropTypes.func.isRequired,
-  slideStyle: PropTypes.string,
+  slideStyle: PropTypes.object,
   startIndex: PropTypes.number.isRequired,
 };
 
 Carousel.defaultProps = {
+  currentSlideStyle: undefined,
+  interval: 8000,
   isFullScreen: false,
   isTimed: false,
   onFSIconClick: () => { },
   onIndexChange: () => { },
+  slideStyle: undefined,
   startIndex: 0,
 }
 
