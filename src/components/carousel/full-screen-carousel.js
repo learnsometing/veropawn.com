@@ -7,7 +7,7 @@ import Carousel from "./carousel";
 import fullScreenCarousel from "./full-screen-carousel.module.css";
 import layout from "../../styles/layout.module.css";
 
-const FullScreenCarousel = ({ content }) => {
+const FullScreenCarousel = ({ content, currentSlideStyle, isTimed, slideStyle }) => {
   var [isFullScreen, setIsFullScreen] = useState(false);
   // open the full screen carousel with the correct index
   var [sharedIndex, setSharedIndex] = useState(0);
@@ -17,8 +17,11 @@ const FullScreenCarousel = ({ content }) => {
     <>
       <Carousel
         content={content}
+        currentSlideStyle={currentSlideStyle}
+        isTimed={isTimed}
         onFSIconClick={openFSModal}
         onIndexChange={setSharedIndex}
+        slideStyle={slideStyle}
         startIndex={sharedIndex}
       />
       <ReactModal
@@ -31,9 +34,12 @@ const FullScreenCarousel = ({ content }) => {
         <div className={fullScreenCarousel.FSWrapper}>
           <Carousel
             content={content}
+            currentSlideStyle={currentSlideStyle}
             isFullScreen={isFullScreen}
+            isTimed={isTimed}
             onFSIconClick={closeFSModal}
             onIndexChange={setSharedIndex}
+            slideStyle={slideStyle}
             startIndex={sharedIndex}
           />
         </div>
@@ -52,6 +58,13 @@ const FullScreenCarousel = ({ content }) => {
 
 FullScreenCarousel.propTypes = {
   content: PropTypes.arrayOf(PropTypes.object).isRequired,
+  currentSlideStyle: PropTypes.string, // Override default styles of the current slide
+  isTimed: PropTypes.bool.isRequired,
+  slideStyle: PropTypes.string // Override default styles of the next/ prev slides
+};
+
+FullScreenCarousel.defaultProps = {
+  isTimed: false,
 };
 
 export default FullScreenCarousel;
