@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import { graphql } from "gatsby";
 import { IconContext } from "react-icons";
@@ -7,11 +7,11 @@ import sizeMe from "react-sizeme";
 
 import { Layout } from "../../components/layout/layout";
 import { DetailsCard, DetailsList } from "./details";
-import Carousel from "../../components/carousel/carousel";
-import FullScreenCarousel from "./full-screen-carousel";
+import FullScreenCarousel from "../../components/carousel/full-screen-carousel";
 
 import itemPage from "./item-page.module.scss";
 import layout from "../../styles/layout.module.css";
+import { createContentArray } from "../../helpers/slides";
 
 const PageHeader = ({ descript }) => {
   const pageHeaderClass = `${layout.columnCenterCenter} ${itemPage.header}`;
@@ -53,37 +53,16 @@ const InterestedCTA = () => {
   );
 };
 
-export const ResponsiveCarousel = ({ alt, photos, size }) => {
-  var [carouselIndex, setCarouselIndex] = useState(0);
-
-  if (size.width >= 736 && size.height >= 375) {
-    return (
-      <FullScreenCarousel
-        alt={alt}
-        onIndexChange={setCarouselIndex}
-        photos={photos}
-        startIndex={carouselIndex}
-      />
-    );
-  }
-  return (
-    <Carousel
-      alt={alt}
-      onIndexChange={setCarouselIndex}
-      photos={photos}
-      startIndex={carouselIndex}
-    />
-  );
-};
-
 const ItemPage = ({ data, size }) => {
   // Unpack the data used on the page
   var { category, descript, details, invNum, id, model } = data.item;
   var defaultPhoto = [data.defaultPhoto];
-  var photos = data.photos.nodes;
-  var carouselPhotos = photos.length ? photos : defaultPhoto;
+  var photos = data.photos.nodes.length
+    ? data.photos.nodes
+    : defaultPhoto;
+  var content = createContentArray(descript, photos);
 
-  const title = `${descript}-${id}`;
+  const title = `${descript}-${invNum}`;
   const wrapperClass = `${layout.columnCenterCenter} ${itemPage.wrapper}`;
 
   return (
@@ -91,11 +70,7 @@ const ItemPage = ({ data, size }) => {
       <main id="content">
         <PageHeader descript={descript} />
         <div className={wrapperClass}>
-          <ResponsiveCarousel
-            alt={descript}
-            photos={carouselPhotos}
-            size={size}
-          />
+          <FullScreenCarousel content={content} />
           <DetailsCard>
             <DetailsList
               category={category}

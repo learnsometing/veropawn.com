@@ -1,264 +1,153 @@
-import React from "react";
-import { fireEvent, render } from "@testing-library/react";
-import "@testing-library/jest-dom/extend-expect";
+import React from 'react';
+import { act, fireEvent, render } from '@testing-library/react';
+import '@testing-library/jest-dom/extend-expect';
 
-import Carousel, { CarouselPositionDisplay, CarouselPositionIndicator, CarouselSlides, CarouselControl } from "../carousel/carousel";
-
-import { allPhotoNodes } from "../../templates/__fixtures__/all-photos";
-
-describe('CarouselPositionIndicator', () => {
-  it('should have posIndicator and activePosIndicator classes when isActive', () => {
-    const { queryByTestId } = render(<CarouselPositionIndicator isActive={true} />);
-
-    const positionIndicator = queryByTestId('carousel-pos-indicator');
-
-    expect(positionIndicator).toHaveClass('posIndicator activePosIndicator');
-  });
-
-  it('should have posIndicator and inactivePosIndicator classes when !isActive', () => {
-    const { queryByTestId } = render(<CarouselPositionIndicator isActive={false} />);
-
-    const positionIndicator = queryByTestId('carousel-pos-indicator');
-
-    expect(positionIndicator).toHaveClass('posIndicator inactivePosIndicator');
-  });
-});
-
-describe('CarouselPositionDisplay', () => {
-  it('should render the number of CarouselPositionIndicators specified by "length"', () => {
-    const length = 3;
-    const { queryAllByTestId } = render(
-      <CarouselPositionDisplay
-        currentIndex={0}
-        length={length}
-      />
-    );
-
-    const posIndicators = queryAllByTestId('carousel-pos-indicator');
-
-    expect(posIndicators.length).toBe(3);
-    posIndicators.forEach(indicator => expect(indicator).toBeInTheDocument());
-  });
-
-  it('should give the posIndicator specified by currentIndex the activePosIndicator class', () => {
-    const length = 3;
-    const { queryAllByTestId } = render(
-      <CarouselPositionDisplay
-        currentIndex={2}
-        length={length}
-      />
-    );
-
-    const posIndicators = queryAllByTestId('carousel-pos-indicator');
-
-    expect(posIndicators[0]).toHaveClass('posIndicator inactivePosIndicator');
-    expect(posIndicators[1]).toHaveClass('posIndicator inactivePosIndicator');
-    expect(posIndicators[2]).toHaveClass('posIndicator activePosIndicator');
-  });
-});
-
-describe('CarouselSlides', () => {
-  const alt = "Alt Text";
-  const photos = allPhotoNodes.slice(0, 6);
-  it('should render each photo passed as props', () => {
-    const { queryAllByAltText } = render(
-      <CarouselSlides
-        alt={alt}
-        currentIndex={0}
-        photos={photos}
-      />
-    );
-    const photoElements = queryAllByAltText(/Alt Text/);
-
-    expect(photoElements.length).toEqual(photos.length);
-    photoElements.forEach(el => expect(el).toBeInTheDocument());
-  });
-
-  it('should give each photo wrapper the correct class', () => {
-    const { queryAllByAltText } = render(
-      <CarouselSlides
-        alt={alt}
-        currentIndex={1}
-        photos={photos}
-      />
-    );
-
-    const photoElements = queryAllByAltText(/Alt Text/);
-    // get the div elements that the class is set on
-    const photoElementWrappers = photoElements.map(el => el.parentElement.parentElement);
-    // assert by class because the visibility assertion only checks inline style
-    expect(photoElementWrappers[0]).toHaveClass('slide hiddenSlide gatsby-image-wrapper');
-    expect(photoElementWrappers[1]).toHaveClass('slide currentSlide gatsby-image-wrapper');
-    expect(photoElementWrappers[2]).toHaveClass('slide hiddenSlide gatsby-image-wrapper');
-  });
-});
-
-describe('CarouselControl', () => {
-  const onClick = jest.fn();
-
-  beforeEach(() => onClick.mockReset());
-
-  it('should give the control the correct className when isDisabled', () => {
-    const { queryByRole } = render(
-      <CarouselControl isDisabled={true} onClick={onClick} />
-    );
-
-    expect(queryByRole('button')).toHaveClass("carouselControl disabledCarouselControl");
-  });
-
-  it('should give the control the correct className when !isDisabled', () => {
-    const { queryByRole } = render(
-      <CarouselControl isDisabled={false} onClick={onClick} />
-    );
-
-    expect(queryByRole('button')).toHaveClass("carouselControl enabledCarouselControl");
-  });
-
-  it('should give the control the onClick fcn', () => {
-    const { queryByRole } = render(
-      <CarouselControl isDisabled={false} onClick={onClick} />
-    );
-
-    fireEvent.click(queryByRole('button'));
-
-    expect(onClick.mock.calls.length).toEqual(1);
-  });
-});
+import Carousel from '../carousel/carousel';
+import { createContentArray } from '../../helpers/slides';
+import { allPhotoNodes } from '../../templates/__fixtures__/all-photos';
 
 describe('Carousel', () => {
-  const alt = "Handgun With Case 2 Mags";
-  const photos = allPhotoNodes.slice(0, 3);
+  var alt = 'Handgun With Case 2 Mags';
+  var photos = allPhotoNodes.slice(0, 4);
+  var content = createContentArray(alt, photos);
   var onIndexChangeMock = jest.fn();
 
-  beforeEach(() => onIndexChangeMock.mockReset());
+  beforeEach(() => {
+    onIndexChangeMock.mockReset()
+    jest.useFakeTimers()
+  });
 
-  it('should render the main photo into the carousel on mount', () => {
+  it('should render the main photo and prev/next photos into the carousel on mount', () => {
     const { queryByAltText } = render(
-      <Carousel alt={alt} photos={photos} />
+      <Carousel content={content} />
     );
-    expect(queryByAltText('Handgun With Case 2 Mags 0')).toBeInTheDocument();
+    expect(queryByAltText('Handgun With Case 2 Mags 1')).toBeInTheDocument();
+    expect(queryByAltText('Handgun With Case 2 Mags 2')).toBeInTheDocument();
+    expect(queryByAltText('Handgun With Case 2 Mags 4')).toBeInTheDocument();
   });
 
-  it('should correctly cycle through the photos when the next button is clicked', () => {
-    const { queryAllByAltText, queryByTestId } = render(
-      <Carousel alt={alt} photos={photos} />
-    );
-    const photoElements = queryAllByAltText(/Handgun With Case 2 Mags/);
-    // get the div elements that wrap the Img tags
-    const photoElementWrappers = photoElements.map(el => el.parentElement.parentElement);
-    const nextBtn = queryByTestId('fa-angle-right-icon').parentElement;
-
-    expect(photoElementWrappers[0]).toHaveClass('slide currentSlide gatsby-image-wrapper');
-
-    fireEvent.click(nextBtn);
-
-    expect(photoElementWrappers[0]).toHaveClass('slide hiddenSlide gatsby-image-wrapper');
-    expect(photoElementWrappers[1]).toHaveClass('slide currentSlide gatsby-image-wrapper');
-
-    fireEvent.click(nextBtn);
-
-    expect(photoElementWrappers[1]).toHaveClass('slide hiddenSlide gatsby-image-wrapper');
-    expect(photoElementWrappers[2]).toHaveClass('slide currentSlide gatsby-image-wrapper');
-
-    fireEvent.click(nextBtn);
-
-    expect(photoElementWrappers[2]).toHaveClass('slide hiddenSlide gatsby-image-wrapper');
-    expect(photoElementWrappers[0]).toHaveClass('slide currentSlide gatsby-image-wrapper');
-  });
-
-  it('should correctly cycle through the photos when the prev button is clicked', () => {
-    const { queryAllByAltText, queryByTestId } = render(
-      <Carousel alt={alt} photos={photos} />
-    );
-    const photoElements = queryAllByAltText(/Handgun With Case 2 Mags/);
-    // get the div elements that wrap the Img tags
-    const photoElementWrappers = photoElements.map(el => el.parentElement.parentElement);
-    const prevBtn = queryByTestId('fa-angle-left-icon').parentElement;
-
-    expect(photoElementWrappers[0]).toHaveClass('slide currentSlide gatsby-image-wrapper');
-
-    fireEvent.click(prevBtn);
-
-    expect(photoElementWrappers[0]).toHaveClass('slide hiddenSlide gatsby-image-wrapper');
-    expect(photoElementWrappers[2]).toHaveClass('slide currentSlide gatsby-image-wrapper');
-
-    fireEvent.click(prevBtn);
-
-    expect(photoElementWrappers[2]).toHaveClass('slide hiddenSlide gatsby-image-wrapper');
-    expect(photoElementWrappers[1]).toHaveClass('slide currentSlide gatsby-image-wrapper');
-
-    fireEvent.click(prevBtn);
-
-    expect(photoElementWrappers[1]).toHaveClass('slide hiddenSlide gatsby-image-wrapper');
-    expect(photoElementWrappers[0]).toHaveClass('slide currentSlide gatsby-image-wrapper');
-  });
-
-  it('should disable both carousel buttons if photos is empty', () => {
-    const { queryByTestId } = render(
-      <Carousel alt={alt} photos={[]} />
-    );
-    const prevBtn = queryByTestId('fa-angle-left-icon').parentElement;
-    const nextBtn = queryByTestId('fa-angle-right-icon').parentElement;
-
-    expect(prevBtn).toBeDisabled();
-    expect(nextBtn).toBeDisabled();
-  });
-
-  it('should disable both carousel buttons if photos.length is 1', () => {
-    const { queryByTestId } = render(
-      <Carousel alt={alt} photos={[photos[0]]} />
-    );
-    const prevBtn = queryByTestId('fa-angle-left-icon').parentElement;
-    const nextBtn = queryByTestId('fa-angle-right-icon').parentElement;
-
-    expect(prevBtn).toBeDisabled();
-    expect(nextBtn).toBeDisabled();
-  });
-
-  it('should display the correct photo if given a startIndex', () => {
+  it('should pass currentSlideStyle and slideStyle to the slides', () => {
     const { queryAllByAltText } = render(
-      <Carousel alt={alt} photos={photos} startIndex={2} />
+      <Carousel
+        content={content}
+        currentSlideStyle={{ maxWidth: '50%' }}
+        slideStyle={{ minWidth: '100%' }}
+      />
     );
 
-    // get the div elements that wrap the Img tags
-    const photoElements = queryAllByAltText(/Handgun With Case 2 Mags/);
-    const photoElementWrappers = photoElements.map(el => el.parentElement.parentElement);
+    const photos = queryAllByAltText(/handgun with case 2 mags/i);
+    const slideWrappers = photos.map(photo => photo.parentElement.parentElement.parentElement);
 
-    expect(photoElementWrappers[0]).toHaveClass('slide hiddenSlide gatsby-image-wrapper');
-    expect(photoElementWrappers[1]).toHaveClass('slide hiddenSlide gatsby-image-wrapper');
-    expect(photoElementWrappers[2]).toHaveClass('slide currentSlide gatsby-image-wrapper');
+    expect(slideWrappers[0]).toHaveStyle('min-width: 100%');
+    expect(slideWrappers[1]).toHaveStyle('max-width: 50%');
+    expect(slideWrappers[2]).toHaveStyle('min-width: 100%');
   });
 
-  it('should still cycle through the photos correctly if given a startIndex', () => {
-    const { queryAllByAltText, queryByTestId } = render(
-      <Carousel alt={alt} photos={photos} startIndex={2} />
+  it('should pass isFullScreen to the Cues', () => {
+    const { queryAllByTestId } = render(
+      <Carousel
+        content={content}
+        isFullScreen={true}
+      />
     );
-    const photoElements = queryAllByAltText(/Handgun With Case 2 Mags/);
-    // get the div elements that wrap the Img tags
-    const photoElementWrappers = photoElements.map(el => el.parentElement.parentElement);
-    const nextBtn = queryByTestId('fa-angle-right-icon').parentElement;
-    const prevBtn = queryByTestId('fa-angle-left-icon').parentElement;
 
-    expect(photoElementWrappers[0]).toHaveClass('slide hiddenSlide gatsby-image-wrapper');
-    expect(photoElementWrappers[1]).toHaveClass('slide hiddenSlide gatsby-image-wrapper');
-    expect(photoElementWrappers[2]).toHaveClass('slide currentSlide gatsby-image-wrapper');
+    let cues = queryAllByTestId('carousel-pos-indicator');
+
+    expect(cues[0]).toHaveStyle('color: rgba(255, 255, 255, 0.8)');
+    cues.slice(1, cues.length).forEach(cue => (
+      expect(cue).toHaveStyle('color: rgba(255, 255, 255, 0.4)')
+    ));
+  });
+
+  it('should pass isFullScreen to FSControls', () => {
+    const { queryByTestId } = render(
+      <Carousel
+        content={content}
+        isFullScreen={true}
+      />
+    );
+
+    const FSIcon = queryByTestId('md-fullscreen-exit-icon');
+
+    expect(FSIcon).toHaveStyle('color: rgba(255, 255, 255, 0.8)');
+  });
+
+  it('should cycle through the photos when the next button is clicked', () => {
+    const { queryByAltText, queryByTestId } = render(
+      <Carousel content={content} />
+    );
+
+    const startPhoto = queryByAltText(/Handgun With Case 2 Mags 1/);
+    let slideWrapper = startPhoto.parentElement.parentElement.parentElement
+    const nextBtn = queryByTestId('fa-angle-right-icon').parentElement;
+
+    expect(slideWrapper).toBeInTheDocument();
+    expect(slideWrapper).toHaveClass('currentSlide');
 
     fireEvent.click(nextBtn);
 
-    expect(photoElementWrappers[0]).toHaveClass('slide currentSlide gatsby-image-wrapper');
-    expect(photoElementWrappers[1]).toHaveClass('slide hiddenSlide gatsby-image-wrapper');
-    expect(photoElementWrappers[2]).toHaveClass('slide hiddenSlide gatsby-image-wrapper');
+    const photo2 = queryByAltText(/Handgun With Case 2 Mags 2/);
+    slideWrapper = photo2.parentElement.parentElement.parentElement;
+    expect(slideWrapper).toHaveClass('currentSlide');
+
+    fireEvent.click(nextBtn);
+
+    const photo3 = queryByAltText(/Handgun With Case 2 Mags 3/);
+    slideWrapper = photo3.parentElement.parentElement.parentElement;
+    expect(slideWrapper).toHaveClass('currentSlide');
+  });
+
+  it('should cycle through the photos when the prev button is clicked', () => {
+    const { queryByAltText, queryByTestId } = render(
+      <Carousel content={content} />
+    );
+
+    const startPhoto = queryByAltText(/Handgun With Case 2 Mags 1/);
+    let slideWrapper = startPhoto.parentElement.parentElement.parentElement;
+    const prevBtn = queryByTestId('fa-angle-left-icon').parentElement;
+
+    expect(startPhoto).toBeInTheDocument();
+    expect(slideWrapper).toHaveClass('currentSlide');
 
     fireEvent.click(prevBtn);
 
-    expect(photoElementWrappers[0]).toHaveClass('slide hiddenSlide gatsby-image-wrapper');
-    expect(photoElementWrappers[1]).toHaveClass('slide hiddenSlide gatsby-image-wrapper');
-    expect(photoElementWrappers[2]).toHaveClass('slide currentSlide gatsby-image-wrapper');
+    var photo4 = queryByAltText(/Handgun With Case 2 Mags 4/);
+    slideWrapper = photo4.parentElement.parentElement.parentElement;
+    expect(slideWrapper).toHaveClass('currentSlide');
+
+    fireEvent.click(prevBtn);
+
+    var photo3 = queryByAltText(/Handgun With Case 2 Mags 3/);
+    slideWrapper = photo3.parentElement.parentElement.parentElement;
+    expect(slideWrapper).toHaveClass('currentSlide');
+  });
+
+  it('should not render either carousel button if content.length is 1', () => {
+    const content = createContentArray(alt, photos[0]);
+
+    const { queryByTestId } = render(
+      <Carousel content={content} />
+    );
+    const prevBtn = queryByTestId('fa-angle-left-icon');
+    const nextBtn = queryByTestId('fa-angle-right-icon');
+
+    expect(prevBtn).not.toBeInTheDocument();
+    expect(nextBtn).not.toBeInTheDocument();
+  });
+
+  it('should display the correct photo if given a startIndex other than 0', () => {
+    const { queryByAltText } = render(
+      <Carousel content={content} startIndex={2} />
+    );
+
+    const startPhoto = queryByAltText(/Handgun With Case 2 Mags 3/);
+    const slideWrapper = startPhoto.parentElement.parentElement.parentElement;
+    expect(slideWrapper).toHaveClass('currentSlide');
   });
 
   it('should call the onIndexChange prop if provided', () => {
     const { queryByTestId } = render(
-      <Carousel alt={alt} photos={photos} startIndex={2} onIndexChange={onIndexChangeMock} />
+      <Carousel content={content} startIndex={2} onIndexChange={onIndexChangeMock} />
     );
     const nextBtn = queryByTestId('fa-angle-right-icon').parentElement;
     const prevBtn = queryByTestId('fa-angle-left-icon').parentElement;
@@ -267,5 +156,35 @@ describe('Carousel', () => {
     fireEvent.click(prevBtn);
 
     expect(onIndexChangeMock.mock.calls.length).toEqual(2);
+  });
+
+  it('should call setInterval with default interval when isTimed', () => {
+    render(
+      <Carousel content={content} isTimed={true} />
+    );
+
+    expect(setInterval).toHaveBeenCalledTimes(1);
+    expect(setInterval).toHaveBeenLastCalledWith(expect.any(Function), 8000);
+  });
+
+  it('should call setInterval with specified interval when isTimed', () => {
+    render(
+      <Carousel content={content} interval={1000} isTimed={true} />
+    );
+
+    expect(setInterval).toHaveBeenCalledTimes(1);
+    expect(setInterval).toHaveBeenLastCalledWith(expect.any(Function), 1000);
+  });
+
+  it('should display the next slide after the interval when isTimed', () => {
+    const { queryByAltText } = render(
+      <Carousel content={content} interval={1000} isTimed={true} />
+    );
+
+    expect(queryByAltText(/handgun with case 2 mags 3/i)).not.toBeInTheDocument();
+
+    act(() => jest.advanceTimersByTime(1000));
+
+    expect(queryByAltText(/handgun with case 2 mags 3/i)).toBeInTheDocument();
   });
 });

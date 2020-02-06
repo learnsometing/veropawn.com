@@ -125,7 +125,10 @@ export default ({ width }) => {
           publicURL
         }
         
-        allMarkdownRemark(sort: {fields: frontmatter___title}){
+        allMarkdownRemark(
+          filter: {fileAbsolutePath: {regex: "/pages/"}},
+          sort: {fields: frontmatter___title},
+        ){
           nodes{
             id
             frontmatter{

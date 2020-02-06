@@ -1,110 +1,30 @@
-.carousel {
+.wrapper {
   position: relative;
   width: 100%;
+  padding: .625rem;
+}
+
+.carousel {
+  position: relative;
+  min-width: 100%;
   max-width: 1024px;
-  padding: 0 0.675rem;
-  margin-bottom: 1rem;
   visibility: visible;
 }
 
-/*  Carousel Slides  */
-
 .slideContainer {
-  position: relative;
   width: 100%;
   top: 0;
   left: 0;
+  overflow-x: hidden;
 }
 
-.slide {
-  border-radius: 2px;
-}
-
-.currentSlide {
-  display: block;
-}
-
-.hiddenSlide {
-  display: none;
-}
-
-$active-color: hsla(0, 0%, 0%, 0.6);
-$inactive-color: hsla(0, 0%, 0%, 0.2);
-
-/*  Carousel Controls  */
-
-.controlContainer {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-}
-
-.controls {
-  padding: 0 .375rem;
-}
-
-.carouselControl {
-  height: 3.125rem;
-  width: 3.125rem;
-  border-radius: 50px;
-  border: none;
-}
-
-.enabledCarouselControl {
-  background-color: $active-color;
-}
-
-.enabledCarouselControl:hover {
-  cursor: pointer;
-  transform: scale(1.1);
-}
-
-.disabledCarouselControl {
-  background-color: $inactive-color;
-}
-
-.disabledCarouselControl:hover {
-  cursor: not-allowed;
-}
-
-.controlContainer, .controls {
-  width: 100%;
-}
-
-/*  Carousel Position Indicator and Display  */
-
-.posIndicator {
+.FSControlContainer {
   position: relative;
-  display: inline-block;
-  height: 0.75rem;
-  width: 0.75rem;
-  margin: 0 .375rem;
-}
-
-.activePosIndicator {
-  color: $active-color;
-}
-
-.inactivePosIndicator {
-  color: $inactive-color;
-}
-
-.carouselPosContainer {
-  position: absolute;
-  left: 0;
-  bottom: .625rem;
-  flex-wrap: wrap;
   width: 100%;
-  padding: 0 .375rem;
 }
 
-@media only screen and (min-width: 736px) and (min-height: 375px) {
-  .carouselPosContainer {
-    padding: 0 4rem;
-  }
-
-  .carousel {
-    margin-bottom: 0
+@media only screen and (max-width: 567px){
+  .wrapper {
+    padding: .625rem;
   }
 }

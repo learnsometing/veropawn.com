@@ -1,0 +1,49 @@
+/*                modal               */
+
+.FSWrapper {
+  max-width: 1024px;
+  position: relative;
+  width: 100%;
+}
+
+.overlay {
+  position: fixed;
+  height: 100%;
+  background-color: #000;
+  z-index: 4;
+}
+
+.content {
+  position: relative;
+  max-width: 1024px;
+  border: none;
+  border-radius: 0;
+  background-color: transparent;
+  overflow-y: hidden;
+  overflow-x: hidden;
+  z-index: 5;
+}
+
+.overlay, .content {
+  width: 100%;
+  top: 0;
+  bottom: 0;
+}
+
+@media only screen and (min-aspect-ratio: 16/10){
+  .content {
+    width: 85%;
+  }
+}
+
+@media only screen and (min-aspect-ratio: 17/10) and (max-aspect-ratio: 26/12){
+  .content {
+    width: 75%;
+  }
+}
+
+@media only screen and (min-aspect-ratio: 26/13){
+  .content {
+    width: 60%;
+  }
+}

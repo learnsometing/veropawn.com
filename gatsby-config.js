@@ -24,13 +24,14 @@ module.exports = {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `markdown`,
-        path: `${__dirname}/src/content/markdown`,
+        path: `${__dirname}/src/markdown/`,
       },
     },
     `gatsby-transformer-sharp`,
     `gatsby-transformer-json`,
     `gatsby-transformer-remark`,
     `gatsby-plugin-sharp`,
+    // remove this soon...not needed
     {
       resolve: `gatsby-plugin-manifest`,
       options: {

@@ -1,0 +1,23 @@
+/*                FS/Minimize buttons                */
+.maximizeIcon, .minimizeIcon {
+  position: relative;
+  bottom:0;
+  right: 0;
+  height: 2rem;
+  width: 2rem;
+  padding: 0;
+  margin: 1rem;
+  border-radius: 50%;
+}
+
+.minimizeIcon {
+  z-index: 5;
+}
+
+.maximizeIcon:hover{
+  transform: scale(1.1);
+}
+
+.minimizeIcon:hover {
+  transform: scale(0.9);
+}

@@ -1,155 +1,88 @@
-import React, { useState } from "react";
-import PropTypes from "prop-types";
-import Img from "gatsby-image";
-import { FaAngleLeft, FaAngleRight, FaDollarSign } from "react-icons/fa";
-import { IconContext } from "react-icons";
+import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
 
-import carousel from "./carousel.module.scss";
-import layout from "../../styles/layout.module.css";
+import Cues from './cues';
+import Slides from './slides';
+import Controls from './controls';
+import FSControls from './full-screen-controls';
+import { useCurrentIndex } from './hooks/useCurrentIndex';
 
-export const CarouselPositionIndicator = ({ isActive }) => {
-  const activeClass = `${carousel.posIndicator} ${carousel.activePosIndicator}`;
-  const inactiveClass = `${carousel.posIndicator} ${carousel.inactivePosIndicator}`;
+import carousel from './carousel.module.scss';
+import layout from '../../styles/layout.module.css';
 
-  return (
-    <IconContext.Provider
-      value={{ className: (isActive ? activeClass : inactiveClass), }}
-    >
-      <FaDollarSign data-testid="carousel-pos-indicator" />
-    </IconContext.Provider>
-  );
-};
+const Carousel = (props) => {
+  var {
+    content,
+    currentSlideStyle,
+    interval,
+    isFullScreen,
+    isTimed,
+    onFSIconClick,
+    onIndexChange,
+    slideStyle,
+    startIndex
+  } = props;
 
-CarouselPositionIndicator.propTypes = {
-  isActive: PropTypes.bool.isRequired,
-};
-
-export const CarouselPositionDisplay = ({ currentIndex, length }) => {
-  const controls = [];
-  const carouselPosContainerClass = `${layout.rowCenterCenter} ${carousel.carouselPosContainer}`;
-
-  for (let i = 0; i < length; i++) {
-    let isActive = i === currentIndex ? true : false;
-    controls.push(<CarouselPositionIndicator key={i} isActive={isActive} />);
-  }
-  return <div className={carouselPosContainerClass}>{controls}</div>;
-};
-
-CarouselPositionDisplay.propTypes = {
-  currentIndex: PropTypes.number.isRequired,
-  length: PropTypes.number.isRequired,
-};
-
-export const CarouselSlides = ({ alt, currentIndex, photos }) => {
-  return photos.map((photo, idx) => (
-    <Img
-      alt={`${alt} ${idx}`}
-      key={photo.id}
-      fluid={photo.childImageSharp.fluid}
-      loading={'eager'}
-      className={idx === currentIndex
-        ? `${carousel.slide} ${carousel.currentSlide}`
-        : `${carousel.slide} ${carousel.hiddenSlide}`
-      }
-    />
-  ));
-};
-
-CarouselSlides.propTypes = {
-  alt: PropTypes.string.isRequired,
-  currentIndex: PropTypes.number.isRequired,
-  photos: PropTypes.array.isRequired
-};
-
-export const CarouselControl = ({ children, isDisabled, onClick }) => {
-  const controlClass = `${layout.columnCenterCenter} ${carousel.carouselControl}`;
-  return (
-    <button
-      className={isDisabled
-        ? ` ${controlClass} ${carousel.disabledCarouselControl}`
-        : ` ${controlClass} ${carousel.enabledCarouselControl}`
-      }
-      disabled={isDisabled}
-      onClick={onClick}
-    >
-      {children}
-    </button>
-  );
-};
-
-CarouselControl.propTypes = {
-  isDisabled: PropTypes.bool.isRequired,
-  onClick: PropTypes.func.isRequired
-};
-
-const Carousel = ({ alt, startIndex, photos, onIndexChange }) => {
-  // keeps track of its own index but can also take a start index that
-  // specifies which of the photos to display when the carousel is first opened.
-  var [currentIndex, setCurrentIndex] = useState(startIndex);
-  var length = photos.length;
+  var length = content.length;
   var isDisabled = length < 2;
+  var currentIndex = useCurrentIndex(startIndex, onIndexChange, length);
 
-  const setNextPhoto = () => {
-    let nextIndex = (currentIndex + 1) % length;
-    setCurrentIndex(nextIndex)
-    if (onIndexChange) {
-      onIndexChange(nextIndex)
+  useEffect(() => {
+    if (isTimed) {
+      let timerID = currentIndex.setTimer(interval);
+      return () => clearInterval(timerID);
     }
-  };
-
-  const setPrevPhoto = () => {
-    let prevIndex = (currentIndex - 1) % length;
-    if (prevIndex === -1) { prevIndex += length; }
-    setCurrentIndex(prevIndex);
-    if (onIndexChange) {
-      onIndexChange(prevIndex)
-    }
-  };
-
-  const carouselClass = `${layout.columnStartCenter} ${carousel.carousel}`;
-  const controlContainerClass = `${layout.rowSpaceBtnCenter} ${carousel.controlContainer}`;
-  const controlsClass = `${layout.rowSpaceBtnCenter} ${carousel.controls}`;
+  }, [currentIndex, interval, isTimed]);
 
   return (
-    <div className={carouselClass}>
-      <div className={carousel.slideContainer}>
-        <CarouselSlides alt={alt} currentIndex={currentIndex} photos={photos} />
-        <div className={controlContainerClass}>
-          <IconContext.Provider
-            value={{
-              color: isDisabled
-                ? 'hsla(255, 255%, 255%, 0.5)'
-                : 'hsla(255, 255%, 255%, 0.8)',
-              size: '1.5em'
-            }}
-          >
-            <div className={controlsClass}>
-              <CarouselControl isDisabled={isDisabled} onClick={setPrevPhoto} >
-                <FaAngleLeft data-testid="fa-angle-left-icon" />
-              </CarouselControl>
-              <CarouselControl isDisabled={isDisabled} onClick={setNextPhoto} >
-                <FaAngleRight data-testid="fa-angle-right-icon" />
-              </CarouselControl>
-            </div>
-          </IconContext.Provider>
-          <CarouselPositionDisplay
-            currentIndex={currentIndex}
-            length={length}
+    <div className={`${layout.columnStartCenter} ${carousel.wrapper}`}>
+      <div className={`${carousel.carousel}`}>
+        <div className={`${layout.rowCenterCenter} ${carousel.slideContainer}`}>
+          <Slides
+            content={content}
+            currentSlideStyle={currentSlideStyle}
+            isDisabled={isDisabled}
+            slideStyle={slideStyle}
+            visibleRange={currentIndex.visibleRange}
+          />
+          <Controls
+            isDisabled={isDisabled}
+            onClick={currentIndex.onClick}
           />
         </div>
+      </div>
+      <div className={`${layout.rowEndCenter} ${carousel.FSControlContainer}`}>
+        <Cues
+          currentIndex={currentIndex.value}
+          isFullScreen={isFullScreen}
+          length={length}
+        />
+        <FSControls isFullScreen={isFullScreen} onClick={onFSIconClick} />
       </div>
     </div>
   );
 }
 
 Carousel.propTypes = {
-  alt: PropTypes.string.isRequired,
-  startIndex: PropTypes.number,
-  photos: PropTypes.array.isRequired,
-  onIndexChange: PropTypes.func,
+  content: PropTypes.arrayOf(PropTypes.object).isRequired,
+  currentSlideStyle: PropTypes.object,
+  interval: PropTypes.number,
+  isFullScreen: PropTypes.bool.isRequired,
+  isTimed: PropTypes.bool.isRequired,
+  onFSIconClick: PropTypes.func.isRequired,
+  onIndexChange: PropTypes.func.isRequired,
+  slideStyle: PropTypes.object,
+  startIndex: PropTypes.number.isRequired,
 };
 
 Carousel.defaultProps = {
+  currentSlideStyle: undefined,
+  interval: 8000,
+  isFullScreen: false,
+  isTimed: false,
+  onFSIconClick: () => { },
+  onIndexChange: () => { },
+  slideStyle: undefined,
   startIndex: 0,
 }
 
