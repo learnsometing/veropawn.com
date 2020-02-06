@@ -16,6 +16,8 @@
   /* left and right shadow */
   opacity: 1;
   transition: opacity 1s ease;
+  border-top: 1px solid rgba(0, 0, 0, 0.2);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 }
 
 .currentSlide, .singleSlide {
