@@ -37,7 +37,8 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
 
     let value;
 
-    if (node.internal.type === 'MarkdownRemark') {
+    if (node.internal.type === 'MarkdownRemark' && node.fileAbsolutePath.includes('pages')) {
+      // only make a slug for any markdown nodes in the markdown/pages dir
       value = `/${_slugify(node.frontmatter.title)}`;
     } else if (node.internal.type === "ItemsJson") {
       value = `/${_slugify(node.category)}/${_slugify(node.subcategory)}/${node.id}`;
