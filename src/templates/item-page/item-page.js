@@ -11,7 +11,7 @@ import FullScreenCarousel from "../../components/carousel/full-screen-carousel";
 
 import itemPage from "./item-page.module.scss";
 import layout from "../../styles/layout.module.css";
-import createContentObj from "../../helpers/createContentObj";
+import { createContentArray } from "../../helpers/slides";
 
 const PageHeader = ({ descript }) => {
   const pageHeaderClass = `${layout.columnCenterCenter} ${itemPage.header}`;
@@ -60,7 +60,7 @@ const ItemPage = ({ data, size }) => {
   var photos = data.photos.nodes.length
     ? data.photos.nodes
     : defaultPhoto;
-  var content = createContentObj(descript, photos);
+  var content = createContentArray(descript, photos);
 
   const title = `${descript}-${invNum}`;
   const wrapperClass = `${layout.columnCenterCenter} ${itemPage.wrapper}`;
