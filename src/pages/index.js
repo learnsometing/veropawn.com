@@ -3,24 +3,25 @@ import { graphql } from 'gatsby';
 
 import SizedLayout from "../components/layout/layout";
 import SEO from "../components/seo";
-import TimedCarousel from '../components/carousel/timed-carousel';
+import FullScreenCarousel from '../components/carousel/full-screen-carousel';
+
+import './index.css';
+import { createSlideContent } from "../helpers/slides";
 
 const IndexPage = ({ data }) => {
   var content = data.content.nodes.map(node => {
-    return {
-      alt: node.frontmatter.featuredImage.name,
-      html: node.html,
-      photo: node.frontmatter.featuredImage,
-      title: node.frontmatter.title,
-    }
+    return createSlideContent(node);
   });
 
   return (
     <SizedLayout title={"Home"}>
       <SEO title="Home" />
       <main id="content">
-        <TimedCarousel
+        <FullScreenCarousel
           content={content}
+          currentSlideStyle={{ minWidth: '60%' }}
+          isTimed={true}
+          slideStyle={{ minWidth: '50%' }}
         />
       </main>
     </SizedLayout>
@@ -44,6 +45,7 @@ export var query = graphql`
                 ...GatsbyImageSharpFluid
               }
             }
+            id
             name
           }
         }
