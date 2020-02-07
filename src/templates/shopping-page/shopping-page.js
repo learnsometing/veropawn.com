@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { graphql, Link } from 'gatsby';
 import Img from 'gatsby-image';
 import PropTypes from 'prop-types';
 import RCPagination from 'rc-pagination';
 import sizeMe from 'react-sizeme';
 import localeInfo from 'rc-pagination/lib/locale/en_US';
-import 'rc-pagination/assets/index.css';
 import { Layout } from '../../components/layout/layout';
 import getPhotosOfItem from '../util/getPhotosOfItem';
 
+import 'rc-pagination/assets/index.css';
 import shoppingPage from './shopping-page.module.scss';
 import layout from '../../styles/layout.module.css';
 import './pagination.scss';
@@ -163,16 +163,26 @@ PageHeader.propTypes = {
 }
 
 export const PureShoppingPage = (props) => {
-  var { allItems, defaultPhoto, allMainPhotos, subcategory, width } = props;
-  var numItems = allItems.length;
-  var itemsPerPage = 24;
+  var {
+    allItems,
+    allMainPhotos,
+    defaultPhoto,
+    location,
+    subcategory,
+    width } = props;
 
   // TODO: Implement item filtration!
-  // var [filteredItems, setFilteredItems] = useState(allItems);
-  var [currentPage, setCurrentPage] = useState(1);
-  var [upperLimit, setUpperLimit] = useState(calcUpperLimit(itemsPerPage, currentPage));
-  var [lowerLimit, setLowerLimit] = useState(calcLowerLimit(itemsPerPage, upperLimit));
-  var [itemsOnPage, setItemsOnPage] = useState(allItems.slice(lowerLimit, upperLimit));
+  // click some filter check boxes
+  // click apply -> Navigate to a shopping page with filters passed as state in Link
+  // apply the filters to allItems
+  var filters = getFilters();
+  var filteredItems = getFilteredItems();
+  var numItems = filteredItems.length;
+  var itemsPerPage = 24;
+  var pageNum = getPageNum();
+  var upperLimit = calcUpperLimit();
+  var lowerLimit = calcLowerLimit();
+  var itemsOnPage = filteredItems.slice(lowerLimit, upperLimit);
 
   return (
     <>
@@ -190,14 +200,14 @@ export const PureShoppingPage = (props) => {
           defaultPhoto={defaultPhoto}
           photos={allMainPhotos}
         />
-        <CallToAction currentPage={currentPage} />
+        <CallToAction currentPage={pageNum} />
         <div className={shoppingPage.paginationContainer}>
           <RCPagination
-            current={currentPage}
+            current={pageNum}
             className={shoppingPage.pagination}
             total={numItems}
-            defaultPageSize={24}
-            onChange={onChange}
+            defaultPageSize={itemsPerPage}
+            itemRender={itemRender}
             hideOnSinglePage={true}
             showPrevNextJumpers={false}
             showLessItems={width < 568 ? true : false}
@@ -209,39 +219,106 @@ export const PureShoppingPage = (props) => {
     </>
   );
 
-  function calcUpperLimit(itemsPerPage, page) {
-    return Math.floor(page * itemsPerPage);
+  function calcUpperLimit() {
+    return Math.floor(pageNum * itemsPerPage);
   }
 
-  function calcLowerLimit(itemsPerPage, upperLimit) {
+  function calcLowerLimit() {
     return Math.floor(upperLimit - itemsPerPage);
   }
 
-  function onChange(page) {
-    const upperLimit = calcUpperLimit(itemsPerPage, page);
-    const lowerLimit = calcLowerLimit(itemsPerPage, upperLimit);
-    const itemsOnPage = allItems.slice(lowerLimit, upperLimit);
+  function getPageNum() {
+    let pageNum = 1;
 
-    setCurrentPage(page);
-    setUpperLimit(upperLimit);
-    setLowerLimit(lowerLimit);
-    setItemsOnPage(itemsOnPage);
+    if (location.state && location.state.pageNum) {
+      pageNum = location.state.pageNum;
+    }
 
-    if (typeof window.scrollTo !== 'undefined') {
-      window.scrollTo(0, 0);
+    return pageNum;
+  }
+
+  function getFilters() {
+    let filters = {};
+
+    if (location.state && location.state.filters) {
+      filters = location.state.filters;
+    }
+
+    return filters;
+  }
+
+  function getFilteredItems() {
+    /*
+    * Filter structure
+    *
+    * filters = {
+    *   brand: [
+    *     'dewalt',
+    *     'ryobit'
+    *   ],
+    *   model: [
+    *   ],
+    *   ...
+    * }
+    */
+
+    // return the items sourced from json if no filters applied
+    if (Object.entries(filters).length === 0 && filters.constructor === Object) {
+      return allItems;
+    } else if (location.state && location.state.filteredItems) {
+      // return the items held in location.state if they already exist
+      return location.state.filteredItems;
+    }
+
+    return allItems.filter(item => itemDetailsMatchFilters(item));
+
+    function itemDetailsMatchFilters(item) {
+      for (const [key, val] of Object.entries(filters)) {
+        if (!val.includes(item.details[key])) {
+          return false;
+        }
+      }
+      return true;
     }
   }
+
+  function itemRender(current, type, element) {
+    let pathName = location.pathname;
+
+    if (type === 'page') {
+      return (
+        <Link
+          to={pathName}
+          state={{ pageNum: current, filters, filteredItems }}
+
+        >
+          {current}
+        </Link>
+      );
+    } else if (type === 'prev' || type === 'next') {
+      return (
+        <Link
+          to={pathName}
+          state={{ pageNum: current, filters, filteredItems }}
+        >
+        </Link>
+      );
+    }
+
+    return element;
+  };
 };
 
 PureShoppingPage.propTypes = {
   allItems: PropTypes.array.isRequired,
   allMainPhotos: PropTypes.array.isRequired,
   defaultPhoto: PropTypes.object.isRequired,
+  location: PropTypes.object.isRequired,
   subcategory: PropTypes.string.isRequired,
   width: PropTypes.number.isRequired,
 };
 
-const ShoppingPage = ({ data, size }) => {
+const ShoppingPage = ({ data, location, size }) => {
   var allItems = data.inv.nodes;
   // Default photo used throughout the app
   var defaultPhoto = data.defaultPhoto;
@@ -255,11 +332,18 @@ const ShoppingPage = ({ data, size }) => {
         allItems={allItems}
         allMainPhotos={allMainPhotos}
         defaultPhoto={defaultPhoto}
+        location={location}
         subcategory={subcategory}
         width={width}
       />
     </Layout>
   );
+};
+
+ShoppingPage.propTypes = {
+  data: PropTypes.object.isRequired,
+  location: PropTypes.object.isRequired,
+  size: PropTypes.object.isRequired,
 };
 
 export default sizeMe()(ShoppingPage);
@@ -270,11 +354,17 @@ export const query = graphql`
     inv: allItemsJson(filter: {fields: {slug: {regex: $slug } } }, sort: {fields: invNum, }){
       nodes {
         descript
+        details {
+          action
+          ammo
+          mass
+          brand
+          metal
+        } 
         fields {
           slug
         }
         id
-        invNum
         subcategory
       }
     }

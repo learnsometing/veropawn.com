@@ -1,12 +1,12 @@
 import React from "react";
-import { fireEvent, render } from "@testing-library/react";
+import { render } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 
 import { CallToAction, DisplayRange, ItemCard, ItemCards, PureShoppingPage, query } from "../shopping-page/shopping-page";
 import { defaultPhoto, mainPhotos } from "../__fixtures__/all-photos";
 import { allItemsJson, rings } from "../__fixtures__/all-items-json";
-
-Object.defineProperty(window, 'scrollTo', { value: undefined });
+import filteredRings from '../__fixtures__/filtered-rings';
+import pistols from '../__fixtures__/filtered-pistols';
 
 describe('ItemCard', () => {
   it('should render the item card with a photo and with the item descript', () => {
@@ -79,12 +79,13 @@ describe('PureShoppingPage', () => {
   const allItems = rings.nodes;
   const subcategory = allItems[0].subcategory;
 
-  it('should only render 24 items per page', () => {
+  it('should render the first 24 items if location has no state prop', () => {
     const { queryAllByRole } = render(
       <PureShoppingPage
         allItems={allItems}
         allMainPhotos={mainPhotos}
         defaultPhoto={defaultPhoto}
+        location={{ pathname: "/some/path", state: null }}
         subcategory={subcategory}
         width={667}
       />
@@ -101,91 +102,132 @@ describe('PureShoppingPage', () => {
     ));
   });
 
-  it('should set itemsOnPage correctly when the page is changed forward', () => {
-    const { queryAllByTestId, queryByTitle } = render(
+  it('should render the correct items if location.state has a pageNum property but no filters property', () => {
+    const { queryAllByRole } = render(
       <PureShoppingPage
         allItems={allItems}
         allMainPhotos={mainPhotos}
         defaultPhoto={defaultPhoto}
+        location={{ pathname: "/some/path", state: { pageNum: 5, } }}
         subcategory={subcategory}
         width={667}
       />
     );
 
-    const page2Btn = queryByTitle('2');
+    const lists = queryAllByRole('list');
+    const itemCards = lists[0];
+    const expectedItems = allItems.slice(96, 120);
 
-    const descripts = allItems.slice(24, 48).map(item => item.descript);
+    expect(itemCards.childElementCount).toEqual(24);
 
-    fireEvent.click(page2Btn);
-
-    let itemCardTexts = queryAllByTestId('item-card-text').map(span => span.textContent);
-
-    itemCardTexts.forEach(text => expect(descripts).toContain(text));
+    expectedItems.forEach((item, index) => (
+      expect(itemCards.children[index]).toHaveTextContent(item.descript)
+    ));
   });
 
-  it('should set itemsOnPage to the correct items when the page is changed backwards', () => {
-    const { queryAllByTestId, queryByTitle } = render(
+  it('should render the correct display range for the page', () => {
+    const { queryByText } = render(
       <PureShoppingPage
         allItems={allItems}
         allMainPhotos={mainPhotos}
         defaultPhoto={defaultPhoto}
+        location={{ pathname: "/some/path", state: { pageNum: 2 } }}
         subcategory={subcategory}
         width={667}
       />
     );
 
-    const page2Btn = queryByTitle('2');
-    const page3Btn = queryByTitle('3');
-
-    fireEvent.click(page3Btn);
-
-    fireEvent.click(page2Btn);
-
-    const descripts = allItems.slice(24, 48).map(item => item.descript);
-
-    let itemCardTexts = queryAllByTestId('item-card-text').map(span => span.textContent);
-
-    itemCardTexts.forEach(text => expect(descripts).toContain(text));
-  });
-
-  it('should set itemsOnPage to the correct items when the last page is visited', () => {
-    const { queryAllByTestId, queryByTitle } = render(
-      <PureShoppingPage
-        allItems={allItems}
-        allMainPhotos={mainPhotos}
-        defaultPhoto={defaultPhoto}
-        subcategory={subcategory}
-        width={667}
-      />
-    );
-
-    const page8Button = queryByTitle('8');
-    // only 186 items
-    const descripts = allItems.slice(168, 192).map(item => item.descript);
-
-    fireEvent.click(page8Button);
-
-    let itemCardTexts = queryAllByTestId('item-card-text').map(span => span.textContent);
-
-    itemCardTexts.forEach(text => expect(descripts).toContain(text));
-  });
-
-  it('should update upperLimit and lowerLimit after changing pages', () => {
-    const { queryByText, queryByTitle } = render(
-      <PureShoppingPage
-        allItems={allItems}
-        allMainPhotos={mainPhotos}
-        defaultPhoto={defaultPhoto}
-        subcategory={subcategory}
-        width={667}
-      />
-    );
-
-    const expectedText = /Items 169-186/;
-    const page8Button = queryByTitle('8');
-
-    fireEvent.click(page8Button);
+    const expectedText = /Items 25-48/;
 
     expect(queryByText(expectedText)).toBeInTheDocument();
+  });
+
+  it('should filter the items to location.state.filters and display the page given in location.state.pageNum', () => {
+    const { queryAllByRole } = render(
+      <PureShoppingPage
+        allItems={filteredRings}
+        allMainPhotos={mainPhotos}
+        defaultPhoto={defaultPhoto}
+        location={{
+          pathname: "/some/path", state: {
+            filters: {
+              metal: ["18kt Gold", "22kt Gold"]
+            },
+            pageNum: 2
+          }
+        }}
+        subcategory={subcategory}
+        width={667}
+      />
+    );
+
+    const lists = queryAllByRole('list');
+    const itemCards = lists[0];
+    const expectedItems = filteredRings.slice(24, 48);
+
+    expect(itemCards.childElementCount).toEqual(24);
+
+    expectedItems.forEach((item, index) => (
+      expect(itemCards.children[index]).toHaveTextContent(item.descript)
+    ));
+  });
+
+  it('should render the correct filtered items', () => {
+    const { queryAllByRole } = render(
+      <PureShoppingPage
+        allItems={filteredRings}
+        allMainPhotos={mainPhotos}
+        defaultPhoto={defaultPhoto}
+        location={{
+          pathname: "/some/path", state: {
+            filters: {
+              metal: ["22kt Gold"]
+            }
+          }
+        }}
+        subcategory={subcategory}
+        width={667}
+      />
+    );
+
+    const lists = queryAllByRole('list');
+    const itemCards = lists[0];
+    const expectedItems = filteredRings.slice(53, 56);
+
+    expect(itemCards.childElementCount).toEqual(2);
+
+    expectedItems.forEach((item, index) => (
+      expect(itemCards.children[index]).toHaveTextContent(item.descript)
+    ));
+  });
+
+  it('should render the correct items when location.state.filters has multiple entries', () => {
+    const { queryAllByRole } = render(
+      <PureShoppingPage
+        allItems={pistols}
+        allMainPhotos={mainPhotos}
+        defaultPhoto={defaultPhoto}
+        location={{
+          pathname: "/some/path", state: {
+            filters: {
+              brand: ["GLOCK"],
+              ammo: ["9 mm"]
+            }
+          }
+        }}
+        subcategory={subcategory}
+        width={667}
+      />
+    );
+
+    const lists = queryAllByRole('list');
+    const itemCards = lists[0];
+    const expectedItems = pistols.slice(13, 17);
+
+    expect(itemCards.childElementCount).toEqual(4);
+
+    expectedItems.forEach((item, index) => (
+      expect(itemCards.children[index]).toHaveTextContent(item.descript)
+    ));
   });
 });
