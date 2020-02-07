@@ -365,6 +365,7 @@ export const query = graphql`
           slug
         }
         id
+        invNum
         subcategory
       }
     }
