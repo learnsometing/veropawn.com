@@ -5,10 +5,13 @@
   "version": "0.3.0",
   "author": "Brian Monaccio <brianmonaccio@gmail.com>",
   "dependencies": {
+    "@mdx-js/mdx": "^1.5.5",
+    "@mdx-js/react": "^1.5.5",
     "csv-parser": "^2.3.2",
     "gatsby": "^2.18.11",
     "gatsby-image": "^2.2.36",
     "gatsby-plugin-manifest": "^2.2.33",
+    "gatsby-plugin-mdx": "^1.0.70",
     "gatsby-plugin-offline": "^3.0.29",
     "gatsby-plugin-react-helmet": "^3.1.18",
     "gatsby-plugin-sass": "^2.1.27",

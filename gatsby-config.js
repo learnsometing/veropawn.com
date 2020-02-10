@@ -32,6 +32,7 @@ module.exports = {
     `gatsby-transformer-remark`,
     `gatsby-plugin-sharp`,
     // remove this soon...not needed
+    `gatsby-plugin-mdx`,
     {
       resolve: `gatsby-plugin-manifest`,
       options: {

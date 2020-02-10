@@ -53,7 +53,7 @@ export const MainMenu = (props) => {
         </DDMenuBtn>
         <DDMenuLink link={'/jewelry/ring'} text={'Rings'} />
         <DDMenuLink link={'/firearm/pistol'} text={'Pistols'} />
-        <MDPageLinks data={props.allMarkdownRemark} collapsed={true} />
+        <MDPageLinks data={props.allMdx} collapsed={true} />
         <DDMenuLink link={'/contact'} text={'Contact'} />
 
       </>
@@ -65,7 +65,7 @@ export default (props) => {
     null,
     <MainMenu
       allPagesJson={props.allPagesJson}
-      allMarkdownRemark={props.allMarkdownRemark}
+      allMdx={props.allMdx}
     />
   );
 

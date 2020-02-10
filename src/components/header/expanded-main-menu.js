@@ -29,7 +29,7 @@ export default (props) => {
       <HeaderMenuLink link={'/jewelry/ring'} text={'Rings'} />
       <HeaderMenuLink link={'/firearm/pistol'} text={'Pistols'} />
       <MDPageLinks
-        data={props.allMarkdownRemark}
+        data={props.allMdx}
         collapsed={false}
       />
       <HeaderMenuLink link={'/contact/'} text={'Contact'} />

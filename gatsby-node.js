@@ -5,9 +5,8 @@
  */
 
 const path = require(`path`);
-const { createFilePath } = require("gatsby-source-filesystem");
 
-exports.onCreateNode = ({ node, actions, getNode }) => {
+exports.onCreateNode = ({ node, actions }) => {
   const { createNodeField } = actions
 
   const generateSlug = (node) => {
@@ -37,7 +36,7 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
 
     let value;
 
-    if (node.internal.type === 'MarkdownRemark' && node.fileAbsolutePath.includes('pages')) {
+    if (node.internal.type === 'Mdx' && node.fileAbsolutePath.includes('pages')) {
       // only make a slug for any markdown nodes in the markdown/pages dir
       value = `/${_slugify(node.frontmatter.title)}`;
     } else if (node.internal.type === "ItemsJson") {
@@ -71,7 +70,7 @@ exports.createPages = async ({ graphql, actions }) => {
         }
       }
 
-      allMarkdownPages: allMarkdownRemark(
+      allMdx: allMdx(
         filter: {fileAbsolutePath: {regex: "/pages/"}}
       ){
         nodes {
@@ -108,7 +107,7 @@ exports.createPages = async ({ graphql, actions }) => {
   });
 
   // Create a page for each markdown file.
-  data.allMarkdownPages.nodes.forEach(node => {
+  data.allMdx.nodes.forEach(node => {
     createPage({
       path: node.fields.slug,
       component: path.resolve(`./src/templates/markdown-page/markdown-page.js`),

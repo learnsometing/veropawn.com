@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactHtmlParser from 'react-html-parser';
+import { MDXRenderer } from 'gatsby-plugin-mdx';
 import { graphql } from 'gatsby';
 
 import SizedLayout from '../../components/layout/layout';
@@ -7,8 +7,8 @@ import SizedLayout from '../../components/layout/layout';
 import markdownPage from './markdown-page.module.css';
 import layout from '../../styles/layout.module.css';
 
-export default ({ data }) => {
-  const title = data.markdownRemark.frontmatter.title;
+export default ({ data: { mdx } }) => {
+  var title = mdx.frontmatter.title;
   var headerClassName = `${layout.rowCenterCenter} ${markdownPage.header}`;
 
   return (
@@ -18,7 +18,7 @@ export default ({ data }) => {
           <header className={headerClassName}>
             <h1>{title}</h1>
           </header>
-          {ReactHtmlParser(data.markdownRemark.html)}
+          <MDXRenderer>{mdx.body}</MDXRenderer>
         </div>
       </main>
     </SizedLayout>
@@ -27,11 +27,12 @@ export default ({ data }) => {
 
 export const query = graphql`
   query($id: String) {
-    markdownRemark(id: {eq: $id}) {
+    mdx(id: {eq: $id}) {
+      body
       frontmatter {
         title
       }
-      html
+      id
     }
   }
 `

@@ -76,7 +76,7 @@ export const withHeaderMenuModal = MenuComponent => {
       <>
         <MenuComponent
           allPagesJson={props.allPagesJson}
-          allMarkdownRemark={props.allMarkdownRemark}
+          allMdx={props.allMdx}
           isOpen={isOpen}
           toggleMenu={toggleMenu}
         />
@@ -108,7 +108,7 @@ export const PureHeader = ({ width, ...props }) => {
             <HeaderLogo logo={props.logo} />
             <HeaderMenu
               allPagesJson={props.allPagesJson}
-              allMarkdownRemark={props.allMarkdownRemark}
+              allMdx={props.allMdx}
             />
           </div>
         </nav >
@@ -118,14 +118,14 @@ export const PureHeader = ({ width, ...props }) => {
 };
 
 export default ({ width }) => {
-  const { logo, allMarkdownRemark, allPagesJson } = useStaticQuery(
+  const { logo, allMdx, allPagesJson } = useStaticQuery(
     graphql`
       query {
         logo: file(relativePath: { eq: "logos-and-icons/logo.svg" }) {
           publicURL
         }
         
-        allMarkdownRemark(
+        allMdx(
           filter: {fileAbsolutePath: {regex: "/pages/"}},
           sort: {fields: frontmatter___title},
         ){
@@ -159,7 +159,7 @@ export default ({ width }) => {
     <PureHeader
       width={width}
       logo={logo}
-      allMarkdownRemark={allMarkdownRemark}
+      allMdx={allMdx}
       allPagesJson={allPagesJson}
     />
   );
