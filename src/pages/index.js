@@ -55,14 +55,17 @@ export var query = graphql`
 
     featuredCategories: allMarkdownRemark(
       filter: {
-        fileAbsolutePath: {regex: "/featured-categories/"},
-      }) {
+        frontmatter: {
+          backgroundImage: {
+            relativeDirectory: {eq: "featured-categories"}
+          }
+        }
+      }, 
+      sort: {fields: frontmatter___title}) {
       nodes {
         frontmatter {
           backgroundImage {
             publicURL
-            id
-            name
           }
         }
         htmlAst
