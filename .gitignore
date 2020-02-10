@@ -69,5 +69,8 @@ yarn-error.log
 .yarn-integrity
 
 # ignore so changes to production don't conflict with dev
+src/data
 src/images
 src/markdown
+raw
+not-for-sale
