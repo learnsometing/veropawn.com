@@ -1,0 +1,50 @@
+.sectionHeading {
+  text-align: center;
+}
+
+.linkList{
+  flex-wrap: wrap;
+  width: 100%;
+  margin: 0;
+  margin-bottom: 1.45rem;
+}
+
+.listItem {
+  display: flex;
+  flex: 0 1 128px;
+  list-style: none;
+}
+
+.link {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  font-size: 16px;
+}
+
+.link:hover {
+  transform: scale(1.1);
+  text-decoration: underline;
+}
+
+.linkContentWrapper {
+  width: 100%;
+  margin: .625rem !important;
+}
+
+.bgImageWrapper {
+  padding: 0.625rem;
+  background-color: rgba(0, 0, 0, .1);
+  border-radius: 50%;
+}
+
+.bgImage {
+  width: 100%;
+  height: auto;
+  margin: 0;
+}
+
+.linkText {
+  line-height: 1;
+  text-align: center;
+}

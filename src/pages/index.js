@@ -1,28 +1,28 @@
-import React from "react";
+import React from 'react';
 import { graphql } from 'gatsby';
-
-import SizedLayout from "../components/layout/layout";
-import SEO from "../components/seo";
+import SizedLayout from '../components/layout/layout';
+import SEO from '../components/seo';
 import FullScreenCarousel from '../components/carousel/full-screen-carousel';
-
+import FeaturedCategories from '../components/featured-categories/featured-categories';
 import './index.css';
-import { createSlideContent } from "../helpers/slides";
+import { createSlideContent } from '../helpers/slides';
 
 const IndexPage = ({ data }) => {
-  var content = data.content.nodes.map(node => {
+  var content = data.carousel.nodes.map(node => {
     return createSlideContent(node);
   });
 
   return (
-    <SizedLayout title={"Home"}>
-      <SEO title="Home" />
-      <main id="content">
+    <SizedLayout title={'Home'}>
+      <SEO title='Home' />
+      <main id='content'>
         <FullScreenCarousel
           content={content}
           currentSlideStyle={{ minWidth: '60%' }}
           isTimed={true}
           slideStyle={{ minWidth: '50%' }}
         />
+        <FeaturedCategories data={data.featuredCategories} />
       </main>
     </SizedLayout>
   );
@@ -32,7 +32,7 @@ export default IndexPage;
 
 export var query = graphql`
   query {
-    content: allMarkdownRemark(
+    carousel: allMarkdownRemark(
       filter: {fileAbsolutePath: {regex: "/index/"}},
       sort: {fields: fileAbsolutePath}
     ) {
@@ -50,6 +50,23 @@ export var query = graphql`
           }
         }
         html
+      }
+    }
+
+    featuredCategories: allMarkdownRemark(
+      filter: {
+        fileAbsolutePath: {regex: "/featured-categories/"},
+      }) {
+      nodes {
+        frontmatter {
+          backgroundImage {
+            publicURL
+            id
+            name
+          }
+        }
+        htmlAst
+        id
       }
     }
 
