@@ -3,7 +3,6 @@ import { render } from "@testing-library/react";
 
 import logoData from "../__fixtures__/logo-data";
 import { allInvJson } from "../__fixtures__/category-menu-data";
-import allMdx from "../__fixtures__/all-mdx";
 import { PureHeader as Header } from "../header/header";
 
 describe('Header', () => {
@@ -13,7 +12,6 @@ describe('Header', () => {
     const { queryByRole } = render(
       <Header
         allInvJson={allInvJson}
-        allMdx={allMdx}
         logo={data}
         width={666}
       />
@@ -26,7 +24,6 @@ describe('Header', () => {
     const { queryByRole } = render(
       <Header
         allInvJson={allInvJson}
-        allMdx={allMdx}
         logo={data}
         width={667}
       />

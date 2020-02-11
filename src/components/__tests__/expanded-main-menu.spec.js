@@ -2,7 +2,6 @@ import React from "react";
 import { cleanup, fireEvent, render } from "@testing-library/react";
 
 import { allInvJson } from "../__fixtures__/category-menu-data";
-import allMdx from "../__fixtures__/all-mdx";
 import ExpandedMainMenu from "../header/expanded-main-menu";
 
 describe('ExpandedMainMenu', () => {
@@ -14,7 +13,6 @@ describe('ExpandedMainMenu', () => {
     const { queryByRole, queryByTestId } = render(
       <ExpandedMainMenu
         allInvJson={allInvJson}
-        allMdx={allMdx}
         isOpen={false}
         toggleMenu={toggleMenuMock}
       />
@@ -30,7 +28,6 @@ describe('ExpandedMainMenu', () => {
     const { queryByRole, queryByTestId } = render(
       <ExpandedMainMenu
         allInvJson={allInvJson}
-        allMdx={allMdx}
         isOpen={true}
         toggleMenu={toggleMenuMock}
       />
@@ -46,7 +43,6 @@ describe('ExpandedMainMenu', () => {
     const { queryByRole } = render(
       <ExpandedMainMenu
         allInvJson={allInvJson}
-        allMdx={allMdx}
         isOpen={false}
         toggleMenu={toggleMenuMock}
       />

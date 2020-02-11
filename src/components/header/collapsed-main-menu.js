@@ -10,7 +10,6 @@ import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 
 // Internal Imports
 import { DDMenuHeader, DDMenuBtn, DDMenuLink, DDMenuToggleBtn } from "./dd-menu";
-import { MDPageLinks } from "./header";
 
 import CategoryMenu from "./category-menu";
 
@@ -53,7 +52,6 @@ export const MainMenu = (props) => {
         </DDMenuBtn>
         <DDMenuLink link={'/jewelry/ring'} text={'Rings'} />
         <DDMenuLink link={'/firearm/pistol'} text={'Pistols'} />
-        <MDPageLinks data={props.allMdx} collapsed={true} />
         <DDMenuLink link={'/contact'} text={'Contact'} />
 
       </>
@@ -65,7 +63,6 @@ export default (props) => {
     null,
     <MainMenu
       allPagesJson={props.allPagesJson}
-      allMdx={props.allMdx}
     />
   );
 

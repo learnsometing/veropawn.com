@@ -9,7 +9,7 @@ import React from "react";
 
 // Internal Imports
 import { DDMenuToggleBtn } from "./dd-menu";
-import { HeaderMenuLink, MDPageLinks } from "./header";
+import { HeaderMenuLink } from "./header";
 
 import CategoryMenu from "./category-menu";
 
@@ -28,10 +28,6 @@ export default (props) => {
       />
       <HeaderMenuLink link={'/jewelry/ring'} text={'Rings'} />
       <HeaderMenuLink link={'/firearm/pistol'} text={'Pistols'} />
-      <MDPageLinks
-        data={props.allMdx}
-        collapsed={false}
-      />
       <HeaderMenuLink link={'/contact/'} text={'Contact'} />
     </>
   );

@@ -6,7 +6,6 @@ import { graphql, Link, useStaticQuery } from "gatsby";
 import header from "./header.module.scss";
 import layout from "../../styles/layout.module.css";
 
-import { DDMenuLink } from "./dd-menu";
 import HeaderMenuModal from "./header-menu-modal";
 import CollapsedMainMenu from "../header/collapsed-main-menu";
 import ExpandedMainMenu from "../header/expanded-main-menu";
@@ -37,26 +36,6 @@ export const HeaderMenuLink = (props) => {
   );
 };
 
-export const MDPageLinks = ({ data, collapsed }) => {
-  let LinkType = HeaderMenuLink;
-
-  if (collapsed) {
-    LinkType = DDMenuLink;
-  }
-
-  return (
-    <>
-      {data.nodes.map(node => (
-        <LinkType
-          key={node.id}
-          link={node.fields.slug}
-          text={node.frontmatter.title}
-        />
-      ))}
-    </>
-  );
-};
-
 export const withHeaderMenuModal = MenuComponent => {
   return props => {
     const [isOpen, setIsOpen] = useState(false);
@@ -76,7 +55,6 @@ export const withHeaderMenuModal = MenuComponent => {
       <>
         <MenuComponent
           allPagesJson={props.allPagesJson}
-          allMdx={props.allMdx}
           isOpen={isOpen}
           toggleMenu={toggleMenu}
         />
@@ -88,7 +66,7 @@ export const withHeaderMenuModal = MenuComponent => {
   }
 };
 
-export const PureHeader = ({ width, ...props }) => {
+export const PureHeader = ({ allPagesJson, logo, width }) => {
   let HeaderMenu;
   const headerWrapperClass = `${layout.columnCenterCenter} ${header.headerWrapper}`;
   const navClass = `${layout.rowCenterCenter} ${header.nav}`;
@@ -105,10 +83,9 @@ export const PureHeader = ({ width, ...props }) => {
       <header className={header.header}>
         <nav className={navClass}>
           <div className={navBarClass}>
-            <HeaderLogo logo={props.logo} />
+            <HeaderLogo logo={logo} />
             <HeaderMenu
-              allPagesJson={props.allPagesJson}
-              allMdx={props.allMdx}
+              allPagesJson={allPagesJson}
             />
           </div>
         </nav >
@@ -118,26 +95,11 @@ export const PureHeader = ({ width, ...props }) => {
 };
 
 export default ({ width }) => {
-  const { logo, allMdx, allPagesJson } = useStaticQuery(
+  const { logo, allPagesJson } = useStaticQuery(
     graphql`
       query {
         logo: file(relativePath: { eq: "logos-and-icons/logo.svg" }) {
           publicURL
-        }
-        
-        allMdx(
-          filter: {fileAbsolutePath: {regex: "/pages/"}},
-          sort: {fields: frontmatter___title},
-        ){
-          nodes{
-            id
-            frontmatter{
-              title
-            }
-            fields {
-              slug
-            }
-          }
         }
 
         allPagesJson(sort: {fields: subcategory}) {
@@ -159,7 +121,6 @@ export default ({ width }) => {
     <PureHeader
       width={width}
       logo={logo}
-      allMdx={allMdx}
       allPagesJson={allPagesJson}
     />
   );

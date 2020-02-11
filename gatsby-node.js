@@ -70,17 +70,6 @@ exports.createPages = async ({ graphql, actions }) => {
         }
       }
 
-      allMdx: allMdx(
-        filter: {fileAbsolutePath: {regex: "/pages/"}}
-      ){
-        nodes {
-          id
-          fields {
-            slug
-          }
-        }
-      }
-
       allItemPages: allItemsJson {
         nodes {
           fields {
@@ -102,17 +91,6 @@ exports.createPages = async ({ graphql, actions }) => {
         // Data passed to context is available in page queries as GraphQL variables.
         slug: node.fields.slug,
         photoNames: allMainPhotoNames
-      }
-    });
-  });
-
-  // Create a page for each markdown file.
-  data.allMdx.nodes.forEach(node => {
-    createPage({
-      path: node.fields.slug,
-      component: path.resolve(`./src/templates/markdown-page/markdown-page.js`),
-      context: {
-        id: node.id,
       }
     });
   });
