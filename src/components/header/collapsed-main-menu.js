@@ -44,7 +44,7 @@ export const MainMenu = (props) => {
         <DDMenuBtn
           key="browse-by-category"
           onClick={openCategoryMenu}
-          text={"Categories"}
+          text={"Browse"}
           isNavButton={true}
           isIconAfterText={true}
         >
@@ -52,8 +52,9 @@ export const MainMenu = (props) => {
         </DDMenuBtn>
         <DDMenuLink link={'/jewelry/ring'} text={'Rings'} />
         <DDMenuLink link={'/firearm/pistol'} text={'Pistols'} />
+        <DDMenuLink link={'/about'} text={'About Us'} />
         <DDMenuLink link={'/contact'} text={'Contact'} />
-
+        <DDMenuLink link={'/faq'} text={'FAQ'} />
       </>
   );
 }

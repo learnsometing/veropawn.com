@@ -9,7 +9,7 @@ import CollapsedMainMenu, { MainMenu } from "../header/collapsed-main-menu";
 
 describe('MainMenu', () => {
   it('should render the default menu correctly', () => {
-    const { queryByRole, queryByTestId, queryAllByRole } = render(
+    const { queryByRole, queryByTestId, queryByText } = render(
       <MainMenu
         allPagesJson={allPagesJson}
       />
@@ -21,15 +21,11 @@ describe('MainMenu', () => {
     // should have a button that opens the category menu
     expect(queryByRole('button')).toBeInTheDocument();
 
-    var links = queryAllByRole('link').map(link => link.textContent);
-    // rest of the menu should be filled with links to the markdown generated pages
-    // and other hardcoded links
-    titles.forEach(title => (
-      expect(links)).toContain(title)
-    );
-
-    expect(links).toContain('Rings');
-    expect(links).toContain('Pistols');
+    expect(queryByText('Rings')).toBeInTheDocument();
+    expect(queryByText('Pistols')).toBeInTheDocument();
+    expect(queryByText('About Us')).toBeInTheDocument();
+    expect(queryByText('Contact')).toBeInTheDocument();
+    expect(queryByText('FAQ')).toBeInTheDocument();
   });
 
   it('should render the category menu when the "categories" button is clicked', () => {
@@ -79,17 +75,12 @@ describe('MainMenu', () => {
     expect(queryByTestId('dd-menu-heading').textContent).toBe('Main Menu');
 
     // should have a button that opens the category menu
-    expect(queryByRole('button').textContent).toBe('Categories');
-
-    var links = queryAllByRole('link').map(link => link.textContent);
-    // rest of the menu should be filled with links to the markdown generated pages
-    // and other hardcoded links
-    titles.forEach(title => (
-      expect(links)).toContain(title)
-    );
-
-    expect(links).toContain('Rings');
-    expect(links).toContain('Pistols');
+    expect(queryByRole('button').textContent).toBe('Browse');
+    expect(queryByText('Rings')).toBeInTheDocument();
+    expect(queryByText('Pistols')).toBeInTheDocument();
+    expect(queryByText('About Us')).toBeInTheDocument();
+    expect(queryByText('Contact')).toBeInTheDocument();
+    expect(queryByText('FAQ')).toBeInTheDocument();
   });
 });
 

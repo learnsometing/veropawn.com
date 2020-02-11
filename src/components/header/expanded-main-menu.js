@@ -22,13 +22,15 @@ export default (props) => {
     <>
       <DDMenuToggleBtn
         isOpen={props.isOpen}
-        value={"Categories"}
+        value={"Browse"}
         key="browse-by-category"
         toggleMenu={toggleMenu}
       />
       <HeaderMenuLink link={'/jewelry/ring'} text={'Rings'} />
       <HeaderMenuLink link={'/firearm/pistol'} text={'Pistols'} />
+      <HeaderMenuLink link={'/about/'} text={'About Us'} />
       <HeaderMenuLink link={'/contact/'} text={'Contact'} />
+      <HeaderMenuLink link={'/faq/'} text={'FAQ'} />
     </>
   );
 }
