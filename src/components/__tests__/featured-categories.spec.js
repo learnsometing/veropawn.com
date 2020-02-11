@@ -24,9 +24,9 @@ describe('FeaturedCategories', () => {
     expect(queryByRole('img')).not.toBeInTheDocument();
   });
 
-  it('should return null if the node has no htmlAst', () => {
+  it('should return null if the node has no frontmatter title property', () => {
     let featured = category();
-    featured.htmlAst = null;
+    featured.frontmatter.title = null;
     const { queryByRole } = render(
       <FeaturedCategories data={{ nodes: [featured] }} />
     );
@@ -34,59 +34,9 @@ describe('FeaturedCategories', () => {
     expect(queryByRole('img')).not.toBeInTheDocument();
   });
 
-  it('should return null if the node has no p tag wrapper', () => {
+  it('should return null if the node has no frontmatter to property', () => {
     let featured = category();
-    featured.htmlAst.children[0] = null;
-    const { queryByRole } = render(
-      <FeaturedCategories data={{ nodes: [featured] }} />
-    );
-
-    expect(queryByRole('img')).not.toBeInTheDocument();
-  });
-
-  it('should return null if the node has no a tag', () => {
-    let featured = category();
-    featured.htmlAst.children[0].children[0] = null;
-    const { queryByRole } = render(
-      <FeaturedCategories data={{ nodes: [featured] }} />
-    );
-
-    expect(queryByRole('img')).not.toBeInTheDocument();
-  });
-
-  it('should return null if the node has no a tag properties', () => {
-    let featured = category();
-    featured.htmlAst.children[0].children[0].properties = null;
-    const { queryByRole } = render(
-      <FeaturedCategories data={{ nodes: [featured] }} />
-    );
-
-    expect(queryByRole('img')).not.toBeInTheDocument();
-  });
-
-  it('should return null if the node has no href', () => {
-    let featured = category();
-    featured.htmlAst.children[0].children[0].properties.href = null;
-    const { queryByRole } = render(
-      <FeaturedCategories data={{ nodes: [featured] }} />
-    );
-
-    expect(queryByRole('img')).not.toBeInTheDocument();
-  });
-
-  it('should return null if the node has no text node', () => {
-    let featured = category();
-    featured.htmlAst.children[0].children[0].children[0] = null;
-    const { queryByRole } = render(
-      <FeaturedCategories data={{ nodes: [featured] }} />
-    );
-
-    expect(queryByRole('img')).not.toBeInTheDocument();
-  });
-
-  it('should return null if the node has no text value', () => {
-    let featured = category();
-    featured.htmlAst.children[0].children[0].children[0].value = null;
+    featured.frontmatter.to = null;
     const { queryByRole } = render(
       <FeaturedCategories data={{ nodes: [featured] }} />
     );
@@ -110,35 +60,9 @@ function category() {
     "frontmatter": {
       "backgroundImage": {
         "publicURL": "/static/logo-0bf2a83f6b65d12e37a91163f1440090.svg"
-      }
-    },
-    "htmlAst": {
-      "type": "root",
-      "children": [
-        {
-          "type": "element",
-          "tagName": "p",
-          "properties": {},
-          "children": [
-            {
-              "type": "element",
-              "tagName": "a",
-              "properties": {
-                "href": "/firearm/pistol/"
-              },
-              "children": [
-                {
-                  "type": "text",
-                  "value": "Pistols"
-                }
-              ]
-            }
-          ]
-        }
-      ],
-      "data": {
-        "quirksMode": false
-      }
+      },
+      "title": "Pistols",
+      "to": "/firearm/pistol",
     },
     "id": "f88364d1-67b0-5311-9077-bced24ab4c21",
   };

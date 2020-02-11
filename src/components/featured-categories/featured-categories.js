@@ -20,28 +20,20 @@ export default function FeaturedCategories({ data }) {
     return data.nodes.map(category => {
 
       // just in case there is a typo in one of the files
-      if (!hasBackgroundImage()
-        || !(hasHref() && hasText())) {
+      if (!hasBackgroundImage() || !hasTitle() || !hasTo()) {
         return null;
       }
 
       const backgroundImage = category.frontmatter.backgroundImage;
-      // Remark wraps everything in a P element...
-      const linkWrapper = category.htmlAst.children[0];
-      // extract the link from the wrapper
-      const link = linkWrapper.children[0];
-      // extract the text node from the link
-      const textNode = link.children[0];
-      // Get the href property and the text of the link
-      const href = link.properties.href;
-      const text = textNode.value;
+      const title = category.frontmatter.title;
+      const to = category.frontmatter.to;
 
       return (
         <FeaturedLink
           backgroundImage={backgroundImage}
-          href={href}
+          text={title}
+          to={to}
           key={category.id}
-          text={text}
         />
       );
 
@@ -49,37 +41,21 @@ export default function FeaturedCategories({ data }) {
         return (category.frontmatter && category.frontmatter.backgroundImage);
       }
 
-      function hasHref() {
-        return (
-          // the abstract syntax tree created by parsing the markdown file
-          category.htmlAst
-          // p tag link is wrapped in
-          && category.htmlAst.children[0]
-          // a tag
-          && category.htmlAst.children[0].children[0]
-          // a tag properties
-          && category.htmlAst.children[0].children[0].properties
-          // href
-          && category.htmlAst.children[0].children[0].properties.href
-        );
+      function hasTitle() {
+        return (category.frontmatter && category.frontmatter.title);
       }
 
-      function hasText() {
-        return (
-          // text node
-          category.htmlAst.children[0].children[0].children[0]
-          // text node value
-          && category.htmlAst.children[0].children[0].children[0].value
-        );
+      function hasTo() {
+        return (category.frontmatter && category.frontmatter.to);
       }
     });
   }
 }
 
-export function FeaturedLink({ backgroundImage, href, text }) {
+export function FeaturedLink({ backgroundImage, text, to }) {
   return (
     <li className={featuredCategories.listItem}>
-      <Link to={href} className={featuredCategories.link}>
+      <Link alt={text} to={to} className={featuredCategories.link}>
         <div className={featuredCategories.linkContentWrapper}>
           <div className={featuredCategories.bgImageWrapper}>
             <img

@@ -67,8 +67,9 @@ export var query = graphql`
           backgroundImage {
             publicURL
           }
+          title
+          to
         }
-        htmlAst
         id
       }
     }
