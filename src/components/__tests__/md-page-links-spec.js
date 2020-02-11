@@ -2,22 +2,22 @@
 import React from "react";
 import { render } from "@testing-library/react";
 
-import allMarkdownRemark from "../__fixtures__/all-markdown-remark";
+import allMdx from "../__fixtures__/all-mdx";
 import { MDPageLinks } from "../header/header";
 
 describe("MDPageLinks", () => {
   it("Supplies the correct information to each link when rendered", () => {
     const { queryAllByRole } = render(
       <MDPageLinks
-        data={allMarkdownRemark}
+        data={allMdx}
         collapsed={true}
       />
     );
 
     const links = queryAllByRole('link');
 
-    const slugs = allMarkdownRemark.nodes.map(node => node.fields.slug);
-    const values = allMarkdownRemark.nodes.map(node => node.frontmatter.title);
+    const slugs = allMdx.nodes.map(node => node.fields.slug);
+    const values = allMdx.nodes.map(node => node.frontmatter.title);
 
     links.forEach(link => {
       expect(slugs.some(slug => link.href.includes(slug))).toBeTruthy();
@@ -28,7 +28,7 @@ describe("MDPageLinks", () => {
   it("Renders dropdown menu links when collapsed", () => {
     const { queryAllByRole } = render(
       <MDPageLinks
-        data={allMarkdownRemark}
+        data={allMdx}
         collapsed={true}
       />
     );
@@ -39,7 +39,7 @@ describe("MDPageLinks", () => {
   it("Renders header links when expanded", () => {
     const { queryAllByRole } = render(
       <MDPageLinks
-        data={allMarkdownRemark}
+        data={allMdx}
         collapsed={false}
       />
     );

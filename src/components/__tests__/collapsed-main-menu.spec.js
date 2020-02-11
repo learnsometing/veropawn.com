@@ -4,18 +4,18 @@ import { fireEvent, render } from "@testing-library/react";
 import '@testing-library/jest-dom/extend-expect';
 // fixtures
 import { allPagesJson, distinctCategories } from "../__fixtures__/category-menu-data";
-import allMarkdownRemark from "../__fixtures__/all-markdown-remark";
+import allMdx from "../__fixtures__/all-mdx";
 //components
 import CollapsedMainMenu, { MainMenu } from "../header/collapsed-main-menu";
 
 describe('MainMenu', () => {
-  const titles = allMarkdownRemark.nodes.map(node => node.frontmatter.title);
+  const titles = allMdx.nodes.map(node => node.frontmatter.title);
 
   it('should render the default menu correctly', () => {
     const { queryByRole, queryByTestId, queryAllByRole } = render(
       <MainMenu
         allPagesJson={allPagesJson}
-        allMarkdownRemark={allMarkdownRemark}
+        allMdx={allMdx}
       />
     );
 
@@ -40,7 +40,7 @@ describe('MainMenu', () => {
     const { queryByRole, queryAllByRole, queryByText, queryByTestId } = render(
       <MainMenu
         allPagesJson={allPagesJson}
-        allMarkdownRemark={allMarkdownRemark}
+        allMdx={allMdx}
       />
     );
 
@@ -63,7 +63,7 @@ describe('MainMenu', () => {
     const { queryByRole, queryAllByRole, queryByText, queryByTestId } = render(
       <MainMenu
         allPagesJson={allPagesJson}
-        allMarkdownRemark={allMarkdownRemark}
+        allMdx={allMdx}
       />
     );
 
@@ -106,7 +106,7 @@ describe('CollapsedMainMenu', () => {
     const { queryByRole, queryByTestId } = render(
       <CollapsedMainMenu
         allPagesJson={allPagesJson}
-        allMarkdownRemark={allMarkdownRemark}
+        allMdx={allMdx}
         isOpen={false}
         toggleMenu={toggleMenuMock}
       />
@@ -122,7 +122,7 @@ describe('CollapsedMainMenu', () => {
     const { queryByRole, queryByTestId } = render(
       <CollapsedMainMenu
         allPagesJson={allPagesJson}
-        allMarkdownRemark={allMarkdownRemark}
+        allMdx={allMdx}
         isOpen={true}
         toggleMenu={toggleMenuMock}
       />
@@ -138,7 +138,7 @@ describe('CollapsedMainMenu', () => {
     const { queryByRole } = render(
       <CollapsedMainMenu
         allPagesJson={allPagesJson}
-        allMarkdownRemark={allMarkdownRemark}
+        allMdx={allMdx}
         isOpen={false}
         toggleMenu={toggleMenuMock}
       />
