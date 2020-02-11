@@ -27,6 +27,13 @@ module.exports = {
         path: `${__dirname}/src/markdown/`,
       },
     },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `pdf`,
+        path: `${__dirname}/src/pdf/`,
+      },
+    },
     `gatsby-transformer-sharp`,
     `gatsby-transformer-json`,
     `gatsby-transformer-remark`,
