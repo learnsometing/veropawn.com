@@ -2,13 +2,14 @@ import React from 'react';
 import SizedLayout from '../components/layout/layout';
 import SEO from '../components/seo';
 import ExpandableSection from '../components/expandable-section/expandable-section'
+import './page.css';
 
 export default function About() {
   return (
     <SizedLayout title={'About Us'}>
       <SEO title='About Us' />
       <main id='content'>
-        <h1>About Us</h1>
+        <h1 style={{ textAlign: 'center' }}>About Us</h1>
         <p>
           Cash Pawn & Jewelry was established in 1995 and has provided the highest quality pawn services in Vero Beach and the surrounding areas ever since.
           We specialize in short-term loans from $5 to $50,000. We also buy items valued up to $25,000.
@@ -24,10 +25,10 @@ export default function About() {
             Pawn loans offer the flexibility you need without the stress. If you’re struggling to repay your loan, your pawned item may be used to repay your debt in full. Don’t get trapped in a never-ending, risky payday loan with a ridiculous interest rate. Get the money you need immediately with a no-risk cash loan from us.
           </p>
         </ExpandableSection>
-        <ExpandableSection heading={'Most Commonly Pawned Items'}>
+        <ExpandableSection heading={'Commonly Pawned'}>
           <p>
             Though we specialize in jewelry and firearms, we buy, sell, and pawn a variety of items:
-  </p>
+          </p>
           <ul>
             <li>
               <span>

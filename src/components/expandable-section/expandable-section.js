@@ -1,24 +1,38 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { GoPlus } from 'react-icons/go';
+import { AiOutlinePlusCircle, AiOutlineMinusCircle } from 'react-icons/ai';
 import { IconContext } from 'react-icons';
 
 import layout from '../../styles/layout.module.css';
 import expandableSection from './expandable-section.module.css';
 
-export default function ExpandableSection({ children, heading }) {
-  var [isExpanded, setIsExpanded] = useState(false);
+export function ExpandIcon({ isExpanded }) {
+  var icon = <AiOutlinePlusCircle data-testid='ai-outlin-plus-icon' />;
+
+  if (isExpanded) {
+    icon = <AiOutlineMinusCircle data-testid='ai-outline-minus-icon' />
+  }
 
   return (
+    <IconContext.Provider value={{ size: '2em' }}>
+      {icon}
+    </IconContext.Provider>
+  );
+}
+
+export default function ExpandableSection({ children, heading }) {
+  var [isExpanded, setIsExpanded] = useState(false);
+  return (
     <article>
-      <header className={`${layout.rowStartCenter}`}>
+      <header className={`${layout.rowStartCenter} ${expandableSection.header}`}>
         <h2 className={`${layout.rowCenterCenter} ${expandableSection.heading}`}>
           {heading}
         </h2>
-        <button onClick={toggleExpand}>
-          <IconContext.Provider value={{ size: '1.45em' }}>
-            <GoPlus data-testid='go-plus-icon' />
-          </IconContext.Provider>
+        <button
+          className={`${layout.columnCenterCenter} ${expandableSection.expandBtn}`}
+          onClick={toggleExpand}
+        >
+          <ExpandIcon isExpanded={isExpanded} />
         </button>
       </header>
       <section>

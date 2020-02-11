@@ -1,3 +1,14 @@
+.header {
+  margin-bottom: 1.45rem;
+}
+
 .heading {
   margin: 0;
+}
+
+.expandBtn {
+  height: 100%;
+  -webkit-appearance: none;
+  padding: 0;
+  margin: 0 .375rem;
 }

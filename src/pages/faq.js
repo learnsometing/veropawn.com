@@ -3,13 +3,14 @@ import { graphql } from 'gatsby'
 import SizedLayout from '../components/layout/layout';
 import SEO from '../components/seo';
 import ExpandableSection from '../components/expandable-section/expandable-section'
+import './page.css';
 
 export default function FAQ({ data }) {
   return (
     <SizedLayout title={'About Us'}>
       <SEO title='About Us' />
       <main id='content'>
-        <h1>FAQ</h1>
+        <h1 style={{ textAlign: 'center' }}>FAQ</h1>
         <ExpandableSection heading={'How does a pawn loan work?'}>
           <p>
             Pawn loans are a quick and easy way to borrow money.
