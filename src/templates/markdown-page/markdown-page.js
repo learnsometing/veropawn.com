@@ -1,5 +1,4 @@
 import React from 'react';
-import { MDXRenderer } from 'gatsby-plugin-mdx';
 import { graphql } from 'gatsby';
 
 import SizedLayout from '../../components/layout/layout';
@@ -18,21 +17,19 @@ export default ({ data: { mdx } }) => {
           <header className={headerClassName}>
             <h1>{title}</h1>
           </header>
-          <MDXRenderer>{mdx.body}</MDXRenderer>
         </div>
       </main>
     </SizedLayout>
   );
 }
 
-export const query = graphql`
-  query($id: String) {
-    mdx(id: {eq: $id}) {
-      body
-      frontmatter {
-        title
-      }
-      id
-    }
-  }
-`
+// export const query = graphql`
+//   query($id: String) {
+//     markdownRemark(id: {eq: $id}) {
+//       frontmatter {
+//         title
+//       }
+//       id
+//     }
+//   }
+// `
