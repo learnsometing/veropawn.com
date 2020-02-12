@@ -3,13 +3,12 @@ import { graphql } from 'gatsby'
 import SizedLayout from '../components/layout/layout';
 import SEO from '../components/seo';
 import ExpandableSection from '../components/expandable-section/expandable-section'
-import './page.css';
 
 export default function FAQ({ data }) {
   return (
     <SizedLayout title={'About Us'}>
       <SEO title='About Us' />
-      <main id='content'>
+      <main id='content' style={{ padding: '1rem' }}>
         <h1 style={{ textAlign: 'center' }}>FAQ</h1>
         <ExpandableSection heading={'How does a pawn loan work?'}>
           <p>

@@ -2,13 +2,12 @@ import React from 'react';
 import SizedLayout from '../components/layout/layout';
 import SEO from '../components/seo';
 import ExpandableSection from '../components/expandable-section/expandable-section'
-import './page.css';
 
 export default function About() {
   return (
     <SizedLayout title={'About Us'}>
       <SEO title='About Us' />
-      <main id='content'>
+      <main id='content' style={{ padding: '1rem' }}>
         <h1 style={{ textAlign: 'center' }}>About Us</h1>
         <p>
           Cash Pawn & Jewelry was established in 1995 and has provided the highest quality pawn services in Vero Beach and the surrounding areas ever since.
