@@ -3,14 +3,16 @@ import { act, fireEvent, render } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 
 import FullScreenCarousel from "../carousel/full-screen-carousel";
-import { createContentArray } from '../../helpers/slides';
+import { createContentFromSharp } from '../../helpers/slides';
 import { mainPhotos } from "../../templates/__fixtures__/all-photos";
 
 describe('FullScreenCarousel', () => {
   var onIndexChangeMock = jest.fn();
   var alt = "Women's Ring";
   var photos = mainPhotos.slice(0, 4);
-  var content = createContentArray(alt, photos);
+  var content = photos.map((photo, idx) => (
+    createContentFromSharp(alt, idx, photo)
+  ));
 
   beforeEach(() => jest.useFakeTimers());
 

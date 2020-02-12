@@ -1,50 +1,25 @@
-import { createContentArray, createContentFromMarkdown } from '../../helpers/slides';
+import { createContentFromSharp, createContentFromMarkdown } from '../../helpers/slides';
 import { mainPhotos } from '../../templates/__fixtures__/all-photos';
 
-describe('createContentArray', () => {
-  it('should return a content array when photos is an object with id and childImageSharp properties', () => {
-    let alt = 'photo';
-    let photo = mainPhotos[0];
-    let expected = [{
+describe('createContentFromSharp', () => {
+  var alt = 'photo';
+  var idx = 0;
+  var photo = mainPhotos[0];
+
+  it('should return an object with alt, id', () => {
+    let expected = {
       alt: 'photo 1',
       id: photo.id,
       photo: photo.childImageSharp,
-    }];
+    };
 
-    expect(createContentArray(alt, photo)).toStrictEqual(expected);
+    expect(createContentFromSharp(alt, idx, photo)).toStrictEqual(expected);
   });
 
-  it('should return an array when given an array of objects with id and childImageSharp properties', () => {
-    let alt = 'photo';
-    let photos = mainPhotos.slice(0, 2);
-    let expected = [
-      {
-        alt: 'photo 1',
-        id: photos[0].id,
-        photo: photos[0].childImageSharp,
-      },
-      {
-        alt: 'photo 2',
-        id: photos[1].id,
-        photo: photos[1].childImageSharp,
-      }
-    ];
+  it('should return null if the photo node has no id or childImageSharp properties', () => {
+    photo = 'foo';
 
-    expect(createContentArray(alt, photos)).toStrictEqual(expected);
-  });
-
-  it('should return null if photos is not an array or object', () => {
-    let alt = 'photo';
-    let photos = 'foo';
-
-    expect(createContentArray(alt, photos)).toStrictEqual(null);
-  });
-
-  it('should replace alt with a default string if alt is not a string', () => {
-    let alt = {};
-    let photos = mainPhotos[0];
-    let result = createContentArray(alt, photos);
-    expect(result[0].alt).toStrictEqual('Default 1');
+    expect(createContentFromSharp(alt, idx, photo)).toStrictEqual(null);
   });
 });
 

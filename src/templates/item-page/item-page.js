@@ -11,7 +11,7 @@ import FullScreenCarousel from "../../components/carousel/full-screen-carousel";
 
 import itemPage from "./item-page.module.scss";
 import layout from "../../styles/layout.module.css";
-import { createContentArray } from "../../helpers/slides";
+import { createContentFromSharp } from "../../helpers/slides";
 
 const PageHeader = ({ descript }) => {
   const pageHeaderClass = `${layout.columnCenterCenter} ${itemPage.header}`;
@@ -60,7 +60,9 @@ const ItemPage = ({ data, size }) => {
   var photos = data.photos.nodes.length
     ? data.photos.nodes
     : defaultPhoto;
-  var content = createContentArray(descript, photos);
+  var content = photos.map((photo, idx) => (
+    createContentFromSharp(descript, idx, photo)
+  ));
 
   const title = `${descript}-${invNum}`;
   const wrapperClass = `${layout.columnCenterCenter} ${itemPage.wrapper}`;

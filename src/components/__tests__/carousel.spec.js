@@ -3,13 +3,15 @@ import { act, fireEvent, render } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 
 import Carousel from '../carousel/carousel';
-import { createContentArray } from '../../helpers/slides';
+import { createContentFromSharp } from '../../helpers/slides';
 import { allPhotoNodes } from '../../templates/__fixtures__/all-photos';
 
 describe('Carousel', () => {
   var alt = 'Handgun With Case 2 Mags';
   var photos = allPhotoNodes.slice(0, 4);
-  var content = createContentArray(alt, photos);
+  var content = photos.map((photo, idx) => (
+    createContentFromSharp(alt, idx, photo)
+  ));
   var onIndexChangeMock = jest.fn();
 
   beforeEach(() => {
@@ -123,7 +125,9 @@ describe('Carousel', () => {
   });
 
   it('should not render either carousel button if content.length is 1', () => {
-    const content = createContentArray(alt, photos[0]);
+    const content = photos.slice(0, 1).map((photo, idx) => (
+      createContentFromSharp(alt, idx, photo)
+    ));
 
     const { queryByTestId } = render(
       <Carousel content={content} />
