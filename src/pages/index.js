@@ -5,11 +5,11 @@ import SEO from '../components/seo';
 import FullScreenCarousel from '../components/carousel/full-screen-carousel';
 import FeaturedCategories from '../components/featured-categories/featured-categories';
 import './index.css';
-import { createSlideContent } from '../helpers/slides';
+import { createContentFromMarkdown } from '../helpers/slides';
 
 const IndexPage = ({ data }) => {
   var content = data.carousel.nodes.map(node => {
-    return createSlideContent(node);
+    return createContentFromMarkdown(node);
   });
 
   return (
@@ -38,7 +38,6 @@ export var query = graphql`
     ) {
       nodes {
         frontmatter {
-          title
           featuredImage {
             childImageSharp{
               fluid(maxWidth: 1024){
@@ -48,8 +47,11 @@ export var query = graphql`
             id
             name
           }
+          linkText
+          text
+          title
+          to
         }
-        html
       }
     }
 

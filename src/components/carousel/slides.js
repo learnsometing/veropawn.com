@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'gatsby';
 import Img from 'gatsby-image';
-import ReactHtmlParser from 'react-html-parser';
+
 import uniqueId from 'lodash/uniqueId';
 
 import slides from './slides.module.css';
@@ -15,7 +16,12 @@ export const Slide = ({ content, wrapperClassName, wrapperStyle }) => (
       loading={'eager'}
       className={slides.img}
     />
-    <TextOverlay html={content.html} title={content.title} />
+    <TextOverlay
+      linkText={content.linkText}
+      text={content.text}
+      title={content.title}
+      to={content.to}
+    />
   </div>
 );
 
@@ -25,24 +31,32 @@ Slide.propTypes = {
   wrapperStyle: PropTypes.object
 };
 
-export function TextOverlay({ html, title }) {
-  if (html) {
-    return (
-      <div className={slides.textOverlayWrapper}>
-        <div className={`${layout.columnStartCenter} ${slides.textOverlay}`}>
-          <p className={slides.textOverlayTitle}>{title}</p>
-          {ReactHtmlParser(html)}
-        </div>
-      </div>
-    );
+export function TextOverlay({ linkText, text, title, to }) {
+  var hasNoOverlayContent = !linkText && !text && !title && !to;
+
+  if (hasNoOverlayContent) {
+    // If no text and no title, shouldn't be any other content on the slide.
+    return null;
   }
 
-  return null;
+  return (
+    <div className={slides.textOverlayWrapper}>
+      <div className={`${layout.columnStartCenter} ${slides.textOverlay}`}>
+        {title ? <p className={slides.textOverlayTitle}>{title}</p> : null}
+        {text ? <p>{text}</p> : null}
+        {linkText && to ? <Link alt={linkText} to={to}>{linkText}</Link> : null}
+      </div>
+    </div>
+  );
+
 }
 
+// TODO
 TextOverlay.propTypes = {
-  html: PropTypes.string,
+  linkText: PropTypes.string,
+  text: PropTypes.string,
   title: PropTypes.string,
+  to: PropTypes.string,
 };
 
 export default function Slides(props) {
