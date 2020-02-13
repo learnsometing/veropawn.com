@@ -1,8 +1,9 @@
 module.exports = {
   siteMetadata: {
-    title: `Cash Pawn and Jewelry`,
-    description: `Browse the full inventory of Cash Pawn and Jewelry, located in Vero Beach, FL.`,
+    title: `Cash Pawn & Jewelry`,
+    description: `Browse the full inventory of Cash Pawn & Jewelry, located in Vero Beach, FL.`,
     author: `Brian Monaccio`,
+    siteUrl: `http://veropawn.net`
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
@@ -38,20 +39,64 @@ module.exports = {
     `gatsby-transformer-json`,
     `gatsby-transformer-remark`,
     `gatsby-plugin-sharp`,
-    // remove this soon...not needed
+    `gatsby-plugin-sitemap`,
+    {
+      resolve: `gatsby-plugin-robots-txt`,
+      options: {
+        env: {
+          development: {
+            policy: [{ userAgent: '*', allow: [] }]
+          },
+          production: {
+            policy: [{ userAgent: '*', disallow: [] }]
+          }
+        }
+      }
+    },
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `gatsby-starter-default`,
-        short_name: `starter`,
+        name: `Cash Pawn & Jewelry`,
+        short_name: `Cash Pawn`,
         start_url: `/`,
-        background_color: `#663399`,
-        theme_color: `#663399`,
+        background_color: `#B0151F`,
+        theme_color: `#B0151F`,
         display: `minimal-ui`,
-        icon: `src/images/logos-and-icons/gatsby-icon.png`, // This path is relative to the root of the site.
+        icon: `src/images/logos-and-icons/logo-black.svg`, // This path is relative to the root of the site.
       },
     },
     `gatsby-plugin-sass`,
+    {
+      resolve: `gatsby-plugin-favicon`,
+      options: {
+        logo: "./src/images/logos-and-icons/logo-black.svg",
+
+        // WebApp Manifest Configuration
+        appName: null, // Inferred with your package.json
+        appDescription: "Browse Cash Pawn & Jewelry's (Vero Beach, FL) Full Inventory Catalog",
+        developerName: 'Brian Monaccio',
+        developerURL: null,
+        dir: 'auto',
+        lang: 'en-US',
+        background: '#B0151F',
+        theme_color: '#B0151F',
+        display: 'standalone',
+        orientation: 'any',
+        start_url: '/',
+        version: '1.0',
+
+        icons: {
+          android: true,
+          appleIcon: true,
+          appleStartup: true,
+          coast: true,
+          favicons: true,
+          firefox: true,
+          yandex: true,
+          windows: true
+        }
+      }
+    },
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
     // `gatsby-plugin-offline`,

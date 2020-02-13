@@ -37,7 +37,7 @@ exports.onCreateNode = ({ node, actions }) => {
     let value;
 
     if (node.internal.type === "ItemsJson") {
-      value = `/${_slugify(node.category)}/${_slugify(node.subcategory)}/${node.id}`;
+      value = `/${_slugify(node.category)}/${_slugify(node.subcategory)}/${node.invNum}`;
     } else if (node.internal.type === "PagesJson") {
       value = `/${_slugify(node.category)}/${_slugify(node.subcategory)}/`
     }
