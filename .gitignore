@@ -67,11 +67,3 @@ yarn-error.log
 .pnp.js
 # Yarn Integrity file
 .yarn-integrity
-
-# ignore so changes to production don't conflict with dev
-src/data
-src/images
-src/markdown
-raw
-not-for-sale
-src/pdf
