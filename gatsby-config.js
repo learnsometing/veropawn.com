@@ -62,14 +62,14 @@ module.exports = {
         background_color: `#B0151F`,
         theme_color: `#B0151F`,
         display: `minimal-ui`,
-        icon: `src/images/logos-and-icons/logo-black.svg`, // This path is relative to the root of the site.
+        icon: `src/images/logos-and-icons/logo.svg`, // This path is relative to the root of the site.
       },
     },
     `gatsby-plugin-sass`,
     {
       resolve: `gatsby-plugin-favicon`,
       options: {
-        logo: "./src/images/logos-and-icons/logo-black.svg",
+        logo: "./src/images/logos-and-icons/favicon.svg",
 
         // WebApp Manifest Configuration
         appName: null, // Inferred with your package.json
