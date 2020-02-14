@@ -63,13 +63,13 @@ export var query = graphql`
           }
         }
       }, 
-      sort: {fields: frontmatter___title}) {
+      sort: {fields: frontmatter___linkText}) {
       nodes {
         frontmatter {
           backgroundImage {
             publicURL
           }
-          title
+          linkText
           to
         }
         id

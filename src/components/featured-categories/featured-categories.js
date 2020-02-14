@@ -25,13 +25,13 @@ export default function FeaturedCategories({ data }) {
       }
 
       const backgroundImage = category.frontmatter.backgroundImage;
-      const title = category.frontmatter.title;
+      const linkText = category.frontmatter.linkText;
       const to = category.frontmatter.to;
 
       return (
         <FeaturedLink
           backgroundImage={backgroundImage}
-          text={title}
+          text={linkText}
           to={to}
           key={category.id}
         />
@@ -42,7 +42,7 @@ export default function FeaturedCategories({ data }) {
       }
 
       function hasTitle() {
-        return (category.frontmatter && category.frontmatter.title);
+        return (category.frontmatter && category.frontmatter.linkText);
       }
 
       function hasTo() {

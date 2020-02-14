@@ -24,9 +24,9 @@ describe('FeaturedCategories', () => {
     expect(queryByRole('img')).not.toBeInTheDocument();
   });
 
-  it('should return null if the node has no frontmatter title property', () => {
+  it('should return null if the node has no frontmatter linkText property', () => {
     let featured = category();
-    featured.frontmatter.title = null;
+    featured.frontmatter.linkText = null;
     const { queryByRole } = render(
       <FeaturedCategories data={{ nodes: [featured] }} />
     );
@@ -61,7 +61,7 @@ function category() {
       "backgroundImage": {
         "publicURL": "/static/logo-0bf2a83f6b65d12e37a91163f1440090.svg"
       },
-      "title": "Pistols",
+      "linkText": "Pistols",
       "to": "/firearm/pistol",
     },
     "id": "f88364d1-67b0-5311-9077-bced24ab4c21",
