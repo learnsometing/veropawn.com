@@ -38,11 +38,12 @@
   background-color: rgba(0, 0, 0, .1);
   border-radius: 50%;
   margin-bottom: 0.375rem;
+  padding: 21.967px;
 }
 
 .bgImage {
-  width: 100%;
-  height: auto;
+  width: 106.066px;
+  height: 106.066px;
   margin: 0;
 }
 
