@@ -9,9 +9,9 @@ import { Layout } from '../../components/layout/layout';
 import getPhotosOfItem from '../util/getPhotosOfItem';
 
 import 'rc-pagination/assets/index.css';
-import shoppingPage from './shopping-page.module.scss';
+import shoppingPage from './shopping-page.module.css';
 import layout from '../../styles/layout.module.css';
-import './pagination.scss';
+import './pagination.css';
 
 export const ItemCard = ({ item, photo }) => {
   const descript = item.descript;

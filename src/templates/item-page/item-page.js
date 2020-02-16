@@ -9,7 +9,7 @@ import { Layout } from "../../components/layout/layout";
 import { DetailsCard, DetailsList } from "./details";
 import FullScreenCarousel from "../../components/carousel/full-screen-carousel";
 
-import itemPage from "./item-page.module.scss";
+import itemPage from "./item-page.module.css";
 import layout from "../../styles/layout.module.css";
 import { createContentFromSharp } from "../../helpers/slides";
 

@@ -6,6 +6,7 @@
   margin: 0 auto;
   background-color: #BD3D0D;
   color: #fff;
+  display: -webkit-box;
 }
 
 .socialIcons {

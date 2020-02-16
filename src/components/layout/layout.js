@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import sizeMe from "react-sizeme";
 
-import "../../styles/base.scss";
+import "../../styles/base.css";
 import "./layout.css";
 
 import SEO from "../../components/seo";

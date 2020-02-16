@@ -2,17 +2,16 @@ import React from "react";
 import { FaEbay, FaFacebookSquare } from "react-icons/fa";
 import { IconContext } from "react-icons";
 
-import footer from "./footer.module.scss";
+import footer from "./footer.module.css";
 import layout from "../../styles/layout.module.css";
 
 export default () => {
-  const footerClass = `${layout.columnCenterCenter} ${footer.footer}`;
   const socialIconsClass = `${layout.rowCenterCenter} ${footer.socialIcons}`;
   const socialIconClass = `${layout.rowCenterCenter} ${footer.socialIcon}`;
   const copyrightContainerClass = `${layout.rowCenterCenter} ${footer.copyrightContainer}`;
 
   return (
-    <footer className={footerClass}>
+    <footer className={`${layout.columnCenterCenter} ${footer.footer}`}>
       <div className={socialIconsClass}>
         <IconContext.Provider value={{ color: '#fff', size: '48px' }}>
           <a className={socialIconClass} href="https://www.ebay.com/usr/cashpawn"><FaEbay /></a>

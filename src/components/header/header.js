@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { graphql, Link, useStaticQuery } from "gatsby";
 
 // Internal Imports
-import header from "./header.module.scss";
+import header from "./header.module.css";
 import layout from "../../styles/layout.module.css";
 
 import HeaderMenuModal from "./header-menu-modal";

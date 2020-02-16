@@ -3,7 +3,7 @@ import { Link } from "gatsby";
 import { FaAngleUp, FaAngleDown } from "react-icons/fa";
 import PropTypes from "prop-types";
 
-import ddMenu from "./dd-menu.module.scss";
+import ddMenu from "./dd-menu.module.css";
 import layout from "../../styles/layout.module.css";
 
 export const DDMenuBtn = ({ children, isIconAfterText, isNavButton, onClick, text }) => {

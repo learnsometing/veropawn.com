@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import layout from "../../styles/layout.module.css";
-import itemPage from "./item-page.module.scss";
+import itemPage from "./item-page.module.css";
 
 export const Detail = ({ name, value, ...props }) => {
   const detailClass = `${layout.rowStartCenter} ${itemPage.deet}`;

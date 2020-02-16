@@ -65,7 +65,15 @@ module.exports = {
         icon: `src/images/logos-and-icons/logo.svg`, // This path is relative to the root of the site.
       },
     },
-    `gatsby-plugin-sass`,
+    {
+      resolve: `gatsby-plugin-postcss`,
+      options: {
+        postCssPlugins: [
+          require(`precss`),
+          require(`postcss-preset-env`)({ stage: 4 }),
+        ],
+      },
+    },
     {
       resolve: `gatsby-plugin-favicon`,
       options: {

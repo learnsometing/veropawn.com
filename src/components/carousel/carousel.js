@@ -7,7 +7,7 @@ import Controls from './controls';
 import FSControls from './full-screen-controls';
 import { useCurrentIndex } from './hooks/useCurrentIndex';
 
-import carousel from './carousel.module.scss';
+import carousel from './carousel.module.css';
 import layout from '../../styles/layout.module.css';
 
 const Carousel = (props) => {
