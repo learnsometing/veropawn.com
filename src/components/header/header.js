@@ -81,14 +81,14 @@ export const PureHeader = ({ allPagesJson, logo, width }) => {
   return (
     <div className={headerWrapperClass}>
       <header className={header.header}>
-        <nav className={navClass}>
+        <div className={navClass}>
           <div className={navBarClass}>
             <HeaderLogo logo={logo} />
             <HeaderMenu
               allPagesJson={allPagesJson}
             />
           </div>
-        </nav >
+        </div >
       </header >
     </div >
   );

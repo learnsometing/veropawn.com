@@ -5,14 +5,15 @@
 */
 
 // Node_Modules Imports
-import React from "react";
+import React from 'react';
 
 // Internal Imports
-import { DDMenuToggleBtn } from "./dd-menu";
-import { HeaderMenuLink } from "./header";
+import { DDMenuToggleBtn } from './dd-menu';
+import { HeaderMenuLink } from './header';
 
-import CategoryMenu from "./category-menu";
-
+import CategoryMenu from './category-menu';
+import layout from '../../styles/layout.module.css';
+import expanded from './expanded.module.css';
 export default (props) => {
   const _categoryMenu = <CategoryMenu data={props.allPagesJson} />
 
@@ -22,15 +23,18 @@ export default (props) => {
     <>
       <DDMenuToggleBtn
         isOpen={props.isOpen}
-        value={"Browse"}
-        key="browse-by-category"
+        value={'Browse'}
+        key='browse-by-category'
         toggleMenu={toggleMenu}
       />
-      <HeaderMenuLink link={'/jewelry/ring'} text={'Rings'} />
-      <HeaderMenuLink link={'/firearm/pistol'} text={'Pistols'} />
-      <HeaderMenuLink link={'/about/'} text={'About Us'} />
-      <HeaderMenuLink link={'/contact/'} text={'Contact'} />
-      <HeaderMenuLink link={'/faq/'} text={'FAQ'} />
+      <nav className={`${layout.rowStartCenter} ${expanded.nav}`}>
+        <HeaderMenuLink link={'/jewelry/ring'} text={'Rings'} />
+        <HeaderMenuLink link={'/firearm/pistol'} text={'Pistols'} />
+        <HeaderMenuLink link={'/'} text={'Home'} />
+        <HeaderMenuLink link={'/contact'} text={'Contact'} />
+        <HeaderMenuLink link={'/about'} text={'About'} />
+        <HeaderMenuLink link={'/faq'} text={'FAQ'} />
+      </nav>
     </>
   );
 }

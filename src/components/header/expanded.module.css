@@ -1,0 +1,16 @@
+.nav {
+  height: 100%;
+  flex-grow: 1;
+  width: auto;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
+  /* Uncomment if more stuff is added to the navbar */
+  /* mask-image: -webkit-linear-gradient(to right, transparent, black 20px, black 90%, transparent);
+  mask-image: -moz-linear-gradient(to right, transparent, black 20px, black 90%, transparent);
+  mask-image: linear-gradient(to right, transparent, black 20px, black 90%, transparent);
+  -webkit-mask-image: -webkit-linear-gradient(to right, transparent, black 20px, black 90%, transparent);
+  -webkit-mask-image: -moz-linear-gradient(to right, transparent, black 20px, black 90%, transparent);
+  -webkit-mask-image: linear-gradient(to right,
+  transparent, black 20px, black 90%, transparent); */
+}

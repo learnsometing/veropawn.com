@@ -52,8 +52,9 @@ export const MainMenu = (props) => {
         </DDMenuBtn>
         <DDMenuLink link={'/jewelry/ring'} text={'Rings'} />
         <DDMenuLink link={'/firearm/pistol'} text={'Pistols'} />
-        <DDMenuLink link={'/about'} text={'About Us'} />
+        <DDMenuLink link={'/'} text={'Home'} />
         <DDMenuLink link={'/contact'} text={'Contact'} />
+        <DDMenuLink link={'/about'} text={'About'} />
         <DDMenuLink link={'/faq'} text={'FAQ'} />
       </>
   );
