@@ -10,7 +10,6 @@
   display: flex;
   flex-direction: column;
   position: relative;
-  height: 100%;
   padding-top: 3rem;
 }
 
@@ -24,7 +23,7 @@
 
 #root, #content {
   width: 100%;
-  height: 100%;
+  flex: 1 0 auto;
 }
 
 #footerContainer {
