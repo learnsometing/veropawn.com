@@ -57,21 +57,19 @@ const ItemPage = ({ data, size }) => {
       title={`${descript} #${invNum}`}
       width={size.width}
     >
-      <main id="content">
-        <div className={`${layout.columnCenterCenter} ${itemPage.wrapper}`}>
-          <FullScreenCarousel content={content} />
-          <DetailsCard>
-            <DetailsList
-              category={category}
-              details={details}
-              id={id}
-              invNum={invNum}
-              model={model}
-            />
-          </DetailsCard>
-        </div>
-        <InterestedCTA />
-      </main>
+      <div className={`${layout.columnCenterCenter} ${itemPage.wrapper}`}>
+        <FullScreenCarousel content={content} />
+        <DetailsCard>
+          <DetailsList
+            category={category}
+            details={details}
+            id={id}
+            invNum={invNum}
+            model={model}
+          />
+        </DetailsCard>
+      </div>
+      <InterestedCTA />
     </Layout>
   );
 

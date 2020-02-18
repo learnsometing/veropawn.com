@@ -2,7 +2,6 @@ import React from 'react';
 import sizeMe from 'react-sizeme';
 import { MdPhone } from 'react-icons/md';
 import { IconContext } from 'react-icons';
-import SEO from '../components/seo';
 import { Layout } from '../components/layout/layout';
 
 import layout from '../styles/layout.module.css';
@@ -87,8 +86,7 @@ function Contact({ size }) {
       title={'Contact'}
       width={width}
     >
-      <SEO title='Contact' />
-      <main id='content' className={`${contact.layout} ${layout.columnStartCenter}`}>
+      <main className={`${contact.layout} ${layout.columnStartCenter}`}>
         <div className={`${layout.columnStartStart} ${contact.infoWrapper}`}>
           {/* Directions */}
           <section className={contact.section}>

@@ -93,19 +93,20 @@ export const CallToAction = ({ currentPage, ...props }) => {
   };
 
   const CTA = _getCTA(currentPage);
-  const CTAContainerClass = `${layout.columnCenterCenter} ${shoppingPage.CTAContainer}`;
   const CTATextClass = `${layout.rowCenterCenter} ${shoppingPage.CTAText}`
   const CTALinkClass = `${layout.rowCenterCenter} ${shoppingPage.CTALink}`;
 
   return (
-    <div className={CTAContainerClass}>
-      <div>
-        <h2 className={shoppingPage.CTAHeader}>{CTA.header}</h2>
+    <div className={shoppingPage.CTACard}>
+      <div className={`${layout.columnCenterCenter} ${shoppingPage.CTAContainer}`}>
+        <div>
+          <h2 className={shoppingPage.CTAHeader}>{CTA.header}</h2>
+        </div>
+        <div>
+          <p className={CTATextClass}>{CTA.text}</p>
+        </div>
+        <Link to={CTA.link} className={CTALinkClass}>{CTA.linkText}</Link>
       </div>
-      <div>
-        <p className={CTATextClass}>{CTA.text}</p>
-      </div>
-      <Link to={CTA.link} className={CTALinkClass}>{CTA.linkText}</Link>
     </div>
   );
 };
@@ -177,28 +178,26 @@ export const PureShoppingPage = (props) => {
         numItems={numItems}
         upperLimit={upperLimit}
       />
-      <main id="content">
-        <ItemCards
-          items={itemsOnPage}
-          defaultPhoto={defaultPhoto}
-          photos={allMainPhotos}
+      <ItemCards
+        items={itemsOnPage}
+        defaultPhoto={defaultPhoto}
+        photos={allMainPhotos}
+      />
+      <CallToAction currentPage={pageNum} />
+      <div className={shoppingPage.paginationContainer}>
+        <RCPagination
+          current={pageNum}
+          className={shoppingPage.pagination}
+          total={numItems}
+          defaultPageSize={itemsPerPage}
+          itemRender={itemRender}
+          hideOnSinglePage={true}
+          showPrevNextJumpers={false}
+          showLessItems={width < 568 ? true : false}
+          locale={localeInfo}
+          data-testid="rc-pagination"
         />
-        <CallToAction currentPage={pageNum} />
-        <div className={shoppingPage.paginationContainer}>
-          <RCPagination
-            current={pageNum}
-            className={shoppingPage.pagination}
-            total={numItems}
-            defaultPageSize={itemsPerPage}
-            itemRender={itemRender}
-            hideOnSinglePage={true}
-            showPrevNextJumpers={false}
-            showLessItems={width < 568 ? true : false}
-            locale={localeInfo}
-            data-testid="rc-pagination"
-          />
-        </div>
-      </main>
+      </div>
     </>
   );
 

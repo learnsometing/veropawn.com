@@ -1,7 +1,6 @@
 import React from 'react';
 import { graphql } from 'gatsby';
 import SizedLayout from '../components/layout/layout';
-import SEO from '../components/seo';
 import FullScreenCarousel from '../components/carousel/full-screen-carousel';
 import FeaturedCategories from '../components/featured-categories/featured-categories';
 import './index.css';
@@ -14,16 +13,13 @@ const IndexPage = ({ data }) => {
 
   return (
     <SizedLayout title={'Home'}>
-      <SEO title='Home' />
-      <main id='content'>
-        <FullScreenCarousel
-          content={content}
-          currentSlideStyle={{ minWidth: '60%' }}
-          isTimed={true}
-          slideStyle={{ minWidth: '50%' }}
-        />
-        <FeaturedCategories data={data.featuredCategories} />
-      </main>
+      <FullScreenCarousel
+        content={content}
+        currentSlideStyle={{ minWidth: '60%' }}
+        isTimed={true}
+        slideStyle={{ minWidth: '50%' }}
+      />
+      <FeaturedCategories data={data.featuredCategories} />
     </SizedLayout>
   );
 }
