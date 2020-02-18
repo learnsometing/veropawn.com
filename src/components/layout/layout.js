@@ -54,15 +54,58 @@ Layout.propTypes = {
     PropTypes.node,
     PropTypes.arrayOf(PropTypes.node),
   ]).isRequired,
-  title: PropTypes.string.isRequired,
   hasPageHeader: PropTypes.bool,
+  pageHeaderClass: PropTypes.string,
+  pageHeaderText: PropTypes.string,
+  title: PropTypes.string.isRequired,
   width: PropTypes.number.isRequired,
 };
 
-const SizedLayout = ({ children, title, size }) => (
-  <Layout title={title} width={size.width}>
-    {children}
-  </Layout>
-);
+Layout.defaultProps = {
+  hasPageHeader: false,
+  pageHeaderClass: undefined,
+  pageHeaderText: undefined,
+};
+
+function SizedLayout(props) {
+  var {
+    children,
+    hasPageHeader,
+    pageHeaderClass,
+    pageHeaderText,
+    title,
+    size
+  } = props;
+
+  return (
+    <Layout
+      hasPageHeader={hasPageHeader}
+      pageHeaderClass={pageHeaderClass}
+      pageHeaderText={pageHeaderText}
+      title={title}
+      width={size.width}
+    >
+      {children}
+    </Layout>
+  );
+};
+
+SizedLayout.propTypes = {
+  children: PropTypes.oneOfType([
+    PropTypes.node,
+    PropTypes.arrayOf(PropTypes.node),
+  ]).isRequired,
+  hasPageHeader: PropTypes.bool,
+  pageHeaderClass: PropTypes.string,
+  pageHeaderText: PropTypes.string,
+  title: PropTypes.string.isRequired,
+  size: PropTypes.object.isRequired,
+};
+
+SizedLayout.defaultProps = {
+  hasPageHeader: false,
+  pageHeaderClass: undefined,
+  pageHeaderText: undefined,
+};
 
 export default sizeMe()(SizedLayout);

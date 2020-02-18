@@ -7,10 +7,12 @@ import faq from './faq.module.css';
 
 export default function FAQ({ data }) {
   return (
-    <SizedLayout title={'About Us'}>
-      <SEO title='About Us' />
-      <main id='content' style={{ padding: '1rem' }}>
-        <h1 style={{ textAlign: 'center' }}>FAQ</h1>
+    <SizedLayout
+      hasPageHeader={true}
+      title={'FAQ'}
+    >
+      <SEO title='FAQ' />
+      <main id='content' style={{ padding: '0 1rem' }}>
         <ExpandableSection heading={'How does a pawn loan work?'}>
           <p>
             Pawn loans are a quick and easy way to borrow money.
