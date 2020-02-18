@@ -11,15 +11,9 @@
 
 .listItem {
   display: flex;
-  flex: 0 1 128px;
+  flex: 0 1 44vw;
   list-style: none;
-}
-
-.link {
-  display: flex;
-  height: 100%;
-  width: 100%;
-  font-size: 16px;
+  margin: 3vw;
 }
 
 .link:hover {
@@ -29,25 +23,60 @@
 
 .linkContentWrapper {
   width: 100%;
-  margin: .625rem !important;
 }
 
 .bgImageWrapper {
-  width: 150px;
-  height: 150px;
+  display: flex;
   background-color: rgba(0, 0, 0, .1);
   border-radius: 50%;
   margin-bottom: 0.375rem;
-  padding: 21.967px;
 }
 
 .bgImage {
-  width: 106.066px;
-  height: 106.066px;
+  width: 44vw;
+  height: 44vw;
+  padding: 14.4667%;
   margin: 0;
 }
 
 .linkText {
   line-height: 1;
   text-align: center;
+}
+
+@media only screen and (min-width: 568px){
+  .bgImage {
+    width: 21vw;
+    height: 21vw;
+  }
+
+  .listItem {
+    flex: 0 1 21vw;
+    margin: 2vw;
+  }
+}
+
+@media only screen and (min-width: 896px){
+  .bgImage {
+    width: 12.667vw;
+    height: 12.667vw;
+  }
+
+  .listItem {
+    flex: 0 1 12.667vw;
+    margin: 2vw;
+  }
+}
+
+@media only screen and (min-width: 1024px){
+  .bgImage {
+    /* 0.76 * 1024 / 6 */
+    width: 129.710px;
+    height: 129.710px;
+  }
+
+  .listItem {
+    flex: 0 1 129.710px;
+    margin: 20.47px;
+  }
 }

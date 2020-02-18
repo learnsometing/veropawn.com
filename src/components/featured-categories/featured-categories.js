@@ -10,7 +10,7 @@ export default function FeaturedCategories({ data }) {
   return (
     <section>
       <h2 className={featuredCategories.sectionHeading}>Featured Categories</h2>
-      <ul className={`${layout.rowCenterStart} ${featuredCategories.linkList}`}>
+      <ul className={`${layout.rowStartStart} ${featuredCategories.linkList}`}>
         {featuredLinks}
       </ul>
     </section>
@@ -55,7 +55,7 @@ export default function FeaturedCategories({ data }) {
 export function FeaturedLink({ backgroundImage, text, to }) {
   return (
     <li className={featuredCategories.listItem}>
-      <Link alt={text} to={to} className={featuredCategories.link}>
+      <Link alt={text} to={to} >
         <div className={featuredCategories.linkContentWrapper}>
           <div className={featuredCategories.bgImageWrapper}>
             <img
