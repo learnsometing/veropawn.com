@@ -8,7 +8,7 @@
 #pageHeader {
   width: 100%;
   max-width: 1024px;
-  margin-top: 1.45rem;
+  margin: 1.45rem 0;
   padding: 0 1.45rem;
 }
 
@@ -21,7 +21,6 @@
 #content {
   position: relative;
   max-width: 1024px;
-  margin: 1.45rem 0;
   background-color: #fff;
 }
 
