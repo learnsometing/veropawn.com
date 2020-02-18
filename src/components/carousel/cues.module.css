@@ -7,8 +7,11 @@
 }
 
 .cueWrapper {
-  position: absolute;
+  position: relative;
   width: 100%;
   flex-wrap: wrap;
-  padding: 0 4rem;
+  padding: .625rem;
+  margin: 1rem;
+  /* Centers the wrapper by the offset of the full screen icon and margin/padding */
+  margin-left: 5.625rem;
 }
