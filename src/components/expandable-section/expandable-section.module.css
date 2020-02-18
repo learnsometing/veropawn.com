@@ -2,7 +2,7 @@
   justify-content: space-between;
   margin-bottom: 1.45rem;
   padding: 1rem 0;
-  border-bottom: 2px solid #000;
+  border-bottom: 2px solid rgba(0, 0, 0, .2);
 }
 
 .expandBtn {
