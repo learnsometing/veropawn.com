@@ -13,21 +13,6 @@ import itemPage from "./item-page.module.css";
 import layout from "../../styles/layout.module.css";
 import { createContentFromSharp } from "../../helpers/slides";
 
-const PageHeader = ({ descript }) => {
-  const pageHeaderClass = `${layout.columnCenterCenter} ${itemPage.header}`;
-  return (
-    <header className={pageHeaderClass}>
-      <h1 className={itemPage.pageHeading}>
-        {descript}
-      </h1>
-    </header>
-  );
-};
-
-PageHeader.propTypes = {
-  descript: PropTypes.string.isRequired,
-};
-
 const InterestedCTA = () => {
   const interestedCTAClass = `${layout.rowStartCenter} ${itemPage.interestedCTA}`;
   const CTAWrapperClass = `${layout.columnCenterCenter} ${itemPage.CTAWrapper}`;
@@ -60,19 +45,20 @@ const ItemPage = ({ data, size }) => {
   var photos = data.photos.nodes.length
     ? data.photos.nodes
     : defaultPhoto;
-  console.log(photos);
   var content = photos.map((photo, idx) => (
     createContentFromSharp(descript, idx, photo)
   ));
-  console.log(content);
-  const title = `${descript}-${invNum}`;
-  const wrapperClass = `${layout.columnCenterCenter} ${itemPage.wrapper}`;
 
   return (
-    <Layout title={title} width={size.width}>
+    <Layout
+      hasPageHeader={true}
+      pageHeaderClass={`${layout.columnCenterCenter} ${itemPage.header}`}
+      pageHeaderText={descript}
+      title={`${descript} #${invNum}`}
+      width={size.width}
+    >
       <main id="content">
-        <PageHeader descript={descript} />
-        <div className={wrapperClass}>
+        <div className={`${layout.columnCenterCenter} ${itemPage.wrapper}`}>
           <FullScreenCarousel content={content} />
           <DetailsCard>
             <DetailsList

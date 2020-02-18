@@ -9,25 +9,59 @@ import SEO from "../../components/seo";
 import Header from "../header/header";
 import Footer from "../footer/footer";
 
-export const Layout = ({ width, ...props }) => {
+export function PageHeader({ className, text }) {
+  return (
+    <header className={className}>
+      <h1 style={{ lineHeight: '1.25', marginTop: '1.45rem', textAlign: "center" }}>
+        {text}
+      </h1>
+    </header >
+  );
+}
+
+PageHeader.propTypes = {
+  className: PropTypes.string,
+  text: PropTypes.string
+};
+
+export const Layout = (props) => {
+  var {
+    children,
+    hasPageHeader,
+    pageHeaderClass,
+    pageHeaderText,
+    title,
+    width
+  } = props;
+
   return (
     <div id="root">
-      <SEO title={props.title} />
+      <SEO title={title} />
       <Header width={width} />
-      {props.children}
+      {
+        hasPageHeader
+          ? <PageHeader className={pageHeaderClass} text={title || pageHeaderText} />
+          : null
+      }
+      {children}
       <Footer />
     </div>
   )
 };
 
 Layout.propTypes = {
-  children: PropTypes.node.isRequired,
+  children: PropTypes.oneOfType([
+    PropTypes.node,
+    PropTypes.arrayOf(PropTypes.node),
+  ]).isRequired,
+  title: PropTypes.string.isRequired,
+  hasPageHeader: PropTypes.bool,
   width: PropTypes.number.isRequired,
 };
 
-const SizedLayout = ({ size, ...props }) => (
-  <Layout title={props.title} width={size.width}>
-    {props.children}
+const SizedLayout = ({ children, title, size }) => (
+  <Layout title={title} width={size.width}>
+    {children}
   </Layout>
 );
 

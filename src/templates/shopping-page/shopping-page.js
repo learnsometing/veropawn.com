@@ -148,28 +148,14 @@ DisplayRange.propTypes = {
   upperLimit: PropTypes.number.isRequired,
 };
 
-export const PageHeader = ({ subcategory }) => {
-  var pageTitleContainerClass = `${layout.rowCenterCenter} ${shoppingPage.pageTitleContainer}`;
-
-  return (
-    <div className={pageTitleContainerClass}>
-      <h1 className={shoppingPage.pageTitle}>{subcategory}</h1>
-    </div>
-  );
-};
-
-PageHeader.propTypes = {
-  subcategory: PropTypes.string.isRequired,
-}
-
 export const PureShoppingPage = (props) => {
   var {
     allItems,
     allMainPhotos,
     defaultPhoto,
     location,
-    subcategory,
-    width } = props;
+    width
+  } = props;
 
   // TODO: Implement item filtration!
   // click some filter check boxes
@@ -186,9 +172,6 @@ export const PureShoppingPage = (props) => {
 
   return (
     <>
-      <PageHeader
-        subcategory={subcategory}
-      />
       <DisplayRange
         lowerLimit={lowerLimit}
         numItems={numItems}
@@ -314,7 +297,6 @@ PureShoppingPage.propTypes = {
   allMainPhotos: PropTypes.array.isRequired,
   defaultPhoto: PropTypes.object.isRequired,
   location: PropTypes.object.isRequired,
-  subcategory: PropTypes.string.isRequired,
   width: PropTypes.number.isRequired,
 };
 
@@ -327,13 +309,17 @@ const ShoppingPage = ({ data, location, size }) => {
   var subcategory = allItems[0].subcategory;
   var width = size.width;
   return (
-    <Layout title={subcategory} width={width}>
+    <Layout
+      hasPageHeader={true}
+      pageHeaderClass={`${layout.rowCenterCenter} ${shoppingPage.pageTitleContainer}`}
+      title={subcategory}
+      width={width}
+    >
       <PureShoppingPage
         allItems={allItems}
         allMainPhotos={allMainPhotos}
         defaultPhoto={defaultPhoto}
         location={location}
-        subcategory={subcategory}
         width={width}
       />
     </Layout>

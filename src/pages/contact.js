@@ -8,16 +8,6 @@ import { Layout } from '../components/layout/layout';
 import layout from '../styles/layout.module.css';
 import contact from './contact.module.css';
 
-function ContactHeader() {
-  return (
-    <header className={`${layout.columnCenterCenter} ${contact.pageHeader}`}>
-      <h1>
-        Contact
-      </h1>
-    </header>
-  );
-}
-
 function SectionHeader({ text }) {
   return (
     <h2 className={contact.secondaryHeading}>
@@ -25,6 +15,7 @@ function SectionHeader({ text }) {
     </h2>
   );
 }
+
 function Directions() {
   return (
     <div className={layout.columnStartStart}>
@@ -36,17 +27,6 @@ function Directions() {
       </address>
     </div>
   );
-
-  // function selectMapsApp() {
-  //   if /* if we're on iOS, open in Apple Maps */
-  //     ((navigator.platform.indexOf("iPhone") !== -1) ||
-  //     (navigator.platform.indexOf("iPad") !== -1) ||
-  //     (navigator.platform.indexOf("iPod") !== -1)) {
-  //     window.open("maps://maps.google.com/maps?daddr=27.639995,-80.3904946&amp;ll=");
-  //   } else /* else use Google */ {
-  //     window.open("https://maps.google.com/maps?daddr=27.639995,-80.3904946&amp;ll=");
-  //   }
-  // }
 }
 
 function Call() {
@@ -101,31 +81,33 @@ function Contact({ size }) {
   var width = size.width;
 
   return (
-    <Layout title={'Contact'} width={width}>
+    <Layout
+      hasPageHeader={true}
+      pageHeaderClass={`${layout.columnCenterCenter} ${contact.pageHeader}`}
+      title={'Contact'}
+      width={width}
+    >
       <SEO title='Contact' />
-      <main className={contact.wrapper}>
-        <ContactHeader />
-        <main className={`${contact.layout} ${layout.columnStartCenter}`}>
-          <div className={`${layout.columnStartStart} ${contact.infoWrapper}`}>
-            {/* Directions */}
-            <section className={contact.section}>
-              <SectionHeader text={'Get Directions'} />
-              <Directions />
-            </section>
-            {/* Call */}
-            <section className={contact.section}>
-              <SectionHeader text={'Call Us'} />
-              <Call />
-            </section>
-            {/* Hours */}
-            <section className={contact.section}>
-              <SectionHeader text={'Hours'} />
-              <Hours />
-            </section>
-          </div>
-          {/* Google Maps */}
-          <Map />
-        </main>
+      <main id='content' className={`${contact.layout} ${layout.columnStartCenter}`}>
+        <div className={`${layout.columnStartStart} ${contact.infoWrapper}`}>
+          {/* Directions */}
+          <section className={contact.section}>
+            <SectionHeader text={'Get Directions'} />
+            <Directions />
+          </section>
+          {/* Call */}
+          <section className={contact.section}>
+            <SectionHeader text={'Call Us'} />
+            <Call />
+          </section>
+          {/* Hours */}
+          <section className={contact.section}>
+            <SectionHeader text={'Hours'} />
+            <Hours />
+          </section>
+        </div>
+        {/* Google Maps */}
+        <Map />
       </main>
     </Layout >
   );
