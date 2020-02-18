@@ -41,8 +41,8 @@ export function TextOverlay({ linkText, text, title, to }) {
 
   return (
     <div className={slides.textOverlayWrapper}>
-      <div className={`${layout.columnStartCenter} ${slides.textOverlay}`}>
-        {title ? <p className={slides.textOverlayTitle}>{title}</p> : null}
+      <div className={`${layout.columnCenterCenter} ${slides.textOverlay}`}>
+        {title ? <h1 className={slides.textOverlayTitle}>{title}</h1> : null}
         {text ? <p>{text}</p> : null}
         {linkText && to ? <Link alt={linkText} to={to}>{linkText}</Link> : null}
       </div>
@@ -51,7 +51,6 @@ export function TextOverlay({ linkText, text, title, to }) {
 
 }
 
-// TODO
 TextOverlay.propTypes = {
   linkText: PropTypes.string,
   text: PropTypes.string,
