@@ -1,7 +1,6 @@
 .wrapper {
   position: relative;
   width: 100%;
-  padding: .625rem;
 }
 
 .carousel {
@@ -21,10 +20,4 @@
 .FSControlContainer {
   position: relative;
   width: 100%;
-}
-
-@media only screen and (max-width: 567px){
-  .wrapper {
-    padding: .625rem;
-  }
 }

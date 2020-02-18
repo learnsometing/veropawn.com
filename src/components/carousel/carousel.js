@@ -47,6 +47,7 @@ const Carousel = (props) => {
           />
           <Controls
             isDisabled={isDisabled}
+            isFullScreen={isFullScreen}
             onClick={currentIndex.onClick}
           />
         </div>
