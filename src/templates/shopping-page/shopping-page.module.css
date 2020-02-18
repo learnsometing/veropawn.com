@@ -9,19 +9,17 @@ $CTALinkBorder: 2px solid $lightBlue;
   position: relative;
   border-bottom: 1px solid $trimColor;
   background-color: #fff;
-}
-
-.pageTitle {
-  margin: .5em 0;
+  padding: 0 4%;
 }
 
 .displayRangeTextContainer {
   position: sticky;
   top: 3rem;
-  padding: .375rem 0;
+  padding: .625rem 1.45rem;
   background-color: #fff;
   z-index: 2;
   border-bottom: 1px solid $trimColor;
+  border-top: 1px solid $trimColor;
 }
 
 .pageTitleContainer, .displayRangeTextContainer {
@@ -38,10 +36,9 @@ $CTALinkBorder: 2px solid $lightBlue;
 }
 
 .listItem {
-  width: 50%;
+  width: 44%;
   flex-basis: auto;
-  padding: .375rem;
-  margin-bottom: 0;
+  margin: 3%;
   list-style: none;
 }
 
@@ -74,18 +71,20 @@ $CTALinkBorder: 2px solid $lightBlue;
   position: relative;
   display: flex;
   justify-content: center;
+  padding: 0 1.45rem;
+  margin-top: 1.45rem;
 }
 
 .pagination {
-  margin: 1rem 0;
+  margin: 0;
 }
 
 /*                CTA                */
 
-.CTAContainer {
+.CTACard {
   border-top: $CTABorder;
   border-bottom: $CTABorder;
-  padding: 1.45rem 0;
+  padding: 1.45rem;
 }
 
 .CTALink {
@@ -107,8 +106,8 @@ $CTALinkBorder: 2px solid $lightBlue;
 }
 
 .CTALink:active {
-  border: 2px solid #0779AD;
-  color: #0779AD;
+  border: 2px solid #BD3D0D;
+  color: #BD3D0D;
 }
 
 .CTAContainer, .CTA div p {
@@ -121,7 +120,8 @@ $CTALinkBorder: 2px solid $lightBlue;
   }
 
   .listItem {
-    width: 33.3%;
+    width: 31.333%;
+    margin: 1%;
   }
 }
 

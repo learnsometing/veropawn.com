@@ -86,7 +86,7 @@ function Contact({ size }) {
       title={'Contact'}
       width={width}
     >
-      <main className={`${contact.layout} ${layout.columnStartCenter}`}>
+      <div className={`${contact.layout} ${layout.columnStartCenter}`}>
         <div className={`${layout.columnStartStart} ${contact.infoWrapper}`}>
           {/* Directions */}
           <section className={contact.section}>
@@ -106,7 +106,7 @@ function Contact({ size }) {
         </div>
         {/* Google Maps */}
         <Map />
-      </main>
+      </div>
     </Layout >
   );
 }

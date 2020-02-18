@@ -97,16 +97,14 @@ export const CallToAction = ({ currentPage, ...props }) => {
   const CTALinkClass = `${layout.rowCenterCenter} ${shoppingPage.CTALink}`;
 
   return (
-    <div className={shoppingPage.CTACard}>
-      <div className={`${layout.columnCenterCenter} ${shoppingPage.CTAContainer}`}>
-        <div>
-          <h2 className={shoppingPage.CTAHeader}>{CTA.header}</h2>
-        </div>
-        <div>
-          <p className={CTATextClass}>{CTA.text}</p>
-        </div>
-        <Link to={CTA.link} className={CTALinkClass}>{CTA.linkText}</Link>
+    <div className={`${layout.columnCenterCenter} ${shoppingPage.CTACard}`}>
+      <div>
+        <h2 className={shoppingPage.CTAHeader}>{CTA.header}</h2>
       </div>
+      <div>
+        <p className={CTATextClass}>{CTA.text}</p>
+      </div>
+      <Link to={CTA.link} className={CTALinkClass}>{CTA.linkText}</Link>
     </div>
   );
 };

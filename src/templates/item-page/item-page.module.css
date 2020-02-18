@@ -1,24 +1,18 @@
-
 /* Page Header */
 
 .header {
   width: 100%;
-  padding: 0 .625rem;
+  padding: 0 1rem;
 }
 
-.pageHeading {
-  margin: 0;
-  margin-top: 0.625rem;
-  margin-bottom: 1rem;
-  font-weight: 500;
-  text-align: center;
+.wrapper {
+  padding: 0 1.45rem;
 }
 
 /* Details */
 
 .deetsCard {
   max-width: 1024px;
-  padding: 0 .625rem;
   color: #000;
 }
 
@@ -115,6 +109,7 @@
 @media only screen and (min-width: 736px) and (min-height: 375px) {
   .deetsColumn {
     max-width: 47.65625%;
+    margin-left: 1.45rem;
   }
 
   .wrapper {

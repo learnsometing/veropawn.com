@@ -3,7 +3,6 @@ import { graphql } from 'gatsby';
 import SizedLayout from '../components/layout/layout';
 import FullScreenCarousel from '../components/carousel/full-screen-carousel';
 import FeaturedCategories from '../components/featured-categories/featured-categories';
-import './index.css';
 import { createContentFromMarkdown } from '../helpers/slides';
 
 const IndexPage = ({ data }) => {
