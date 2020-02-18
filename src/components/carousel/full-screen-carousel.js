@@ -31,7 +31,7 @@ const FullScreenCarousel = (props) => {
         isOpen={isFullScreen}
         onRequestClose={closeFSModal}
         overlayClassName={overlayClassName}
-        className={fullScreenCarousel.content}
+        className={`${layout.columnCenterCenter} ${fullScreenCarousel.content}`}
       >
         <div className={fullScreenCarousel.FSWrapper}>
           <Carousel
