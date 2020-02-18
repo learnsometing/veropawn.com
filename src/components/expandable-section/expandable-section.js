@@ -18,8 +18,8 @@ export function Expand({ isExpanded, onClick, text }) {
       className={`${layout.rowStartCenter} ${expandableSection.expandBtn}`}
       onClick={onClick}
     >
-      <span style={{ textAlign: 'start' }}>{text}</span>
-      <IconContext.Provider value={{ size: '1.375em' }}>
+      <span style={{ textAlign: 'start', maxWidth: '84%' }}>{text}</span>
+      <IconContext.Provider value={{ size: '1.375em', style: { margin: '0 .5rem' } }}>
         {icon}
       </IconContext.Provider>
     </button>
@@ -31,7 +31,7 @@ export default function ExpandableSection({ children, heading }) {
   var section = useRef();
 
   return (
-    <article>
+    <article className={expandableSection.wrapper}>
       <header className={`${layout.rowStartCenter} ${expandableSection.header}`}>
         <Expand isExpanded={isExpanded} onClick={toggleExpand} text={heading} />
       </header>
@@ -49,10 +49,12 @@ export default function ExpandableSection({ children, heading }) {
     if (isExpanded) {
       section.current.style.maxHeight = '0';
       section.current.style.color = '#fff';
+      section.current.style.paddingTop = '0';
       setIsExpanded(false);
     } else {
       section.current.style.maxHeight = '1000vh';
       section.current.style.color = '#000';
+      section.current.style.paddingTop = '1rem';
       setIsExpanded(true);
     }
   }
