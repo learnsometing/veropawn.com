@@ -3,16 +3,17 @@ import PropTypes from "prop-types";
 import sizeMe from "react-sizeme";
 
 import "../../styles/base.css";
-import "./layout.css";
+import layout from './layout.module.css';
+import flex from '../../styles/layout.module.css';
 
 import SEO from "../../components/seo";
 import Header from "../header/header";
 import Footer from "../footer/footer";
 
-export function PageHeader({ className, text }) {
+export function PageHeader({ text }) {
   return (
-    <header className={className}>
-      <h1 style={{ lineHeight: '1.25', marginTop: '1.45rem', textAlign: "center" }}>
+    <header id={layout.pageHeader}>
+      <h1 id={layout.heading}>
         {text}
       </h1>
     </header >
@@ -20,7 +21,6 @@ export function PageHeader({ className, text }) {
 }
 
 PageHeader.propTypes = {
-  className: PropTypes.string,
   text: PropTypes.string
 };
 
@@ -28,22 +28,23 @@ export const Layout = (props) => {
   var {
     children,
     hasPageHeader,
-    pageHeaderClass,
     pageHeaderText,
     title,
     width
   } = props;
 
   return (
-    <div id="root">
+    <div id={layout.root} className={flex.columnStartCenter}>
       <SEO title={title} />
       <Header width={width} />
       {
         hasPageHeader
-          ? <PageHeader className={pageHeaderClass} text={title || pageHeaderText} />
+          ? <PageHeader text={title || pageHeaderText} />
           : null
       }
-      {children}
+      <main id={layout.content}>
+        {children}
+      </main>
       <Footer />
     </div>
   )
@@ -55,7 +56,6 @@ Layout.propTypes = {
     PropTypes.arrayOf(PropTypes.node),
   ]).isRequired,
   hasPageHeader: PropTypes.bool,
-  pageHeaderClass: PropTypes.string,
   pageHeaderText: PropTypes.string,
   title: PropTypes.string.isRequired,
   width: PropTypes.number.isRequired,
@@ -71,7 +71,6 @@ function SizedLayout(props) {
   var {
     children,
     hasPageHeader,
-    pageHeaderClass,
     pageHeaderText,
     title,
     size
@@ -80,7 +79,6 @@ function SizedLayout(props) {
   return (
     <Layout
       hasPageHeader={hasPageHeader}
-      pageHeaderClass={pageHeaderClass}
       pageHeaderText={pageHeaderText}
       title={title}
       width={size.width}
@@ -96,7 +94,6 @@ SizedLayout.propTypes = {
     PropTypes.arrayOf(PropTypes.node),
   ]).isRequired,
   hasPageHeader: PropTypes.bool,
-  pageHeaderClass: PropTypes.string,
   pageHeaderText: PropTypes.string,
   title: PropTypes.string.isRequired,
   size: PropTypes.object.isRequired,
@@ -104,7 +101,6 @@ SizedLayout.propTypes = {
 
 SizedLayout.defaultProps = {
   hasPageHeader: false,
-  pageHeaderClass: undefined,
   pageHeaderText: undefined,
 };
 

@@ -1,0 +1,48 @@
+#root {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  padding-top: 3rem;
+}
+
+#pageHeader {
+  width: 100%;
+  max-width: 1024px;
+  margin-top: 2%;
+}
+
+#heading {
+  line-height: 1.25;
+  margin: 0;
+  text-align: center;
+}
+
+#content {
+  position: relative;
+  max-width: 1024px;
+  margin: 2% 0;
+  background-color: #fff;
+}
+
+#root, #content {
+  width: 100%;
+  flex: 1 0 auto;
+}
+
+@media only screen and (min-width: 667px) {
+  #root{
+    padding-top: 3.375rem;
+  }
+}
+
+@media only screen and (min-width: 730px) {
+  #root{
+    padding-top: 3.75rem;
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+  #root{
+    padding-top: 4.5rem;
+  }
+}
