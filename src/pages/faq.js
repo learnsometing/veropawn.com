@@ -3,6 +3,7 @@ import { graphql } from 'gatsby'
 import SizedLayout from '../components/layout/layout';
 import SEO from '../components/seo';
 import ExpandableSection from '../components/expandable-section/expandable-section'
+import faq from './faq.module.css';
 
 export default function FAQ({ data }) {
   return (
@@ -47,10 +48,15 @@ export default function FAQ({ data }) {
           <p>
             If you're not sure which gun is right for you, you're not alone.
             We've included a guide that we hope will help guide your decision.
-              <a href={data.file.publicURL} download='what-gun-should-I-buy.pdf'>
-              Click this link to download what-gun-should-I-buy.pdf
-              </a>
           </p>
+          <a
+            alt="Click to download our first-time gun buyer's guide pdf"
+            className={faq.gunGuideLink}
+            href={data.file.publicURL}
+            download='what-gun-should-I-buy.pdf'
+          >
+            Download a copy of our first-time gun buyer's guide
+          </a>
         </ExpandableSection>
         <ExpandableSection heading={'Will I lose my merchandise?'}>
           <p>

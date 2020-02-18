@@ -1,0 +1,7 @@
+.gunGuideLink {
+  text-decoration: underline;
+}
+
+.gunGuideLink:hover {
+  color: #BD3D0D;
+}
