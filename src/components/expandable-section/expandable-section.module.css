@@ -1,14 +1,22 @@
 .header {
+  justify-content: space-between;
   margin-bottom: 1.45rem;
-}
-
-.heading {
-  margin: 0;
+  padding: 1rem 0;
+  border-bottom: 2px solid #000;
 }
 
 .expandBtn {
   height: 100%;
+  width: 100%;
+  justify-content: space-between;
   -webkit-appearance: none;
   padding: 0;
   margin: 0 .375rem;
+  font-size: 1.375rem;
+}
+
+.expanded {
+  max-height: 0;
+  color: #fff;
+  transition: all .25s ease-in;
 }

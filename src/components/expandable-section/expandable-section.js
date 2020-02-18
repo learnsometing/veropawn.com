@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { AiOutlinePlusCircle, AiOutlineMinusCircle } from 'react-icons/ai';
 import { IconContext } from 'react-icons';
@@ -6,7 +6,7 @@ import { IconContext } from 'react-icons';
 import layout from '../../styles/layout.module.css';
 import expandableSection from './expandable-section.module.css';
 
-export function ExpandIcon({ isExpanded }) {
+export function Expand({ isExpanded, onClick, text }) {
   var icon = <AiOutlinePlusCircle data-testid='ai-outlin-plus-icon' />;
 
   if (isExpanded) {
@@ -14,29 +14,31 @@ export function ExpandIcon({ isExpanded }) {
   }
 
   return (
-    <IconContext.Provider value={{ size: '2em' }}>
-      {icon}
-    </IconContext.Provider>
+    <button
+      className={`${layout.rowStartCenter} ${expandableSection.expandBtn}`}
+      onClick={onClick}
+    >
+      <span style={{ textAlign: 'start' }}>{text}</span>
+      <IconContext.Provider value={{ size: '1.375em' }}>
+        {icon}
+      </IconContext.Provider>
+    </button>
   );
 }
 
 export default function ExpandableSection({ children, heading }) {
   var [isExpanded, setIsExpanded] = useState(false);
+  var section = useRef();
+
   return (
     <article>
       <header className={`${layout.rowStartCenter} ${expandableSection.header}`}>
-        <h2 className={`${layout.rowCenterCenter} ${expandableSection.heading}`}>
-          {heading}
-        </h2>
-        <button
-          className={`${layout.columnCenterCenter} ${expandableSection.expandBtn}`}
-          onClick={toggleExpand}
-        >
-          <ExpandIcon isExpanded={isExpanded} />
-        </button>
+        <Expand isExpanded={isExpanded} onClick={toggleExpand} text={heading} />
       </header>
-      <section>
-        {isExpanded ? children : null}
+      <section >
+        <div className={expandableSection.expanded} ref={section}>
+          {isExpanded ? children : null}
+        </div>
       </section>
     </article>
   );
@@ -45,8 +47,12 @@ export default function ExpandableSection({ children, heading }) {
     e.preventDefault();
 
     if (isExpanded) {
+      section.current.style.maxHeight = '0';
+      section.current.style.color = '#fff';
       setIsExpanded(false);
     } else {
+      section.current.style.maxHeight = '1000vh';
+      section.current.style.color = '#000';
       setIsExpanded(true);
     }
   }
