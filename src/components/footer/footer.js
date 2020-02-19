@@ -19,8 +19,9 @@ export default () => {
         </IconContext.Provider>
       </div>
       <div className={copyrightContainerClass}>
-        <span className={footer.copyright}>&#169;{new Date().getFullYear()}</span>
-        <span>Cash Pawn and Jewelry, Vero Beach, FL</span>
+        <span >
+          &#169;{new Date().getFullYear()} Cash Pawn and Jewelry, Vero Beach, FL
+        </span>
       </div>
     </footer>
   );
