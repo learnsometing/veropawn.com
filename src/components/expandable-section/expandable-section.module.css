@@ -5,7 +5,10 @@
 
 .header {
   justify-content: space-between;
-  border-bottom: 2px solid rgba(0, 0, 0, .2);
+  border-bottom: 2px solid rgba(64, 61, 52, 0.2);
+  span {
+    color: #403D34;
+  }
 }
 
 .expandBtn {
@@ -19,6 +22,6 @@
 
 .expanded {
   max-height: 0;
-  color: #fff;
+  color:#e7e8c8;
   transition: all .125s ease-in;
 }

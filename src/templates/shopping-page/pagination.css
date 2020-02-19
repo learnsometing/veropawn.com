@@ -1,7 +1,7 @@
 /* Custom styles to replace rc pagination styles */
 
-$active-color: #BD3D0D;
-$inactive-color: rgba(0, 0, 0, 0.2);
+$active-color: #36733F;
+$inactive-color: rgba(64, 61, 52, 0.2);
 
 .rc-pagination > li{
   display: flex;
@@ -9,15 +9,21 @@ $inactive-color: rgba(0, 0, 0, 0.2);
   justify-content: center;
   width: 2rem;
   height: 2rem;
+  background-color: #e7e8c8;
   border: 1px solid $inactive-color;
   border-radius: 3px;
   font-size: 0.75rem;
 }
 
+.rc-pagination > li.rc-pagination-item-active {
+  background-color: $active-color;
+}
+
+
 .rc-pagination-item > a,
 .rc-pagination-prev a,
 .rc-pagination-next a{
-  color: #000;
+  color: #403D34;
 }
 
 .rc-pagination-item:hover, 
@@ -37,11 +43,9 @@ $inactive-color: rgba(0, 0, 0, 0.2);
   font-size: 1.25rem;
 }
 
-.rc-pagination-item-active,
 .rc-pagination-item-active a,
 .rc-pagination-item-active:hover a {
-  background-color: $active-color;
-  color: #fff;
+  color: #e7e8c8;
 }
 
 .rc-pagination-disabled > a {

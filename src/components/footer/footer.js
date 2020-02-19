@@ -12,16 +12,18 @@ export default () => {
 
   return (
     <footer className={`${layout.columnCenterCenter} ${footer.footer}`}>
-      <div className={socialIconsClass}>
-        <IconContext.Provider value={{ color: '#fff', size: '48px' }}>
-          <a className={socialIconClass} href="https://www.ebay.com/usr/cashpawn"><FaEbay /></a>
-          <a className={socialIconClass} href="https://www.facebook.com/VBPawn"><FaFacebookSquare /></a>
-        </IconContext.Provider>
-      </div>
-      <div className={copyrightContainerClass}>
-        <span >
-          &#169;{new Date().getFullYear()} Cash Pawn and Jewelry, Vero Beach, FL
+      <div className={footer.wrapper}>
+        <div className={socialIconsClass}>
+          <IconContext.Provider value={{ color: 'rgba(54, 115, 63, 1)', size: '48px' }}>
+            <a className={socialIconClass} href="https://www.ebay.com/usr/cashpawn"><FaEbay /></a>
+            <a className={socialIconClass} href="https://www.facebook.com/VBPawn"><FaFacebookSquare /></a>
+          </IconContext.Provider>
+        </div>
+        <div className={copyrightContainerClass}>
+          <span >
+            &#169;{new Date().getFullYear()} Cash Pawn and Jewelry, Vero Beach, FL
         </span>
+        </div>
       </div>
     </footer>
   );

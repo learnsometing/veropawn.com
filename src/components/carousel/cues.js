@@ -29,9 +29,9 @@ export function Cue({ isActive, isFullScreen }) {
     }
 
     if (isFullScreen) {
-      color = '255, 255, 255';
+      color = '231, 232, 200';
     } else {
-      color = '0, 0, 0';
+      color = '64, 61, 52';
     }
 
     return `${color}, ${alpha}`;

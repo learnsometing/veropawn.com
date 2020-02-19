@@ -58,6 +58,10 @@
   font-weight: 500;
 }
 
+.tel, .icon {
+  color: #36733F;
+}
+
 .icon {
   height: 1rem;
   width: 1rem;

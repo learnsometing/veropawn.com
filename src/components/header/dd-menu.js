@@ -45,7 +45,7 @@ export const DDMenuHeader = (props) => {
   return (
     <li className={ddMenu.listItem}>
       <header className={headerClass} data-testid="dd-menu-heading">
-        <h1>
+        <h1 style={{ fontSize: '1.375rem' }}>
           {props.children}
         </h1>
       </header>

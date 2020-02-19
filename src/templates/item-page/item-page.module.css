@@ -13,11 +13,11 @@
 
 .deetsCard {
   max-width: 1024px;
-  color: #000;
+  color: #403D34;
 }
 
 .deetsWrapper {
-  background-color: rgba(0, 0, 0, 0.1);
+  background-color: rgba(64, 61, 52, 0.2);
   border-radius: 2px;
 }
 
@@ -29,7 +29,7 @@
   margin: 0;
   padding: 1rem 0;
   font-weight: 500;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+  border-bottom: 1px solid rgba(64, 61, 52, 0.5);
 }
 
 .deetsList {
@@ -48,7 +48,7 @@
 .deet {
   font-weight: 300;
   padding: 0.5rem .375rem;
-  background-color: #fff;
+  background-color: #e7e8c8;
   margin: .5rem 0;
   border-radius: 1px;
 }
@@ -74,7 +74,7 @@
   cursor: default;
   margin: 1rem 0;
   text-decoration: none;
-  color: #000;
+  color: #36733F;
 }
 
 .tel:hover {

@@ -11,7 +11,7 @@ export const SlideControl = ({ children, isFullScreen, name, onClick }) => (
     className={`${layout.columnCenterCenter} ${controls.control}`}
     name={name}
     onClick={onClick}
-    style={isFullScreen ? { backgroundColor: 'hsla(255, 255%, 255%, 0.8)' } : undefined}
+    style={isFullScreen ? { backgroundColor: 'rgba(231, 232, 200, .8)' } : undefined}
   >
     {children}
   </button >
@@ -37,7 +37,7 @@ export default function Controls({ isDisabled, isFullScreen, onClick }) {
   return (
     <IconContext.Provider
       value={{
-        color: isFullScreen ? 'hsla(0, 0%, 0%, 0.8)' : 'hsla(255, 255%, 255%, 0.8)',
+        color: isFullScreen ? 'rgba(64, 61, 52, 1)' : 'rgba(217, 211, 193, 1)',
         size: '1.5em'
       }}
     >

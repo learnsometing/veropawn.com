@@ -7,7 +7,7 @@ import fsControls from './full-screen-controls.module.css';
 
 export const MaximizeButton = ({ onClick }) => (
   <button className={fsControls.maximizeIcon} onClick={onClick}>
-    <IconContext.Provider value={{ color: '#000', size: '2em' }}>
+    <IconContext.Provider value={{ color: 'rgb(64, 61, 52)', size: '2em' }}>
       <MdFullscreen data-testid="md-fullscreen-icon" />
     </IconContext.Provider>
   </button>
@@ -19,7 +19,7 @@ MaximizeButton.propTypes = {
 
 export const MinimizeButton = ({ onClick }) => (
   <button className={fsControls.minimizeIcon} onClick={onClick}>
-    <IconContext.Provider value={{ color: 'rgba(255, 255, 255, 0.8)', size: '2em' }}>
+    <IconContext.Provider value={{ color: 'rgb(231, 232, 200)', size: '2em' }}>
       <MdFullscreenExit data-testid="md-fullscreen-exit-icon" />
     </IconContext.Provider>
   </button>

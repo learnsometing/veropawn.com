@@ -1,4 +1,4 @@
-$CTABorder: 2px solid rgba(0, 0, 0, 0.2);
+$CTABorder: 2px solid rgba(64, 61, 52, .6);
 
 .card {
   border-top: $CTABorder;

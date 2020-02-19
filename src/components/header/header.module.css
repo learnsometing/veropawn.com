@@ -6,19 +6,14 @@
   z-index: 3;
 }
 
-.header {
-  max-width: 1024px;
-}
-
 .header, .nav, .navBar, .svgWrapper, .svg {
   height: 100%;
   width: 100%;
 }
 
 .nav {
-  background: #B0151F;
+  background: #e7e8c8;
   padding: 0 .625rem;
-  
 }
 
 .navBar {
@@ -29,7 +24,7 @@
 
 .link {
   padding: 0 .5rem;
-  color: #fff;
+  color: #403D34;
   font-weight: 300;
 }
 

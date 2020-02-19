@@ -1,11 +1,21 @@
 .footer {
-  width:100%;
-  max-width: 1024px;
   position: relative;
   margin: 0;
-  background-color: #BD3D0D;
-  color: #fff;
+  background-color: #e7e8c8;
+  color: #403D34;
   display: -webkit-box;
+}
+
+.wrapper {
+  max-width: 1024px;
+  
+}
+
+.footer,
+.wrapper,
+.socialIcons,
+.copyrightContainer {
+  width: 100%;
 }
 
 .socialIcons, .copyrightContainer {

@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import sizeMe from "react-sizeme";
+import { Helmet } from 'react-helmet';
 
 import "../../styles/base.css";
 import layout from './layout.module.css';
@@ -36,6 +37,9 @@ export const Layout = (props) => {
   return (
     <div id={layout.root} className={flex.columnStartCenter}>
       <SEO title={title} />
+      <Helmet>
+        <link href="https://fonts.googleapis.com/css?family=Playfair+Display+SC:700&display=swap" rel="stylesheet" />
+      </Helmet>
       <Header width={width} />
       {
         hasPageHeader
