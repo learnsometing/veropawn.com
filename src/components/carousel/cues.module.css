@@ -1,17 +1,16 @@
 .cue {
   position: relative;
   display: inline-block;
-  height: 0.75rem;
-  width: 0.75rem;
-  margin: .375rem;
+  height: .875rem;
+  width: .875rem;
+  margin: .125rem;
 }
 
 .cueWrapper {
   position: relative;
   width: 100%;
   flex-wrap: wrap;
-  padding: .625rem;
-  margin: 1rem;
+  margin: 1.45rem 0;
   /* Centers the wrapper by the offset of the full screen icon and margin/padding */
-  margin-left: 5.625rem;
+  margin-left: 2.925rem;
 }
