@@ -29,16 +29,18 @@ $trimColor: rgba(0, 0, 0, 0.6);
 
 .itemsUL {
   margin: 0;
-  margin-top: calc(1.45rem - 3%);
-  padding: 0 calc(1.45rem - 3%);
+  margin: 1.45rem 0;
+  padding: 0 1.45rem;
   flex-wrap: wrap;
 }
 
 .listItem {
-  width: 44%;
-  flex-basis: auto;
-  margin: 3%;
+  flex: 1 0 44%;
   list-style: none;
+}
+
+.listItem:nth-child(2n){
+  margin-left: 1.45rem;
 }
 
 .itemCard {
@@ -108,17 +110,27 @@ $trimColor: rgba(0, 0, 0, 0.6);
   .displayRangeTextContainer {
     top: 3.375rem;
   }
-
-  .listItem {
-    width: 31.333%;
-    margin: 1%;
-  }
 }
 
 @media only screen and (min-width: 730px) {
   .displayRangeTextContainer {
     top: 3.75rem;
   }
+
+  .listItem {
+    flex: 1 0 30%;
+  }
+
+  .listItem:nth-child(2n){
+    margin: 0;
+  }
+
+  .listItem:nth-child(2),
+  .listItem:nth-child(5),
+  .listItem:nth-child(3n + 5){
+    margin: 0 1.45rem;
+  }
+  
 }
 
 @media only screen and (min-width: 1024px) {
