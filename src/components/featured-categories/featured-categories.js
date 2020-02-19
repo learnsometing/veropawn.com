@@ -10,7 +10,7 @@ export default function FeaturedCategories({ data }) {
   return (
     <section>
       <h2 className={featuredCategories.sectionHeading}>Featured Categories</h2>
-      <ul className={`${layout.rowStartStart} ${featuredCategories.linkList}`}>
+      <ul className={`${layout.rowCenterStart} ${featuredCategories.linkList}`}>
         {featuredLinks}
       </ul>
     </section>

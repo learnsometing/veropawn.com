@@ -13,7 +13,7 @@
   display: flex;
   flex: 0 1 44vw;
   list-style: none;
-  margin: 3vw;
+  margin: calc(3vw - 15px/4);
 }
 
 .link:hover {
@@ -44,7 +44,7 @@
   text-align: center;
 }
 
-@media only screen and (min-width: 568px){
+@media only screen and (min-width: 553px){
   .bgImage {
     width: 21vw;
     height: 21vw;
@@ -52,7 +52,7 @@
 
   .listItem {
     flex: 0 1 21vw;
-    margin: 2vw;
+    margin: calc(2vw - 15px/8);
   }
 }
 
@@ -64,7 +64,7 @@
 
   .listItem {
     flex: 0 1 12.667vw;
-    margin: 2vw;
+    margin: calc(2vw - 15px/12);
   }
 }
 
@@ -77,6 +77,6 @@
 
   .listItem {
     flex: 0 1 129.710px;
-    margin: 20.47px;
+    margin: calc(20.47px - 15px/12);
   }
 }
