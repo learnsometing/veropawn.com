@@ -68,7 +68,7 @@ function Map() {
         width={600}
         height={600}
         className={contact.map}
-        allowfullscreen=""
+        allowFullScreen=""
         loading={"eager"}
       >
       </iframe>
