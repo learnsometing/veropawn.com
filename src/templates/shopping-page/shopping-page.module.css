@@ -1,7 +1,4 @@
-$lightBlue: #1188CC;
 $trimColor: rgba(0, 0, 0, 0.6);
-$CTABorder: 2px solid rgba(0, 0, 0, 0.2);
-$CTALinkBorder: 2px solid $lightBlue;
 
 /*                Filter Bar                 */
 
@@ -32,6 +29,8 @@ $CTALinkBorder: 2px solid $lightBlue;
 
 .itemsUL {
   margin: 0;
+  margin-top: calc(1.45rem - 3%);
+  padding: 0 calc(1.45rem - 3%);
   flex-wrap: wrap;
 }
 
@@ -64,28 +63,7 @@ $CTALinkBorder: 2px solid $lightBlue;
   width: 100%;
 }
 
-/*                Pagination                */
-
-.paginationContainer {
-  width: 100%;
-  position: relative;
-  display: flex;
-  justify-content: center;
-  padding: 0 1.45rem;
-  margin-top: 1.45rem;
-}
-
-.pagination {
-  margin: 0;
-}
-
 /*                CTA                */
-
-.CTACard {
-  border-top: $CTABorder;
-  border-bottom: $CTABorder;
-  padding: 1.45rem;
-}
 
 .CTALink {
   padding: 1rem;
@@ -101,8 +79,8 @@ $CTALinkBorder: 2px solid $lightBlue;
 }
 
 .CTALink:hover {
-  border: $CTALinkBorder;
-  color: $lightBlue;
+  border:2px solid #BD3D0D;
+  color: #BD3D0D;
 }
 
 .CTALink:active {
@@ -110,12 +88,24 @@ $CTALinkBorder: 2px solid $lightBlue;
   color: #BD3D0D;
 }
 
-.CTAContainer, .CTA div p {
+/*                Pagination                */
+
+.paginationContainer {
   width: 100%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  padding: 0 1.45rem;
+  margin: 1.45rem 0;
 }
 
+.pagination {
+  margin: 0;
+}
+
+
 @media only screen and (min-width: 667px) {
-  .pageHeader, .displayRangeTextContainer {
+  .displayRangeTextContainer {
     top: 3.375rem;
   }
 
@@ -126,13 +116,13 @@ $CTALinkBorder: 2px solid $lightBlue;
 }
 
 @media only screen and (min-width: 730px) {
-  .pageHeader, .displayRangeTextContainer {
+  .displayRangeTextContainer {
     top: 3.75rem;
   }
 }
 
 @media only screen and (min-width: 1024px) {
-  .pageHeader, .displayRangeTextContainer {
+  .displayRangeTextContainer {
     top: 4.5rem;
   }
 }

@@ -1,0 +1,16 @@
+$CTABorder: 2px solid rgba(0, 0, 0, 0.2);
+
+.card {
+  border-top: $CTABorder;
+  border-bottom: $CTABorder;
+  padding: 1.45rem;
+  margin: 1.45rem;
+}
+
+.header {
+  text-align: center;
+}
+
+.CTAContainer, .CTA div p {
+  width: 100%;
+}

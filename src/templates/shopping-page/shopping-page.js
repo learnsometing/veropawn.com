@@ -7,7 +7,7 @@ import sizeMe from 'react-sizeme';
 import localeInfo from 'rc-pagination/lib/locale/en_US';
 import { Layout } from '../../components/layout/layout';
 import getPhotosOfItem from '../util/getPhotosOfItem';
-
+import CallToAction from '../../components/call-to-action/call-to-action';
 import 'rc-pagination/assets/index.css';
 import shoppingPage from './shopping-page.module.css';
 import layout from '../../styles/layout.module.css';
@@ -69,50 +69,6 @@ ItemCards.propTypes = {
   photos: PropTypes.array.isRequired,
 };
 
-export const CallToAction = ({ currentPage, ...props }) => {
-  const _isCurrentPageEven = currentPage => {
-    return currentPage % 2 === 1;
-  };
-
-  const _getCTA = currentPage => {
-    const contact = {
-      header: 'Interested in an item?',
-      text: "We're ready to answer your questions.",
-      linkText: 'Contact Us',
-      link: '/contact/'
-    };
-
-    const about = {
-      header: 'Did you know?',
-      text: 'Your valuables can be used as credit toward any purchase.',
-      linkText: 'Learn More',
-      link: '/about/'
-    };
-
-    return _isCurrentPageEven(currentPage) ? contact : about;
-  };
-
-  const CTA = _getCTA(currentPage);
-  const CTATextClass = `${layout.rowCenterCenter} ${shoppingPage.CTAText}`
-  const CTALinkClass = `${layout.rowCenterCenter} ${shoppingPage.CTALink}`;
-
-  return (
-    <div className={`${layout.columnCenterCenter} ${shoppingPage.CTACard}`}>
-      <div>
-        <h2 className={shoppingPage.CTAHeader}>{CTA.header}</h2>
-      </div>
-      <div>
-        <p className={CTATextClass}>{CTA.text}</p>
-      </div>
-      <Link to={CTA.link} className={CTALinkClass}>{CTA.linkText}</Link>
-    </div>
-  );
-};
-
-CallToAction.propTypes = {
-  currentPage: PropTypes.number.isRequired,
-};
-
 export const DisplayRange = ({ lowerLimit, numItems, upperLimit }) => {
   var lowerLimitText = setLowerLimitText(lowerLimit);
   var upperLimitText = setUpperLimitText(numItems, upperLimit);
@@ -168,6 +124,7 @@ export const PureShoppingPage = (props) => {
   var upperLimit = calcUpperLimit();
   var lowerLimit = calcLowerLimit();
   var itemsOnPage = filteredItems.slice(lowerLimit, upperLimit);
+  var CTA = getCTA(pageNum);
 
   return (
     <>
@@ -181,7 +138,19 @@ export const PureShoppingPage = (props) => {
         defaultPhoto={defaultPhoto}
         photos={allMainPhotos}
       />
-      <CallToAction currentPage={pageNum} />
+      <CallToAction heading={CTA.header} >
+        <div>
+          <p className={`${layout.rowCenterCenter} ${shoppingPage.CTAText}`}>
+            {CTA.text}
+          </p>
+        </div>
+        <Link
+          to={CTA.link}
+          className={`${layout.rowCenterCenter} ${shoppingPage.CTALink}`}
+        >
+          {CTA.linkText}
+        </Link>
+      </CallToAction>
       <div className={shoppingPage.paginationContainer}>
         <RCPagination
           current={pageNum}
@@ -262,6 +231,28 @@ export const PureShoppingPage = (props) => {
     }
   }
 
+  function getCTA(currentPage) {
+    const contact = {
+      header: 'Interested in an item?',
+      text: "We're ready to answer your questions.",
+      linkText: 'Contact Us',
+      link: '/contact/'
+    };
+
+    const about = {
+      header: 'Did you know?',
+      text: 'Your valuables can be used as credit toward any purchase.',
+      linkText: 'Learn More',
+      link: '/about/'
+    };
+
+    return isCurrentPageEven(currentPage) ? contact : about;
+
+    function isCurrentPageEven(currentPage) {
+      return currentPage % 2 === 1;
+    };
+  }
+
   function itemRender(current, type, element) {
     let pathName = location.pathname;
 
@@ -286,7 +277,7 @@ export const PureShoppingPage = (props) => {
     }
 
     return element;
-  };
+  }
 };
 
 PureShoppingPage.propTypes = {

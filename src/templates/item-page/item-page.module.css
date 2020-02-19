@@ -65,24 +65,9 @@
 
 /* CTA */
 
-.interestedCTA {
-  padding: 1rem .625rem;
-  padding-bottom: 0.625rem;
-}
-
-.CTAHeader {
-  margin: 1rem 0;
-  font-weight: bold;
-}
-
 .CTAText {
   font-weight: 500;
-}
-
-.CTAWrapper {
-  width: 100%;
-  border-top: 2px solid rgba(0, 0, 0, 0.2);
-  border-bottom: 2px solid rgba(0, 0, 0, 0.2);
+  text-align: center;
 }
 
 .tel {

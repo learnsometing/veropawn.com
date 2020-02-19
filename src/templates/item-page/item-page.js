@@ -4,39 +4,15 @@ import { graphql } from "gatsby";
 import { IconContext } from "react-icons";
 import { MdPhone } from "react-icons/md";
 import sizeMe from "react-sizeme";
+import Obfuscate from 'react-obfuscate';
 
 import { Layout } from "../../components/layout/layout";
 import { DetailsCard, DetailsList } from "./details";
 import FullScreenCarousel from "../../components/carousel/full-screen-carousel";
-
+import CallToAction from '../../components/call-to-action/call-to-action';
 import itemPage from "./item-page.module.css";
 import layout from "../../styles/layout.module.css";
 import { createContentFromSharp } from "../../helpers/slides";
-
-const InterestedCTA = () => {
-  const interestedCTAClass = `${layout.rowStartCenter} ${itemPage.interestedCTA}`;
-  const CTAWrapperClass = `${layout.columnCenterCenter} ${itemPage.CTAWrapper}`;
-  const telClass = `${layout.rowStartCenter} ${itemPage.tel}`;
-  return (
-    <div className={interestedCTAClass}>
-      <div className={CTAWrapperClass}>
-        <h2 className={itemPage.CTAHeader}>Interested?</h2>
-        <div className={itemPage.CTAText}>Give us a call.</div>
-        <div>
-          <a
-            className={telClass}
-            href="tel:+17722995626"
-          >
-            <IconContext.Provider value={{ size: '1.25em' }}>
-              <MdPhone />
-            </IconContext.Provider>
-            <span className={itemPage.telNumber}>(772) 299-5626</span>
-          </a>
-        </div>
-      </div>
-    </div>
-  );
-};
 
 const ItemPage = ({ data, size }) => {
   // Unpack the data used on the page
@@ -69,7 +45,23 @@ const ItemPage = ({ data, size }) => {
           />
         </DetailsCard>
       </div>
-      <InterestedCTA />
+      <CallToAction heading={'Interested?'} >
+        <div className={itemPage.CTAText}>
+          Give us a call.
+        </div>
+        <div>
+          <Obfuscate
+            className={`${layout.rowStartCenter} ${itemPage.tel}`}
+            obfuscateChildren={false}
+            tel="17722995626"
+          >
+            <IconContext.Provider value={{ size: '1.25em' }}>
+              <MdPhone />
+            </IconContext.Provider>
+            <span className={itemPage.telNumber}>(772) 299-5626</span>
+          </Obfuscate>
+        </div>
+      </CallToAction>
     </Layout>
   );
 
