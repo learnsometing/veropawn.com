@@ -160,7 +160,7 @@ export const PureShoppingPage = (props) => {
           itemRender={itemRender}
           hideOnSinglePage={true}
           showPrevNextJumpers={false}
-          showLessItems={width < 568 ? true : false}
+          showLessItems={false}
           locale={localeInfo}
           data-testid="rc-pagination"
         />

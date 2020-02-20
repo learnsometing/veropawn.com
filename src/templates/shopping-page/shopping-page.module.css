@@ -100,7 +100,7 @@ $trimColor: rgba(64, 61, 52, 0.6);
   display: flex;
   justify-content: center;
   padding: 0 1.45rem;
-  margin: 1.45rem 0;
+  margin: .95rem 0;
 }
 
 .pagination {

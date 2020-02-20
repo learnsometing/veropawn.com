@@ -3,6 +3,10 @@
 $active-color: #36733F;
 $inactive-color: rgba(64, 61, 52, 0.2);
 
+.rc-pagination-item {
+  margin: .5rem .25rem;
+}
+
 .rc-pagination > li{
   display: flex;
   flex-direction: column;
@@ -41,6 +45,7 @@ $inactive-color: rgba(64, 61, 52, 0.2);
 .rc-pagination > .rc-pagination-prev, 
 .rc-pagination > .rc-pagination-next {
   font-size: 1.25rem;
+  margin: .5rem .25rem;
 }
 
 .rc-pagination-item-active a,
