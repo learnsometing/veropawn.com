@@ -28,6 +28,7 @@ PageHeader.propTypes = {
 export const Layout = (props) => {
   var {
     children,
+    description,
     hasPageHeader,
     pageHeaderText,
     title,
@@ -36,7 +37,7 @@ export const Layout = (props) => {
 
   return (
     <div id={layout.root} className={flex.columnStartCenter}>
-      <SEO title={title} />
+      <SEO title={title} description={description} />
       <Helmet>
         <link href="https://fonts.googleapis.com/css?family=Playfair+Display+SC:700&display=swap" rel="stylesheet" />
       </Helmet>
@@ -59,6 +60,7 @@ Layout.propTypes = {
     PropTypes.node,
     PropTypes.arrayOf(PropTypes.node),
   ]).isRequired,
+  description: PropTypes.string,
   hasPageHeader: PropTypes.bool,
   pageHeaderText: PropTypes.string,
   title: PropTypes.string.isRequired,
@@ -74,6 +76,7 @@ Layout.defaultProps = {
 function SizedLayout(props) {
   var {
     children,
+    description,
     hasPageHeader,
     pageHeaderText,
     title,
@@ -82,6 +85,7 @@ function SizedLayout(props) {
 
   return (
     <Layout
+      description={description}
       hasPageHeader={hasPageHeader}
       pageHeaderText={pageHeaderText}
       title={title}
@@ -97,6 +101,7 @@ SizedLayout.propTypes = {
     PropTypes.node,
     PropTypes.arrayOf(PropTypes.node),
   ]).isRequired,
+  description: PropTypes.string,
   hasPageHeader: PropTypes.bool,
   pageHeaderText: PropTypes.string,
   title: PropTypes.string.isRequired,
