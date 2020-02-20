@@ -58,7 +58,7 @@ export var query = graphql`
           }
         }
       }, 
-      sort: {fields: frontmatter___linkText}) {
+      sort: {fields: frontmatter___to, order: DESC}) {
       nodes {
         frontmatter {
           backgroundImage {
