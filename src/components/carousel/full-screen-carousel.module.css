@@ -4,6 +4,8 @@
   max-width: 1024px;
   position: relative;
   width: 100%;
+  padding: 0 1.45rem;
+  margin: auto 0;
 }
 
 .overlay {
@@ -20,8 +22,6 @@
   border: none;
   border-radius: 0;
   background-color: transparent;
-  margin: 1rem;
-  padding: .45rem;
   overflow-y: hidden;
   overflow-x: hidden;
   z-index: 5;
@@ -33,20 +33,33 @@
   bottom: 0;
 }
 
-@media only screen and (min-aspect-ratio: 16/10){
-  .content {
-    width: 85%;
+@media only screen 
+and (min-aspect-ratio: 16/10) 
+and (max-height: calc(614.4px + 2.9rem)){
+  .FSWrapper {
+    padding: 0 8%;
   }
 }
 
-@media only screen and (min-aspect-ratio: 17/10) and (max-aspect-ratio: 26/12){
-  .content {
-    width: 75%;
+@media only screen 
+and (min-aspect-ratio: 17/10) 
+and (max-aspect-ratio: 26/12)
+and (max-height: calc(614.4px + 2.9rem)){
+  .FSWrapper {
+    padding: 0 18%;
   }
 }
 
-@media only screen and (min-aspect-ratio: 26/13){
-  .content {
-    width: 60%;
+@media only screen 
+and (min-aspect-ratio: 26/13)
+and (max-height: calc(614.4px + 2.9rem)){
+  .FSWrapper {
+    padding: 0 23%;
+  }
+}
+
+@media only screen and (min-width: calc(1024px + 2.9rem)){
+  .FSWrapper {
+    padding: 0;
   }
 }
