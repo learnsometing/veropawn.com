@@ -27,6 +27,7 @@ const ItemPage = ({ data, size }) => {
 
   return (
     <Layout
+      description={`Cash Pawn & Jewelry ${descript.toLowerCase()} ${invNum} item page.`}
       hasPageHeader={true}
       pageHeaderClass={`${layout.columnCenterCenter} ${itemPage.header}`}
       pageHeaderText={descript}

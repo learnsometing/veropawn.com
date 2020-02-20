@@ -298,6 +298,7 @@ const ShoppingPage = ({ data, location, size }) => {
   var width = size.width;
   return (
     <Layout
+      description={`Cash Pawn & Jewelry ${subcategory.toLowerCase()} shopping page.`}
       hasPageHeader={true}
       pageHeaderClass={`${layout.rowCenterCenter} ${shoppingPage.pageTitleContainer}`}
       title={subcategory}

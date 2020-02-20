@@ -11,7 +11,7 @@ const IndexPage = ({ data }) => {
   });
 
   return (
-    <SizedLayout title={'Home'}>
+    <SizedLayout description={'Welcome to Cash Pawn & Jewelry'} title={'Home'}>
       <FullScreenCarousel
         content={content}
         currentSlideStyle={{ minWidth: '60%' }}

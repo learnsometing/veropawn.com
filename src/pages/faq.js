@@ -7,6 +7,7 @@ import faq from './faq.module.css';
 export default function FAQ({ data }) {
   return (
     <SizedLayout
+      description={'Frequently asked questions'}
       hasPageHeader={true}
       title={'FAQ'}
     >

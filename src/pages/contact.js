@@ -81,6 +81,7 @@ function Contact({ size }) {
 
   return (
     <Layout
+      description={"Cash Pawn & Jewelry's contact information."}
       hasPageHeader={true}
       pageHeaderClass={`${layout.columnCenterCenter} ${contact.pageHeader}`}
       title={'Contact'}

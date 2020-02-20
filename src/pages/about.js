@@ -4,7 +4,10 @@ import ExpandableSection from '../components/expandable-section/expandable-secti
 import about from './about.module.css';
 export default function About() {
   return (
-    <SizedLayout hasPageHeader={true} title={'About Us'}>
+    <SizedLayout
+      description={'Information about Cash Pawn & Jewelry'}
+      hasPageHeader={true}
+      title={'About Us'}>
       <p className={about.intro}>
         Cash Pawn & Jewelry was established in 1995 and has provided the highest quality pawn services in Vero Beach and the surrounding areas ever since.
         We specialize in short-term loans from $5 to $50,000. We also buy items valued up to $25,000.
