@@ -35,7 +35,7 @@ $trimColor: rgba(64, 61, 52, 0.6);
 }
 
 .listItem {
-  flex: 0 0 44%;
+  flex-basis: calc(50% - 1.225rem);
   list-style: none;
 }
 
@@ -120,7 +120,7 @@ $trimColor: rgba(64, 61, 52, 0.6);
   }
 
   .listItem {
-    flex: 0 0 30%;
+    flex-basis: calc(33.333% - (2.9rem/3));
   }
 
   .listItem:nth-child(2n){
