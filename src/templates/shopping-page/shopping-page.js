@@ -6,7 +6,7 @@ import RCPagination from 'rc-pagination';
 import localeInfo from 'rc-pagination/lib/locale/en_US';
 import SizedLayout from '../../components/layout/layout';
 import getPhotosOfItem from '../util/getPhotosOfItem';
-import CallToAction from '../../components/call-to-action/call-to-action';
+import PureCallToAction from '../../components/call-to-action/call-to-action';
 import 'rc-pagination/assets/index.css';
 import shoppingPage from './shopping-page.module.css';
 import layout from '../../styles/layout.module.css';
@@ -102,6 +102,44 @@ DisplayRange.propTypes = {
   upperLimit: PropTypes.number.isRequired,
 };
 
+export function CallToAction({ pageNum }) {
+  var CTA = getCTA(pageNum);
+
+  return (
+    <PureCallToAction heading={CTA.header} >
+      <div>
+        <p className={`${layout.rowCenterCenter} ${shoppingPage.CTAText}`}>
+          {CTA.text}
+        </p>
+      </div>
+      <Link
+        to={CTA.link}
+        className={`${layout.rowCenterCenter} ${shoppingPage.CTALink}`}
+      >
+        {CTA.linkText}
+      </Link>
+    </PureCallToAction>
+  );
+
+  function getCTA(pageNum) {
+    const contact = {
+      header: 'Interested in an item?',
+      text: "We're ready to answer your questions.",
+      linkText: 'Contact Us',
+      link: '/contact/'
+    };
+
+    const about = {
+      header: 'Did you know?',
+      text: 'Your valuables can be used as credit toward any purchase.',
+      linkText: 'Learn More',
+      link: '/about/'
+    };
+
+    return pageNum % 2 === 1 ? contact : about;
+  }
+}
+
 export const PureShoppingPage = (props) => {
   var {
     allItems,
@@ -122,7 +160,6 @@ export const PureShoppingPage = (props) => {
   var upperLimit = calcUpperLimit();
   var lowerLimit = calcLowerLimit();
   var itemsOnPage = filteredItems.slice(lowerLimit, upperLimit);
-  var CTA = getCTA(pageNum);
 
   return (
     <>
@@ -136,19 +173,7 @@ export const PureShoppingPage = (props) => {
         defaultPhoto={defaultPhoto}
         photos={allMainPhotos}
       />
-      <CallToAction heading={CTA.header} >
-        <div>
-          <p className={`${layout.rowCenterCenter} ${shoppingPage.CTAText}`}>
-            {CTA.text}
-          </p>
-        </div>
-        <Link
-          to={CTA.link}
-          className={`${layout.rowCenterCenter} ${shoppingPage.CTALink}`}
-        >
-          {CTA.linkText}
-        </Link>
-      </CallToAction>
+      <CallToAction pageNum={pageNum} />
       <div className={shoppingPage.paginationContainer}>
         <RCPagination
           current={pageNum}
@@ -227,28 +252,6 @@ export const PureShoppingPage = (props) => {
       }
       return true;
     }
-  }
-
-  function getCTA(currentPage) {
-    const contact = {
-      header: 'Interested in an item?',
-      text: "We're ready to answer your questions.",
-      linkText: 'Contact Us',
-      link: '/contact/'
-    };
-
-    const about = {
-      header: 'Did you know?',
-      text: 'Your valuables can be used as credit toward any purchase.',
-      linkText: 'Learn More',
-      link: '/about/'
-    };
-
-    return isCurrentPageEven(currentPage) ? contact : about;
-
-    function isCurrentPageEven(currentPage) {
-      return currentPage % 2 === 1;
-    };
   }
 
   function itemRender(current, type, element) {

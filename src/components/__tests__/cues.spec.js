@@ -10,7 +10,7 @@ describe('Cue', () => {
 
     const cue = queryByTestId('carousel-pos-indicator');
 
-    expect(cue).toHaveStyle('color: rgba(0, 0, 0, 0.8)');
+    expect(cue).toHaveStyle('color: rgba(64, 61, 52, 0.8)');
   });
 
   it('should have the correct color when !isActive and !isFullScreen', () => {
@@ -18,7 +18,7 @@ describe('Cue', () => {
 
     const cue = queryByTestId('carousel-pos-indicator');
 
-    expect(cue).toHaveStyle('color: rgba(0, 0, 0, 0.4)');
+    expect(cue).toHaveStyle('color: rgba(64, 61, 52, 0.4)');
   });
 
   it('should have the correct color when isActive and isFullScreen', () => {
@@ -26,7 +26,7 @@ describe('Cue', () => {
 
     const cue = queryByTestId('carousel-pos-indicator');
 
-    expect(cue).toHaveStyle('color: rgba(255, 255, 255, 0.8)');
+    expect(cue).toHaveStyle('color: rgba(231, 232, 200, 0.8)');
   });
 
   it('should have the correct color when !isActive and isFullScreen', () => {
@@ -34,7 +34,7 @@ describe('Cue', () => {
 
     const cue = queryByTestId('carousel-pos-indicator');
 
-    expect(cue).toHaveStyle('color: rgba(255, 255, 255, 0.4)');
+    expect(cue).toHaveStyle('color: rgba(231, 232, 200, 0.4)');
   });
 });
 
@@ -66,9 +66,9 @@ describe('Cues', () => {
     const cues = queryAllByTestId('carousel-pos-indicator');
 
 
-    expect(cues[0]).toHaveStyle('color: rgba(0, 0, 0, 0.4)');
-    expect(cues[1]).toHaveStyle('color: rgba(0, 0, 0, 0.4)');
-    expect(cues[2]).toHaveStyle('color: rgba(0, 0, 0, 0.8)');
+    expect(cues[0]).toHaveStyle('color: rgba(64, 61, 52, 0.4)');
+    expect(cues[1]).toHaveStyle('color: rgba(64, 61, 52, 0.4)');
+    expect(cues[2]).toHaveStyle('color: rgba(64, 61, 52, 0.8)');
   });
 
   it('should give the Cue specified by currentIndex the active color', () => {
@@ -84,8 +84,8 @@ describe('Cues', () => {
     const cues = queryAllByTestId('carousel-pos-indicator');
 
 
-    expect(cues[0]).toHaveStyle('color: rgba(255, 255, 255, 0.4)');
-    expect(cues[1]).toHaveStyle('color: rgba(255, 255, 255, 0.4)');
-    expect(cues[2]).toHaveStyle('color: rgba(255, 255, 255, 0.8)');
+    expect(cues[0]).toHaveStyle('color: rgba(231, 232, 200, 0.4)');
+    expect(cues[1]).toHaveStyle('color: rgba(231, 232, 200, 0.4)');
+    expect(cues[2]).toHaveStyle('color: rgba(231, 232, 200, 0.8)');
   });
 });

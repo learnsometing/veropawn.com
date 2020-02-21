@@ -23,7 +23,7 @@ describe('MainMenu', () => {
 
     expect(queryByText('Rings')).toBeInTheDocument();
     expect(queryByText('Pistols')).toBeInTheDocument();
-    expect(queryByText('About Us')).toBeInTheDocument();
+    expect(queryByText('About')).toBeInTheDocument();
     expect(queryByText('Contact')).toBeInTheDocument();
     expect(queryByText('FAQ')).toBeInTheDocument();
   });
@@ -51,7 +51,7 @@ describe('MainMenu', () => {
   });
 
   it('should render the default menu when the "Main Menu" button is clicked', () => {
-    const { queryByRole, queryAllByRole, queryByText, queryByTestId } = render(
+    const { queryByRole, queryByText, queryByTestId } = render(
       <MainMenu
         allPagesJson={allPagesJson}
       />
@@ -78,7 +78,7 @@ describe('MainMenu', () => {
     expect(queryByRole('button').textContent).toBe('Browse');
     expect(queryByText('Rings')).toBeInTheDocument();
     expect(queryByText('Pistols')).toBeInTheDocument();
-    expect(queryByText('About Us')).toBeInTheDocument();
+    expect(queryByText('About')).toBeInTheDocument();
     expect(queryByText('Contact')).toBeInTheDocument();
     expect(queryByText('FAQ')).toBeInTheDocument();
   });

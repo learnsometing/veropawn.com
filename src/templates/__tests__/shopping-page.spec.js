@@ -2,7 +2,7 @@ import React from "react";
 import { render } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 
-import { CallToAction, DisplayRange, ItemCard, ItemCards, PureShoppingPage, query } from "../shopping-page/shopping-page";
+import { CallToAction, DisplayRange, ItemCard, ItemCards, PureShoppingPage } from "../shopping-page/shopping-page";
 import { defaultPhoto, mainPhotos } from "../__fixtures__/all-photos";
 import { allItemsJson, rings } from "../__fixtures__/all-items-json";
 import filteredRings from '../__fixtures__/filtered-rings';
@@ -38,13 +38,13 @@ describe('ItemCards', () => {
 });
 
 describe('CallToAction', () => {
-  it('should render the aboutCTA info when currentPage is even', () => {
-    const { queryByRole } = render(<CallToAction currentPage={2} />);
+  it('should render the about CTA info when currentPage is even', () => {
+    const { queryByRole } = render(<CallToAction pageNum={2} />);
     expect(queryByRole('link').href).toContain('about');
   });
 
-  it('should render the contactCTA info when currentPage is odd', () => {
-    const { queryByRole } = render(<CallToAction currentPage={5} />);
+  it('should render the contact CTA info when currentPage is odd', () => {
+    const { queryByRole } = render(<CallToAction pageNum={5} />);
     expect(queryByRole('link').href).toContain('contact');
   });
 });

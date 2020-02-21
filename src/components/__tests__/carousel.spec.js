@@ -55,9 +55,9 @@ describe('Carousel', () => {
 
     let cues = queryAllByTestId('carousel-pos-indicator');
 
-    expect(cues[0]).toHaveStyle('color: rgba(255, 255, 255, 0.8)');
+    expect(cues[0]).toHaveStyle('color: rgba(231, 232, 200, 0.8)');
     cues.slice(1, cues.length).forEach(cue => (
-      expect(cue).toHaveStyle('color: rgba(255, 255, 255, 0.4)')
+      expect(cue).toHaveStyle('color: rgba(231, 232, 200, 0.4)')
     ));
   });
 
@@ -71,7 +71,7 @@ describe('Carousel', () => {
 
     const FSIcon = queryByTestId('md-fullscreen-exit-icon');
 
-    expect(FSIcon).toHaveStyle('color: rgba(255, 255, 255, 0.8)');
+    expect(FSIcon).toHaveStyle('color: rgb(231, 232, 200)');
   });
 
   it('should cycle through the photos when the next button is clicked', () => {
