@@ -3,9 +3,8 @@ import { graphql, Link } from 'gatsby';
 import Img from 'gatsby-image';
 import PropTypes from 'prop-types';
 import RCPagination from 'rc-pagination';
-import sizeMe from 'react-sizeme';
 import localeInfo from 'rc-pagination/lib/locale/en_US';
-import { Layout } from '../../components/layout/layout';
+import SizedLayout from '../../components/layout/layout';
 import getPhotosOfItem from '../util/getPhotosOfItem';
 import CallToAction from '../../components/call-to-action/call-to-action';
 import 'rc-pagination/assets/index.css';
@@ -109,7 +108,6 @@ export const PureShoppingPage = (props) => {
     allMainPhotos,
     defaultPhoto,
     location,
-    width
   } = props;
 
   // TODO: Implement item filtration!
@@ -285,43 +283,38 @@ PureShoppingPage.propTypes = {
   allMainPhotos: PropTypes.array.isRequired,
   defaultPhoto: PropTypes.object.isRequired,
   location: PropTypes.object.isRequired,
-  width: PropTypes.number.isRequired,
 };
 
-const ShoppingPage = ({ data, location, size }) => {
+const ShoppingPage = ({ data, location }) => {
   var allItems = data.inv.nodes;
   // Default photo used throughout the app
   var defaultPhoto = data.defaultPhoto;
   // Every image with '_a' identifier
   var allMainPhotos = data.allMainPhotos.nodes;
   var subcategory = allItems[0].subcategory;
-  var width = size.width;
   return (
-    <Layout
+    <SizedLayout
       description={`Cash Pawn & Jewelry ${subcategory.toLowerCase()} shopping page.`}
       hasPageHeader={true}
       pageHeaderClass={`${layout.rowCenterCenter} ${shoppingPage.pageTitleContainer}`}
       title={subcategory}
-      width={width}
     >
       <PureShoppingPage
         allItems={allItems}
         allMainPhotos={allMainPhotos}
         defaultPhoto={defaultPhoto}
         location={location}
-        width={width}
       />
-    </Layout>
+    </SizedLayout>
   );
 };
 
 ShoppingPage.propTypes = {
   data: PropTypes.object.isRequired,
   location: PropTypes.object.isRequired,
-  size: PropTypes.object.isRequired,
 };
 
-export default sizeMe()(ShoppingPage);
+export default ShoppingPage;
 
 export const query = graphql`
   query($photoNames: [String!], $slug: String!) {
