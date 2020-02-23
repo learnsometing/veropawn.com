@@ -59,7 +59,13 @@ TextOverlay.propTypes = {
 };
 
 export default function Slides(props) {
-  var { content, currentSlideStyle, isDisabled, slideStyle, visibleRange } = props;
+  var {
+    content,
+    currentSlideStyle,
+    isDisabled,
+    slideStyle,
+    visibleRange
+  } = props;
 
   /* 
   * Make a list of slides in the visible range (prev, current, next)
@@ -73,7 +79,7 @@ export default function Slides(props) {
     let _slides;
 
     if (isDisabled) {
-      // isDisabled if content.length < 2, so return one slide.
+      // return one slide if content.length < 2.
       let node = content[0];
       _slides = <Slide
         key={node.id}

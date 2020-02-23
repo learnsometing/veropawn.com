@@ -17,6 +17,8 @@ export function circularIndex(value, length) {
 }
 
 export function useCurrentIndex(startIndex, onIndexChange, length) {
+  // maintains and manipulates the current index of an image carousel
+
   var [value, setValue] = useState(startIndex);
   var idx = circularIndex(value, length);
 
@@ -25,6 +27,7 @@ export function useCurrentIndex(startIndex, onIndexChange, length) {
     onClick: handleClick,
     setTimer,
     get visibleRange() {
+      // display previews of the previous and next photos and the current photo
       return [idx.prev, value, idx.next];
     },
   };
