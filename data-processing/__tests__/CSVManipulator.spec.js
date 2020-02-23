@@ -33,6 +33,6 @@ describe('CSVManipulator', () => {
   });
 
   it('should correctly join items', () => {
-    expect(manipulator.getJoinedItems(prettifiedInvData)).toEqual(joinedInvData);
+    expect(manipulator.getItemsWithJoinedInNames(prettifiedInvData)).toEqual(joinedInvData);
   });
 });

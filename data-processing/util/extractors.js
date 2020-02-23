@@ -1,7 +1,18 @@
-const { toTitleCase } = require('./text-formatting');
+/*
+* These objects are designed to extract details from DESCRIPT2.
+*
+* There are three extractor objects:
+* - extractor (operates on all item categories except firearms and jewelry)
+* - firearmExtractor
+* - jewelryExtractor
+* 
+* extractorPrototype is the prototype obect each extractor object is linked to
+*/
 
-let extractorPrototype = {
-  getCleanedDescript2: (desc2, category, subcategory) => {
+var { toTitleCase } = require('./text-formatting');
+
+var extractorPrototype = {
+  getDetailsSubstr: (desc2, category, subcategory) => {
     /*
     * Returns a copy of record.descript2 with the following removed:
     * - the record's descript
@@ -9,80 +20,79 @@ let extractorPrototype = {
     * - the record's subcategory
     */
 
-    const _removeDescFromDesc2 = (desc2) => {
+    var onlyDesc2 = removeDescFromDesc2(desc2);
+
+    return removeCatAndSubcatFromDesc2(onlyDesc2, category, subcategory);
+
+    function removeDescFromDesc2(desc2) {
       let _desc2 = desc2.split(';').slice(0, -1);
       return _desc2.toString();
     };
 
-    const _removeCatAndSubcat = (desc2, category, subcategory) => {
+    function removeCatAndSubcatFromDesc2(desc2, category, subcategory) {
       return desc2.replace(`${category}`, '').replace(`${subcategory}`, '');
     };
-
-    const onlyDesc2 = _removeDescFromDesc2(desc2);
-    return _removeCatAndSubcat(onlyDesc2, category, subcategory);
   },
   isSerial: detail => {
     return detail.includes('#');
   },
   extractDetails: function (record) {
-    const {
-      category,
-      subcategory,
-      descript,
-      descript2,
-      invNum,
-      model
-    } = record;
+    // descript2 format: CATEGORY SUBCATEGORY DETAILS; DESCRIPT
+    var descript2 = record.descript2;
+    var category = record.category;
+    var subcategory = record.subcategory;
+    // extract the comma separated list of details from descript2
+    var detailsSubstr = this.getDetailsSubstr(descript2, category, subcategory);
+    // split the details substr on commas
+    var detailsArr = getDetails();
+    // make sure the details array isn't longer than 4 elements
+    checkLengthOfDetailsArr();
+    var model = record.model;
+    // brand and model are the first element in the array, separated by a space
+    var brandAndModel = detailsArr[0];
+    // isolate the brand and replace the first element in detailsArr with brand
+    var brand = this.getBrand(brandAndModel, model);
+    detailsArr.splice(0, 1, brand);
 
-    const _getDetailsArr = (_desc2) => {
-      return _desc2.split(', ').map(el => el.trim());
-    };
+    return this.getDetailsFromArr(detailsArr);
 
-    const _isDetailsArrTooLong = _detailsArr => {
-      return _detailsArr.length > 4
-    };
-
-    let _cleanDesc2 = this.getCleanedDescript2(descript2, category, subcategory);
-    let _rawDetailsArr = _getDetailsArr(_cleanDesc2);
-
-    if (_isDetailsArrTooLong(_rawDetailsArr)) {
-      throw new RangeError(`Details out of range: Item ${invNum}: ${_rawDetailsArr}`);
+    // Helpers
+    function getDetails() {
+      // return the details substr split on commas
+      return detailsSubstr.split(', ').map(el => el.trim());
     }
 
-    let _makeAndModel = _rawDetailsArr[0];
-    let _make = this.getBrand(_makeAndModel, model);
+    function checkLengthOfDetailsArr() {
+      const invNum = record.invNum;
 
-    let _refinedDetailsArr = [..._rawDetailsArr];
-    _refinedDetailsArr.splice(0, 1, _make);
-
-    return this.getDetailsFromArr(_refinedDetailsArr);
+      if (detailsArr.length > 4) {
+        throw new RangeError(`Details out of range: Item ${invNum}: ${detailsArr}`);
+      }
+    }
   }
 };
 
-exports.extractorPrototype = extractorPrototype;
-
-const extractor = Object.create(extractorPrototype);
+var extractor = Object.create(extractorPrototype);
 
 extractor.getBrand = (brandAndModel, modelNum) => {
   return brandAndModel.replace(modelNum, '').trim();
 };
 
 extractor.getDetailsFromArr = function (detailsArr) {
-  let _details = { brand: '', serial: '', };
+  let details = { brand: '', serial: '', };
 
-  detailsArr.forEach(_detail => {
-    if (this.isSerial(_detail)) {
-      _details.serial = _detail;
+  detailsArr.forEach(detail => {
+    if (this.isSerial(detail)) {
+      details.serial = detail;
     } else {
-      _details.brand = _detail;
+      details.brand = detail;
     }
   });
-  return _details;
+
+  return details;
 };
 
-exports.extractor = extractor;
-
-let firearmExtractor = Object.create(extractorPrototype);
+var firearmExtractor = Object.create(extractorPrototype);
 
 firearmExtractor.getBrand = (brandAndModel, modelNum) => {
   let brand = (modelNum == '' || modelNum == 'NONE')
@@ -104,26 +114,24 @@ firearmExtractor.getDetailsFromArr = (detailsArr) => {
 
   let details = { brand: '', serial: '', ammo: '', action: '' };
 
-  detailsArr.forEach((_detail, i) => {
+  detailsArr.forEach((detail, i) => {
     switch (i) {
       case 1:
-        details.serial = _detail;
+        details.serial = detail;
         break;
       case 2:
-        details.ammo = _formattedAmmoType(_detail);
+        details.ammo = _formattedAmmoType(detail);
         break;
       case 3:
-        details.action = toTitleCase(_detail);
+        details.action = toTitleCase(detail);
         break;
       default:
-        details.brand = _detail;
+        details.brand = detail;
         break;
     }
   });
   return details;
 };
-
-exports.firearmExtractor = firearmExtractor;
 
 let jewelryExtractor = Object.create(extractorPrototype);
 
@@ -213,4 +221,7 @@ jewelryExtractor.getDetailsFromArr = function (detailsArr) {
   return details;
 };
 
+exports.extractorPrototype = extractorPrototype;
+exports.extractor = extractor;
+exports.firearmExtractor = firearmExtractor;
 exports.jewelryExtractor = jewelryExtractor;

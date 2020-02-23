@@ -2,14 +2,14 @@ const { extractor, firearmExtractor, jewelryExtractor } = require('./extractors'
 
 exports.extractDetails = (record) => {
   /*
-  * Extracts additional details from descript2. 
+  * Extracts item details from descript2.
   * 
-  * ex descript2: RIFLE FIREARM WINCHESTER 94, SERIAL, 30-30, LEVER; RIFLE
-  * 
-  * For firearms, brand, serial no., ammo type, and action are details.
+  * default descript2 format: CATEGORY SUBCATEGORY BRAND MODEL, SERIAL; DESCRIPT
+  * firearm desript2 format: CATEGORY SUBCATEGORY BRAND MODEL, SERIAL, AMMUNITION, ACTION; DESCRIPT
+  * jewelry desript2 format: CATEGORY SUBCATEGORY BRAND MODEL, SERIAL, METAL, MASS; DESCRIPT
   */
 
-  let details;
+  var details;
 
   if (record.category === 'FIREARM') {
     details = firearmExtractor.extractDetails(record);

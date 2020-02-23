@@ -10,8 +10,7 @@ const toTitleCase = (str) => {
 exports.toTitleCase = toTitleCase;
 
 exports.prettifyName = str => {
-  // Converts ugly category and subcategory names to prettier 
-  // ones suitable for the web.
+  // Converts ugly category and subcategory names to names suitable for the web.
   // ex: "FOREIGN COIN(S)" => Foreign Coins
 
   const _toHumanReadableFormat = _str => {
@@ -37,11 +36,11 @@ exports.prettifyName = str => {
 };
 
 exports.prettifyDescript = str => {
-  // Converts ugly database descriptions to prettier ones suitable for the web.
+  // Converts ugly database descriptions to descriptions suitable for the web.
   // ex: "LADIES RING W/STONES" => Ladies Ring With Stones
 
   const _trimmedSpacesAndQuotes = _str => {
-    // for some reason, some descriptions end with a lot of white space and 
+    // for some reason, some descriptions end with a lot of white space and
     // one '"' character..
     if (_str.endsWith('"')) {
       _str = _str.slice(0, -1).trim();
@@ -51,6 +50,7 @@ exports.prettifyDescript = str => {
   };
 
   const _replacedAbbreviationOfWith = _str => {
+    // replace the abbreviation of 'with', written as 'W/', with the word 'with'
     if (_str.includes("W/")) {
       let split = _str.split("W/").map(statement => statement.trim());
       _str = split.join(' With ');
@@ -60,6 +60,10 @@ exports.prettifyDescript = str => {
   };
 
   const _streamlineGenderPossessiveNouns = _str => {
+    // replaces any gender possessive nouns with either 'Women's' or 'Men's'
+    // for consistency. Wouldn't be able to sort or filter by gender if they're
+    // not consistent.
+
     let words = _str.split(' ');
 
     const _includesLadies = _str => {
@@ -81,6 +85,7 @@ exports.prettifyDescript = str => {
     };
 
     const _convertToSinglePossessiveNoun = _word => {
+      // check for the incorrect possessive nouns and replace them with the correct ones
       if (_includesLadies(_word) || _includesWomans(_word)) {
         return "Women's"
       } else if (_includesMens(_word) || _includesMans(_word)) {
@@ -112,6 +117,7 @@ exports.prettifyDescript = str => {
 };
 
 exports.prettifyHeaders = header => {
+  // replace the default database fields with versions that are nicer to work with
   switch (header) {
     case 'LEVEL1_FK':
       return 'category';
