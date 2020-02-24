@@ -9,9 +9,7 @@ import { allPhotoNodes } from '../../templates/__fixtures__/all-photos';
 describe('Carousel', () => {
   var alt = 'Handgun With Case 2 Mags';
   var photos = allPhotoNodes.slice(0, 4);
-  var content = photos.map((photo, idx) => (
-    createContentFromSharp(alt, idx, photo)
-  ));
+  var content = createContentFromSharp(alt, photos);
   var onIndexChangeMock = jest.fn();
 
   beforeEach(() => {
@@ -125,9 +123,7 @@ describe('Carousel', () => {
   });
 
   it('should not render either carousel button if content.length is 1', () => {
-    const content = photos.slice(0, 1).map((photo, idx) => (
-      createContentFromSharp(alt, idx, photo)
-    ));
+    const content = createContentFromSharp(alt, photos.slice(0, 1));
 
     const { queryByTestId } = render(
       <Carousel content={content} />

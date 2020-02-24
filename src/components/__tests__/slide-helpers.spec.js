@@ -3,35 +3,34 @@ import { mainPhotos } from '../../templates/__fixtures__/all-photos';
 
 describe('createContentFromSharp', () => {
   var alt = 'photo';
-  var idx = 0;
   var photo = mainPhotos[0];
 
   it('should return an object with alt, id', () => {
-    let expected = {
+    let expected = [{
       alt: 'photo 1',
       id: photo.id,
       photo: photo.childImageSharp,
-    };
+    }];
 
-    expect(createContentFromSharp(alt, idx, photo)).toStrictEqual(expected);
+    expect(createContentFromSharp(alt, photo)).toStrictEqual(expected);
   });
 
-  it('should return null if the photo node has no id or childImageSharp properties', () => {
+  it('should return an empty array if the photo node has no id or childImageSharp properties', () => {
     photo = 'foo';
 
-    expect(createContentFromSharp(alt, idx, photo)).toStrictEqual(null);
+    expect(createContentFromSharp(alt, photo)).toStrictEqual([]);
   });
 });
 
 describe('createContentFromMarkdown', () => {
   it('should return null if node has no frontmatter', () => {
     let node = {}
-    expect(createContentFromMarkdown(node)).toStrictEqual(null);
+    expect(createContentFromMarkdown(node)).toStrictEqual([]);
   });
 
   it('should return null if node has no featuredImage', () => {
     let node = { frontmatter: {} }
-    expect(createContentFromMarkdown(node)).toStrictEqual(null);
+    expect(createContentFromMarkdown(node)).toStrictEqual([]);
   });
 
   it('should set alt to the name of the featuredImage', () => {
@@ -43,7 +42,7 @@ describe('createContentFromMarkdown', () => {
       }
     };
 
-    let expected = {
+    let expected = [{
       alt: 'foo',
       id: undefined,
       linkText: undefined,
@@ -51,7 +50,7 @@ describe('createContentFromMarkdown', () => {
       text: undefined,
       title: undefined,
       to: undefined,
-    };
+    }];
 
     expect(createContentFromMarkdown(node)).toStrictEqual(expected);
   });
@@ -66,7 +65,7 @@ describe('createContentFromMarkdown', () => {
       }
     };
 
-    let expected = {
+    let expected = [{
       alt: 'foo',
       id: '123',
       linkText: undefined,
@@ -74,7 +73,7 @@ describe('createContentFromMarkdown', () => {
       text: undefined,
       title: undefined,
       to: undefined,
-    };
+    }];
 
     expect(createContentFromMarkdown(node)).toStrictEqual(expected);
   });
@@ -91,7 +90,7 @@ describe('createContentFromMarkdown', () => {
       }
     };
 
-    let expected = {
+    let expected = [{
       alt: 'foo',
       id: '123',
       linkText: 'bar',
@@ -99,7 +98,7 @@ describe('createContentFromMarkdown', () => {
       text: undefined,
       title: undefined,
       to: '/foo/bar'
-    };
+    }];
 
     expect(createContentFromMarkdown(node)).toStrictEqual(expected);
   });
@@ -117,7 +116,7 @@ describe('createContentFromMarkdown', () => {
       }
     };
 
-    let expected = {
+    let expected = [{
       alt: 'foo',
       id: '123',
       linkText: 'bar',
@@ -125,7 +124,7 @@ describe('createContentFromMarkdown', () => {
       text: 'click me',
       title: undefined,
       to: '/foo/bar'
-    };
+    }];
 
     expect(createContentFromMarkdown(node)).toStrictEqual(expected);
   });
@@ -144,7 +143,7 @@ describe('createContentFromMarkdown', () => {
       }
     };
 
-    let expected = {
+    let expected = [{
       alt: 'foo',
       id: '123',
       linkText: 'bar',
@@ -152,7 +151,7 @@ describe('createContentFromMarkdown', () => {
       text: 'click me',
       title: 'welcome',
       to: '/foo/bar'
-    };
+    }];
 
     expect(createContentFromMarkdown(node)).toStrictEqual(expected);
   });
@@ -174,7 +173,7 @@ describe('createContentFromMarkdown', () => {
       }
     };
 
-    let expected = {
+    let expected = [{
       alt: 'foo',
       id: '123',
       linkText: 'bar',
@@ -182,7 +181,7 @@ describe('createContentFromMarkdown', () => {
       text: 'click me',
       title: 'welcome',
       to: '/foo/bar'
-    };
+    }];
 
     expect(createContentFromMarkdown(node)).toStrictEqual(expected);
   });

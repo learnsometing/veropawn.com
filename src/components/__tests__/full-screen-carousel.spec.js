@@ -10,9 +10,7 @@ describe('FullScreenCarousel', () => {
   var onIndexChangeMock = jest.fn();
   var alt = "Women's Ring";
   var photos = mainPhotos.slice(0, 4);
-  var content = photos.map((photo, idx) => (
-    createContentFromSharp(alt, idx, photo)
-  ));
+  var content = createContentFromSharp(alt, photos)
 
   beforeEach(() => jest.useFakeTimers());
 

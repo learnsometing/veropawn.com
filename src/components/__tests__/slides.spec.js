@@ -8,13 +8,12 @@ import { allPhotoNodes } from '../../templates/__fixtures__/all-photos';
 
 import content from '../__fixtures__/all-markdown-remark';
 
+var firstNode = content[0];
+var secondNode = content[1];
+var slideWithoutLink = createContentFromMarkdown(firstNode);
+var slideWithLink = createContentFromMarkdown(secondNode);
+
 describe('TextOverlay', () => {
-  var firstNode = content[0];
-  var secondNode = content[1];
-
-  var slideWithoutLink = createContentFromMarkdown(firstNode);
-  var slideWithLink = createContentFromMarkdown(secondNode);
-
   it('should return null if no linkText, text, title, or to props exist', () => {
     const { queryByText } = render(
       <TextOverlay linkText={null} text={null} title={null} to={null} />
@@ -26,7 +25,7 @@ describe('TextOverlay', () => {
 
   it('should render an overlay with a title', () => {
     const { queryByText } = render(
-      <TextOverlay title={slideWithoutLink.title} />
+      <TextOverlay title={slideWithoutLink[0].title} />
     );
 
     expect(queryByText(firstNode.frontmatter.title)).toBeInTheDocument();
@@ -34,7 +33,7 @@ describe('TextOverlay', () => {
 
   it('should render an overlay with text', () => {
     const { queryByText } = render(
-      <TextOverlay text={slideWithoutLink.text} />
+      <TextOverlay text={slideWithoutLink[0].text} />
     );
 
     expect(queryByText(firstNode.frontmatter.text)).toBeInTheDocument();
@@ -42,7 +41,7 @@ describe('TextOverlay', () => {
 
   it('should render an overlay with a link', () => {
     const { queryByRole } = render(
-      <TextOverlay linkText={slideWithLink.linkText} to={slideWithLink.to} />
+      <TextOverlay linkText={slideWithLink[0].linkText} to={slideWithLink[0].to} />
     );
 
     expect(queryByRole('link')).toHaveTextContent(secondNode.frontmatter.linkText);
@@ -53,7 +52,7 @@ describe('TextOverlay', () => {
     slideWithoutLink.to = '/foo';
 
     const { queryByRole } = render(
-      <TextOverlay to={slideWithoutLink.to} />
+      <TextOverlay to={slideWithoutLink[0].to} />
     );
 
     expect(queryByRole('link')).not.toBeInTheDocument();
@@ -63,21 +62,21 @@ describe('TextOverlay', () => {
     slideWithoutLink.linkText = '/foo';
 
     const { queryByRole } = render(
-      <TextOverlay linkText={slideWithoutLink.linkText} />
+      <TextOverlay linkText={slideWithoutLink[0].linkText} />
     );
 
     expect(queryByRole('link')).not.toBeInTheDocument();
   });
 
   it('should render an overlay with text, title, and a link', () => {
-    slideWithLink.text = 'foo';
+    slideWithLink[0].text = 'foo';
 
     const { queryByText, queryByRole } = render(
       <TextOverlay
-        linkText={slideWithLink.linkText}
-        text={slideWithLink.text}
-        title={slideWithLink.title}
-        to={slideWithLink.to}
+        linkText={slideWithLink[0].linkText}
+        text={slideWithLink[0].text}
+        title={slideWithLink[0].title}
+        to={slideWithLink[0].to}
       />
     );
     expect(queryByText(secondNode.frontmatter.title)).toBeInTheDocument();
@@ -87,18 +86,16 @@ describe('TextOverlay', () => {
 });
 
 describe('Slide', () => {
-  var node = content[0];
-  var slideContent = createContentFromMarkdown(node);
-
+  let contentElement = slideWithoutLink[0];
   it('should render the photo and text content correctly', () => {
     const { queryByAltText, queryByText } = render(
-      <Slide content={slideContent} wrapperClassName={'foo'} />
+      <Slide content={contentElement} wrapperClassName={'foo'} />
     );
     const img = queryByAltText('shop-front');
     const gatsbyImgWrapper = img.parentElement.parentElement;
     const slideWrapper = gatsbyImgWrapper.parentElement;
-    const title = queryByText(node.frontmatter.title);
-    const text = queryByText(node.frontmatter.text);
+    const title = queryByText(firstNode.frontmatter.title);
+    const text = queryByText(firstNode.frontmatter.text);
 
     expect(img).toBeInTheDocument();
     expect(gatsbyImgWrapper).toHaveClass('img gatsby-image-wrapper');
@@ -110,7 +107,7 @@ describe('Slide', () => {
   it('should pass wrapperStyle to the slide wrapper element', () => {
     const { queryByAltText } = render(
       <Slide
-        content={slideContent}
+        content={slideWithoutLink[0]}
         wrapperClassName={'foo'}
         wrapperStyle={{ minWidth: '100%' }}
       />
@@ -126,7 +123,7 @@ describe('Slide', () => {
 describe('Slides', () => {
   var alt = 'Alt Text';
   var photos = allPhotoNodes.slice(0, 4);
-  var cArr = photos.map((photo, idx) => createContentFromSharp(alt, idx, photo));
+  var cArr = createContentFromSharp(alt, photos);
 
   it('should render the carousel correctly with a single photo', () => {
     const { queryByAltText } = render(
