@@ -6,9 +6,7 @@ import FeaturedCategories from '../components/featured-categories/featured-categ
 import { createContentFromMarkdown } from '../helpers/slides';
 
 const IndexPage = ({ data }) => {
-  var content = data.carousel.nodes.map(node => {
-    return createContentFromMarkdown(node);
-  });
+  var content = createContentFromMarkdown(data.carousel.nodes);
 
   return (
     <SizedLayout description={'Welcome to Cash Pawn & Jewelry'} title={'Home'}>

@@ -22,9 +22,7 @@ const ItemPage = ({ data, size }) => {
   var photos = data.photos.nodes.length
     ? data.photos.nodes
     : defaultPhoto;
-  var content = photos.map((photo, idx) => (
-    createContentFromSharp(descript, idx, photo)
-  ));
+  var content = createContentFromSharp(descript, photos);
 
   return (
     <Layout
