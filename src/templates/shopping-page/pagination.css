@@ -28,6 +28,10 @@ $inactive-color: rgba(64, 61, 52, 0.2);
 .rc-pagination-prev a,
 .rc-pagination-next a{
   color: #403D34;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .rc-pagination-item:hover, 
