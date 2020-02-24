@@ -1,10 +1,8 @@
-// node_modules
-import React, { useState } from "react";
-import PropTypes from "prop-types";
-import { FaAngleLeft } from "react-icons/fa";
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import { FaAngleLeft } from 'react-icons/fa';
 
-// components and functions
-import { DDMenuBtn, DDMenuLink, DDMenuHeader } from "./dd-menu";
+import { DDMenuBtn, DDMenuLink, DDMenuHeader } from './dd-menu';
 
 const CategoryMenuBtns = ({ data, onClick }) => {
   /*
@@ -14,18 +12,18 @@ const CategoryMenuBtns = ({ data, onClick }) => {
   * subcategory pages.
   */
 
-  const _filterNodesByCategory = (category) => {
-    return data.nodes.filter(node => node.category === category);
-  }
-
   return data.distinct.map(category => (
     <DDMenuBtn
       key={category}
-      onClick={onClick.bind(null, category, _filterNodesByCategory(category))}
+      onClick={onClick.bind(null, category, filterNodesByCategory(category))}
       text={category}
       isNavButton={false}
     />
   ));
+
+  function filterNodesByCategory(category) {
+    return data.nodes.filter(node => node.category === category);
+  }
 }
 
 CategoryMenuBtns.propTypes = {
@@ -51,7 +49,7 @@ SubcategoryMenuLinks.propTypes = {
   nodes: PropTypes.array
 };
 
-export default ({ data, ...props }) => {
+export default ({ data }) => {
   /*
   * Category Menu
   *
@@ -80,12 +78,12 @@ export default ({ data, ...props }) => {
       ?
       <>
         <DDMenuBtn
-          key="back-to-categories"
+          key='back-to-categories'
           onClick={closeSubcatMenu}
           isNavButton={true}
         >
-          <FaAngleLeft data-testid="fa-angle-left-icon" />
-          {"Categories"}
+          <FaAngleLeft data-testid='fa-angle-left-icon' />
+          {'Categories'}
         </DDMenuBtn>
         <DDMenuHeader key={subcatMenuHeader}>
           {subcatMenuHeader}
@@ -94,7 +92,7 @@ export default ({ data, ...props }) => {
       </>
       :
       <>
-        <DDMenuHeader key={"categories"}>
+        <DDMenuHeader key={'categories'}>
           Categories
         </DDMenuHeader>
         <CategoryMenuBtns data={data} onClick={openSubcatMenu} />

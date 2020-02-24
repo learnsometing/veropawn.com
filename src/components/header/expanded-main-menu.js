@@ -1,24 +1,17 @@
-/*
-* Expanded Main Menu
-*
-* The header menu that is rendered when the screen width is above 667 px.
-*/
-
-// Node_Modules Imports
 import React from 'react';
 
-// Internal Imports
 import { DDMenuToggleBtn } from './dd-menu';
 import { HeaderMenuLink } from './header';
-
 import CategoryMenu from './category-menu';
+
 import layout from '../../styles/layout.module.css';
-import expanded from './expanded.module.css';
+import expanded from './expanded-main-menu.module.css';
+
 export default (props) => {
-  const _categoryMenu = <CategoryMenu data={props.allPagesJson} />
+  var categoryMenu = <CategoryMenu data={props.allPagesJson} />;
+  var toggleMenu = props.toggleMenu.bind(null, categoryMenu);
 
-  const toggleMenu = props.toggleMenu.bind(null, _categoryMenu);
-
+  // The header menu that is rendered when the screen width is above 667 px.
   return (
     <>
       <DDMenuToggleBtn
@@ -37,4 +30,4 @@ export default (props) => {
       </nav>
     </>
   );
-}
+};

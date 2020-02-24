@@ -1,17 +1,8 @@
-/*
-* Collapsed Main Menu
-*
-* The main menu that is rendered when the screen width is below 668 px.
-*/
+import React, { useState } from 'react';
+import { FaAngleLeft, FaAngleRight } from 'react-icons/fa';
 
-// Node_Modules Imports
-import React, { useState } from "react";
-import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
-
-// Internal Imports
-import { DDMenuHeader, DDMenuBtn, DDMenuLink, DDMenuToggleBtn } from "./dd-menu";
-
-import CategoryMenu from "./category-menu";
+import { DDMenuHeader, DDMenuBtn, DDMenuLink, DDMenuToggleBtn } from './dd-menu';
+import CategoryMenu from './category-menu';
 
 export const MainMenu = (props) => {
   const [categoryMenuOpen, setCategoryMenuOpen] = useState(false);
@@ -28,27 +19,27 @@ export const MainMenu = (props) => {
     categoryMenuOpen
       ? <>
         <DDMenuBtn
-          key="back-to-main-menu"
+          key='back-to-main-menu'
           onClick={backToMainMenu}
-          text={"Main Menu"}
+          text={'Main Menu'}
           isNavButton={true}
         >
-          <FaAngleLeft data-testid="fa-angle-left-icon" />
+          <FaAngleLeft data-testid='fa-angle-left-icon' />
         </DDMenuBtn>
         <CategoryMenu data={props.allPagesJson} />
       </>
       : <>
-        <DDMenuHeader key="main-menu">
+        <DDMenuHeader key='main-menu'>
           Main Menu
         </DDMenuHeader>
         <DDMenuBtn
-          key="browse-by-category"
+          key='browse-by-category'
           onClick={openCategoryMenu}
-          text={"Browse"}
+          text={'Browse'}
           isNavButton={true}
           isIconAfterText={true}
         >
-          <FaAngleRight data-testid="fa-angle-right-icon" />
+          <FaAngleRight data-testid='fa-angle-right-icon' />
         </DDMenuBtn>
         <DDMenuLink link={'/jewelry/ring'} text={'Rings'} />
         <DDMenuLink link={'/firearm/pistol'} text={'Pistols'} />
@@ -58,9 +49,16 @@ export const MainMenu = (props) => {
         <DDMenuLink link={'/faq'} text={'FAQ'} />
       </>
   );
-}
+};
 
 export default (props) => {
+  /*
+  * Collapsed Main Menu
+  *
+  * The main menu that is rendered when the screen width is below 668 px.
+  */
+
+  // hard bind the correct menu parameter to props.toggleMenu
   const toggleMenu = props.toggleMenu.bind(
     null,
     <MainMenu
@@ -71,8 +69,8 @@ export default (props) => {
   return (
     <DDMenuToggleBtn
       isOpen={props.isOpen}
-      value={"Menu"}
+      value={'Menu'}
       toggleMenu={toggleMenu}
     />
   );
-}
+};
