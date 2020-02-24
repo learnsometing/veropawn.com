@@ -47,12 +47,14 @@ export default function ExpandableSection({ children, heading }) {
     e.preventDefault();
 
     if (isExpanded) {
-      const expandedStyles = { maxHeight: '0', color: '#e7e8c8', paddingTop: '0' };
-      section.current.style = expandedStyles;
+      section.current.style.maxHeight = '0';
+      section.current.style.color = '#e7e8c8';
+      section.current.style.paddingTop = '0';
       setIsExpanded(false);
     } else {
-      const collapsedStyles = { maxHeight: '1000vh', color: '#403D34', paddingTop: '1rem' };
-      section.current.style = collapsedStyles;
+      section.current.style.maxHeight = '1000vh';
+      section.current.style.color = '#403D34';
+      section.current.style.paddingTop = '1rem';
       setIsExpanded(true);
     }
   }
