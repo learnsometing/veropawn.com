@@ -4,7 +4,7 @@ $CTABorder: 2px solid rgba(64, 61, 52, .6);
   border-top: $CTABorder;
   border-bottom: $CTABorder;
   padding: 1.45rem;
-  margin: 1.45rem;
+  margin: 1.45rem 0;
 }
 
 .header {

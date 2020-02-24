@@ -15,8 +15,8 @@ $trimColor: rgba(64, 61, 52, 0.6);
   padding: .625rem 1.45rem;
   background-color: #e7e8c8;
   z-index: 2;
-  border-bottom: 1px solid $trimColor;
-  border-top: 1px solid $trimColor;
+  border-bottom: 2px solid $trimColor;
+  border-top: 2px solid $trimColor;
 }
 
 .pageTitleContainer, .displayRangeTextContainer {
@@ -30,6 +30,7 @@ $trimColor: rgba(64, 61, 52, 0.6);
 .itemsUL {
   margin: 0;
   margin: 1.45rem 0;
+  border-bottom: 2px solid rgba(64, 61, 52, .6);
   padding: 0 1.45rem;
   flex-wrap: wrap;
 }
