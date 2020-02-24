@@ -13,7 +13,7 @@ const FullScreenCarousel = (props) => {
   // open the full screen carousel with the correct index
   var [sharedIndex, setSharedIndex] = useState(0);
   var overlayClassName = `${layout.columnCenterCenter} ${fullScreenCarousel.overlay}`;
-
+  var FSWrapperClass = content.length === 1 ? fullScreenCarousel.FSWrapperSingle : fullScreenCarousel.FSWrapper;
   return (
     <>
       <Carousel
@@ -33,7 +33,7 @@ const FullScreenCarousel = (props) => {
         overlayClassName={overlayClassName}
         className={`${layout.columnCenterCenter} ${fullScreenCarousel.content}`}
       >
-        <div className={fullScreenCarousel.FSWrapper}>
+        <div className={FSWrapperClass}>
           <Carousel
             content={content}
             currentSlideStyle={currentSlideStyle}

@@ -1,11 +1,15 @@
 /*                modal               */
 
-.FSWrapper {
+.FSWrapper, .FSWrapperSingle {
   max-width: 1024px;
   position: relative;
   width: 100%;
   padding: 0 1.45rem;
   margin: auto 0;
+}
+
+.FSWrapperSingle {
+  padding: 0 10%;
 }
 
 .overlay {
@@ -39,6 +43,10 @@ and (max-height: calc(614.4px + 2.9rem)){
   .FSWrapper {
     padding: 0 8%;
   }
+
+  .FSWrapperSingle {
+    padding: 0 16%;
+  }
 }
 
 @media only screen 
@@ -48,6 +56,10 @@ and (max-height: calc(614.4px + 2.9rem)){
   .FSWrapper {
     padding: 0 18%;
   }
+
+  .FSWrapperSingle {
+    padding: 0 25%;
+  }
 }
 
 @media only screen 
@@ -56,10 +68,18 @@ and (max-height: calc(614.4px + 2.9rem)){
   .FSWrapper {
     padding: 0 23%;
   }
+
+  .FSWrapperSingle {
+    padding: 0 28%;
+  }
 }
 
 @media only screen and (min-width: calc(1024px + 2.9rem)){
   .FSWrapper {
     padding: 0;
+  }
+
+  .FSWrapperSingle {
+    padding: 0 8%;
   }
 }
