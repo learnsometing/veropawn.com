@@ -12,54 +12,53 @@ import shoppingPage from './shopping-page.module.css';
 import layout from '../../styles/layout.module.css';
 import './pagination.css';
 
-export const ItemCard = ({ item, photo }) => {
-  const descript = item.descript;
-  const itemCardClass = `${layout.column} ${shoppingPage.itemCard}`;
-  const itemDescriptTextClass = `${layout.rowCenterCenter} ${shoppingPage.itemDescriptText}`;
-
-  return (
-    <li className={shoppingPage.listItem}>
-      <Link className={itemCardClass} to={item.fields.slug}>
-        <div className={shoppingPage.mainPhoto}>
-          <Img
-            alt={`${descript}`}
-            fluid={photo.childImageSharp.fluid}
-            style={{
-              borderRadius: '4px',
-            }}
-          />
-        </div>
-        <div>
-          <span className={itemDescriptTextClass} data-testid="item-card-text">
-            {item.descript}
-          </span>
-        </div>
-      </Link>
-    </li>
-  );
-};
+export const ItemCard = ({ item, photo }) => (
+  <li className={shoppingPage.listItem}>
+    <Link
+      className={`${layout.column} ${shoppingPage.itemCard}`}
+      to={item.fields.slug}
+    >
+      <div className={shoppingPage.mainPhoto}>
+        <Img
+          alt={`${item.descript}`}
+          fluid={photo.childImageSharp.fluid}
+          style={{
+            borderRadius: '4px',
+          }}
+        />
+      </div>
+      <div>
+        <span
+          className={`${layout.rowCenterCenter} ${shoppingPage.itemDescriptText}`}
+          data-testid="item-card-text"
+        >
+          {item.descript}
+        </span>
+      </div>
+    </Link>
+  </li>
+);
 
 ItemCard.propTypes = {
   item: PropTypes.object.isRequired,
   photo: PropTypes.object.isRequired,
 };
 
-export const ItemCards = ({ items, defaultPhoto, photos, ...props }) => {
-  const _createItemCards = items => {
+export const ItemCards = ({ items, defaultPhoto, photos }) => {
+  var itemCards = createItemCards(items);
+
+  return (
+    <ul className={`${layout.rowStartStart} ${shoppingPage.itemsUL}`}>
+      {itemCards}
+    </ul>
+  );
+
+  function createItemCards(items) {
     return items.map(item => {
       let mainPhoto = getPhotosOfItem(defaultPhoto, photos, item.invNum)[0];
       return <ItemCard key={item.id} item={item} photo={mainPhoto} />;
     });
-  };
-
-  const itemCards = _createItemCards(items);
-  const itemCardsClass = `${layout.rowStartStart} ${shoppingPage.itemsUL}`;
-
-  return (
-    <ul className={itemCardsClass}>
-      {itemCards}
-    </ul>
-  );
+  }
 }
 
 ItemCards.propTypes = {
@@ -71,12 +70,10 @@ ItemCards.propTypes = {
 export const DisplayRange = ({ lowerLimit, numItems, upperLimit }) => {
   var lowerLimitText = setLowerLimitText(lowerLimit);
   var upperLimitText = setUpperLimitText(numItems, upperLimit);
-  var text = `Items ${lowerLimitText}-${upperLimitText} of ${numItems}`;
-  var displayRangeTextContainerClass = `${layout.rowCenterCenter} ${shoppingPage.displayRangeTextContainer}`;
 
   return (
-    <div className={displayRangeTextContainerClass} >
-      {text}
+    <div className={`${layout.rowCenterCenter} ${shoppingPage.displayRangeTextContainer}`} >
+      {`Items ${lowerLimitText}-${upperLimitText} of ${numItems}`}
     </div>
   );
 
@@ -157,9 +154,9 @@ export const PureShoppingPage = (props) => {
   var numItems = filteredItems.length;
   var itemsPerPage = 24;
   var pageNum = getPageNum();
+  // first and last item numbers on the page
   var upperLimit = calcUpperLimit();
   var lowerLimit = calcLowerLimit();
-  var itemsOnPage = filteredItems.slice(lowerLimit, upperLimit);
 
   return (
     <>
@@ -168,26 +165,8 @@ export const PureShoppingPage = (props) => {
         numItems={numItems}
         upperLimit={upperLimit}
       />
-      <ItemCards
-        items={itemsOnPage}
-        defaultPhoto={defaultPhoto}
-        photos={allMainPhotos}
-      />
+      <Items />
       <CallToAction pageNum={pageNum} />
-      <div className={shoppingPage.paginationContainer}>
-        <RCPagination
-          current={pageNum}
-          className={shoppingPage.pagination}
-          total={numItems}
-          defaultPageSize={itemsPerPage}
-          itemRender={itemRender}
-          hideOnSinglePage={true}
-          showPrevNextJumpers={false}
-          showLessItems={false}
-          locale={localeInfo}
-          data-testid="rc-pagination"
-        />
-      </div>
     </>
   );
 
@@ -254,31 +233,65 @@ export const PureShoppingPage = (props) => {
     }
   }
 
-  function itemRender(current, type, element) {
-    let pathName = location.pathname;
+  function Items() {
+    var itemsOnPage = filteredItems.slice(lowerLimit, upperLimit);
+    return (
+      <>
+        <ItemCards
+          items={itemsOnPage}
+          defaultPhoto={defaultPhoto}
+          photos={allMainPhotos}
+        />
+        <Pagination />
+      </>
+    );
 
-    if (type === 'page') {
+    function Pagination() {
       return (
-        <Link
-          to={pathName}
-          state={{ pageNum: current, filters, filteredItems }}
+        <div className={shoppingPage.paginationContainer}>
+          <RCPagination
+            current={pageNum}
+            className={shoppingPage.pagination}
+            total={numItems}
+            defaultPageSize={itemsPerPage}
+            itemRender={itemRender}
+            hideOnSinglePage={true}
+            showPrevNextJumpers={false}
+            showLessItems={false}
+            locale={localeInfo}
+            data-testid="rc-pagination"
+          />
+        </div>
+      );
 
-        >
-          {current}
-        </Link>
-      );
-    } else if (type === 'prev' || type === 'next') {
-      return (
-        <Link
-          to={pathName}
-          state={{ pageNum: current, filters, filteredItems }}
-        >
-        </Link>
-      );
+      function itemRender(current, type, element) {
+        let pathName = location.pathname;
+
+        if (type === 'page') {
+          return (
+            <Link
+              to={pathName}
+              state={{ pageNum: current, filters, filteredItems }}
+
+            >
+              {current}
+            </Link>
+          );
+        } else if (type === 'prev' || type === 'next') {
+          return (
+            <Link
+              to={pathName}
+              state={{ pageNum: current, filters, filteredItems }}
+            >
+            </Link>
+          );
+        }
+
+        return element;
+      }
     }
-
-    return element;
   }
+
 };
 
 PureShoppingPage.propTypes = {
