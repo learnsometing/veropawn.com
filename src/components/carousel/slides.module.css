@@ -28,7 +28,11 @@
 
 @media only screen and (min-width: 1024px){
   .singleSlide {
+<<<<<<< HEAD
     width: 90%;
+=======
+    width: 97%;
+>>>>>>> a49cca2ef872b6138ddb4d48669b64f44c88e9d0
   }
 }
 
