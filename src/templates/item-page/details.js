@@ -1,79 +1,77 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 
-import layout from "../../styles/layout.module.css";
-import itemPage from "./item-page.module.css";
+import layout from '../../styles/layout.module.css';
+import itemPage from './item-page.module.css';
 
-export const Detail = ({ name, value, ...props }) => {
-  const detailClass = `${layout.rowStartCenter} ${itemPage.deet}`;
-  return (
-    <li className={itemPage.deetsLI}>
-      <div className={detailClass}>
-        <span className={itemPage.deetName}>{name}:</span><span>{value}</span>
-      </div>
-    </li>
-  );
-};
+export const Detail = ({ name, value }) => (
+  <li className={itemPage.deetsLI}>
+    <div className={`${layout.rowStartCenter} ${itemPage.deet}`}>
+      <span className={itemPage.deetName}>{name}:</span><span>{value}</span>
+    </div>
+  </li>
+);
 
 Detail.propTypes = {
   name: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired
 };
 
-export const createBaseList = (brand, model, invNum, id) => {
-  let _brand = brand;
-  let _model = model;
-  if (brand === '' || brand === null || brand.match(/none/i)) {
-    _brand = 'N/A';
-  }
-
-  if (model === '' || model === null || model.match(/none/i)) {
-    _model = 'N/A';
-  }
-
-  return [
-    <Detail key={`${id}-invNum`} name={"Inventory #"} value={invNum} />,
-    <Detail key={`${id}-brand`} name={"Brand"} value={_brand} />,
-    <Detail key={`${id}-model`} name={"Model"} value={_model} />,
-  ];
-};
-
-export const createTypedList = (baseList, category, id, action, ammo, mass, metal) => {
-  let typedList = [...baseList.values()];
+export const DetailsList = ({ category, details, id, invNum, model }) => {
+  var detailsList = createDetailsList();
 
   if (category === 'Firearm') {
-    typedList.push(
-      <Detail key={`${id}-ammo`} name={"Ammunition"} value={ammo} />,
-      <Detail key={`${id}-action`} name={"Action"} value={action} />
-    );
+    addFirearmDetailsToList();
   } else if (category === 'Jewelry') {
-    typedList.push(
-      <Detail key={`${id}-metal`} name={"Metals"} value={metal} />,
-      <Detail key={`${id}-mass`} name={"Mass"} value={mass} />
-    );
+    addJewelryDetailsToList();
   }
-
-  return typedList;
-};
-
-export const DetailsList = ({ category, details, id, invNum, model, ...props }) => {
-  const {
-    action,
-    ammo,
-    brand,
-    mass,
-    metal,
-    serial,
-  } = details;
-
-  let baseList = createBaseList(brand, model, invNum, id);
-  let list = createTypedList(baseList, category, id, action, ammo, mass, metal);
 
   return (
     <ul className={itemPage.deetsList}>
-      {list}
+      {detailsList}
     </ul>
   );
+
+  function createDetailsList() {
+    let brand = details.brand;
+    let _model = model;
+
+    if (fieldIsEmpty(brand)) {
+      brand = 'N/A';
+    }
+
+    if (fieldIsEmpty(_model)) {
+      _model = 'N/A';
+    }
+
+    return [
+      <Detail key={`${id}-invNum`} name={'Inventory #'} value={invNum} />,
+      <Detail key={`${id}-brand`} name={'Brand'} value={brand} />,
+      <Detail key={`${id}-model`} name={'Model'} value={_model} />,
+    ];
+
+    function fieldIsEmpty(field) {
+      return field === '' || field === null || field.match(/none/i);
+    }
+  }
+
+  function addFirearmDetailsToList() {
+    const action = details.action;
+    const ammo = details.ammo;
+    detailsList.push(
+      <Detail key={`${id}-ammo`} name={'Ammunition'} value={ammo} />,
+      <Detail key={`${id}-action`} name={'Action'} value={action} />
+    );
+  }
+
+  function addJewelryDetailsToList() {
+    const mass = details.mass;
+    const metal = details.metal;
+    detailsList.push(
+      <Detail key={`${id}-metal`} name={'Metals'} value={metal} />,
+      <Detail key={`${id}-mass`} name={'Mass'} value={mass} />
+    );
+  }
 };
 
 DetailsList.propTypes = {
@@ -81,7 +79,7 @@ DetailsList.propTypes = {
   details: PropTypes.object.isRequired,
   id: PropTypes.string.isRequired,
   invNum: PropTypes.string.isRequired,
-  model: PropTypes.string.isRequired,
+  model: PropTypes.string,
 };
 
 export const DetailsCard = ({ children, ...props }) => {

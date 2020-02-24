@@ -10,9 +10,10 @@ import { Layout } from "../../components/layout/layout";
 import { DetailsCard, DetailsList } from "./details";
 import FullScreenCarousel from "../../components/carousel/full-screen-carousel";
 import CallToAction from '../../components/call-to-action/call-to-action';
+import { createContentFromSharp } from "../../helpers/slides";
+
 import itemPage from "./item-page.module.css";
 import layout from "../../styles/layout.module.css";
-import { createContentFromSharp } from "../../helpers/slides";
 
 const ItemPage = ({ data, size }) => {
   // Unpack the data used on the page
