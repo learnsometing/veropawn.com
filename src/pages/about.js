@@ -1,6 +1,8 @@
 import React from 'react';
+
 import SizedLayout from '../components/layout/layout';
-import ExpandableSection from '../components/expandable-section/expandable-section'
+import ExpandableSection from '../components/expandable-section/expandable-section';
+
 import about from './about.module.css';
 export default function About() {
   return (
@@ -18,70 +20,70 @@ export default function About() {
           We don’t ask for your banking information or report you to any credit bureaus.
           All you need is a state-issued ID, driver’s license, or passport.
           Our loan forms are simple and let you leave with your money in minutes.
-          </p>
+        </p>
         <p>
           Pawn loans offer the flexibility you need without the stress. If you’re struggling to repay your loan, your pawned item may be used to repay your debt in full. Don’t get trapped in a never-ending, risky payday loan with a ridiculous interest rate. Get the money you need immediately with a no-risk cash loan from us.
-          </p>
+        </p>
       </ExpandableSection>
       <ExpandableSection heading={'Commonly Pawned'}>
         <p>
           Though we specialize in jewelry and firearms, we buy, sell, and pawn a variety of items:
-          </p>
+        </p>
         <ul>
           <li>
             <span>
               Gold coins, silver coins, and scrap
-              </span>
+            </span>
           </li>
           <li>
             <span>
               Firearms (unloaded, please)
-              </span>
+            </span>
           </li>
           <li>
             <span>
               Electronics, such as laptops, cellphones, and gaming consoles
-              </span>
+            </span>
           </li>
           <li>
             <span>
               Power tools (all major name brands)
-              </span>
+            </span>
           </li>
           <li>
             <span>
               Hand tools (Snap-On, Blue-Point, or Matco)
-              </span>
+            </span>
           </li>
           <li>
             <span>
               Knives (American or German steel)
-              </span>
+            </span>
           </li>
           <li>
             <span>
               Musical instruments
-              </span>
+            </span>
           </li>
           <li>
             <span>
               One of a kind items
-              </span>
+            </span>
           </li>
           <li>
             <span>
               Antiques
-              </span>
+            </span>
           </li>
           <li>
             <span>
               Automobiles
-              </span>
+            </span>
           </li>
         </ul>
         <p>
           The experienced owner is ready to evaluate your valuables and provide you with the best prices. Our transactions are convenient, confidential and always hassle-free. Your satisfaction is our main concern.
-          </p>
+        </p>
       </ExpandableSection>
     </SizedLayout >
   );
