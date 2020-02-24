@@ -1,7 +1,9 @@
 import React from 'react';
-import { graphql } from 'gatsby'
+import { graphql } from 'gatsby';
+
 import SizedLayout from '../components/layout/layout';
-import ExpandableSection from '../components/expandable-section/expandable-section'
+import ExpandableSection from '../components/expandable-section/expandable-section';
+
 import faq from './faq.module.css';
 
 export default function FAQ({ data }) {
