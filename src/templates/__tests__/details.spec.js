@@ -2,7 +2,7 @@ import React from "react";
 import { render } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 
-import { createBaseList, createTypedList, Detail, DetailsList, DetailsCard } from "../item-page/details";
+import { Detail, DetailsList, DetailsCard } from "../item-page/details";
 import { firearm, jewelry, general } from "../__fixtures__/items-json";
 
 describe('Detail', () => {
@@ -19,224 +19,14 @@ describe('Detail', () => {
   });
 });
 
-describe('createBaseList', () => {
-  let brand = firearm.details.brand;
-  let model = firearm.model;
-  let invNum = firearm.invNum;
-
-  afterEach(() => {
-    brand = firearm.details.brand;
-    model = firearm.model;
-    invNum = firearm.invNum;
-  });
+describe('DetailsList', () => {
+  var category = general.category;
+  const details = general.details;
+  var id = general.id;
+  var invNum = general.invNum;
+  var model = general.model;
 
   it('should create a list of details for the item brand, model, and invNum', () => {
-    const baseList = createBaseList(brand, model, invNum);
-
-    const { queryByText } = render(
-      <>
-        {baseList}
-      </>
-    );
-
-    expect(queryByText("Inventory #:")).toBeInTheDocument();
-    expect(queryByText(invNum)).toBeInTheDocument();
-
-    expect(queryByText("Brand:")).toBeInTheDocument();
-    expect(queryByText(brand)).toBeInTheDocument();
-
-    expect(queryByText("Model:")).toBeInTheDocument();
-    expect(queryByText(model)).toBeInTheDocument();
-  });
-
-  it('should handle empty brands', () => {
-    brand = '';
-
-    let baseList = createBaseList(brand, model, invNum);
-
-    const { queryByText } = render(
-      <>
-        {baseList}
-      </>
-    );
-
-    expect(queryByText("Inventory #:")).toBeInTheDocument();
-    expect(queryByText(invNum)).toBeInTheDocument();
-
-    expect(queryByText("Brand:")).toBeInTheDocument();
-    expect(queryByText("N/A")).toBeInTheDocument();
-
-    expect(queryByText("Model:")).toBeInTheDocument();
-    expect(queryByText(model)).toBeInTheDocument();
-  });
-
-  it('should handle null brands', () => {
-    brand = null;
-
-    let baseList = createBaseList(brand, model, invNum);
-
-    const { queryByText } = render(
-      <>
-        {baseList}
-      </>
-    );
-
-    expect(queryByText("Inventory #:")).toBeInTheDocument();
-    expect(queryByText(invNum)).toBeInTheDocument();
-
-    expect(queryByText("Brand:")).toBeInTheDocument();
-    expect(queryByText("N/A")).toBeInTheDocument();
-
-    expect(queryByText("Model:")).toBeInTheDocument();
-    expect(queryByText(model)).toBeInTheDocument();
-  });
-
-  it('should handle NONE brands', () => {
-    brand = 'NONE';
-
-    let baseList = createBaseList(brand, model, invNum);
-
-    const { queryByText } = render(
-      <>
-        {baseList}
-      </>
-    );
-
-    expect(queryByText("Inventory #:")).toBeInTheDocument();
-    expect(queryByText(invNum)).toBeInTheDocument();
-
-    expect(queryByText("Brand:")).toBeInTheDocument();
-    expect(queryByText("N/A")).toBeInTheDocument();
-
-    expect(queryByText("Model:")).toBeInTheDocument();
-    expect(queryByText(model)).toBeInTheDocument();
-  });
-
-  it('should handle empty models', () => {
-    model = '';
-
-    let baseList = createBaseList(brand, model, invNum);
-
-    const { queryByText } = render(
-      <>
-        {baseList}
-      </>
-    );
-
-    expect(queryByText("Inventory #:")).toBeInTheDocument();
-    expect(queryByText(invNum)).toBeInTheDocument();
-
-    expect(queryByText("Brand:")).toBeInTheDocument();
-    expect(queryByText(brand)).toBeInTheDocument();
-
-    expect(queryByText("Model:")).toBeInTheDocument();
-    expect(queryByText("N/A")).toBeInTheDocument();
-  });
-
-  it('should handle null models', () => {
-    model = null;
-
-    let baseList = createBaseList(brand, model, invNum);
-
-    const { queryByText } = render(
-      <>
-        {baseList}
-      </>
-    );
-
-    expect(queryByText("Inventory #:")).toBeInTheDocument();
-    expect(queryByText(invNum)).toBeInTheDocument();
-
-    expect(queryByText("Brand:")).toBeInTheDocument();
-    expect(queryByText(brand)).toBeInTheDocument();
-
-    expect(queryByText("Model:")).toBeInTheDocument();
-    expect(queryByText("N/A")).toBeInTheDocument();
-  });
-
-  it('should handle NONE models', () => {
-    model = 'NONE';
-
-    let baseList = createBaseList(brand, model, invNum);
-
-    const { queryByText } = render(
-      <>
-        {baseList}
-      </>
-    );
-
-    expect(queryByText("Inventory #:")).toBeInTheDocument();
-    expect(queryByText(invNum)).toBeInTheDocument();
-
-    expect(queryByText("Brand:")).toBeInTheDocument();
-    expect(queryByText(brand)).toBeInTheDocument();
-
-    expect(queryByText("Model:")).toBeInTheDocument();
-    expect(queryByText("N/A")).toBeInTheDocument();
-  });
-});
-
-describe('createTypedList', () => {
-  let baseList = [];
-  it('should add ammo and action entries for firearms', () => {
-    const {
-      action,
-      ammo,
-      brand,
-      mass,
-      metal,
-      serial,
-    } = firearm.details;
-    let typedList = createTypedList(baseList, firearm.category, firearm.id, action, ammo, mass, metal);
-    const { queryByText } = render(<>{typedList}</>);
-
-    expect(queryByText("Ammunition:")).toBeInTheDocument();
-    expect(queryByText(ammo)).toBeInTheDocument();
-
-    expect(queryByText("Action:")).toBeInTheDocument();
-    expect(queryByText(action)).toBeInTheDocument();
-  });
-
-  it('should add mass and metal entries for jewelry', () => {
-    const {
-      action,
-      ammo,
-      brand,
-      mass,
-      metal,
-      serial,
-    } = jewelry.details;
-    let typedList = createTypedList(baseList, jewelry.category, jewelry.id, action, ammo, mass, metal);
-    const { queryByText } = render(<>{typedList}</>);
-
-    expect(queryByText("Metals:")).toBeInTheDocument();
-    expect(queryByText(metal)).toBeInTheDocument();
-
-    expect(queryByText("Mass:")).toBeInTheDocument();
-    expect(queryByText(mass)).toBeInTheDocument();
-  });
-
-  it('should not add additional details to general items', () => {
-    const {
-      action,
-      ammo,
-      brand,
-      mass,
-      metal,
-      serial,
-    } = general.details;
-    let typedList = createTypedList(baseList, general.category, general.id, action, ammo, mass, metal);
-    expect(typedList).toEqual(baseList);
-  });
-});
-
-describe('DetailsList', () => {
-  it('should render all of the details of a firearm', () => {
-    const category = firearm.category;
-    const details = firearm.details;
-    const id = firearm.id;
-    const invNum = firearm.invNum;
-    const model = firearm.model;
     const { queryByText } = render(
       <DetailsList
         category={category}
@@ -255,12 +45,221 @@ describe('DetailsList', () => {
 
     expect(queryByText("Model:")).toBeInTheDocument();
     expect(queryByText(model)).toBeInTheDocument();
+  });
+
+  it('should handle empty brands', () => {
+    let deets = Object.assign({}, details);
+    deets.brand = '';
+    const { queryByText } = render(
+      <DetailsList
+        category={category}
+        details={deets}
+        id={id}
+        invNum={invNum}
+        model={model}
+      />
+    );
+
+    expect(queryByText("Inventory #:")).toBeInTheDocument();
+    expect(queryByText(invNum)).toBeInTheDocument();
+
+    expect(queryByText("Brand:")).toBeInTheDocument();
+    expect(queryByText("N/A")).toBeInTheDocument();
+
+    expect(queryByText("Model:")).toBeInTheDocument();
+    expect(queryByText(model)).toBeInTheDocument();
+  });
+
+  it('should handle null brands', () => {
+    let deets = Object.assign({}, details);
+    deets.brand = null;
+    const { queryByText } = render(
+      <DetailsList
+        category={category}
+        details={deets}
+        id={id}
+        invNum={invNum}
+        model={model}
+      />
+    );
+
+    expect(queryByText("Inventory #:")).toBeInTheDocument();
+    expect(queryByText(invNum)).toBeInTheDocument();
+
+    expect(queryByText("Brand:")).toBeInTheDocument();
+    expect(queryByText("N/A")).toBeInTheDocument();
+
+    expect(queryByText("Model:")).toBeInTheDocument();
+    expect(queryByText(model)).toBeInTheDocument();
+  });
+
+  it('should handle NONE brands', () => {
+    let deets = Object.assign({}, details);
+    deets.brand = 'NONE';
+    const { queryByText } = render(
+      <DetailsList
+        category={category}
+        details={deets}
+        id={id}
+        invNum={invNum}
+        model={model}
+      />
+    );
+
+    expect(queryByText("Inventory #:")).toBeInTheDocument();
+    expect(queryByText(invNum)).toBeInTheDocument();
+
+    expect(queryByText("Brand:")).toBeInTheDocument();
+    expect(queryByText("N/A")).toBeInTheDocument();
+
+    expect(queryByText("Model:")).toBeInTheDocument();
+    expect(queryByText(model)).toBeInTheDocument();
+  });
+
+  it('should handle empty models', () => {
+    let model = '';
+    const { queryByText } = render(
+      <DetailsList
+        category={category}
+        details={details}
+        id={id}
+        invNum={invNum}
+        model={model}
+      />
+    );
+
+    expect(queryByText("Inventory #:")).toBeInTheDocument();
+    expect(queryByText(invNum)).toBeInTheDocument();
+
+    expect(queryByText("Brand:")).toBeInTheDocument();
+    expect(queryByText(details.brand)).toBeInTheDocument();
+
+    expect(queryByText("Model:")).toBeInTheDocument();
+    expect(queryByText("N/A")).toBeInTheDocument();
+  });
+
+  it('should handle null models', () => {
+    let model = null;
+    const { queryByText } = render(
+      <DetailsList
+        category={category}
+        details={details}
+        id={id}
+        invNum={invNum}
+        model={model}
+      />
+    );
+
+    expect(queryByText("Inventory #:")).toBeInTheDocument();
+    expect(queryByText(invNum)).toBeInTheDocument();
+
+    expect(queryByText("Brand:")).toBeInTheDocument();
+    expect(queryByText(details.brand)).toBeInTheDocument();
+
+    expect(queryByText("Model:")).toBeInTheDocument();
+    expect(queryByText("N/A")).toBeInTheDocument();
+  });
+
+  it('should handle NONE models', () => {
+    let model = 'NONE';
+    const { queryByText } = render(
+      <DetailsList
+        category={category}
+        details={details}
+        id={id}
+        invNum={invNum}
+        model={model}
+      />
+    );
+
+    expect(queryByText("Inventory #:")).toBeInTheDocument();
+    expect(queryByText(invNum)).toBeInTheDocument();
+
+    expect(queryByText("Brand:")).toBeInTheDocument();
+    expect(queryByText(details.brand)).toBeInTheDocument();
+
+    expect(queryByText("Model:")).toBeInTheDocument();
+    expect(queryByText("N/A")).toBeInTheDocument();
+  });
+
+  it('should add ammo and action entries for firearms', () => {
+    const { queryByText } = render(
+      <DetailsList
+        category={firearm.category}
+        details={firearm.details}
+        id={firearm.id}
+        invNum={firearm.invNum}
+        model={firearm.model}
+      />
+    );
 
     expect(queryByText("Ammunition:")).toBeInTheDocument();
-    expect(queryByText(details.ammo)).toBeInTheDocument();
+    expect(queryByText(firearm.details.ammo)).toBeInTheDocument();
 
     expect(queryByText("Action:")).toBeInTheDocument();
-    expect(queryByText(details.action)).toBeInTheDocument();
+    expect(queryByText(firearm.details.action)).toBeInTheDocument();
+  });
+
+  it('should add mass and metal entries for jewelry', () => {
+    const { queryByText } = render(
+      <DetailsList
+        category={jewelry.category}
+        details={jewelry.details}
+        id={jewelry.id}
+        invNum={jewelry.invNum}
+        model={jewelry.model}
+      />
+    );
+
+    expect(queryByText("Mass:")).toBeInTheDocument();
+    expect(queryByText(jewelry.details.mass)).toBeInTheDocument();
+
+    expect(queryByText("Metals:")).toBeInTheDocument();
+    expect(queryByText(jewelry.details.metal)).toBeInTheDocument();
+  });
+
+  it('should not add additional details to general items', () => {
+    const { queryByText } = render(
+      <DetailsList
+        category={category}
+        details={details}
+        id={id}
+        invNum={invNum}
+        model={model}
+      />
+    );
+
+    expect(queryByText("Ammunition:")).not.toBeInTheDocument();
+    expect(queryByText("Action:")).not.toBeInTheDocument();
+    expect(queryByText("Mass:")).not.toBeInTheDocument();
+    expect(queryByText("Metals:")).not.toBeInTheDocument();
+  });
+
+  it('should render all of the details of a firearm', () => {
+    const { queryByText } = render(
+      <DetailsList
+        category={firearm.category}
+        details={firearm.details}
+        id={firearm.id}
+        invNum={firearm.invNum}
+        model={firearm.model}
+      />
+    );
+
+    expect(queryByText("Inventory #:")).toBeInTheDocument();
+    expect(queryByText(firearm.invNum)).toBeInTheDocument();
+
+    expect(queryByText("Brand:")).toBeInTheDocument();
+    expect(queryByText(firearm.details.brand)).toBeInTheDocument();
+
+    expect(queryByText("Model:")).toBeInTheDocument();
+    expect(queryByText(firearm.model)).toBeInTheDocument();
+
+    expect(queryByText("Ammunition:")).toBeInTheDocument();
+    expect(queryByText(firearm.details.ammo)).toBeInTheDocument();
+
+    expect(queryByText("Action:")).toBeInTheDocument();
+    expect(queryByText(firearm.details.action)).toBeInTheDocument();
   });
 
   it('should render all of the details of a piece of jewelry', () => {
