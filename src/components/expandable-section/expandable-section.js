@@ -18,8 +18,8 @@ export function Expand({ isExpanded, onClick, text }) {
       className={`${layout.rowStartCenter} ${expandableSection.expandBtn}`}
       onClick={onClick}
     >
-      <span style={{ textAlign: 'start', maxWidth: '84%' }}>{text}</span>
-      <IconContext.Provider value={{ color: '#36733F', size: '1.375em', style: { margin: '0 .5rem' } }}>
+      <span style={{ textAlign: 'start', width: '100%', maxWidth: '86%' }}>{text}</span>
+      <IconContext.Provider value={{ color: '#36733F', size: '1.375em' }}>
         {icon}
       </IconContext.Provider>
     </button>

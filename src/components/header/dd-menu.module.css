@@ -1,9 +1,8 @@
 $bottom-border: 1px solid rgba(64, 61, 52, 0.6);
 
 .heading, .link, .button, .navButton {
-  max-height: 48px;
   width: 100%;
-  padding: 1rem 0;
+  padding: .5rem 0;
   background-color: #e7e8c8;
   border-bottom: $bottom-border;
   color: #403D34;
@@ -12,13 +11,9 @@ $bottom-border: 1px solid rgba(64, 61, 52, 0.6);
 }
 
 .heading {
-  padding: .375rem;
+  padding: .75rem;
   color: #36733F;
   text-transform: uppercase;
-}
-
-.heading, .link {
-  height: 3rem;
 }
 
 .navButton {
