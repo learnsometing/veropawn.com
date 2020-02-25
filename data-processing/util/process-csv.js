@@ -49,7 +49,7 @@ async function parseInvTable(data) {
     mapHeaders: ({ header, index }) => prettifyHeaders(header),
     // methods from neat-csv module, trims each value
     mapValues: ({ header, index, value }) => value.trim(),
-    separator: '\t',
+    separator: ',',
     skipComments: true,
     strict: false
   });

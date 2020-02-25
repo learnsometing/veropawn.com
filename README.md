@@ -49,7 +49,7 @@ to programmatically build the shopping and item pages:
 
 - /raw/fk_tables/category.tsv
 - /raw/fk_tables/subcategory.tsv
-- /raw/inv/inv.tsv
+- /raw/inv/inv.csv
 
 In the production of the application, these assets originated from customer's
 database.
