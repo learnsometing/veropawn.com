@@ -39,7 +39,7 @@
 
 @media only screen 
 and (min-aspect-ratio: 16/10) 
-and (max-height: calc(614.4px + 2.9rem)){
+{
   .FSWrapper {
     padding: 0 8%;
   }
@@ -52,7 +52,7 @@ and (max-height: calc(614.4px + 2.9rem)){
 @media only screen 
 and (min-aspect-ratio: 17/10) 
 and (max-aspect-ratio: 26/12)
-and (max-height: calc(614.4px + 2.9rem)){
+{
   .FSWrapper {
     padding: 0 18%;
   }
@@ -63,8 +63,7 @@ and (max-height: calc(614.4px + 2.9rem)){
 }
 
 @media only screen 
-and (min-aspect-ratio: 26/13)
-and (max-height: calc(614.4px + 2.9rem)){
+and (min-aspect-ratio: 26/13){
   .FSWrapper {
     padding: 0 23%;
   }
@@ -74,7 +73,9 @@ and (max-height: calc(614.4px + 2.9rem)){
   }
 }
 
-@media only screen and (min-width: calc(1024px + 2.9rem)){
+@media only screen 
+and (min-width: 1024px)
+and (min-height: 713px){
   .FSWrapper {
     padding: 0;
   }
