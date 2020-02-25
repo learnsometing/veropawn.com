@@ -29,6 +29,6 @@ describe('Header', () => {
       />
     );
 
-    expect(queryByRole('button').textContent).toMatch(/browse/i)
+    expect(queryByRole('button').textContent).toMatch(/all items/i)
   });
 });

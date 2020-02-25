@@ -16,7 +16,7 @@ export default (props) => {
     <>
       <DDMenuToggleBtn
         isOpen={props.isOpen}
-        value={'Browse'}
+        value={'All Items'}
         key='browse-by-category'
         toggleMenu={toggleMenu}
       />

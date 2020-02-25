@@ -35,7 +35,7 @@ export const MainMenu = (props) => {
         <DDMenuBtn
           key='browse-by-category'
           onClick={openCategoryMenu}
-          text={'Browse'}
+          text={'All Items'}
           isNavButton={true}
           isIconAfterText={true}
         >
