@@ -36,7 +36,7 @@ $trimColor: rgba(64, 61, 52, 0.6);
 }
 
 .listItem {
-  flex-basis: calc(50% - 1.225rem);
+  flex-basis: calc(50% - ((1.45rem/2)));
   list-style: none;
 }
 
